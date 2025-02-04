@@ -31,6 +31,7 @@ You can find our Notion workspace at the following URL: [Notion Workspace](https
 | email    | String (unique)     |
 | username | String (unique)     |
 | password | String (encrypted)  |
+| created  | DateTime            |
 
 ### 🛒 Supermarket
 
@@ -51,6 +52,7 @@ You can find our Notion workspace at the following URL: [Notion Workspace](https
 | category     | String          |
 | image        | String          |
 | last_updated | DateTime        |
+| created      | DateTime        |
 
 ### 📝 Shopping List
 
@@ -60,19 +62,21 @@ You can find our Notion workspace at the following URL: [Notion Workspace](https
 | name      | String              |
 | user_id   | Foreign key         |
 | products  | List of product ids |
+| created   | DateTime            |
 
 ## 🔒 User Permissions
 
 | Permission                                       | Anonymous User | Registered User | Admin User |
 | ------------------------------------------------ | -------------- | --------------- | -----------|
+| Can view homepage                                | ✅             | ✅              | ✅         |
+| Can view products                                | ✅             | ✅              | ✅         |
 | Can view product details                         | ✅             | ✅              | ✅         |
 | Can search for products                          | ✅             | ✅              | ✅         |
 | Can compare products                             | ✅             | ✅              | ✅         |
-| Can add products                                 | ❌             | ✅              | ✅         |
-| Can create / edit / delete own account           | ❌             | ✅              | ✅         |
+| Can create / edit / delete own profile           | ❌             | ✅              | ✅         |
 | Can create / edit / delete shopping lists        | ❌             | ✅              | ✅         |
 | Can manage other users' accounts                 | ❌             | ❌              | ✅         |
-| Can create / edit / delete comments              | ❌             | ✅              | ✅         |
+| Can view user activity logs                      | ❌             | ❌              | ✅         |
 
 ## 🖼️ Images
 
@@ -93,3 +97,21 @@ You can find our Notion workspace at the following URL: [Notion Workspace](https
 
 - **Price Comparison**: We will implement an algorithm to compare the prices of the products in the shopping list between the different supermarkets.
 - **Recommendation System**: We will implement a recommendation system to suggest products to the users based on current product being viewed or added to the shopping list.
+
+---
+
+## 📄 License
+
+Copyright [2025] [SaveX]
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
