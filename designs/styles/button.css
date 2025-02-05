@@ -1,0 +1,50 @@
+
+.clickable {
+    --size: 24px;
+    height: var(--size);
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #222;
+}
+
+.clickable-primary {
+    color: white;
+    border: none;
+    border-radius: 5px;
+    
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #333;
+        color: white;
+        transition: background-color 0.3s ease;
+    }
+}
+
+.clickable-tool {
+    --size: 44px;
+    width: var(--size);
+    height: var(--size);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px;
+    background-color: #222;
+    color: white;
+    border: 1px solid #333;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    cursor: pointer;
+
+    &:hover {
+        background-color: #333;
+        color: white;
+        transition: background-color 0.3s ease;
+    }
+}
