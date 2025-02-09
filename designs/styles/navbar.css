@@ -45,3 +45,17 @@
         }
     }
 }
+
+.dark-icon {
+    display: none;
+}
+
+.dark {
+    .dark-icon {
+        display: block;
+    }
+
+    .light-icon {
+        display: none;
+    }
+}
