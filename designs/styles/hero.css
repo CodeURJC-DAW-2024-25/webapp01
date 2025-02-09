@@ -22,18 +22,6 @@
             align-items: center;
             justify-content: center;
             text-align: center;
-    
-            .hero-title {
-                font-size: 3rem;
-                margin-bottom: 1rem;
-                color: var(--primary-color);
-                text-wrap: balance;
-            }
-    
-            .hero-description {
-                font-size: 1.35rem;
-                color: var(--text-color);
-            }
         }
     
         .hero-image {
