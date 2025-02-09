@@ -9,10 +9,19 @@
     scroll-behavior: smooth;
 
     --navbar-height: 75px;
+
+    /* Colors */
+    --grey-color: #ddd;
+    --white-color: #fff;
+
+    --primary-color: #222;
+    --secondary-color: #333;
+    --text-color: #555;
+    --bg-color: #f8f9fa;
 }
 
 body {
-    background-color: #fff;
+    background-color: var(--bg-color);
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -36,5 +45,5 @@ body {
 
 a {
     text-decoration: none;
-    color: #000;
+    color: var(--primary-color);
 }

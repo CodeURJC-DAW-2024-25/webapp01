@@ -12,29 +12,29 @@
 }
 
 .clickable-primary {
-    background-color: #222;
-    border: 1px solid #222;
-    color: white;
+    background-color: var(--primary-color);
+    border: 1px solid var(--secondary-color);
+    color: var(--white-color);
     
     cursor: pointer;
     transition: all 0.3s ease;
 
     &:hover {
-        background-color: #333;
-        color: white;
+        background-color: var(--secondary-color);
+        color: var(--white-color);
     }
 }
 
 .clickable-secondary {
-    background-color: #fafafa;
-    border: 1px solid #fafafa;
-    color: #222;
+    background-color: var(--white-color);
+    border: 1px solid var(--grey-color);
+    color: var(--primary-color);
     
     cursor: pointer;
     transition: all 0.3s ease;
 
     &:hover {
-        filter: brightness(95%);
+        filter: brightness(105%) contrast(95%);
     }
 }
 
@@ -46,14 +46,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: #222;
-    border: 1px solid #333;
-    color: white;
+    background-color: var(--primary-color);
+    border: 1px solid var(--secondary-color);
+    color: var(--white-color);
     cursor: pointer;
 
     &:hover {
-        background-color: #333;
-        color: white;
+        background-color: var(--secondary-color);
+        color: var(--white-color);
         transition: background-color 0.3s ease;
     }
 }

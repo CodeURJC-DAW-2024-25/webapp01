@@ -26,13 +26,13 @@
             .hero-title {
                 font-size: 3rem;
                 margin-bottom: 1rem;
-                color: #333;
+                color: var(--primary-color);
                 text-wrap: balance;
             }
     
             .hero-description {
                 font-size: 1.35rem;
-                color: #666;
+                color: var(--text-color);
             }
         }
     
