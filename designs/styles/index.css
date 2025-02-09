@@ -11,13 +11,24 @@
     --navbar-height: 75px;
 
     /* Colors */
-    --grey-color: #ddd;
+    --grey-color: #f4f4f5;
     --white-color: #fff;
 
     --primary-color: #222;
     --secondary-color: #333;
     --text-color: #555;
-    --bg-color: #f8f9fa;
+    --bg-color: #fff;
+
+}
+
+.dark, .dark * {
+    --grey-color: #27272a;
+    --white-color: #000;
+
+    --primary-color: #fff;
+    --secondary-color: #eee;
+    --text-color: #ccc;
+    --bg-color: #000;
 }
 
 body {
