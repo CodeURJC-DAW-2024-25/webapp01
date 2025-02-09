@@ -9,7 +9,7 @@
     scroll-behavior: smooth;
 
     scrollbar-width: thin;
-    scrollbar-color: var(--bg-color) var(--primary-color);
+    scrollbar-color: var(--secondary-color) var(--semi-bg-color);
 
     --navbar-height: 75px;
     --max-width: 1200px;
