@@ -9,6 +9,7 @@
     scroll-behavior: smooth;
 
     --navbar-height: 75px;
+    --max-width: 1200px;
 
     /* Colors */
     --grey-color: #f4f4f5;
@@ -47,7 +48,7 @@ body {
     padding: 20px;
     padding-top: calc(var(--navbar-height) + 150px);
     width: 100%;
-    max-width: 1200px;
+    max-width: var(--max-width);
     min-height: 100vh;
     display: flex;
     flex-direction: column;

@@ -15,11 +15,10 @@
     background-color: var(--primary-color);
     border: 1px solid var(--secondary-color);
     color: var(--white-color);
-    
+    transition: all 0.3s ease;
     cursor: pointer;
     
     &:hover {
-        transition: all 0.3s ease;
         background-color: var(--secondary-color);
         color: var(--white-color);
     }
@@ -29,11 +28,22 @@
     background-color: var(--grey-color);
     border: 1px solid var(--grey-color);
     color: var(--primary-color);
-    
+    transition: all 0.3s ease;
     cursor: pointer;
     
     &:hover {
-        transition: all 0.3s ease;
+        filter: brightness(105%) contrast(95%);
+    }
+}
+
+.clickable-tertiary {
+    background-color: var(--semi-bg-color);
+    border: 1px solid var(--grey-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    &:hover {
         filter: brightness(105%) contrast(95%);
     }
 }
@@ -46,13 +56,35 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background-color: var(--bg-color);
+    background-color: transparent;
     border: 1px solid transparent;
     color: var(--primary-color);
     cursor: pointer;
-    
+    transition: all 0.3s ease;
+
     &:hover {
-        transition: all 0.3s ease;
         background-color: var(--grey-color);
+    }
+
+    &.bordered {
+        border: 1px solid var(--grey-color);
+        background-color: var(--semi-bg-color);
+
+        &:hover {
+            filter: brightness(105%) contrast(95%);
+        }
+    }
+}
+
+.clickable-text {
+    background-color: transparent;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        filter: brightness(105%) contrast(95%);
+        transform: translateY(-2px);
     }
 }
