@@ -36,5 +36,12 @@
                 text-decoration: none;
             }
         }
+
+        .right {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            justify-content: flex-end;
+        }
     }
 }

@@ -50,10 +50,20 @@
     border: 1px solid var(--secondary-color);
     color: var(--white-color);
     cursor: pointer;
+    transition: all 0.3s ease;
 
     &:hover {
         background-color: var(--secondary-color);
         color: var(--white-color);
-        transition: background-color 0.3s ease;
+    }
+
+    &.secondary {
+        background-color: var(--white-color);
+        border: 1px solid var(--grey-color);
+        color: var(--primary-color);
+
+        &:hover {
+            filter: brightness(105%) contrast(95%);
+        }
     }
 }
