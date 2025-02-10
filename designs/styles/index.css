@@ -24,6 +24,12 @@
     --bg-color: #fff;
     --semi-bg-color: #fcfcfc;
 
+    /* Forms */
+    --blue: #0071e3;
+    --blue-hover:#005bb5;
+    --back-input-color:#f9f9f9;
+    --border-input-color: #d2d2d7;
+
 }
 
 .dark, .dark * {
@@ -59,6 +65,11 @@ body {
     align-items: center;
     justify-content: center;
     gap: 200px;
+
+    &.no-gap{
+        gap:80px;
+    }
+
 }
 
 a {
