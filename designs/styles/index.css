@@ -105,3 +105,10 @@ p {
     font-size: 1rem;
     color: var(--text-color);
 }
+
+hr {
+    width: 100%;
+    border: none;
+    height: 2px;
+    background: linear-gradient(to right, transparent, var(--grey-color), transparent);
+}
