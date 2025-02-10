@@ -5,6 +5,7 @@ form {
     width: 100%;
 
 }
+
 .form-group {
     margin-bottom: 2rem;
     width: 100%;
@@ -17,19 +18,20 @@ label {
     text-align: left;
 }
 
-input[type="email"],
-input[type="password"], input[type="username"]{
-    width: 100%;
-    padding: 0.75rem;
-    border: 1px solid var(--border-input-color);
-    border-radius: 8px;
-    font-size: 1rem;
-    background-color: var(--back-input-color);
-    transition: border-color 0.2s;
-}
-
-input[type="email"]:focus,input[type="username"]:focus,
-input[type="password"]:focus {
+input {
+    width: 500px;
+    max-width: 100%;
+    height: 42px;
+    border-radius: 5px;
+    background-color: transparent;
+    border: 1px solid var(--grey-color);
+    box-shadow: 0 0 1px 1px #00000020;
+    color: var(--text-color);
+    font-size: 16px;
     outline: none;
-}
+    padding-left: 10px;
 
+    &:focus {
+        box-shadow: 0 0 1px 1px var(--primary-color);
+    }
+}
