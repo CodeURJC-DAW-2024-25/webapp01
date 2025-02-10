@@ -1,0 +1,35 @@
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+
+}
+.form-group {
+    margin-bottom: 2rem;
+    width: 100%;
+}
+
+label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    text-align: left;
+}
+
+input[type="email"],
+input[type="password"], input[type="username"]{
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--border-input-color);
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: var(--back-input-color);
+    transition: border-color 0.2s;
+}
+
+input[type="email"]:focus,input[type="username"]:focus,
+input[type="password"]:focus {
+    outline: none;
+}
+
