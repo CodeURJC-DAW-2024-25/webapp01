@@ -88,3 +88,7 @@
         transform: translateY(-2px);
     }
 }
+
+.full-width{
+    width: 100%;
+}
