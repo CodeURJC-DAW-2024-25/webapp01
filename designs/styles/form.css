@@ -16,6 +16,7 @@ label {
     margin-bottom: 0.5rem;
     font-weight: 600;
     text-align: left;
+    color: var(--text-color);
 }
 
 input {
