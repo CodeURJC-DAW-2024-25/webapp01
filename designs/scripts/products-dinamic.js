@@ -7,6 +7,9 @@ document.addEventListener('DOMContentLoaded', function () {
         { title: 'Leche condensada', description: 'Template para el producto 2', price: '150€', image: 'https://img.freepik.com/vector-premium/vector-diseno-logotipo-minimalista-creativo-elegante-cualquier-empresa-negocios-marca_1287271-9313.jpg?semt=ais_hybrid' },
         { title: 'Manteca', description: 'Template para el producto 3', price: '120€', image: 'https://img.freepik.com/vector-premium/vector-diseno-logotipo-minimalista-creativo-elegante-cualquier-empresa-negocios-marca_1287271-9313.jpg?semt=ais_hybrid' },
         { title: 'Chocolate', description: 'Template para el producto 4', price: '200€', image: 'https://img.freepik.com/vector-premium/vector-diseno-logotipo-minimalista-creativo-elegante-cualquier-empresa-negocios-marca_1287271-9313.jpg?semt=ais_hybrid' },
+        { title: 'Queso', description: 'Template para el producto 5', price: '130€', image: 'https://img.freepik.com/vector-premium/vector-diseno-logotipo-minimalista-creativo-elegante-cualquier-empresa-negocios-marca_1287271-9313.jpg?semt=ais_hybrid' },
+        { title: 'Jamón', description: 'Template para el producto 6', price: '250€', image: 'https://img.freepik.com/vector-premium/vector-diseno-logotipo-minimalista-creativo-elegante-cualquier-empresa-negocios-marca_1287271-9313.jpg?semt=ais_hybrid' },
+        { title: 'Arroz', description: 'Template para el producto 7', price: '110€', image: 'https://img.freepik.com/vector-premium/vector-diseno-logotipo-minimalista-creativo-elegante-cualquier-empresa-negocios-marca_1287271-9313.jpg?semt=ais_hybrid' },
     ];
 
     
