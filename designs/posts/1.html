@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaveX - Producto</title>
+    <link rel="stylesheet" href="../styles/index.css">
+    <link rel="stylesheet" href="../styles/navbar.css">
+    <link rel="stylesheet" href="../styles/button.css">
+    <link rel="stylesheet" href="../styles/footer.css">
+    <link rel="stylesheet" href="../styles/form.css">
+    <link rel="stylesheet" href="../styles/login.css">
+    <link rel="stylesheet" href="../styles/post-page.css">
+
+</head>
+
+<body>
+    <div class="container">
+        <div class="navbar">
+            <div class="nav-content">
+                <a class="nav-logo" href="/webapp01/designs/index.html">
+                    <span class="nav-title">SaveX</span>
+                </a>
+                <div class="right">
+                    <a class="clickable clickable-primary" href="/webapp01/designs/login.html">Acceder</a>
+                    <button class="clickable clickable-tool secondary theme-toggle">
+                        <i class="bi bi-moon light-icon"></i>
+                        <i class="bi bi-sun dark-icon"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <main>
+            <!-- This is a post page with bootstrap -->
+            <article class="post">
+                <header>
+                    <h1>Producto</h1>
+                </header>
+                <div class="post-content">
+                    <div class="post-image">
+                        <img src="../../public/product.webp" alt="Producto">
+                    </div>
+                    <div class="post-data">
+                        <h3>Datos del Producto</h3>
+                        <ul>
+                            <li>Nombre: Producto</li>
+                            <li>Descripción: Descripción del producto</li>
+                            <li>Precio: 1.99€</li>
+                            <li>Supermercado: Supermercado</li>
+                            <li>Categoría: Categoría</li>
+                        </ul>
+                        <br/>
+                        <h4>Precio por Supermercado</h4>
+                        <ul>
+                            <li class="supermarket-logo-price cheapest">
+                                <img src="../../public/logos/carrefour-fav.svg" alt="carrefour logo">
+                                <span>1.99€</span>
+                            </li>
+                            <li class="supermarket-logo-price">
+                                <img src="../../public/logos/consum-fav.png" alt="consum logo">
+                                <span>2.99€</span>
+                            </li>
+                            <li class="supermarket-logo-price">
+                                <img src="../../public/logos/mercadona-fav.ico" alt="mercadona logo">
+                                <span>3.99€</span>
+                            </li>
+                            <li class="supermarket-logo-price">
+                                <img src="../../public/logos/lidl-fav.svg" alt="lidl logo">
+                                <span>4.99€</span>
+                            </li>
+                            <li class="supermarket-logo-price">
+                                <img src="../../public/logos/supercor-fav.png" alt="supercor logo">
+                                <span>5.99€</span>
+                            </li>
+                            <li class="supermarket-logo-price unavailable">
+                                <img src="../../public/logos/dia-fav.svg" alt="dia logo">
+                                <span><em>no disponible</em></span>
+                            </li>
+                            <li class="supermarket-logo-price unavailable">
+                                <img src="../../public/logos/eroski-fav.ico" alt="eroski logo">
+                                <span>no disponible</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </article>
+            <form action="">
+                <div class="form-group">
+                    <label for="quantity">Cantidad</label>
+                    <input type="number" id="quantity" name="quantity" min="1" max="100" required>
+                </div>
+                <button class="clickable clickable-primary">Añadir a la lista de la compra</button>
+            </form>
+
+
+        </main>
+
+        <footer>
+            <hr>
+            <div class="footer-content">
+                <div class="left">
+                    <a class="clickable clickable-text" href="/">&copy; 2025 SaveX</a>
+                </div>
+                <div class="right">
+                    <a class="clickable clickable-tertiary" href="/about">Sobre Nosotros</a>
+                    <a class="clickable clickable-tool bordered" href="https://github.com/CodeURJC-DAW-2024-25/webapp01"
+                        target="_blank" noreferrer>
+                        <i class="bi bi-github"></i>
+                    </a>
+                </div>
+            </div>
+        </footer>
+        <script src="scripts/themeToggle.js"></script>
+    </div>
+
+</body>
+
+</html>
