@@ -74,6 +74,16 @@
             filter: brightness(105%) contrast(95%);
         }
     }
+
+    &.invert {
+        color: var(--white-color);
+        background-color: var(--primary-color);
+        border: none;
+
+        &:hover {
+            background-color: var(--secondary-color);
+        }
+    }
 }
 
 .clickable-text {
