@@ -5,20 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SaveX - Administración</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/navbar.css">
     <link rel="stylesheet" href="styles/button.css">
     <link rel="stylesheet" href="styles/admin.css">
     <link rel="stylesheet" href="styles/posts.css">
+
 </head>
 
 <body>
-    <div class="container">
+    <div class="container no-gap">
         <div class="navbar">
             <div class="nav-content">
-                <a class="nav-title" href="/">SaveX</a>
+                <a class="nav-logo" href="/designs/index.html">
+                    <span class="nav-title">SaveX</span>
+                </a>
                 <div class="right">
-
+                    <a class="clickable clickable-primary" href="/designs/login.html">Acceder</a>
                     <button class="clickable clickable-tool secondary theme-toggle">
                         <i class="bi bi-moon light-icon"></i>
                         <i class="bi bi-sun dark-icon"></i>
@@ -27,84 +32,222 @@
             </div>
         </div>
 
-        <div class="post-in-line">
-            <div class="post">
-                <h2 class="post-title">Visualizar Post</h2>
-                <div class="img-container">
-                    <img src="https://img.freepik.com/vector-premium/vector-diseno-logotipo-minimalista-creativo-elegante-cualquier-empresa-negocios-marca_1287271-9313.jpg?semt=ais_hybrid"
-                        alt="SaveX">
-                </div>
+        <!-- Content Row -->
+        <div class="row">
 
-                <div class="post-footer">
-                    <a href="/admin/posts" class="clickable clickable-primary">Posts</a>
-                </div>
-
-            </div>
-            <div class="post">
-                <h2 class="post-title">Editar Post </h2>
-                <div class="img-container">
-                    <img src="https://img.freepik.com/vector-premium/vector-diseno-logotipo-minimalista-creativo-elegante-cualquier-empresa-negocios-marca_1287271-9313.jpg?semt=ais_hybrid"
-                        alt="SaveX">
-                </div>
-
-                <div class="post-footer">
-                    <a href="/admin/posts" class="clickable clickable-primary">Posts</a>
-                </div>
-
-            </div>
-            <div class="post">
-                <h2 class="post-title">Eliminar post</h2>
-                <div class="img-container">
-                    <img src="https://img.freepik.com/vector-premium/vector-diseno-logotipo-minimalista-creativo-elegante-cualquier-empresa-negocios-marca_1287271-9313.jpg?semt=ais_hybrid"
-                        alt="SaveX">
-                </div>
-
-                <div class="post-footer">
-                    <a href="/admin/posts" class="clickable clickable-primary">Posts</a>
-                </div>
-
-            </div>
-
-            <div class="post">
-                <h2 class="post-title">Products</h2>
-                <div class="img-container">
-                    <img src="https://img.freepik.com/vector-premium/vector-diseno-logotipo-minimalista-creativo-elegante-cualquier-empresa-negocios-marca_1287271-9313.jpg?semt=ais_hybrid"
-                        alt="SaveX">
-                </div>
-
-                <div class="post-footer">
-                    <a href="/admin/products" class="clickable clickable-primary">Productos</a>
-                </div>
-            </div>
-            <div class="post">
-                <h2 class="post-title">Cuentas de Usuarios</h2>
-                <div class="img-container">
-                    <img src="https://img.freepik.com/vector-premium/vector-diseno-logotipo-minimalista-creativo-elegante-cualquier-empresa-negocios-marca_1287271-9313.jpg?semt=ais_hybrid"
-                        alt="SaveX">
-                </div>
-
-                <div class="post-footer">
-                    <a href="/admin/users" class="clickable clickable-primary">Usuarios</a>
-                </div>
-            </div>
-
-
-            <div class="post">
-                <div class="graph">
-                    <h2 class="post-title">Usuarios registrados </h2>
-                    <div class="img-container">
-                        <img
-                            src="data:image/png;base64,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">
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-primary shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-black text-uppercase mb-1">
+                                    Carritos activos </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">30</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-cart4" style="font-size: 2rem;"></i>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-success shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-black text-uppercase mb-1">
+                                    Cuentas creadas </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">300</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-person-fill-check" style="font-size: 2rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Earnings (Monthly) Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-dark shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-black text-uppercase mb-1">Tasks
+                                </div>
+                                <div class="row no-gutters align-items-center">
+                                    <div class="col-auto">
+                                        <div class="h5 mb-0 mr-3 font-weight-bold text-gray-800">50%</div>
+                                    </div>
+                                    <div class="col">
+                                        <div class="progress progress-sm mr-2">
+                                            <div class="progress-bar bg-dark" role="progressbar" style="width: 50%"
+                                                aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-list-task" style="font-size: 2rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
+            <!-- Comments Card Example -->
+            <div class="col-xl-3 col-md-6 mb-4">
+                <div class="card border-left-warning shadow h-100 py-2">
+                    <div class="card-body">
+                        <div class="row no-gutters align-items-center">
+                            <div class="col mr-2">
+                                <div class="text-xs font-weight-bold text-black text-uppercase mb-1">
+                                    Nuevos comentarios </div>
+                                <div class="h5 mb-0 font-weight-bold text-gray-800">8</div>
+                            </div>
+                            <div class="col-auto">
+                                <i class="bi bi-chat-right" style="font-size: 2rem;"></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-        </style>
+
+        <!-- Content Row -->
+        <div class="row">
+
+            <!-- Content Column -->
+            <div class="col-lg-6 mb-4">
+
+                <!-- Project Card Example -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-black">Tareas pendientes </h6>
+                    </div>
+                    <div class="card-body">
+                        <h4 class="small font-weight-bold">Reportes <span class="float-right">20%</span></h4>
+                        <div class="progress mb-4">
+                            <div class="progress-bar bg-dark" role="progressbar" style="width: 20%" aria-valuenow="20"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <h4 class="small font-weight-bold">Usuarios <span class="float-right">40%</span></h4>
+                        <div class="progress mb-4">
+                            <div class="progress-bar bg-dark" role="progressbar" style="width: 40%" aria-valuenow="40"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <h4 class="small font-weight-bold">Comentarios <span class="float-right">60%</span></h4>
+                        <div class="progress mb-4">
+                            <div class="progress-bar bg-dark" role="progressbar" style="width: 60%" aria-valuenow="60"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <h4 class="small font-weight-bold">Posts <span class="float-right">80%</span></h4>
+                        <div class="progress mb-4">
+                            <div class="progress-bar bg-dark" role="progressbar" style="width: 80%" aria-valuenow="80"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                        <h4 class="small font-weight-bold">Carritos de la compra <span class="float-right"></span></h4>
+                        <div class="progress">
+                            <div class="progress-bar bg-dark" role="progressbar" style="width: 100%" aria-valuenow="100"
+                                aria-valuemin="0" aria-valuemax="100"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Color System -->
+                <div class="row">
+                    <div class="col-lg-6 mb-4">
+
+                        <div class="card bg-primary text-white shadow">
+                            <button type="submit" class="clickable clickable-primary full-width">Crear post </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="card bg-success text-white shadow">
+                            <button type="submit" class="clickable clickable-primary full-width">Editar post </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="card bg-info text-white shadow">
+                            <button type="submit" class="clickable clickable-primary full-width">Eliminar post</button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="card bg-warning text-white shadow">
+                            <button type="submit" class="clickable clickable-primary full-width">Perfiles de
+                                usuarios</button>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="card bg-danger text-white shadow">
+                            <button type="submit" class="clickable clickable-primary full-width">Crear comenatio
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="card bg-secondary text-white shadow">
+                            <button type="submit" class="clickable clickable-primary full-width">Editar comentario
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="card bg-light text-black shadow">
+                            <button type="submit" class="clickable clickable-primary full-width">Eliminar comentario
+                            </button>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 mb-4">
+                        <div class="card bg-dark text-white shadow">
+                            <button type="submit" class="clickable clickable-primary full-width">Carros de la compra
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="col-lg-6 mb-4">
+
+                <!-- Illustrations -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-black">Productos sin gluten</h6>
+                    </div>
+                    <div class="card-body">
+                        <p>Lista de productos sin gluten que son tendencia</p>
+                    </div>
+                </div>
+
+                <!-- Approach -->
+                <div class="card shadow mb-4">
+                    <div class="card-header py-3">
+                        <h6 class="m-0 font-weight-bold text-black"> Bajada en el aceite</h6>
+                    </div>
+                    <div class="card-body">
+                        <p>
+                            Se ha detectado una bajada en el precio del aceite de oliva. Se recomienda...
+                        </p>
+                        <p class="mb-0">
+                            <a href="#">Leer más &rarr;</a>
+                        </p>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
     </div>
+    <!-- /.container-fluid -->
+
     </div>
+    <!-- End of Main Content -->
+
+    <script src="scripts/themeToggle.js"></script>
 </body>
 
 </html>
