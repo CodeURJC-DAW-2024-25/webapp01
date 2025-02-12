@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaveX - Sección de productos</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/searchbar.css">
+    <link rel="stylesheet" href="styles/posts.css">
+    <link rel="stylesheet" href="styles/products.css">
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+</head>
+
+<body>
+    <div class="container no-gap">
+        {{> components/navbar}}
+        {{> components/searchbar}}
+        <div class="grid-layout"><!-- Products rendering --></div>
+        {{> components/footer}}
+    </div>
+    <script src="scripts/themeToggle.js"></script>
+    <script src="scripts/products-dinamic.js"></script>
+</body>
+</html>

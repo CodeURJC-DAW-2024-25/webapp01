@@ -1,0 +1,104 @@
+
+.clickable {
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 5px;
+}
+
+.clickable-primary {
+    background-color: var(--primary-color);
+    border: 1px solid var(--secondary-color);
+    color: var(--white-color);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    &:hover {
+        background-color: var(--secondary-color);
+        color: var(--white-color);
+    }
+}
+
+.clickable-secondary {
+    background-color: var(--grey-color);
+    border: 1px solid var(--grey-color);
+    color: var(--primary-color);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    &:hover {
+        filter: brightness(105%) contrast(95%);
+    }
+}
+
+.clickable-tertiary {
+    background-color: var(--semi-bg-color);
+    border: 1px solid var(--grey-color);
+    color: var(--text-color);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    &:hover {
+        filter: brightness(105%) contrast(95%);
+    }
+}
+
+.clickable-tool {
+    --size: 26px;
+    height: var(--size);
+    width: var(--size);
+    padding: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: transparent;
+    border: 1px solid transparent;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        background-color: var(--grey-color);
+    }
+
+    &.bordered {
+        border: 1px solid var(--grey-color);
+        background-color: var(--semi-bg-color);
+
+        &:hover {
+            filter: brightness(105%) contrast(95%);
+        }
+    }
+
+    &.invert {
+        color: var(--white-color);
+        background-color: var(--primary-color);
+        border: none;
+
+        &:hover {
+            background-color: var(--secondary-color);
+        }
+    }
+}
+
+.clickable-text {
+    background-color: transparent;
+    border: none;
+    color: var(--primary-color);
+    cursor: pointer;
+    transition: all 0.3s ease;
+
+    &:hover {
+        filter: brightness(105%) contrast(95%);
+        transform: translateY(-2px);
+    }
+}
+
+.full-width{
+    width: 100%;
+}

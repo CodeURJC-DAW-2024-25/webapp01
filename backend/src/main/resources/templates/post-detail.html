@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaveX - Post X</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/post-detail.css">
+</head>
+<body>
+    <div class="container">
+        {{> components/navbar}}
+        <section class="post-detail">
+            <header class="post-header">
+                <div class="post-header-left">
+                    <h2 class="post-title">Ahorra dinero</h2>
+                    <div class="post-tags-container">
+                        <span class="post-tag">Ahorro</span>
+                        <span class="post-tag">Supermercado</span>
+                        <span class="post-tag">Finanzas</span>
+                    </div>
+                    <p class="description">Descubre cómo puedes ahorrar dinero en tus compras de supermercado con SaveX.</p>
+                </div>
+                <div class="post-header-right">
+                    <span class="author">@SaveX</span>
+                    <span class="post-date">1 de enero de 2025</span>
+                </div>
+            </header>
+            <div class="post-image">
+                <img src="/public/600x300.png" alt="Ahorra dinero">
+            </div>
+            <hr>
+            <div class="post-content">
+                <h3>¿Qué es Savex?</h3>
+                <p>SaveX es una aplicación web que te permite comparar precios de productos de supermercado para que puedas
+                    ahorrar dinero en tus compras. Con SaveX, podrás encontrar los productos que necesitas al mejor precio
+                    en las tiendas más cercanas a ti.</p>
+                <p>Además de comparar precios, SaveX te permite crear listas de la compra para que puedas organizar tus
+                    compras y ahorrar tiempo en el supermercado. Con SaveX, podrás planificar tus compras de forma más
+                    eficiente y evitar olvidar algún producto en el supermercado.</p>
+                <p>En resumen, SaveX te ayuda a ahorrar dinero, tiempo y esfuerzo en tus compras de supermercado. ¡Descarga
+                    SaveX y empieza a ahorrar hoy mismo!</p>
+            </div>
+        </section>
+        {{> components/footer}}
+    </div>
+    <script src="scripts/themeToggle.js"></script>
+</body>
+</html>

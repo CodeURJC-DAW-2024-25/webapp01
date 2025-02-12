@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SaveX - Perfil X</title>
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/profile.css">
+</head>
+<body>
+    <div class="container">
+        {{> components/navbar}}
+
+        <div class="profile-header">
+            <div class="profile-image">
+                <img src="https://avatars.githubusercontent.com/u/121297520?v=4" alt="Imagen de perfil">
+                <button class="clickable clickable-tool bordered invert upload">
+                    <i class="bi bi-upload icon"></i>
+                </button>
+            </div>
+            <div class="profile-info">
+                <h2 class="profile-name">Usuario_xxx</h2>
+                <p class="profile-username">@user_xx</p>
+            </div>
+        </div>
+        
+        {{> components/footer}}
+    </div>
+    <script src="scripts/themeToggle.js"></script>
+</body>
+</html>
