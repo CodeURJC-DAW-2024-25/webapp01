@@ -42,3 +42,20 @@ footer {
         }
     }
 }
+
+@media (max-width: 500px) {
+    footer .footer-content {
+        flex-direction: column;
+        gap: 16px;
+
+        .left {
+            width: 100%;
+            justify-content: center;
+        }
+
+        .right {
+            width: 100%;
+            justify-content: center;
+        }
+    }
+}

@@ -31,6 +31,7 @@ For team coordination, we will be using Notion. This tool will help us keep trac
 | id       | Primary key         |
 | email    | String (unique)     |
 | username | String (unique)     |
+| name     | String              |
 | password | String (encrypted)  |
 | avatar   | Blob                |
 | created  | DateTime            |
