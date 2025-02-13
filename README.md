@@ -92,7 +92,7 @@ For team coordination, we will be using Notion. This tool will help us keep trac
 
 ---
 
-## Database Schema Diagram
+## 📐 Database Schema Diagram
 
 The following diagram illustrates the structure of our database, including tables, relationships, and key constraints:
 
@@ -101,7 +101,6 @@ The following diagram illustrates the structure of our database, including table
 This schema provides an overview of how different entities interact within the system. It helps in understanding the data flow and ensuring efficient database design.
 
 ---
-
 
 ## 🔒 User Permissions
 
