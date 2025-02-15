@@ -3,7 +3,10 @@
 ## MySQL Database Setup 🛠️
 
 1. **Install MySQL on your system.** 🖥️
+   - You can download MySQL from the official website: [MySQL Downloads](https://dev.mysql.com/downloads/)
+   - You can also use a package manager to install MySQL. (In windows you can use `winget install Oracle.MySQL`)
 2. **Open MySQL Shell and connect to your MySQL server:** 🔌
+   - ⚠️ Don't forget to add the **backslash** and the **`;`** in the command.
    ```sh
    \connect root@localhost
    ```
@@ -16,12 +19,12 @@
 
 4. **Create the database:** 🗄️
    ```sql
-   CREATE DATABASE savex;
+   CREATE DATABASE savexdb;
    ```
 
 5. **Select the database:** ✅
    ```sql
-   USE savex;
+   USE savexdb;
    ```
 
 ## Spring Boot Configuration ⚙️
