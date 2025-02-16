@@ -18,4 +18,17 @@ public class MainController {
         model.addAttribute("title", "SaveX - Sobre nosotros");
         return "about";
     }
+
+    @GetMapping("/profile")
+    public String getProfilePage(Model model) {
+
+        model.addAttribute("title", "SaveX - Perfil");
+        return "profile";
+    }
+
+    @GetMapping("/admin")
+    public String getAdminPage(Model model) {
+        model.addAttribute("title", "SaveX - Administración");
+        return "admin";
+    }
 }
