@@ -1,5 +1,5 @@
 package es.daw01.savex.model;
 
-public enum VisibilityEnum {
+public enum VisibilityType {
     PUBLIC, PRIVATE
 }

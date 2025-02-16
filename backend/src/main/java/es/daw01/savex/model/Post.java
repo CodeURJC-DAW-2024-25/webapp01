@@ -21,11 +21,13 @@ public class Post {
     private String content;
     private String author;
     private String date;
-    private VisibilityEnum visibility;
+    private VisibilityType visibility;
     private List<String> tags;
 
     @Lob
     private Blob banner;
+
+    // Constructors ----------------------------------------------------------->>
 
     protected Post() { /* Used by Spring Data JPA */ }
 
@@ -35,7 +37,7 @@ public class Post {
         String content,
         String author,
         String date,
-        VisibilityEnum visibility,
+        VisibilityType visibility,
         List<String> tags,
         Blob banner
     ) {
@@ -99,11 +101,11 @@ public class Post {
         this.date = date;
     }
 
-    public VisibilityEnum getVisibility() {
+    public VisibilityType getVisibility() {
         return visibility;
     }
 
-    public void setVisibility(VisibilityEnum visibility) {
+    public void setVisibility(VisibilityType visibility) {
         this.visibility = visibility;
     }
 
