@@ -1,12 +1,9 @@
 package es.daw01.savex.model;
 
 import java.sql.Blob;
-import java.util.List;
 
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -39,8 +36,8 @@ public class User {
     @Lob
     private Blob avatar;
 
-    @ElementCollection(fetch = FetchType.EAGER)
-    private List<UserType> roles;
+    @Column(nullable = false)
+    private UserType role;
 
     // Constructors ----------------------------------------------------------->>
 
@@ -52,14 +49,14 @@ public class User {
         String name,
         String hashedPassword,
         Blob avatar,
-        UserType... roles
+        UserType role
     ) {
         this.email = email;
         this.username = username;
         this.name = name;
         this.hashedPassword = hashedPassword;
         this.avatar = avatar;
-        this.roles = List.of(roles);
+        this.role = role;
     }
 
     // Getters and setters ---------------------------------------------------->>
@@ -112,12 +109,12 @@ public class User {
         this.avatar = avatar;
     }
 
-    public List<UserType> getRoles() {
-        return roles;
+    public UserType getRole() {
+        return role;
     }
 
-    public void setRoles(List<UserType> roles) {
-        this.roles = roles;
+    public void setRole(UserType role) {
+        this.role = role;
     }
     
 }

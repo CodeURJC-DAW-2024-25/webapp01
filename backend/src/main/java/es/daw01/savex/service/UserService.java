@@ -3,10 +3,12 @@ package es.daw01.savex.service;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import es.daw01.savex.model.User;
 import es.daw01.savex.repository.UserRepository;
 
+@Service
 public class UserService {
     
     @Autowired
