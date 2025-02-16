@@ -99,6 +99,32 @@
     }
 }
 
+.clickable-image {
+    padding: 0;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 50px;
+    box-shadow: 0 0 20px 2px var(--grey-color);
+    transition: all 0.3s ease;
+
+    --size: 54px;
+    &.small { --size: 42px;}
+
+    height: var(--size);
+    width: var(--size);
+
+    img {
+        height: 100%;
+        width: 100%;
+        border-radius: 50px;
+    }
+
+    &:hover {
+        transform: rotate(15deg);
+    }
+}
+
 .full-width{
     width: 100%;
 }
