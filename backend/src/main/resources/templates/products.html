@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    {{> components/head-tags}}
+    <link rel="stylesheet" href="styles/searchbar.css">
+    <link rel="stylesheet" href="styles/posts.css">
+    <link rel="stylesheet" href="styles/products.css">
+</head>
+
+<body>
+    <div class="container no-gap">
+        {{> components/navbar}}
+        {{> components/searchbar}}
+        <div class="grid-layout"><!-- Products rendering --></div>
+        {{> components/footer}}
+    </div>
+    <script src="scripts/themeToggle.js"></script>
+    <script src="scripts/products-dinamic.js"></script>
+</body>
+</html>

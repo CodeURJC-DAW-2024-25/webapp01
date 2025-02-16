@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {{> components/head-tags}}
+    <link rel="stylesheet" href="styles/posts-preview.css">
+    <link rel="stylesheet" href="styles/searchbar.css">
+    <link rel="stylesheet" href="styles/post.css">
+    <link rel="stylesheet" href="styles/suggestion.css">
+</head>
+<body>
+    <div class="container no-gap">
+        {{> components/navbar}}
+
+        <h2>¿Quieres saber más sobre cómo ahorrar dinero?</h2>
+        {{> components/searchbar}}
+        <div class="posts-preview">
+            <div class="posts-preview-content extended">
+                {{#posts}}
+                    <div class="post extended">
+                        <h2 class="post-title">{{title}}</h2>
+                        <p class="post-description">{{description}}</p>
+            
+                        <div class="post-metadata">
+                            <div class="tags-container">
+                                {{#tags}}
+                                    <span class="tag">{{.}}</span>
+                                {{/tags}}
+                            </div>
+            
+                            <div class="time-container">
+                                <span class="date">Hace 1 semana</span>
+                                <span class="separator">•</span>
+                                <span class="read-time">3 min</span>
+                            </div>
+                        </div>
+                        <div class="img-container">
+                            {{#banner}}
+                                <img src="{{.}}" alt="SaveX">
+                            {{/banner}}
+                            {{^banner}}
+                                <img src="assets/template_image.png"
+                                    alt="SaveX">
+                            {{/banner}}
+                        </div>
+            
+                        <div class="post-footer">
+                            <a href="/posts/{{id}}" class="clickable clickable-primary">Leer más</a>
+                        </div>
+                    </div>
+                {{/posts}}
+            </div>
+        </div>
+        <hr>
+            
+        {{> components/suggestion}}
+        {{> components/footer}}
+    </div>
+    <script src="scripts/themeToggle.js"></script>
+</body>
+
+</html>

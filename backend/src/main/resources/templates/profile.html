@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {{> components/head-tags}}
+    <link rel="stylesheet" href="styles/profile.css">
+</head>
+<body>
+    <div class="container">
+        {{> components/navbar}}
+
+        <div class="profile-header">
+            <div class="profile-image">
+                <img src="{{avatar}}" alt="Imagen de perfil">
+                <button class="clickable clickable-tool bordered invert upload">
+                    <i class="bi bi-upload icon"></i>
+                </button>
+            </div>
+            <div class="profile-info">
+                <h2 class="profile-name">{{name}}</h2>
+                <p class="profile-username">@{{username}}</p>
+                <form action="/logout" method="post">
+                    <input type="hidden" name="_csrf" value="{{token}}"/>
+                    <button type="submit" class="clickable clickable-secondary">
+                        <i class="bi bi-box-arrow-right icon"></i>
+                        <span>Cerrar sesión</span>
+                    </button>
+                </form>
+            </div>
+        </div>
+        
+        {{> components/footer}}
+    </div>
+    <script src="scripts/themeToggle.js"></script>
+</body>
+</html>

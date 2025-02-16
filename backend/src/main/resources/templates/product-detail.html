@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    {{> components/head-tags}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="styles/product-detail.css">
+</head>
+<body>
+    <div class="container">
+        {{> components/navbar}}
+        <main class="product-detail">
+            <section class="row align-items-center">
+                <div class="col-md-6 text-center">
+                    <img src="/public/product-image.jpg" alt="Producto" class="img-fluid">
+                </div>
+                <div class="col-md-6">
+                    <h1 class="product-title">Michael Kors Heather Extra-Small Logo Crossbody Bag</h1>
+                    <p><strong>Variante:</strong> vanilla/acorn</p>
+                    <p><strong>Dimensiones:</strong> 12,1 cm x 19,7 cm x 5,7 cm</p>
+                    <p><strong>Material:</strong> Fibra sintética</p>
+                    <p class="product-price">Precio actual: <strong>178,50 €</strong></p>
+                    <button class="clickable clickable-primary">Añadir al carrito</button>
+                </div>
+            </section>
+            <section class="mt-5">
+                <h2>Comparador de Precios</h2>
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th>Supermercado</th>
+                            <th>Precio (€)</th>
+                            <th>Métodos de Pago</th>
+                            <th>Envío</th>
+                            <th>Comprar</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Supermercado A</td>
+                            <td>178,50 €</td>
+                            <td>PayPal, VISA, Bizum</td>
+                            <td>2-3 días</td>
+                            <td><a href="#" class="btn btn-primary">Ver oferta</a></td>
+                        </tr>
+                        <tr>
+                            <td>Supermercado B</td>
+                            <td>189,99 €</td>
+                            <td>PayPal, Tarjetas</td>
+                            <td>1-2 días</td>
+                            <td><a href="#" class="btn btn-primary">Ver oferta</a></td>
+                        </tr>
+                        <tr>
+                            <td>Supermercado C</td>
+                            <td>249,00 €</td>
+                            <td>Transferencia, Tarjetas</td>
+                            <td>5 días</td>
+                            <td><a href="#" class="btn btn-primary">Ver oferta</a></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </main>
+        {{> components/footer}}
+    </div>
+    <script src="scripts/themeToggle.js"></script>
+</body>
+</html>

@@ -31,9 +31,10 @@ For team coordination, we will be using Notion. This tool will help us keep trac
 | id       | Primary key         |
 | email    | String (unique)     |
 | username | String (unique)     |
+| name     | String              |
 | password | String (encrypted)  |
 | avatar   | Blob                |
-| created  | DateTime            |
+| created  | Date                |
 
 ### 🛒 Supermarket
 
@@ -53,8 +54,8 @@ For team coordination, we will be using Notion. This tool will help us keep trac
 | supermarket  | Foreign key (Supermarket.id)|
 | category     | String                      |
 | image        | String                      |
-| last_updated | DateTime                    |
-| created      | DateTime                    |
+| last_updated | Date                        |
+| created      | Date                        |
 
 ### 📝 Shopping List
 
@@ -63,8 +64,7 @@ For team coordination, we will be using Notion. This tool will help us keep trac
 | id        | Primary key                 |
 | name      | String                      |
 | user_id   | Foreign key (User.id)       |
-| products  | List of product ids         |
-| created   | DateTime                    |
+| created   | Date                        |
 
 ### 📝 Post
 
@@ -75,11 +75,10 @@ For team coordination, we will be using Notion. This tool will help us keep trac
 | description | String                    |
 | banner      | Blob                      |
 | content     | String                    |
-| created     | DateTime                  |
-| modified    | DateTime                  |
+| created     | Date                      |
+| modified    | Date                      |
 | author      | String                    |
 | visibility  | Enum (public, private)    |
-| comments    | List of comment ids       |
 
 ### 💬 Comment
 
@@ -88,8 +87,18 @@ For team coordination, we will be using Notion. This tool will help us keep trac
 | id        | Primary key                 |
 | content   | String                      |
 | author    | Foreign key (User.id)       |
-| created   | DateTime                    |
-| modified  | DateTime                    |
+| created   | Date                        |
+| modified  | Date                        |
+
+---
+
+## 📐 Database Schema Diagram
+
+The following diagram illustrates the structure of our database, including tables, relationships, and key constraints:
+
+![Database Schema](docs/DataBase_Schema_Diagram.png)
+
+This schema provides an overview of how different entities interact within the system. It helps in understanding the data flow and ensuring efficient database design.
 
 ---
 

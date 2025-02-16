@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,20 +8,75 @@
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/navbar.css">
     <link rel="stylesheet" href="styles/button.css">
+    <link rel="stylesheet" href="styles/footer.css">
+    <link rel="stylesheet" href="styles/post-detail.css">
 </head>
+
 <body>
     <div class="container">
         <div class="navbar">
             <div class="nav-content">
-                <a class="nav-logo" href="/">
-                    <img src="https://img.freepik.com/vector-premium/vector-diseno-logotipo-minimalista-creativo-elegante-cualquier-empresa-negocios-marca_1287271-9313.jpg?semt=ais_hybrid"
-                        alt="SaveX">
+                <a class="nav-logo" href="/designs/index.html">
                     <span class="nav-title">SaveX</span>
                 </a>
-                <a class="clickable clickable-primary" href="/login">Acceder</a>
+                <div class="right">
+                    <a class="clickable clickable-primary" href="/designs/login.html">Acceder</a>
+                    <button class="clickable clickable-tool secondary theme-toggle">
+                        <i class="bi bi-moon light-icon"></i>
+                        <i class="bi bi-sun dark-icon"></i>
+                    </button>
+                </div>
             </div>
         </div>
-        <h1>Detalles del post</h1>
+        <section class="post-detail">
+            <header class="post-header">
+                <div class="post-header-left">
+                    <h2 class="post-title">Ahorra dinero</h2>
+                    <div class="post-tags-container">
+                        <span class="post-tag">Ahorro</span>
+                        <span class="post-tag">Supermercado</span>
+                        <span class="post-tag">Finanzas</span>
+                    </div>
+                    <p class="description">Descubre cómo puedes ahorrar dinero en tus compras de supermercado con SaveX.</p>
+                </div>
+                <div class="post-header-right">
+                    <span class="author">@SaveX</span>
+                    <span class="post-date">1 de enero de 2025</span>
+                </div>
+            </header>
+            <div class="post-image">
+                <img src="/public/600x300.png" alt="Ahorra dinero">
+            </div>
+            <hr>
+            <div class="post-content">
+                <h3>¿Qué es Savex?</h3>
+                <p>SaveX es una aplicación web que te permite comparar precios de productos de supermercado para que puedas
+                    ahorrar dinero en tus compras. Con SaveX, podrás encontrar los productos que necesitas al mejor precio
+                    en las tiendas más cercanas a ti.</p>
+                <p>Además de comparar precios, SaveX te permite crear listas de la compra para que puedas organizar tus
+                    compras y ahorrar tiempo en el supermercado. Con SaveX, podrás planificar tus compras de forma más
+                    eficiente y evitar olvidar algún producto en el supermercado.</p>
+                <p>En resumen, SaveX te ayuda a ahorrar dinero, tiempo y esfuerzo en tus compras de supermercado. ¡Descarga
+                    SaveX y empieza a ahorrar hoy mismo!</p>
+            </div>
+        </section>
+        <footer>
+            <hr>
+            <div class="footer-content">
+                <div class="left">
+                    <a class="clickable clickable-text" href="/">&copy; 2025 SaveX</a>
+                </div>
+                <div class="right">
+                    <a class="clickable clickable-tertiary" href="/about">Sobre Nosotros</a>
+                    <a class="clickable clickable-tool bordered" href="https://github.com/CodeURJC-DAW-2024-25/webapp01"
+                        target="_blank" noreferrer>
+                        <i class="bi bi-github"></i>
+                    </a>
+                </div>
+            </div>
+        </footer>
     </div>
+    <script src="scripts/themeToggle.js"></script>
 </body>
+
 </html>
