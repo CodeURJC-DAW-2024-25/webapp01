@@ -53,13 +53,13 @@ public class SecurityConfiguration {
 
                 // Private routes
                 .requestMatchers("/admin").hasAnyRole(UserType.ADMIN.name())
-                .requestMatchers("/profile").hasAnyRole(UserType.USER.name())
+                .requestMatchers("/profile").authenticated()
                 .anyRequest().authenticated()
             )
             .formLogin(form -> form
                 .loginPage("/login")
                 .failureUrl("/login?error")
-                .defaultSuccessUrl("/profile", true)
+                .defaultSuccessUrl("/", true)
                 .permitAll()
             )
             .logout(logout -> logout
