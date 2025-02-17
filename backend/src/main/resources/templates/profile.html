@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="styles/profile.css">
 </head>
 <body>
-    <div class="container">
+    <div class="container no-gap">
         {{> components/navbar}}
 
         <div class="profile-header">
@@ -18,13 +18,33 @@
             <div class="profile-info">
                 <h2 class="profile-name">{{name}}</h2>
                 <p class="profile-username">@{{username}}</p>
-                <form action="/logout" method="post">
+                <form action="/logout" method="post" class="logout-form">
                     <input type="hidden" name="_csrf" value="{{token}}"/>
                     <button type="submit" class="clickable clickable-secondary">
                         <i class="bi bi-box-arrow-right icon"></i>
                         <span>Cerrar sesión</span>
                     </button>
                 </form>
+            </div>
+        </div>
+        <div class="profile-content">
+            <div class="profile-lists">
+                <h3 class="profile-lists-title">Tus listas</h3>
+                <hr>
+                <div class="profile-lists-content">
+                    <div class="profile-list">
+                        <h4>Lista 1</h4>
+                        <p>Descripción de la lista 1</p>
+                    </div>
+                    <div class="profile-list">
+                        <h4>Lista 1</h4>
+                        <p>Descripción de la lista 1</p>
+                    </div>
+                    <div class="profile-list">
+                        <h4>Lista 1</h4>
+                        <p>Descripción de la lista 1</p>
+                    </div>
+                </div>
             </div>
         </div>
         

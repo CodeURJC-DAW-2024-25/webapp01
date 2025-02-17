@@ -32,16 +32,58 @@
     }
 
     .profile-info {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+        gap: 4px;
+
+        --padding-right: 4px;
+
         .profile-name {
             font-size: 32px;
             font-weight: bold;
             text-align: right;
+            padding-right: var(--padding-right);
         }
 
         .profile-username {
             font-size: 16px;
             text-align: right;
             color: var(--text-color);
+            padding-right: var(--padding-right);
+            margin-bottom: 16px;
+        }
+    }
+}
+
+.profile-content {
+    width: 100%;
+
+    .profile-lists-title {
+        font-weight: 500;
+    }
+
+    .profile-lists-content {
+        width: 100%;
+        display: flex;
+        gap: 16px;
+        flex-wrap: wrap;
+        padding-top: 24px;
+
+        .profile-list {
+            width: 100%;
+            max-width: 300px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            border-radius: 8px;
+            background-color: var(--grey-color);
+            cursor: pointer;
+
+            h4 {
+                color: var(--primary-color);
+            }
         }
     }
 }
