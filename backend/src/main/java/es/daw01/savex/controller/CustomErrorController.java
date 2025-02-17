@@ -1,4 +1,4 @@
-package es.daw01.savex.controller;
+/*package es.daw01.savex.controller;
 
 import java.util.Map;
 
@@ -41,4 +41,4 @@ public class CustomErrorController implements ErrorController {
         model.addAttribute("status", status);
         return "error";
     }
-}
+}*/

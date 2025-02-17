@@ -38,16 +38,14 @@ public class PostsController {
         return "posts";
     }
 
-    @GetMapping("/posts/{id}")
-    public String getPostPage(Model model, @PathVariable String id) {
-        Long postId;
-
+    @GetMapping("/posts/{postId}")
+    public String getPostPage(Model model, @PathVariable long postId) {
         // Try to parse the id to a Long
-        try {
+        /*try {
             postId = Long.parseLong(id);
         } catch (NumberFormatException e) {
             return "redirect:/login";
-        }
+        }*/
 
         // Get the post by id
         Post post = postService.findById(postId);
@@ -63,6 +61,6 @@ public class PostsController {
         // Add template variables and render the view
         model.addAttribute("title", "SaveX - " + post.getTitle());
         model.addAttribute("post", post);
-        return "post";
+        return "post-detail";
     }
 }
