@@ -1,10 +1,10 @@
 ---
-title: "Cómo usar nuestro comparador de precios"
+title: Cómo usar nuestro comparador de precios
 date: 2025-02-17
-description: "Aprende a utilizar nuestro comparador de precios para encontrar las mejores ofertas"
-author: "admin"
-visibility: "public"
-tags: "comparador precios tutorial"
+description: Aprende a utilizar nuestro comparador de precios para encontrar las mejores ofertas
+author: SaveX
+visibility: PUBLIC
+tags: Comparador, Precios, Tutorial
 ---
 
 # Cómo usar nuestro comparador de precios

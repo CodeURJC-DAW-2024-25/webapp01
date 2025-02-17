@@ -1,6 +1,12 @@
 package es.daw01.savex.components;
 
-import java.util.Arrays;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -9,13 +15,16 @@ import org.springframework.stereotype.Component;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
-import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.repository.PostRepository;
 import es.daw01.savex.repository.UserRepository;
+import es.daw01.savex.service.MarkdownService;
 import jakarta.annotation.PostConstruct;
 
 @Component
 public class DatabaseLoader {
+
+    @Autowired
+    private MarkdownService markdownService;
 
     @Autowired
     private UserRepository userRepository;
@@ -75,49 +84,38 @@ public class DatabaseLoader {
      * Load default posts into the database
     */
     private void initPosts() {
-        // Load default post
-        if (!postRepository.existsByTitle("Default Post")) {
-            postRepository.save(
-                new Post(
-                    "Cómo usar nuestro comparador de precios",
-                    "This is a default post description",
-                    """
-                    # Cómo usar nuestro comparador de precios
+        Path postsDir = Paths.get("src/main/resources/static/assets/posts");
 
-                    **Descripción:** 
-                    En este post te enseñaremos cómo utilizar nuestro comparador de precios para encontrar las mejores ofertas.
+        // Check if there are posts already loaded
+        if (postRepository.count() > 0) return;
 
-                    **Contenido:**
-                    Para usar nuestro comparador de precios, sigue estos pasos:
-                    1. Ingresa a nuestra página web.
-                    2. En la barra de búsqueda, escribe el nombre del producto que deseas comparar.
-                    3. Haz clic en el botón de búsqueda.
-                    4. Se mostrarán los resultados de la búsqueda con los precios de diferentes tiendas.
-                    5. Utiliza los filtros para ajustar los resultados según tus preferencias (precio, tienda, etc.).
-                    6. Haz clic en el producto que te interese para ver más detalles y comparar precios.
-                    7. ¡Listo! Ahora sabes cómo usar nuestro comparador de precios para encontrar las mejores ofertas.
+        // Get all markdown files in the posts directory
+        List<Path> paths = new ArrayList<>();
+        try (Stream<Path> stream = Files.walk(postsDir)) {
+            paths = stream.filter(path -> Files.isRegularFile(path)).collect(Collectors.toList());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-                    **Autor:** admin
-
-                    **Fecha:** 17 de febrero de 2025
-
-                    **Visibilidad:** Público
-
-                    **Etiquetas:** 
-                    - Comparador
-                    - Precios
-                    - Tutorial
-
-                    **Banner:**
-                    ![Comparador de precios](assets/bannerpost1.png)
-                    """,
-                    "saveX",
-                    "2025-02-17",
-                    VisibilityType.PUBLIC,
-                    Arrays.asList("default", "post"),
-                    null
-                )
-            );
+        // Load default posts by reading the markdown files
+        for (Path path : paths) {
+            String markdown = null;
+    
+            try {
+                markdown = Files.readString(path);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+    
+            // Save the post if the markdown content is not empty
+            if (markdown != null && !markdown.isEmpty()) {
+                postRepository.save(new Post(
+                    markdown,
+                    markdownService.extractYamlFrontMatter(markdown)
+                ));
+            } else {
+                System.err.println("Error: No se pudo leer el archivo markdown o el contenido está vacío.");
+            }
         }
     }
 }

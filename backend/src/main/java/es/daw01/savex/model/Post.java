@@ -2,6 +2,7 @@ package es.daw01.savex.model;
 
 import java.sql.Blob;
 import java.util.List;
+import java.util.Map;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -33,6 +34,16 @@ public class Post {
     // Constructors ----------------------------------------------------------->>
 
     protected Post() { /* Used by Spring Data JPA */ }
+
+    public Post(String markdownContent, Map<String, List<String>> yamlFrontMatter) {
+        this.title = yamlFrontMatter.get("title").get(0);
+        this.description = yamlFrontMatter.get("description").get(0);
+        this.content = markdownContent;
+        this.author = yamlFrontMatter.get("author").get(0);
+        this.date = yamlFrontMatter.get("date").get(0);
+        this.visibility = VisibilityType.valueOf(yamlFrontMatter.get("visibility").get(0).toUpperCase());
+        this.tags = yamlFrontMatter.get("tags");
+    }
 
     public Post(
         String title,
