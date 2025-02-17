@@ -38,17 +38,11 @@ public class PostsController {
         return "posts";
     }
 
-    @GetMapping("/posts/{postId}")
-    public String getPostPage(Model model, @PathVariable long postId) {
-        // Try to parse the id to a Long
-        /*try {
-            postId = Long.parseLong(id);
-        } catch (NumberFormatException e) {
-            return "redirect:/login";
-        }*/
+    @GetMapping("/posts/{id}")
+    public String getPostPage(Model model, @PathVariable long id) {
 
         // Get the post by id
-        Post post = postService.findById(postId);
+        Post post = postService.findById(id);
 
         // If the post is private, redirect to the posts page
         if (post.getVisibility() == VisibilityType.PRIVATE) {
@@ -61,6 +55,6 @@ public class PostsController {
         // Add template variables and render the view
         model.addAttribute("title", "SaveX - " + post.getTitle());
         model.addAttribute("post", post);
-        return "post-detail";
+        return "post";
     }
 }

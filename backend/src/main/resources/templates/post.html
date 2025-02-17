@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <link rel="stylesheet" href="/styles/post-detail.css">
+    {{> components/head-tags}}
+</head>
+<body>
+    <div class="container">
+        {{> components/navbar}}
+        <section class="post-detail">
+            <header class="post-header">
+                <div class="post-header-left">
+                    <h2 class="post-title">{{post.title}}</h2>
+                    <div class="post-tags-container">
+                        {{#post.tags}}
+                            <span class="post-tag">{{.}}</span>
+                        {{/post.tags}}
+                    </div>
+                    <p class="description">{{post.description}}</p>
+                </div>
+                <div class="post-header-right">
+                    <span class="author">@{{post.author}}</span>
+                    <span class="post-date">{{post.date}}</span>
+                </div>
+            </header>
+            <div class="post-image">
+                <img src="/assets/template_image.png" alt="Ahorra dinero">
+            </div>
+            <hr>
+            <div class="post-content">
+                {{{post.content}}}
+            </div>
+        </section>
+        {{> components/footer}}
+    </div>
+    <script src="/scripts/themeToggle.js"></script>
+</body>
+</html>
