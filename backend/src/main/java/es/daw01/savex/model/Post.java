@@ -3,6 +3,7 @@ package es.daw01.savex.model;
 import java.sql.Blob;
 import java.util.List;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -18,6 +19,8 @@ public class Post {
     
     private String title;
     private String description;
+
+    @Column(columnDefinition = "LONGTEXT")
     private String content;
     private String author;
     private String date;

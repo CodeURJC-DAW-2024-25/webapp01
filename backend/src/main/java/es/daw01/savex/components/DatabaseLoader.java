@@ -79,24 +79,37 @@ public class DatabaseLoader {
         if (!postRepository.existsByTitle("Default Post")) {
             postRepository.save(
                 new Post(
-                    "Nuevo Post Añadido",
+                    "Cómo usar nuestro comparador de precios",
                     "This is a default post description",
                     """
-                    ---
-                    title: Default Post
-                    date: 2025-02-17
-                    visibility: PUBLIC
-                    tags: default, post
-                    ---
-                    # Default Post
-                    ## Subtitle
-                    ### Subsubtitle
-                    
-                    This is a default post content
+                    # Cómo usar nuestro comparador de precios
 
-                    - List item 1
-                    - List item 2
-                    - List item 3
+                    **Descripción:** 
+                    En este post te enseñaremos cómo utilizar nuestro comparador de precios para encontrar las mejores ofertas.
+
+                    **Contenido:**
+                    Para usar nuestro comparador de precios, sigue estos pasos:
+                    1. Ingresa a nuestra página web.
+                    2. En la barra de búsqueda, escribe el nombre del producto que deseas comparar.
+                    3. Haz clic en el botón de búsqueda.
+                    4. Se mostrarán los resultados de la búsqueda con los precios de diferentes tiendas.
+                    5. Utiliza los filtros para ajustar los resultados según tus preferencias (precio, tienda, etc.).
+                    6. Haz clic en el producto que te interese para ver más detalles y comparar precios.
+                    7. ¡Listo! Ahora sabes cómo usar nuestro comparador de precios para encontrar las mejores ofertas.
+
+                    **Autor:** admin
+
+                    **Fecha:** 17 de febrero de 2025
+
+                    **Visibilidad:** Público
+
+                    **Etiquetas:** 
+                    - Comparador
+                    - Precios
+                    - Tutorial
+
+                    **Banner:**
+                    ![Comparador de precios](assets/bannerpost1.png)
                     """,
                     "saveX",
                     "2025-02-17",
