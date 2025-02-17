@@ -5,6 +5,7 @@ description: Aprende a utilizar nuestro comparador de precios para encontrar las
 author: SaveX
 visibility: PUBLIC
 tags: Comparador, Precios, Tutorial
+banner: /assets/posts-imgs/post1.png
 ---
 
 # Cómo usar nuestro comparador de precios
@@ -32,6 +33,3 @@ Para usar nuestro comparador de precios, sigue estos pasos:
 - Comparador
 - Precios
 - Tutorial
-
-**Banner:**
-![Comparador de precios](assets/bannerpost1.png)
