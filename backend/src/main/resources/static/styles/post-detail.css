@@ -72,6 +72,22 @@
 .post-content {
     width: 100%;
 
+    * {
+        color: var(--text-color);
+    }
+
+    h1 {
+        text-align: start;
+        margin-bottom: 16px;
+        color: var(--primary-color);
+    }
+
+    h2 {
+        text-align: start;
+        margin-bottom: 20px;
+        color: var(--primary-color);
+    }
+
     h3 {
         text-align: start;
         margin-bottom: 12px;
@@ -83,5 +99,13 @@
         margin-bottom: 12px;
         line-height: 1.5;
         color: var(--text-color);
+    }
+
+    li {
+        font-size: 16px;
+        margin-bottom: 6px;
+        line-height: 1.5;
+        color: var(--text-color);
+        margin-left: 24px;
     }
 }

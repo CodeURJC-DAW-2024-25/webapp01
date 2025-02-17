@@ -79,9 +79,25 @@ public class DatabaseLoader {
         if (!postRepository.existsByTitle("Default Post")) {
             postRepository.save(
                 new Post(
-                    "Default Post",
+                    "Nuevo Post Añadido",
                     "This is a default post description",
-                    "<h1>Hello Mustache from HTML</h1>",
+                    """
+                    ---
+                    title: Default Post
+                    date: 2025-02-17
+                    visibility: PUBLIC
+                    tags: default, post
+                    ---
+                    # Default Post
+                    ## Subtitle
+                    ### Subsubtitle
+                    
+                    This is a default post content
+
+                    - List item 1
+                    - List item 2
+                    - List item 3
+                    """,
                     "saveX",
                     "2025-02-17",
                     VisibilityType.PUBLIC,

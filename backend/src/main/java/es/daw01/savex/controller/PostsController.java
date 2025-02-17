@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.VisibilityType;
+import es.daw01.savex.service.MarkdownService;
 import es.daw01.savex.service.PostService;
 
 @Controller
@@ -18,6 +19,9 @@ public class PostsController {
 
     @Autowired
     private ControllerUtils controllerUtils;
+
+    @Autowired
+    private MarkdownService markdownService;
 
     @Autowired
     private PostService postService;
@@ -55,6 +59,7 @@ public class PostsController {
         // Add template variables and render the view
         model.addAttribute("title", "SaveX - " + post.getTitle());
         model.addAttribute("post", post);
+        model.addAttribute("content", markdownService.renderMarkdown(post.getContent()));
         return "post";
     }
 }
