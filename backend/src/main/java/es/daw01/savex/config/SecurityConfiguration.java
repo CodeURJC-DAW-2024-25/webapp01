@@ -48,7 +48,7 @@ public class SecurityConfiguration {
                 .requestMatchers("/register").permitAll()
                 .requestMatchers("/about").permitAll()
                 .requestMatchers("/posts").permitAll()
-                .requestMatchers("/posts/*").permitAll()
+                .requestMatchers("/posts/**").permitAll()
                 .requestMatchers("/error").permitAll()
 
                 // Private routes
