@@ -3,17 +3,24 @@
 
 <head>
     {{> components/head-tags}}
+    <link rel="stylesheet" href="/styles/error.css">
+    <title>{{title}}</title>
 </head>
 
 <body>
     <div class="container">
         {{> components/navbar}}
-        {{> components/hero}}
-        {{> components/posts-preview}}
-        {{> components/cta}}
+        <div class="error-page">
+            <h1>Error {{status}}</h1>
+            <p>Lo sentimos, ha ocurrido un error.</p>
+            <a href="/" class="clickable clickable-primary">
+                <i class="bi bi-house"></i>
+                <span>Ir a la página principal</span>
+            </a>
+        </div>
         {{> components/footer}}
     </div>
-    <script src="scripts/themeToggle.js"></script>
+    <script src="/scripts/themeToggle.js"></script>
 </body>
 
 </html>

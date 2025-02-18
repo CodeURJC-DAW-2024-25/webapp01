@@ -51,12 +51,11 @@ public class PostsController {
     }
 
     @GetMapping("/posts/{id}")
-    public String getPostPage(Model model, @PathVariable long id) {
+    public String getPostPage(Model model, @PathVariable long id) throws SQLException {
         // Get the post by id
         Optional<Post> op = postService.findById(id);
 
-        // If the post does not exist, redirect to the posts page
-        if (op.isEmpty()) return "redirect:/posts";
+        if (op.isEmpty()) throw new IllegalArgumentException("Post not found");
         
         Post post = op.get();
 
