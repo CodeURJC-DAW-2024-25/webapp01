@@ -1,8 +1,6 @@
 package es.daw01.savex.components;
 
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -12,6 +10,8 @@ import java.util.stream.Stream;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -89,23 +89,27 @@ public class DatabaseLoader {
      * Load default posts into the database
     */
     private void initPosts() {
-        Path postsDir = Paths.get("src/main/resources/static/assets/posts");
+
+        Resource postsDir = new ClassPathResource("/posts");
 
         // Get all markdown files in the posts directory
-        List<Path> paths = new ArrayList<>();
-        try (Stream<Path> stream = Files.walk(postsDir)) {
-            paths = stream.filter(path -> Files.isRegularFile(path)).collect(Collectors.toList());
+        List<Resource> resources = new ArrayList<>();
+        try {
+            resources = Stream.of(postsDir.getFile().listFiles())
+                .filter(file -> file.getName().endsWith(".md"))
+                .map(file -> new ClassPathResource("/posts/" + file.getName()))
+                .collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
         }
 
         // Load default posts by reading the markdown files
-        for (Path path : paths) {
+        for (Resource resource : resources) {
             String markdown = null;
             Map<String, List<String>> yamlFrontMatter = null;
     
             try {
-                markdown = Files.readString(path);
+                markdown = resource.getContentAsString(Charset.defaultCharset());
                 yamlFrontMatter = markdownService.extractYamlFrontMatter(markdown);
             } catch (Exception e) {
                 e.printStackTrace();

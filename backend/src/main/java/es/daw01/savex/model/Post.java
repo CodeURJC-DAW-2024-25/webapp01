@@ -49,7 +49,7 @@ public class Post {
         this.date = yamlFrontMatter.get("date").get(0);
         this.visibility = VisibilityType.valueOf(yamlFrontMatter.get("visibility").get(0).toUpperCase());
         this.tags = yamlFrontMatter.get("tags");
-        this.setBanner("/assets/posts-imgs/post1.png");
+        this.setBanner(yamlFrontMatter.get("banner").get(0));
     }
 
     public Post(
