@@ -1,10 +1,15 @@
-.post-in-line {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center;
-    gap: 24px;
-    margin: 20px 0;
+.card {
+    background-color: var(--grey-color);
+}
+
+.text {
+    color: var(--text-color);
+}
+
+.progress-bar {
+    background-color: var(--primary-color);
+}
+
+.progress {
+    background-color: var(--bg-color);
 }

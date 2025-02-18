@@ -5,9 +5,12 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
@@ -22,6 +25,8 @@ import jakarta.annotation.PostConstruct;
 
 @Component
 public class DatabaseLoader {
+
+    private static final Logger logger = LoggerFactory.getLogger(DatabaseLoader.class);
 
     @Autowired
     private MarkdownService markdownService;
@@ -86,9 +91,6 @@ public class DatabaseLoader {
     private void initPosts() {
         Path postsDir = Paths.get("src/main/resources/static/assets/posts");
 
-        // Check if there are posts already loaded
-        if (postRepository.count() > 0) return;
-
         // Get all markdown files in the posts directory
         List<Path> paths = new ArrayList<>();
         try (Stream<Path> stream = Files.walk(postsDir)) {
@@ -100,21 +102,26 @@ public class DatabaseLoader {
         // Load default posts by reading the markdown files
         for (Path path : paths) {
             String markdown = null;
+            Map<String, List<String>> yamlFrontMatter = null;
     
             try {
                 markdown = Files.readString(path);
+                yamlFrontMatter = markdownService.extractYamlFrontMatter(markdown);
             } catch (Exception e) {
                 e.printStackTrace();
             }
-    
+
+            if (postRepository.existsByTitle(yamlFrontMatter.get("title").get(0))) {
+                DatabaseLoader.logger.info("Post already exists, skipping...");
+                continue;
+            }
+
             // Save the post if the markdown content is not empty
             if (markdown != null && !markdown.isEmpty()) {
                 postRepository.save(new Post(
                     markdown,
-                    markdownService.extractYamlFrontMatter(markdown)
+                    yamlFrontMatter
                 ));
-            } else {
-                System.err.println("Error: No se pudo leer el archivo markdown o el contenido está vacío.");
             }
         }
     }
