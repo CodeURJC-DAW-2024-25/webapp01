@@ -74,11 +74,14 @@ body {
     &.no-gap{
         gap:80px;
     }
+
     &.small-gap{
         gap:40px;
     }
 
-
+    &.small-padding {
+        padding-top: calc(var(--navbar-height) + 50px);
+    }
 }
 
 a {
@@ -118,6 +121,6 @@ p {
 hr {
     width: 100%;
     border: none;
-    height: 2px;
+    height: 3px;
     background: linear-gradient(to right, transparent, var(--grey-color), transparent);
 }
