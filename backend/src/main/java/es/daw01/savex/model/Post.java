@@ -31,6 +31,7 @@ public class Post {
     private String content;
     private String author;
     private String date;
+    private String readingTime;
     private VisibilityType visibility;
     private List<String> tags;
 
@@ -47,6 +48,7 @@ public class Post {
         this.content = markdownContent;
         this.author = yamlFrontMatter.get("author").get(0);
         this.date = yamlFrontMatter.get("date").get(0);
+        this.readingTime = yamlFrontMatter.get("reading_time").get(0);
         this.visibility = VisibilityType.valueOf(yamlFrontMatter.get("visibility").get(0).toUpperCase());
         this.tags = yamlFrontMatter.get("tags");
         this.setBanner(yamlFrontMatter.get("banner").get(0));
@@ -58,6 +60,7 @@ public class Post {
         String content,
         String author,
         String date,
+        String readingTime,
         VisibilityType visibility,
         List<String> tags,
         Blob banner
@@ -67,6 +70,7 @@ public class Post {
         this.content = content;
         this.author = author;
         this.date = date;
+        this.readingTime = readingTime;
         this.visibility = visibility;
         this.tags = tags;
         this.banner = banner;
@@ -130,6 +134,14 @@ public class Post {
         this.date = date;
     }
 
+    public String getReadingTime() {
+        return readingTime;
+    }
+
+    public void setReadingTime(String readingTime) {
+        this.readingTime = readingTime;
+    }
+
     public VisibilityType getVisibility() {
         return visibility;
     }
@@ -151,8 +163,8 @@ public class Post {
         try {
             this.banner = BlobProxy.generateProxy(img.getInputStream(), img.contentLength());
         } catch (IOException e) {
-            e.printStackTrace();}
-
+            e.printStackTrace();
+        }
     }
 
     public List<String> getTags() {

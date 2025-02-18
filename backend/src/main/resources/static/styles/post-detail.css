@@ -87,14 +87,16 @@
     h2 {
         font-size: 24px;
         text-align: start;
-        margin-bottom: 20px;
+        margin-top: 32px;
+        margin-bottom: 16px;
         color: var(--primary-color);
     }
 
     h3 {
         font-size: 20px;
         text-align: start;
-        margin-bottom: 12px;
+        margin-top: 24px;
+        margin-bottom: 16px;
         color: var(--primary-color);
     }
 
@@ -103,6 +105,7 @@
         margin-bottom: 12px;
         line-height: 1.5;
         color: var(--text-color);
+        text-align: justify;
     }
 
     li {
@@ -111,5 +114,17 @@
         line-height: 1.5;
         color: var(--text-color);
         margin-left: 24px;
+    }
+
+    a {
+        margin-left: 6px;
+        color: var(--primary-color);
+        text-decoration: underline;
+        font-weight: 500;
+        transition: all 0.2s ease;
+
+        &:hover {
+            color: var(--primary-color-hover);
+        }
     }
 }

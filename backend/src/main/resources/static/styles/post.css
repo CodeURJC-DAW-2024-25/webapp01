@@ -27,7 +27,7 @@
     }
     
     &.extended {
-        width: 45%;
+        width: 100%;
 
         .post-description {
             display: block;

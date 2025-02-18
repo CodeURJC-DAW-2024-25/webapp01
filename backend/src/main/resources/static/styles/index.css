@@ -28,13 +28,7 @@
     --text-color: #444;
     --bg-color: #fff;
     --semi-bg-color: #fcfcfc;
-
-    /* Forms */
-    --blue: #0071e3;
-    --blue-hover:#005bb5;
-    --back-input-color:#f9f9f9;
-    --border-input-color: #d2d2d7;
-
+    --primary-color-hover: #0f7a97;
 }
 
 .dark, .dark * {
@@ -47,6 +41,7 @@
     --text-color: #ccc;
     --bg-color: #000;
     --semi-bg-color: #111;
+    --primary-color-hover: #87d2e7;
 }
 
 body {
@@ -115,6 +110,7 @@ h3 {
 
 p {
     font-size: 1rem;
+    line-height: 1.5;
     color: var(--text-color);
 }
 

@@ -8,10 +8,14 @@
     .posts-preview-content {
         width: 100%;
         display: flex;
-        flex-wrap: wrap;
         align-items: center;
         justify-content: center;
         gap: 24px;
         margin: 20px 0;
+        
+        &.extended {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
     }
 }
