@@ -90,14 +90,14 @@ public class DatabaseLoader {
     */
     private void initPosts() {
 
-        Resource postsDir = new ClassPathResource("/posts");
+        Resource postsDir = new ClassPathResource("posts");
 
         // Get all markdown files in the posts directory
         List<Resource> resources = new ArrayList<>();
         try {
             resources = Stream.of(postsDir.getFile().listFiles())
                 .filter(file -> file.getName().endsWith(".md"))
-                .map(file -> new ClassPathResource("/posts/" + file.getName()))
+                .map(file -> new ClassPathResource("posts/" + file.getName()))
                 .collect(Collectors.toList());
         } catch (Exception e) {
             e.printStackTrace();
