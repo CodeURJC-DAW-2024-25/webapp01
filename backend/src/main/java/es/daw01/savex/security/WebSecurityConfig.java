@@ -1,4 +1,4 @@
-package es.daw01.savex.config;
+package es.daw01.savex.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -11,11 +11,10 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 import es.daw01.savex.model.UserType;
-import es.daw01.savex.service.RepositoryUserDetailsService;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration {
+public class WebSecurityConfig {
 
     @Autowired
     private RepositoryUserDetailsService userDetailsService;
@@ -37,6 +36,8 @@ public class SecurityConfiguration {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+
+        // Authentication provider
         http.authenticationProvider(authenticationProvider());
 
         http
