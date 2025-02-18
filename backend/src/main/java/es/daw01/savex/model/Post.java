@@ -1,8 +1,14 @@
 package es.daw01.savex.model;
 
+import java.io.IOException;
 import java.sql.Blob;
 import java.util.List;
 import java.util.Map;
+
+import org.hibernate.engine.jdbc.BlobProxy;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -43,6 +49,7 @@ public class Post {
         this.date = yamlFrontMatter.get("date").get(0);
         this.visibility = VisibilityType.valueOf(yamlFrontMatter.get("visibility").get(0).toUpperCase());
         this.tags = yamlFrontMatter.get("tags");
+        this.setBanner("/assets/posts-imgs/post1.png");
     }
 
     public Post(
@@ -64,6 +71,14 @@ public class Post {
         this.tags = tags;
         this.banner = banner;
     }
+
+    public void saveImage(MultipartFile imageFile) throws IOException {
+        if (!imageFile.isEmpty()) {
+            this.banner = BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize());
+        }
+    }
+
+
 
     // Getters and setters ---------------------------------------------------->>
 
@@ -129,6 +144,15 @@ public class Post {
 
     public void setBanner(Blob banner) {
         this.banner = banner;
+    }
+
+    public void setBanner(String bannerPath) {
+        Resource img = new ClassPathResource(bannerPath);
+        try {
+            this.banner = BlobProxy.generateProxy(img.getInputStream(), img.contentLength());
+        } catch (IOException e) {
+            e.printStackTrace();}
+
     }
 
     public List<String> getTags() {

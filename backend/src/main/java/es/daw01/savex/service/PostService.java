@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.daw01.savex.model.Post;
 import es.daw01.savex.repository.PostRepository;
@@ -20,6 +21,15 @@ public class PostService {
     */
     public void save(Post post) {
         postRepository.save(post);
+    }
+
+    public void save(Post post, MultipartFile banner){
+        try {
+            post.saveImage(banner);
+            postRepository.save(post);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
