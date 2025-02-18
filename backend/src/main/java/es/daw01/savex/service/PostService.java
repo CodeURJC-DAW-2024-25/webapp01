@@ -1,6 +1,7 @@
 package es.daw01.savex.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -53,7 +54,7 @@ public class PostService {
      * @param id The id of the post to find
      * @return The post with the given id, or null if it doesn't exist
     */
-    public Post findById(long id) {
-        return postRepository.findById(id).orElse(null);
+    public Optional<Post> findById(long id) {
+        return postRepository.findById(id);
     }
 }
