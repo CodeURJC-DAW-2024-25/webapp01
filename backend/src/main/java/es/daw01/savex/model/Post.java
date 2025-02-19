@@ -16,6 +16,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Lob;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Post {
@@ -29,6 +30,10 @@ public class Post {
 
     @Column(columnDefinition = "LONGTEXT")
     private String content;
+
+    @OneToMany(mappedBy = "post")
+    private List<Comment> comments;
+
     private String author;
     private String date;
     private String readingTime;

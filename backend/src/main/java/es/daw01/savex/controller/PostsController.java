@@ -36,7 +36,7 @@ public class PostsController {
 
     @Autowired
     private PostService postService;
-    
+
     @GetMapping("/posts")
     public String getPostsPage(Model model) {
         List<Post> posts = postService.findAll();

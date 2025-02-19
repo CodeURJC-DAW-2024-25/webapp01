@@ -24,6 +24,11 @@ public class PostService {
         postRepository.save(post);
     }
 
+    /**
+     * Saves a post in the database
+     * @param post The post to save
+     * @param banner The banner image of the post
+    */
     public void save(Post post, MultipartFile banner){
         try {
             post.saveImage(banner);
