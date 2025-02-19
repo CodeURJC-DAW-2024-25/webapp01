@@ -1,6 +1,7 @@
 .post {
     position: relative;
     flex: 1;
+    min-width: 250px;
     width: 250px;
     padding: 16px;
     display: flex;
@@ -23,7 +24,12 @@
     }
 
     .post-top {
+        width: 100%;
         margin-bottom: 20px;
+    }
+
+    .post-bottom {
+        width: 100%;        
     }
     
     .post-title {
