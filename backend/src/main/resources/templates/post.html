@@ -6,7 +6,7 @@
     {{> components/head-tags}}
 </head>
 <body>
-    <div class="container small-padding">
+    <div class="container no-gap small-padding">
         {{> components/navbar}}
         <section class="post-detail">
             <header class="post-header">
@@ -30,6 +30,32 @@
             <hr>
             <div class="post-content">
                 {{{content}}}
+            </div>
+        </section>
+        <hr>
+        <section class="post-comments">
+            <h2>Comentarios</h2>
+            <div class="comments-container">
+                <div class="comment">
+                    <div class="comment-header">
+                        <div class="left">
+                            <img class="user-avatar" src="/assets/defaultAvatar.svg" alt="User">
+                            <span class="comment-author">@author</span>
+                        </div>
+                        <div class="right">
+                            <button class="clickable clickable-tool">
+                                <i class="bi bi-trash"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <p class="comment-content">El contenido acerca del post es muy interesante, me gustó mucho. Además, pude aprender mucho de él y me ayudó a resolver un problema que tenía.</p>
+                    <span class="comment-date">12-12-2024</span>
+                </div>
+            </div>
+            <div class="comment-form">
+                <h4>Deja un comentario</h4>
+                <textarea class="comment-input" placeholder="Escribe un comentario..."></textarea>
+                <button class="clickable clickable-primary">Comentar</button>
             </div>
         </section>
         {{> components/footer}}
