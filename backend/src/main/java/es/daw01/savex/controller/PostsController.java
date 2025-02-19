@@ -49,6 +49,7 @@ public class PostsController {
 
         // Add template variables and render the view
         model.addAttribute("title", "SaveX - Aprende más con nuestras guías y posts");
+        model.addAttribute("extendedClass", "extended");
         model.addAttribute("posts", posts);
         return "posts";
     }

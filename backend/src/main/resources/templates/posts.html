@@ -16,31 +16,7 @@
         <div class="posts-preview">
             <div class="posts-preview-content extended">
                 {{#posts}}
-                    <div class="post extended">
-                        <h2 class="post-title">{{title}}</h2>
-                        <p class="post-description">{{description}}</p>
-            
-                        <div class="post-metadata">
-                            <div class="tags-container">
-                                {{#tags}}
-                                    <span class="tag">{{.}}</span>
-                                {{/tags}}
-                            </div>
-            
-                            <div class="time-container">
-                                <span class="date">{{date}}</span>
-                                <span class="separator">·</span>
-                                <span class="time">{{readingTime}}</span>
-                            </div>
-                        </div>
-                        <div class="img-container">
-                            <img src="/posts/{{id}}/banner" alt="Imagen del post">
-                        </div>
-            
-                        <div class="post-footer">
-                            <a href="/posts/{{id}}" class="clickable clickable-primary">Leer más</a>
-                        </div>
-                    </div>
+                    {{> components/post}}
                 {{/posts}}
             </div>
         </div>

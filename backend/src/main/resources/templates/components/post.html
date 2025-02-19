@@ -1,26 +1,26 @@
-<div class="post extended">
-    <h2 class="post-title">Ahorra dinero</h2>
-    <p class="post-description">Descubre cómo puedes ahorrar dinero en tus compras de supermercado con SaveX.</p>
-
-    <div class="post-metadata">
-        <div class="tags-container">
-            <span class="tag">Ahorro</span>
-            <span class="tag">Finanzas</span>
-            <span class="tag">Supermercado</span>
+<a class="post {{extendedClass}}" href="/posts/{{id}}" target="_blank">
+    <i class="bi bi-box-arrow-up-right icon"></i>
+    <div class="post-top">
+        <h2 class="post-title">{{title}}</h2>
+        <p class="post-description">Descubre cómo puedes ahorrar dinero en tus compras de supermercado con SaveX.</p>
+    
+        <div class="post-metadata">
+            <div class="tags-container">
+                {{#tags}}
+                    <span class="tag">{{.}}</span>
+                {{/tags}}
+            </div>
+    
         </div>
-
+    </div>
+    <div class="post-bottom">
         <div class="time-container">
-            <span class="date">Hace 1 semana</span>
+            <span class="date">{{date}}</span>
             <span class="separator">•</span>
-            <span class="read-time">3 min</span>
+            <span class="read-time">{{readingTime}}</span>
+        </div>
+        <div class="img-container">
+            <img src="/posts/{{id}}/banner" alt="{{title}}">
         </div>
     </div>
-    <div class="img-container">
-        <img src="https://img.freepik.com/vector-premium/vector-diseno-logotipo-minimalista-creativo-elegante-cualquier-empresa-negocios-marca_1287271-9313.jpg?semt=ais_hybrid"
-            alt="SaveX">
-    </div>
-
-    <div class="post-footer">
-        <a href="/posts/1" class="clickable clickable-primary">Leer más</a>
-    </div>
-</div>
+</a>
