@@ -169,7 +169,9 @@ public class DatabaseLoader {
         
         for (Post post : posts) {
             // Retrieve all users
-            List<User> users = userRepository.findAll();
+            List<User> users = userRepository.findAll().stream()
+            .filter(user -> user.getRole() != UserType.ADMIN) // Exclude admin users
+            .collect(Collectors.toList());;
 
             Collections.shuffle(users); // Mix user list (avoid always the same users commenting)
 
@@ -193,3 +195,4 @@ public class DatabaseLoader {
         DatabaseLoader.logger.info("Comments added to posts.");
     }
 }
+ 
