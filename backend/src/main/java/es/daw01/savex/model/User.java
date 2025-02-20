@@ -3,8 +3,10 @@ package es.daw01.savex.model;
 import java.sql.Blob;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -41,7 +43,7 @@ public class User {
     @Column(nullable = false)
     private UserType role;
 
-    @OneToMany(mappedBy = "author")
+    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comment> comments;
 
     // Constructors ----------------------------------------------------------->>
@@ -62,6 +64,30 @@ public class User {
         this.hashedPassword = hashedPassword;
         this.avatar = avatar;
         this.role = role;
+    }
+
+    // Functions -------------------------------------------------------------->>
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (!(obj instanceof User)) return false;
+
+        User user = (User) obj;
+        if (user.id == this.id) return true;
+        if (user.username.equals(this.username)) return true;
+        if (user.email.equals(this.email)) return true;
+        
+        return false;
+    }
+
+    /**
+     * Add a comment to the user
+     * 
+     * @param comment The comment to add
+    */
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
     }
 
     // Getters and setters ---------------------------------------------------->>
@@ -121,5 +147,12 @@ public class User {
     public void setRole(UserType role) {
         this.role = role;
     }
-    
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
+    }
 }
