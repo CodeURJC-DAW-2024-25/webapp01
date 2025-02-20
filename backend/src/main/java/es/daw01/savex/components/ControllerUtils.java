@@ -54,4 +54,19 @@ public class ControllerUtils {
         model.addAttribute("username", auth.getName());
         model.addAttribute("role", auth.getAuthorities().stream().findFirst().get().getAuthority());
     }
+
+    /**
+     * Get the authenticated user
+     * @return The authenticated user
+    */
+    public User getAuthenticatedUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        // Check if user is authenticated and return the user
+        if (auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
+            return this.userService.findByUsername(auth.getName()).get();
+        }
+
+        return null;
+    }
 }

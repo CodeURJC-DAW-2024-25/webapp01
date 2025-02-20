@@ -19,10 +19,17 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import es.daw01.savex.components.ControllerUtils;
+import es.daw01.savex.model.Comment;
 import es.daw01.savex.model.Post;
+import es.daw01.savex.model.User;
 import es.daw01.savex.model.VisibilityType;
+import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.MarkdownService;
 import es.daw01.savex.service.PostService;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -36,6 +43,9 @@ public class PostsController {
 
     @Autowired
     private PostService postService;
+
+    @Autowired
+    private CommentService commentService;
 
     @GetMapping("/posts")
     public String getPostsPage(Model model) {
@@ -110,4 +120,25 @@ public class PostsController {
             .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
             .body(resource);
     }
+
+    @PostMapping("/posts/{id}/addComment")
+    public String addComment(@PathVariable long id, @RequestParam String comment) {
+        System.out.println("Comment: " + comment);
+        System.out.println("--------------------------------------------------------------------");
+        // Get the post by id
+        Optional<Post> op = postService.findById(id);
+
+        if (op.isEmpty()) throw new IllegalArgumentException("Post not found");
+        
+        // Get the logged user
+        User user = controllerUtils.getAuthenticatedUser();
+
+        Post post = op.get();
+        Comment newComment = new Comment(user, post, comment);
+
+        // Save the post, user and comment by updating the database
+        commentService.save(newComment);
+
+        return "redirect:/posts/" + id;
+    }    
 }

@@ -56,11 +56,14 @@
                     </div>
                 {{/post.comments}}
             </div>
-            <div class="comment-form">
+            {{#isAuthenticated}}
+            <form class="comment-form" action="/posts/{{post.id}}/addComment" method="post">
                 <h4>Deja un comentario</h4>
-                <textarea class="comment-input" placeholder="Escribe un comentario..."></textarea>
-                <button class="clickable clickable-primary">Comentar</button>
-            </div>
+                <textarea class="comment-input" name="comment" placeholder="Escribe un comentario..."></textarea>
+                <button type="submit" class="clickable clickable-primary">Comentar</button>
+                <input type="hidden" name="_csrf" value="{{token}}"/>
+            </form>
+            {{/isAuthenticated}}
         </section>
         {{> components/footer}}
     </div>
