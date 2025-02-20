@@ -25,6 +25,7 @@ public class MainController {
     public String getRootPage(Model model) {
         // Add user data to the model
         controllerUtils.addUserDataToModel(model);
+        //Add posts to the model
         List<Post> posts = postService.findAll();
 
         model.addAttribute("title", "SaveX - Ahorra dinero, tiempo y esfuerzo");

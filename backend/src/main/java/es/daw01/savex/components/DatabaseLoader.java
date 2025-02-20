@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+import java.util.Random;
+import java.util.Collections;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -158,31 +160,30 @@ public class DatabaseLoader {
         };
         
         // Retrieve all posts
-        List<Post> posts = postRepository.findAll();
-
-        // Retrieve all users
-        List<User> users = userRepository.findAll();
-
+        List<Post> posts = postRepository.findAll();      
+        Random random = new Random();
+        
         for (Post post : posts) {
-            for (User user : users) {
-                // Skip the admin user
-                if (user.getRole() == UserType.ADMIN) continue;
+            // Retrieve all users
+            List<User> users = userRepository.findAll();
 
-                int randomCommentIndex = (int) (Math.random() * commentsData.length);
+            Collections.shuffle(users); // Mix user list (avoid always the same users commenting)
 
-                // Check if the user has commented already on the post
+            int commentsToAdd = Math.min(5, users.size()); // Max 5 comments per post, less if there are fewer users
+                for (int i = 0; i < commentsToAdd; i++) {    
+                User user = users.get(i); 
+               
                 if (post.hasCommented(user)) continue;
 
-                // Create a new comment and add it to the post and user
-                Comment comment = new Comment(user, post, commentsData[randomCommentIndex]);
+                String randomComment = commentsData[random.nextInt(commentsData.length)];
+
+                Comment comment = new Comment(user, post, randomComment);
                 post.addComment(comment);
                 user.addComment(comment);
 
-                // Save data to the database
                 commentRepository.save(comment);
-                postRepository.save(post);
-                userRepository.save(user);
             }
+            postRepository.save(post);
         }
 
         DatabaseLoader.logger.info("Comments added to posts.");
