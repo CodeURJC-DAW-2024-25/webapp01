@@ -1,5 +1,7 @@
 package es.daw01.savex.model;
 
+import java.sql.Date;
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -12,13 +14,15 @@ public class Comment {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-
+    
     @ManyToOne
     private User author;
-
+    
     @ManyToOne
     private Post post;
-
+    
+    private Date date;
+    private String formatedDate;
     private String content;
 
     // Constructors ----------------------------------------------------------->>
@@ -29,6 +33,8 @@ public class Comment {
         this.author = author;
         this.post = post;
         this.content = content;
+        this.date = new Date(System.currentTimeMillis());
+        this.formatedDate = this.date.toString();
     }
 
     // Getters and setters ---------------------------------------------------->>
@@ -55,6 +61,22 @@ public class Comment {
 
     public void setPost(Post post) {
         this.post = post;
+    }
+
+    public Date getDate() {
+        return date;
+    }
+
+    public void setDate(Date date) {
+        this.date = date;
+    }
+
+    public String getFormatedDate() {
+        return formatedDate;
+    }
+
+    public void setFormatedDate(String formatedDate) {
+        this.formatedDate = formatedDate;
     }
 
     public String getContent() {
