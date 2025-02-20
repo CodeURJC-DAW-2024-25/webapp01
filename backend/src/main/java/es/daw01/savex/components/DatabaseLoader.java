@@ -61,20 +61,24 @@ public class DatabaseLoader {
     */
     private void initUsers() {
         // Load default user
-        if (
-            !userRepository.existsByUsername("userDefault") &&
-            !userRepository.existsByEmail("userEmail@gmail.com")
-        ) {
+        for (int i = 1; i <= 10; i++) {
+            String username = "userDefault" + i;
+            String email = "userEmail" + i + "@gmail.com";
+            if (
+            !userRepository.existsByUsername(username) &&
+            !userRepository.existsByEmail(email)
+            ) {
             userRepository.save(
                 new User(
-                    "userEmail@gmail.com",
-                    "userDefault",
-                    "User",
-                    passwordEncoder.encode("pass"),
-                    null,
-                    UserType.USER
+                email,
+                username,
+                "User" + i,
+                passwordEncoder.encode("pass" + i),
+                null,
+                UserType.USER
                 )
             );
+            }
         }
 
         // Load default admin
