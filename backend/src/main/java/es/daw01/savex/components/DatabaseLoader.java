@@ -15,13 +15,16 @@ import org.springframework.core.io.Resource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import es.daw01.savex.model.Comment;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
+import es.daw01.savex.repository.CommentRepository;
 import es.daw01.savex.repository.PostRepository;
 import es.daw01.savex.repository.UserRepository;
 import es.daw01.savex.service.MarkdownService;
 import jakarta.annotation.PostConstruct;
+import jakarta.transaction.Transactional;
 
 @Component
 public class DatabaseLoader {
@@ -38,12 +41,17 @@ public class DatabaseLoader {
     private PostRepository postRepository;
 
     @Autowired
+    CommentRepository commentRepository;
+
+    @Autowired
     private PasswordEncoder passwordEncoder;
 
     @PostConstruct
+    @Transactional
     private void init() {
         this.initUsers();
         this.initPosts();
+        this.initComments();
     }
 
     /**
@@ -83,6 +91,8 @@ public class DatabaseLoader {
                 )
             );
         }
+
+        DatabaseLoader.logger.info("Users added to the database.");
     }
 
     /**
@@ -128,5 +138,53 @@ public class DatabaseLoader {
                 ));
             }
         }
+
+        DatabaseLoader.logger.info("Posts added to the database.");
+    }
+
+    /**
+     * Load default comments into the database
+    */
+    private void initComments() {
+
+        String[] commentsData = {
+            "Me ha encantado el post, gracias por compartirlo!",
+            "¡Qué interesante! No sabía que...",
+            "¡Muy buen post! Me ha sido de gran ayuda.",
+            "¡Gracias por la información! Me ha sido muy útil.",
+            "Tengo una duda, ¿podrías explicar más sobre el tema en cuestión?",
+            "¡Muy buen trabajo! Sigue así.",
+            "¡Excelente post! Me ha encantado.",
+        };
+        
+        // Retrieve all posts
+        List<Post> posts = postRepository.findAll();
+
+        // Retrieve all users
+        List<User> users = userRepository.findAll();
+
+        for (Post post : posts) {
+            for (User user : users) {
+                // Skip the admin user
+                if (user.getRole() == UserType.ADMIN) continue;
+
+                int randomCommentIndex = (int) (Math.random() * commentsData.length);
+
+                // Check if the user has commented already on the post
+                if (post.hasCommented(user)) continue;
+
+                // Create a new comment and add it to the post and user
+                Comment comment = new Comment(user, post, commentsData[randomCommentIndex]);
+                post.addComment(comment);
+                user.addComment(comment);
+
+                // Save data to the database
+                commentRepository.save(comment);
+                postRepository.save(post);
+                userRepository.save(user);
+            }
+        }
+
+        DatabaseLoader.logger.info("Comments added to posts.");
     }
 }

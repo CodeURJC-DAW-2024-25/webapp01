@@ -10,8 +10,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -31,7 +33,7 @@ public class Post {
     @Column(columnDefinition = "LONGTEXT")
     private String content;
 
-    @OneToMany(mappedBy = "post")
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comment> comments;
 
     private String author;
@@ -81,12 +83,44 @@ public class Post {
         this.banner = banner;
     }
 
+    // Functions -------------------------------------------------------------->>
+
+    /**
+     * Save the image file as the post banner
+     * 
+     * @param imageFile the image file to save as the post banner
+     * @throws IOException if the image file cannot be read
+    */
     public void saveImage(MultipartFile imageFile) throws IOException {
         if (!imageFile.isEmpty()) {
             this.banner = BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize());
         }
     }
 
+    /**
+     * Add a comment to the post
+     * 
+     * @param comment the comment to add to the post
+    */
+    public void addComment(Comment comment) {
+        this.comments.add(comment);
+    }
+
+    /**
+     * Check if the user has commented on the post
+     * 
+     * @param user the user to check if they have commented on the post
+     * @return true if the user has commented on the post, false otherwise
+    */
+    public boolean hasCommented(User user) {
+        for (Comment comment : this.getComments()) {
+            if (comment.getAuthor().equals(user)) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 
 
     // Getters and setters ---------------------------------------------------->>
@@ -121,6 +155,14 @@ public class Post {
 
     public void setContent(String content) {
         this.content = content;
+    }
+
+    public List<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<Comment> comments) {
+        this.comments = comments;
     }
 
     public String getAuthor() {
