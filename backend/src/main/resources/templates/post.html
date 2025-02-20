@@ -36,21 +36,25 @@
         <section class="post-comments">
             <h2>Comentarios</h2>
             <div class="comments-container">
-                <div class="comment">
-                    <div class="comment-header">
-                        <div class="left">
-                            <img class="user-avatar" src="/assets/defaultAvatar.svg" alt="User">
-                            <span class="comment-author">@author</span>
+                {{#post.comments}}
+                    <div class="comment">
+                        <div class="comment-header">
+                            <div class="left">
+                                <img class="user-avatar" src="/assets/defaultAvatar.svg" alt="User">
+                                <span class="comment-author">@{{author.username}}</span>
+                            </div>
+                            <!--
+                            <div class="right">
+                                <button class="clickable clickable-tool">
+                                    <i class="bi bi-trash"></i>
+                                </button>
+                            </div>
+                            -->
                         </div>
-                        <div class="right">
-                            <button class="clickable clickable-tool">
-                                <i class="bi bi-trash"></i>
-                            </button>
-                        </div>
+                        <p class="comment-content">{{content}}</p>
+                        <span class="comment-date">{{formatedDate}}</span>
                     </div>
-                    <p class="comment-content">El contenido acerca del post es muy interesante, me gustó mucho. Además, pude aprender mucho de él y me ayudó a resolver un problema que tenía.</p>
-                    <span class="comment-date">12-12-2024</span>
-                </div>
+                {{/post.comments}}
             </div>
             <div class="comment-form">
                 <h4>Deja un comentario</h4>
