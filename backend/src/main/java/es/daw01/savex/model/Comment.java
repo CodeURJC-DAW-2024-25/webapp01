@@ -1,8 +1,8 @@
 package es.daw01.savex.model;
 
-import java.sql.Date;
+import java.time.LocalDateTime;
 
-
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -22,7 +22,9 @@ public class Comment {
     @ManyToOne
     private Post post;
     
-    private Date date;
+    @Column(nullable = false)
+    private LocalDateTime createdAt;
+    
     private String formatedDate;
     private String content;
 
@@ -34,8 +36,8 @@ public class Comment {
         this.author = author;
         this.post = post;
         this.content = content;
-        this.date = new Date(System.currentTimeMillis());
-        this.formatedDate = this.date.toString();
+        this.createdAt = LocalDateTime.now();
+        this.formatedDate = this.createdAt.toString();
     }
 
     // Public Methods --------------------------------------------------------->>
@@ -68,15 +70,6 @@ public class Comment {
         this.author.removeComment(this);
         this.author = null;
     }
-    
-    /**
-     * Update the date of the comment to the current date
-    */
-    public void updateDate() {
-        this.date = new Date(System.currentTimeMillis());
-        this.formatedDate = this.date.toString();
-    }
-
 
     // Getters and setters ---------------------------------------------------->>
 
@@ -104,12 +97,12 @@ public class Comment {
         this.post = post;
     }
 
-    public Date getDate() {
-        return date;
+    public LocalDateTime getDate() {
+        return createdAt;
     }
 
-    public void setDate(Date date) {
-        this.date = date;
+    public void setDate(LocalDateTime date) {
+        this.createdAt = date;
     }
 
     public String getFormatedDate() {

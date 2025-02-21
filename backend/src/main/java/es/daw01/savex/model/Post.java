@@ -132,6 +132,15 @@ public class Post {
         return false;
     }
 
+    /**
+     * Check if the post is public
+     * 
+     * @return true if the post is public, false otherwise
+    */
+    public boolean isPublic() {
+        return this.visibility == VisibilityType.PUBLIC;
+    }
+
 
     // Getters and setters ---------------------------------------------------->>
 

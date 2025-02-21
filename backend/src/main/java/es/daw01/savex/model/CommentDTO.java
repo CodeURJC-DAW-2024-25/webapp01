@@ -1,8 +1,10 @@
 package es.daw01.savex.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class CommentDTO {
     private Long id;
-    private User author;
+    private AuthorDTO author;
     private boolean canDelete;
     private String content;
     private String formatedDate;
@@ -13,10 +15,29 @@ public class CommentDTO {
 
     public CommentDTO(Comment rawComment, User user) {
         this.id = rawComment.getId();
-        this.author = rawComment.getAuthor();
-        this.canDelete = rawComment.getAuthor().equals(user);
+        this.author = new AuthorDTO(rawComment.getAuthor());
         this.content = rawComment.getContent();
         this.formatedDate = rawComment.getFormatedDate();
+        
+        if (user != null) {
+            this.canDelete = rawComment.isAuthor(user) || user.getRole() == UserType.ADMIN;
+        } else this.canDelete = false;
+    }
+
+    // Inner classes ---------------------------------------------------------->>
+    private class AuthorDTO {
+        private String username;
+        
+        public AuthorDTO(User author) {
+            this.username = (author != null)
+                ? author.getUsername()
+                : "Anonymous";
+        }
+        
+        @JsonProperty("username")
+        public String getUsername() {
+            return username;
+        }        
     }
 
     // Getters and setters ---------------------------------------------------->>
@@ -29,11 +50,11 @@ public class CommentDTO {
         this.id = id;
     }
 
-    public User getAuthor() {
+    public AuthorDTO getAuthor() {
         return author;
     }
 
-    public void setAuthor(User author) {
+    public void setAuthor(AuthorDTO author) {
         this.author = author;
     }
 
