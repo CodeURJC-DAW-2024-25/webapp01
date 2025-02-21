@@ -1,18 +1,10 @@
 package es.daw01.savex.controller;
 
-import java.io.IOException;
-import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Optional;
 
-import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.InputStreamResource;
-import org.springframework.core.io.Resource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -97,39 +89,6 @@ public class PostsController {
         return "post";
     }
 
-    @GetMapping("/posts/{id}/banner")
-    public ResponseEntity<Object> getPostBanner(@PathVariable long id) throws SQLException {
-        Blob banner = null;
-        
-        Optional<Post> op = postService.findById(id);
-
-        // If the post does not exist or the banner is null, return a 404
-        if (!op.isPresent() || op.get().getBanner() == null) {
-            Resource img = new ClassPathResource("static/assets/template_image.png");
-            try {
-                banner = BlobProxy.generateProxy(img.getInputStream(), img.contentLength());
-            } catch (IOException e) {
-                e.printStackTrace();
-                return ResponseEntity.notFound().build();
-            }
-
-            return ResponseEntity.ok()
-                .contentLength(banner.length())
-                .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-                .body(new InputStreamResource(banner.getBinaryStream()));
-        }
-
-        // Get the post banner if it exists and return it
-        Post post = op.get();
-        banner = post.getBanner();
-        Resource resource = new InputStreamResource(banner.getBinaryStream());
-
-        return ResponseEntity.ok()
-            .contentLength(banner.length())
-            .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-            .body(resource);
-    }
-
     @PostMapping("/posts/{id}/addComment")
     public String addComment(@PathVariable long id, @RequestParam String comment) {
         System.out.println("Comment: " + comment);
@@ -151,7 +110,6 @@ public class PostsController {
         return "redirect:/posts/" + id;
     }
 
-    // TODO Review deleting comments from posts
     @PostMapping("/posts/{id}/deleteComment/{commentId}")
     public String deleteComment(@PathVariable long id, @PathVariable long commentId) {
         // Get the post by id

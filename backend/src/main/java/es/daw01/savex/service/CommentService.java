@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import es.daw01.savex.model.Comment;
@@ -85,6 +87,10 @@ public class CommentService {
     */
     public Iterable<Comment> findByPost(Post post) {
         return commentRepository.findByPost(post);
+    }
+
+    public Page<Comment> findByPostOrderByCreatedAtDesc(Post post, Pageable pageable) {
+        return commentRepository.findByPostOrderByCreatedAtDesc(post, pageable);
     }
 
     /**

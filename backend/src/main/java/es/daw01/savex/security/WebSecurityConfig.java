@@ -45,6 +45,7 @@ public class WebSecurityConfig {
                 // Public routes
                 .requestMatchers("/styles/**", "/scripts/**", "/assets/**", "/favicon.**").permitAll()
                 .requestMatchers("/").permitAll()
+                .requestMatchers("/api/**").permitAll()
                 .requestMatchers("/login").permitAll()
                 .requestMatchers("/register").permitAll()
                 .requestMatchers("/about").permitAll()
