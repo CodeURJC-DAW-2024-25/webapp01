@@ -1,11 +1,14 @@
 package es.daw01.savex.service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import es.daw01.savex.model.Comment;
+import es.daw01.savex.model.CommentDTO;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.User;
 import es.daw01.savex.repository.CommentRepository;
@@ -74,5 +77,21 @@ public class CommentService {
     */
     public Iterable<Comment> findByPost(Post post) {
         return commentRepository.findByPost(post);
+    }
+
+    /**
+     * Get all comments from a post as DTOs
+     * @param post Post to get the comments from
+     * @return List of comments from the given post as DTOs
+    */
+    public List<CommentDTO> getCommentsDTO(Post post, User user) {
+        List<CommentDTO> commentsDTO = new ArrayList<>();
+
+        // Get all comments from the post and convert them to DTOs
+        for (Comment comment : post.getComments()) {
+            commentsDTO.add(new CommentDTO(comment, user));
+        }
+
+        return commentsDTO;
     }
 }

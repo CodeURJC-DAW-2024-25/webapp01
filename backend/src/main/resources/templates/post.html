@@ -36,25 +36,37 @@
         <section class="post-comments">
             <h2>Comentarios</h2>
             <div class="comments-container">
-                {{#post.comments}}
+                {{#comments}}
                     <div class="comment">
                         <div class="comment-header">
                             <div class="left">
                                 <img class="user-avatar" src="/assets/defaultAvatar.svg" alt="User">
                                 <span class="comment-author">@{{author.username}}</span>
                             </div>
-                            <!--
+                            
                             <div class="right">
-                                <button class="clickable clickable-tool">
-                                    <i class="bi bi-trash"></i>
-                                </button>
+                                {{#isAdmin}}
+                                <form action="/posts/{{post.id}}/deleteComment/{{id}}" method="post">
+                                    <input type="hidden" name="_csrf" value="{{token}}"/>
+                                    <button class="clickable clickable-tool">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                                {{/isAdmin}}
+                                {{#canDelete}}
+                                <form action="/posts/{{post.id}}/deleteComment/{{id}}" method="post">
+                                    <input type="hidden" name="_csrf" value="{{token}}"/>
+                                    <button class="clickable clickable-tool">
+                                        <i class="bi bi-trash"></i>
+                                    </button>
+                                </form>
+                                {{/canDelete}}
                             </div>
-                            -->
                         </div>
                         <p class="comment-content">{{content}}</p>
                         <span class="comment-date">{{formatedDate}}</span>
                     </div>
-                {{/post.comments}}
+                {{/comments}}
             </div>
             {{#isAuthenticated}}
             <form class="comment-form" action="/posts/{{post.id}}/addComment" method="post">

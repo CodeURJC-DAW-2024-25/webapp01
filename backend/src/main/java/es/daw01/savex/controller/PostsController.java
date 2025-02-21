@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Comment;
+import es.daw01.savex.model.CommentDTO;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
@@ -79,12 +80,19 @@ public class PostsController {
             return "redirect:/posts";
         }
 
+        // Create a new comment DTO list
+        List<CommentDTO> commentDTOs = commentService.getCommentsDTO(
+            post,
+            controllerUtils.getAuthenticatedUser()
+        );
+
         // Add user data to the model
         controllerUtils.addUserDataToModel(model);
 
         // Add template variables and render the view
         model.addAttribute("title", "SaveX - " + post.getTitle());
         model.addAttribute("post", post);
+        model.addAttribute("comments", commentDTOs);
         model.addAttribute("content", markdownService.renderMarkdown(post.getContent()));
         return "post";
     }
