@@ -36,6 +36,9 @@ public class ControllerUtils {
             model.addAttribute("isAuthenticated", false);
         }
 
+        // Set isAdmin attribute to false
+        model.addAttribute("isAdmin", false);
+
         // Set avatar attribute
         if (user == null) {
             model.addAttribute("avatar", DEFAULT_AVATAR);
@@ -48,6 +51,9 @@ public class ControllerUtils {
             // Set name attribute
             if (user.getName().isEmpty()) model.addAttribute("name", user.getUsername());
             else model.addAttribute("name", user.getName());
+
+            // Set isAdmin attribute
+            model.addAttribute("isAdmin", user.isAdmin());
         }
         
         // Add the rest of the data to the model

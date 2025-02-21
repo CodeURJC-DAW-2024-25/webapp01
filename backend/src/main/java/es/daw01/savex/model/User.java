@@ -82,6 +82,15 @@ public class User {
     }
 
     /**
+     * Check if the user is an admin
+     * 
+     * @return True if the user is an admin, false otherwise
+    */
+    public boolean isAdmin() {
+        return this.role == UserType.ADMIN;
+    }
+
+    /**
      * Add a comment to the user
      * 
      * @param comment The comment to add
