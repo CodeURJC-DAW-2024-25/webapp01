@@ -10,6 +10,12 @@
     font-size: 16px;
     font-weight: 500;
     border-radius: 5px;
+
+    &.inline {
+        display: inline-block;
+        padding: 0;
+        padding-left: 12px;
+    }
 }
 
 .clickable-primary {
@@ -98,6 +104,11 @@
         filter: brightness(105%) contrast(95%);
         transform: translateY(-2px);
     }
+
+    &.underline {
+        text-decoration: underline;
+    }
+
 }
 
 .clickable-image {
