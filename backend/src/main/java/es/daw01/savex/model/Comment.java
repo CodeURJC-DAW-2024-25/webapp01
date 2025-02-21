@@ -2,6 +2,7 @@ package es.daw01.savex.model;
 
 import java.sql.Date;
 
+
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -38,9 +39,44 @@ public class Comment {
     }
 
     // Public Methods --------------------------------------------------------->>
+
+    /**
+     * Check if the given user is the author of this comment
+     * @param user User to check
+     * @return True if the user is the author of this comment, false otherwise
+    */
     public boolean isAuthor(User user) {
         return this.author.equals(user);
     }
+
+    /**
+     * Remove this comment from the post it belongs to
+    */
+    public void removeFromPost() {
+        if (this.post == null) return;
+
+        this.post.removeComment(this);
+        this.post = null;
+    }
+
+    /**
+     * Remove this comment from the author it belongs to
+    */
+    public void removeFromAuthor() {
+        if (this.author == null) return;
+
+        this.author.removeComment(this);
+        this.author = null;
+    }
+    
+    /**
+     * Update the date of the comment to the current date
+    */
+    public void updateDate() {
+        this.date = new Date(System.currentTimeMillis());
+        this.formatedDate = this.date.toString();
+    }
+
 
     // Getters and setters ---------------------------------------------------->>
 

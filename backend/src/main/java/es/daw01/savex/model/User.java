@@ -99,6 +99,15 @@ public class User {
         this.comments.add(comment);
     }
 
+    /**
+     * Remove a comment from the user
+     * 
+     * @param comment The comment to remove
+    */
+    public void removeComment(Comment comment) {
+        this.comments.remove(comment);
+    }
+
     // Getters and setters ---------------------------------------------------->>
 
     public long getId() {

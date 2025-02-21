@@ -108,6 +108,15 @@ public class Post {
     }
 
     /**
+     * Remove a comment from the post
+     * 
+     * @param comment the comment to remove from the post
+    */
+    public void removeComment(Comment comment) {
+        this.comments.remove(comment);
+    }
+
+    /**
      * Check if the user has commented on the post
      * 
      * @param user the user to check if they have commented on the post

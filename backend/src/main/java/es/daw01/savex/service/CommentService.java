@@ -43,7 +43,15 @@ public class CommentService {
      * @param id Comment id to be deleted
     */
     public void deleteById(Long id) {
-        commentRepository.deleteById(id);
+        Optional<Comment> op = commentRepository.findById(id);
+
+        // If the comment exists, delete it
+        if (op.isPresent()) {
+            Comment comment = op.get();
+            comment.removeFromPost();
+            comment.removeFromAuthor();
+            commentRepository.delete(comment);
+        }
     }
 
     /**
