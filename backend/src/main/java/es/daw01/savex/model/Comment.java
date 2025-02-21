@@ -37,6 +37,11 @@ public class Comment {
         this.formatedDate = this.date.toString();
     }
 
+    // Public Methods --------------------------------------------------------->>
+    public boolean isAuthor(User user) {
+        return this.author.equals(user);
+    }
+
     // Getters and setters ---------------------------------------------------->>
 
     public long getId() {

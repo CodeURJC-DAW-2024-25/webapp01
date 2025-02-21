@@ -22,6 +22,7 @@ import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Comment;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.User;
+import es.daw01.savex.model.UserType;
 import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.MarkdownService;
@@ -140,5 +141,44 @@ public class PostsController {
         commentService.save(newComment);
 
         return "redirect:/posts/" + id;
-    }    
+    }
+
+    // TODO Review deleting comments from posts
+    @PostMapping("/posts/{id}/deleteComment/{commentId}")
+    public String deleteComment(@PathVariable long id, @PathVariable long commentId) {
+        // Get the post by id
+        Optional<Post> op = postService.findById(id);
+
+        // Check if the post exists and get it
+        if (op.isEmpty()) throw new IllegalArgumentException("Post not found");
+        Post post = op.get();
+
+        // Get the comment by id
+        Comment comment = commentService.findById(commentId).get();
+        if (comment == null) return "redirect:/posts/" + id;
+
+        // Check if the comment belongs to the post
+        if (!comment.getPost().equals(post)) return "redirect:/posts/" + id;
+        
+        // Get the logged user
+        User user = controllerUtils.getAuthenticatedUser();
+
+        if (user.getRole() == UserType.ADMIN) {
+            // Delete the comment
+            commentService.deleteById(commentId);
+
+            return "redirect:/posts/" + id;
+        }
+
+        // Check if the user is the owner of the comment
+        if (comment.isAuthor(user)) {
+            // Delete the comment
+            commentService.deleteById(commentId);
+            return "redirect:/posts/" + id;
+        }
+
+        // Redirect to the post page
+        return "redirect:/posts/" + id;
+
+    }
 }
