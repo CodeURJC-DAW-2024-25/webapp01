@@ -176,10 +176,12 @@ public class DatabaseLoader {
             Collections.shuffle(users); // Mix user list (avoid always the same users commenting)
 
             int commentsToAdd = Math.min(5, users.size()); // Max 5 comments per post, less if there are fewer users
-                for (int i = 0; i < commentsToAdd; i++) {    
+            for (int i = 0; i < commentsToAdd; i++) {    
                 User user = users.get(i); 
                
                 if (post.hasCommented(user)) continue;
+
+                if (post.getComments().size() >= commentsToAdd) break;
 
                 String randomComment = commentsData[random.nextInt(commentsData.length)];
 
