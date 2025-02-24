@@ -46,7 +46,7 @@ public class ControllerUtils {
         } else {
             // Set avatar attribute
             if (user.getAvatar() == null) model.addAttribute("avatar", DEFAULT_AVATAR);
-            else model.addAttribute("avatar", user.getAvatar());
+            else model.addAttribute("avatar", String.format("/api/profile/%d/avatar", user.getId()));
             
             // Set name attribute
             if (user.getName().isEmpty()) model.addAttribute("name", user.getUsername());

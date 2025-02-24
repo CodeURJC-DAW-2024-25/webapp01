@@ -57,7 +57,9 @@ public class WebSecurityConfig {
                 // Private routes
                 .requestMatchers("/admin").hasAnyRole(UserType.ADMIN.name())
                 .requestMatchers("/profile").authenticated()
+                .requestMatchers("/api/profile/avatar").authenticated()
                 .anyRequest().authenticated()
+                
             )
             .formLogin(form -> form
                 .loginPage("/login")
