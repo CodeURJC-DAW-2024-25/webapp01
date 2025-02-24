@@ -4,8 +4,15 @@
             <span class="nav-title">SaveX</span>
         </a>
         <div class="right">
-            <a class="clickable clickable-primary" href="/login">Acceder</a>
-            <button class="clickable clickable-tool secondary theme-toggle">
+            {{#isAuthenticated}}
+                <a class="clickable clickable-image small" href="/profile">
+                    <img class="avatar" src="{{avatar}}" alt="user">
+                </a>
+            {{/isAuthenticated}}
+            {{^isAuthenticated}}
+                <a class="clickable clickable-primary" href="/login">Acceder</a>
+            {{/isAuthenticated}}
+            <button class="clickable clickable-tool secondary theme-toggle bordered">
                 <i class="bi bi-moon light-icon"></i>
                 <i class="bi bi-sun dark-icon"></i>
             </button>

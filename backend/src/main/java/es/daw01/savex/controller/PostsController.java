@@ -8,12 +8,16 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Post;
-import es.daw01.savex.model.VisibilityEnum;
+import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.service.PostService;
 
 @Controller
 public class PostsController {
+
+    @Autowired
+    private ControllerUtils controllerUtils;
 
     @Autowired
     private PostService postService;
@@ -23,7 +27,10 @@ public class PostsController {
         List<Post> posts = postService.findAll();
 
         // Remove private posts
-        posts.removeIf(post -> post.getVisibility() == VisibilityEnum.PRIVATE);
+        posts.removeIf(post -> post.getVisibility() == VisibilityType.PRIVATE);
+
+        // Add user data to the model
+        controllerUtils.addUserDataToModel(model);
 
         // Add template variables and render the view
         model.addAttribute("title", "SaveX - Aprende más con nuestras guías y posts");
@@ -46,9 +53,12 @@ public class PostsController {
         Post post = postService.findById(postId);
 
         // If the post is private, redirect to the posts page
-        if (post.getVisibility() == VisibilityEnum.PRIVATE) {
+        if (post.getVisibility() == VisibilityType.PRIVATE) {
             return "redirect:/posts";
         }
+
+        // Add user data to the model
+        controllerUtils.addUserDataToModel(model);
 
         // Add template variables and render the view
         model.addAttribute("title", "SaveX - " + post.getTitle());
