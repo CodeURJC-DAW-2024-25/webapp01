@@ -4,18 +4,18 @@ import org.jetbrains.annotations.NotNull;
 import jakarta.validation.constraints.*;
 public class UserDTO {
     @NotNull
-    @Size(min = 3, max = 20, message = "Username must be between 3 and 20 characters")
-    @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "Username must be alphanumeric")
+    @Size(min = 3, max = 20, message = "El nombre de usuario debe tener entre 3 y 20 caracteres")
+    @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "El nombre de usuario solo puede contener letras y números")
     private String username;
 
     @NotNull
-    @Size(min = 3, max = 50, message = "Email must be between 3 and 50 characters")
-    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+.[A-Za-z0-9+_.-]", message = "Email must be like example@exdomain.com")
+    @Size(min = 3, max = 50, message = "El email debe tener entre 3 y 50 caracteres")
+    @Pattern(regexp = "^[A-Za-z0-9+_.-]+@[A-Za-z0-9.-]+.[A-Za-z0-9+_.-]", message = "El email debe tener un formato válido: mail@domain.com")
     private String email;
 
     @NotNull
-    @Size(min = 8, max = 50, message = "Password must be between 8 and 50 characters")
-    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "Password must contain at least one lowercase letter, one uppercase letter and one digit")
+    @Size(min = 8, max = 50, message = "La contraseña debe tener entre 8 y 50 caracteres")
+    @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número")
     private String password;
 
     // Constructors ----------------------------------------------------------->>
