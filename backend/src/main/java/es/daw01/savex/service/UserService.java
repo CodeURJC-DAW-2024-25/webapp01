@@ -63,8 +63,8 @@ public class UserService {
 
         // Create a new user object
         User user = new User(
-            userDTO.getUsername(),
             userDTO.getEmail(),
+            userDTO.getUsername(),
             userDTO.getUsername(),
             hashPassword(userDTO.getPassword()),
             null,
