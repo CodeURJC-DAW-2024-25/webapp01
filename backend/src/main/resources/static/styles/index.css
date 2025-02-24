@@ -119,4 +119,14 @@ hr {
     border: none;
     height: 3px;
     background: linear-gradient(to right, transparent, var(--grey-color), transparent);
+
+    &.margin-v {
+        margin-top: 16px;
+        margin-bottom: 16px;
+
+        &.big {
+            margin-top: 32px;
+            margin-bottom: 32px;
+        }
+    }
 }

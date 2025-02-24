@@ -38,6 +38,8 @@
             <div class="comments-container" data-post-id="{{post.id}}">
                 <!-- Comments will be inserted here using AJAX -->
             </div>
+            <button id="load-more-button" class="clickable clickable-primary">Cargar más</button>
+            <hr class="margin-v big">
             {{#isAuthenticated}}
             <form class="comment-form" action="/posts/{{post.id}}/addComment" method="post">
                 <h4>Deja un comentario</h4>

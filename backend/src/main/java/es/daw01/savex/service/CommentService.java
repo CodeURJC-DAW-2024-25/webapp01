@@ -90,12 +90,14 @@ public class CommentService {
     }
 
     public Page<Comment> findByPostOrderByCreatedAtDesc(Post post, Pageable pageable) {
-        return commentRepository.findByPostOrderByCreatedAtDesc(post, pageable);
+        Page<Comment> comments = commentRepository.findByPostOrderByCreatedAtDesc(post, pageable);
+        return comments;
     }
 
     /**
      * Get all comments from a post as DTOs
      * @param post Post to get the comments from
+     * @param user Current authenticates user
      * @return List of comments from the given post as DTOs
     */
     public List<CommentDTO> getCommentsDTO(Post post, User user) {
@@ -103,6 +105,24 @@ public class CommentService {
 
         // Get all comments from the post and convert them to DTOs
         for (Comment comment : post.getComments()) {
+            commentsDTO.add(new CommentDTO(comment, user));
+        }
+
+        return commentsDTO;
+    }
+
+    /**
+     * Parses all comments to DTO format
+     * 
+     * @param comments Comments to be parsed
+     * @param user Current authenticates user
+     * @return List of comments as DTOs
+    */
+    public List<CommentDTO> getCommentsDTO(List<Comment> comments, User user) {
+        List<CommentDTO> commentsDTO = new ArrayList<>();
+
+        // Parse every comment to a DTO format
+        for (Comment comment : comments) {
             commentsDTO.add(new CommentDTO(comment, user));
         }
 
