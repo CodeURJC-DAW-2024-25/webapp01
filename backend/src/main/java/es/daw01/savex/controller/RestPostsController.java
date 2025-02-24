@@ -103,7 +103,7 @@ public class RestPostsController {
         );
 
         // Create comment DTO list
-        List<CommentDTO> commentDTOs = commentService.getCommentsDTO(post, currentUser);
+        List<CommentDTO> commentDTOs = commentService.getCommentsDTO(commentPage.getContent(), currentUser);
 
         // Generate response map
         Map<String, Object> response = new HashMap<>();

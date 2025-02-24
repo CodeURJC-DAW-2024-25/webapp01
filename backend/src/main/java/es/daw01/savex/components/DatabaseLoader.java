@@ -43,7 +43,7 @@ public class DatabaseLoader {
     private PostRepository postRepository;
 
     @Autowired
-    CommentRepository commentRepository;
+    private CommentRepository commentRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;

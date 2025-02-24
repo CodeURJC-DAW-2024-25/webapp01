@@ -36,7 +36,7 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-
+ 
         // Authentication provider
         http.authenticationProvider(authenticationProvider());
 
@@ -52,6 +52,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/posts").permitAll()
                 .requestMatchers("/posts/**").permitAll()
                 .requestMatchers("/error").permitAll()
+                .requestMatchers("/products").permitAll()
 
                 // Private routes
                 .requestMatchers("/admin").hasAnyRole(UserType.ADMIN.name())
