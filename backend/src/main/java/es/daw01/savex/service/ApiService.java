@@ -8,10 +8,9 @@ import org.springframework.stereotype.Service;
 public class ApiService {
     private final RestTemplate restTemplate = new RestTemplate();
 
-
-       public String fetchData() {
-        String url = "https://market-pricings-server.vercel.app/";
-        ResponseEntity<String> response = restTemplate.getForEntity(url, String.class);
+    public String fetchData(String searchInput) {
+        String apiUrl = "https://market-pricings-server.vercel.app/api/v1/markets/mercadona?product_name=" + searchInput;
+        ResponseEntity<String> response = restTemplate.getForEntity(apiUrl, String.class);
         return response.getBody();
     }
 }

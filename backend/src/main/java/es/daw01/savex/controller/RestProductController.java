@@ -16,11 +16,9 @@ public class RestProductController {
 
     @PostMapping("/search") 
     public ResponseEntity<String> search(@RequestParam("searchInput") String searchInput) {
-        System.out.println("Search input: " + searchInput);
-        System.out.println("---------------------------------------------------");
-        String apiResponse = apiService.fetchData();
-        System.out.println("---------------------------------------------------");
-        System.out.println("API response: " + apiResponse);
+      
+        String apiResponse = apiService.fetchData(searchInput);
+      
 
         return ResponseEntity.ok(apiResponse);
     }
