@@ -1,4 +1,5 @@
 const $commentsContainer = document.querySelector(".comments-container");
+const $loadMoreButton = document.querySelector("#load-more-button");
 
 const CSRF_TOKEN = document.querySelector('meta[name="_csrf"]').content;
 const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
@@ -9,6 +10,9 @@ const COMMENTS_SIZE = 3;
 let currentPage = 0;
 let loading = false;
 let isEnd = false;
+
+// Add event listener
+$loadMoreButton.addEventListener("click", loadComments);
 
 async function loadComments() {
     if (loading || isEnd) return;
@@ -39,7 +43,9 @@ async function loadComments() {
     loading = false;
 
     // Check if there are more comments to load
-    isEnd = data.isLastPage;
+    if (data.isLastPage) {
+        $loadMoreButton.remove();
+    }
 }
 
 function createHTMLComment(comment) {

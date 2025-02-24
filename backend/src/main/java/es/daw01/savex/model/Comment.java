@@ -1,6 +1,7 @@
 package es.daw01.savex.model;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -37,7 +38,10 @@ public class Comment {
         this.post = post;
         this.content = content;
         this.createdAt = LocalDateTime.now();
-        this.formatedDate = this.createdAt.toString();
+
+        // Format date time
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm");
+        this.formatedDate = this.createdAt.format(formatter);
     }
 
     // Public Methods --------------------------------------------------------->>
