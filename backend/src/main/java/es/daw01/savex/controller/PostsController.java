@@ -24,8 +24,6 @@ import es.daw01.savex.service.PostService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
 @Controller
 public class PostsController {
 
@@ -63,8 +61,9 @@ public class PostsController {
         // Get the post by id
         Optional<Post> op = postService.findById(id);
 
-        if (op.isEmpty()) throw new IllegalArgumentException("Post not found");
-        
+        if (op.isEmpty())
+            throw new IllegalArgumentException("Post not found");
+
         Post post = op.get();
 
         // If the post is private, redirect to the posts page
@@ -74,9 +73,8 @@ public class PostsController {
 
         // Create a new comment DTO list
         List<CommentDTO> commentDTOs = commentService.getCommentsDTO(
-            post,
-            controllerUtils.getAuthenticatedUser()
-        );
+                post,
+                controllerUtils.getAuthenticatedUser());
 
         // Add user data to the model
         controllerUtils.addUserDataToModel(model);
@@ -96,8 +94,9 @@ public class PostsController {
         // Get the post by id
         Optional<Post> op = postService.findById(id);
 
-        if (op.isEmpty()) throw new IllegalArgumentException("Post not found");
-        
+        if (op.isEmpty())
+            throw new IllegalArgumentException("Post not found");
+
         // Get the logged user
         User user = controllerUtils.getAuthenticatedUser();
 
@@ -116,16 +115,19 @@ public class PostsController {
         Optional<Post> op = postService.findById(id);
 
         // Check if the post exists and get it
-        if (op.isEmpty()) throw new IllegalArgumentException("Post not found");
+        if (op.isEmpty())
+            throw new IllegalArgumentException("Post not found");
         Post post = op.get();
 
         // Get the comment by id
         Comment comment = commentService.findById(commentId).get();
-        if (comment == null) return "redirect:/posts/" + id;
+        if (comment == null)
+            return "redirect:/posts/" + id;
 
         // Check if the comment belongs to the post
-        if (!comment.getPost().equals(post)) return "redirect:/posts/" + id;
-        
+        if (!comment.getPost().equals(post))
+            return "redirect:/posts/" + id;
+
         // Get the logged user
         User user = controllerUtils.getAuthenticatedUser();
 
