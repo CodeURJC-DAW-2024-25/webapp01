@@ -15,16 +15,24 @@
             <form action="/register" method="POST">
                 <div class="form-group">
                     <label for="email">Correo Electrónico</label>
-                    <span>{{user.email}}</span>
                     <input type="email" id="email" name="email" value="{{user.email}}" required>
+                    {{#errors.email}}
+                        <small class="error">{{.}}</small>
+                    {{/errors.email}}
                 </div>
                 <div class="form-group">
                     <label for="username">Nombre de usuario</label>
                     <input type="username" id="username" name="username" value="{{user.username}}" required>
+                    {{#errors.username}}
+                        <small  class="error">{{.}}</small>
+                    {{/errors.username}}
                 </div>
                 <div class="form-group">
                     <label for="password">Contraseña</label>
                     <input type="password" id="password" name="password" value="{{user.password}}" required>
+                    {{#errors.password}}
+                        <small class="error">{{.}}</small>
+                    {{/errors.password}}
                 </div>
                 <input type="hidden" name="_csrf" value="{{token}}"/>
                 <button type="submit" class="clickable clickable-primary full-width">Crear cuenta</button>
