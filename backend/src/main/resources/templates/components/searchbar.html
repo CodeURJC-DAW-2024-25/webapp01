@@ -1,10 +1,7 @@
-<div class="search-bar">
-    <form class="comment-form" action="/search" method="POST">
-        <input type="text" id="searchInput" name="searchInput" placeholder="Buscar productos...">
-        <button type="submit" class="clickable clickable-tool bordered">
-            <i class="bi bi-search"></i>
-        </button>
-        <input type="hidden" name="_csrf" value="{{token}}"/>
-    </form>
-</div>
-    
+<form class="search-bar" action="/search" method="POST">
+    <input type="text" id="searchInput" name="searchInput" placeholder="Buscar productos...">
+    <button type="submit" class="clickable clickable-tool bordered">
+        <i class="bi bi-search"></i>
+    </button>
+    <input type="hidden" name="_csrf" value="{{token}}" />
+</form>
