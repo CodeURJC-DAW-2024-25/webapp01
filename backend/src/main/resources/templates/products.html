@@ -11,11 +11,39 @@
 <body>
     <div class="container no-gap">
         {{> components/navbar}}
-        {{> components/searchbar}}
-        <div class="grid-layout"><!-- Products rendering --></div>
+        <form class="search-bar" action="/search" method="POST">
+            <input type="text" id="searchInput" name="searchInput" placeholder="Buscar productos..." value="{{searchQuery}}" required>
+            <button type="submit" class="clickable clickable-tool bordered">
+                <i class="bi bi-search"></i>
+            </button>
+            <input type="hidden" name="_csrf" value="{{token}}" />
+        </form>
+
+        <div class="grid-layout">
+            {{#products}}
+            <div class="grid-item">
+                <div class="image-container">
+                    <img src="{{thumbnail}}" alt="{{display_name}}">
+                </div>
+                <div class="info-container">
+                    <h1 class="product-title">{{display_name}}</h1>
+                    <p class="product-description">{{product_type}}</p>
+                    <p class="product-price">{{price.total}}&euro;</p>
+                    <a href="{{product_url}}" target="_blank">
+                        <button class="clickable clickable-primary">Ver Producto</button>
+                    </a>
+                </div>
+            </div>
+            {{/products}}
+
+            {{^products}}
+            <p class="loader">No se encontraron productos.</p>
+            {{/products}}
+        </div>
+
         {{> components/footer}}
     </div>
+
     <script src="scripts/themeToggle.js"></script>
-    <script src="scripts/products-dinamic.js"></script>
 </body>
 </html>
