@@ -11,3 +11,4 @@
 - [ ] controlar las listas de la compra
 - [ ] acabar la página del perfil - dani
 - [ ] página de editar perfil - dani
+- [ ] filtros  
