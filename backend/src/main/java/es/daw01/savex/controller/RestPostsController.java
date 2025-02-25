@@ -30,9 +30,6 @@ import es.daw01.savex.model.Post;
 import es.daw01.savex.model.User;
 import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.PostService;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api")

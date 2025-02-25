@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.service.PostService;
-import jakarta.servlet.http.HttpServletRequest;
 
 @Controller
 public class MainController {
