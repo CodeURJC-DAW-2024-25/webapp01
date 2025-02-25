@@ -88,13 +88,13 @@ public class PostsController {
         model.addAttribute("content", markdownService.renderMarkdown(post.getContent()));
         return "post";
     }
-
+ 
     @PostMapping("/posts/{id}/addComment")
     public String addComment(@PathVariable long id, @RequestParam String comment) {
         System.out.println("Comment: " + comment);
         System.out.println("--------------------------------------------------------------------");
         // Get the post by id
-        Optional<Post> op = postService.findById(id);
+        Optional<Post> op = postService.findById(id); 
 
         if (op.isEmpty())
             throw new IllegalArgumentException("Post not found");

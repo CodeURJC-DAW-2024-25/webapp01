@@ -38,6 +38,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 @RequestMapping("/api")
 public class RestPostsController {
 
+    private final static String TEMPLATE_IMAGE_PATH = "static/assets/template_image.png";
+
     @Autowired
     private CommentService commentService;
 
@@ -55,7 +57,7 @@ public class RestPostsController {
 
         // If the post does not exist or the banner is null, return a 404
         if (!op.isPresent() || op.get().getBanner() == null) {
-            Resource img = new ClassPathResource("static/assets/template_image.png");
+            Resource img = new ClassPathResource(TEMPLATE_IMAGE_PATH);
             try {
                 banner = BlobProxy.generateProxy(img.getInputStream(), img.contentLength());
             } catch (IOException e) {
@@ -103,7 +105,7 @@ public class RestPostsController {
                 PageRequest.of(page, size));
 
         // Create comment DTO list
-        List<CommentDTO> commentDTOs = commentService.getCommentsDTO(post, currentUser);
+        List<CommentDTO> commentDTOs = commentService.getCommentsDTO(commentPage.getContent(), currentUser);
 
         // Generate response map
         Map<String, Object> response = new HashMap<>();

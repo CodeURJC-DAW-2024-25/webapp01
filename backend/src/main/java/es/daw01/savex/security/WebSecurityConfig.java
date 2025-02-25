@@ -52,12 +52,17 @@ public class WebSecurityConfig {
                         .requestMatchers("/posts").permitAll()
                         .requestMatchers("/posts/**").permitAll()
                         .requestMatchers("/error").permitAll()
+                        .requestMatchers("/products").permitAll()
+                        .requestMatchers("/search").permitAll()
 
                         // Private routes
                         .requestMatchers("/admin").hasAnyRole(UserType.ADMIN.name())
                         .requestMatchers("/createPost").hasAnyRole(UserType.ADMIN.name())
                         .requestMatchers("/profile").authenticated()
-                        .anyRequest().authenticated())
+                        .requestMatchers("/api/profile/avatar").authenticated()
+                        .anyRequest().authenticated()
+
+                )
                 .formLogin(form -> form
                         .loginPage("/login")
                         .failureUrl("/login?error")
