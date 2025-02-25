@@ -3,6 +3,7 @@
 ## MySQL Database Setup 🛠️
 
 1. **Install MySQL on your system.** 🖥️
+   - Use `Str0ngP@ssw0rd!` for database password
 2. **Open MySQL Shell and connect to your MySQL server:** 🔌
    ```sh
    \connect root@localhost
@@ -16,7 +17,7 @@
 
 4. **Create the database:** 🗄️
    ```sql
-   CREATE DATABASE savex;
+   CREATE DATABASE savexdb;
    ```
 
 5. **Select the database:** ✅
