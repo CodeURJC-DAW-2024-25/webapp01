@@ -23,11 +23,11 @@ public class WebSecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-    
+
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        
+
         authProvider.setUserDetailsService(userDetailsService);
         authProvider.setPasswordEncoder(passwordEncoder());
 
@@ -41,34 +41,32 @@ public class WebSecurityConfig {
         http.authenticationProvider(authenticationProvider());
 
         http
-            .authorizeHttpRequests(authorize -> authorize
-                // Public routes
-                .requestMatchers("/styles/**", "/scripts/**", "/assets/**", "/favicon.**").permitAll()
-                .requestMatchers("/").permitAll()
-                .requestMatchers("/api/**").permitAll()
-                .requestMatchers("/login").permitAll()
-                .requestMatchers("/register").permitAll()
-                .requestMatchers("/about").permitAll()
-                .requestMatchers("/posts").permitAll()
-                .requestMatchers("/posts/**").permitAll()
-                .requestMatchers("/error").permitAll()
+                .authorizeHttpRequests(authorize -> authorize
+                        // Public routes
+                        .requestMatchers("/styles/**", "/scripts/**", "/assets/**", "/favicon.**").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/api/**").permitAll()
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/register").permitAll()
+                        .requestMatchers("/about").permitAll()
+                        .requestMatchers("/posts").permitAll()
+                        .requestMatchers("/posts/**").permitAll()
+                        .requestMatchers("/error").permitAll()
 
-                // Private routes
-                .requestMatchers("/admin").hasAnyRole(UserType.ADMIN.name())
-                .requestMatchers("/profile").authenticated()
-                .anyRequest().authenticated()
-            )
-            .formLogin(form -> form
-                .loginPage("/login")
-                .failureUrl("/login?error")
-                .defaultSuccessUrl("/", true)
-                .permitAll()
-            )
-            .logout(logout -> logout
-                .logoutUrl("/logout")
-                .logoutSuccessUrl("/")
-                .permitAll()
-            );
+                        // Private routes
+                        .requestMatchers("/admin").hasAnyRole(UserType.ADMIN.name())
+                        .requestMatchers("/createPost").hasAnyRole(UserType.ADMIN.name())
+                        .requestMatchers("/profile").authenticated()
+                        .anyRequest().authenticated())
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .failureUrl("/login?error")
+                        .defaultSuccessUrl("/", true)
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .permitAll());
 
         return http.build();
     }

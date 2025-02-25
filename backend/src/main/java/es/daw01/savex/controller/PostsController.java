@@ -22,7 +22,9 @@ import es.daw01.savex.service.MarkdownService;
 import es.daw01.savex.service.PostService;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class PostsController {
@@ -148,5 +150,13 @@ public class PostsController {
         // Redirect to the post page
         return "redirect:/posts/" + id;
 
+    }
+
+    @GetMapping("/createPost")
+    public String createPost(Model model) {
+        // TODO: process POST request
+
+        controllerUtils.addUserDataToModel(model);
+        return "create-Post";
     }
 }

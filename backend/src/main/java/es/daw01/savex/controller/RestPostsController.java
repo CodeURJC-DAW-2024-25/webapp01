@@ -30,12 +30,14 @@ import es.daw01.savex.model.Post;
 import es.daw01.savex.model.User;
 import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.PostService;
-
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api")
 public class RestPostsController {
-    
+
     @Autowired
     private CommentService commentService;
 
@@ -45,11 +47,10 @@ public class RestPostsController {
     @Autowired
     private ControllerUtils controllerUtils;
 
-
     @GetMapping("/posts/{id}/banner")
     public ResponseEntity<Object> getPostBanner(@PathVariable long id) throws SQLException {
         Blob banner = null;
-        
+
         Optional<Post> op = postService.findById(id);
 
         // If the post does not exist or the banner is null, return a 404
@@ -63,9 +64,9 @@ public class RestPostsController {
             }
 
             return ResponseEntity.ok()
-                .contentLength(banner.length())
-                .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-                .body(new InputStreamResource(banner.getBinaryStream()));
+                    .contentLength(banner.length())
+                    .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+                    .body(new InputStreamResource(banner.getBinaryStream()));
         }
 
         // Get the post banner if it exists and return it
@@ -74,33 +75,32 @@ public class RestPostsController {
         Resource resource = new InputStreamResource(banner.getBinaryStream());
 
         return ResponseEntity.ok()
-            .contentLength(banner.length())
-            .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-            .body(resource);
+                .contentLength(banner.length())
+                .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+                .body(resource);
     }
-
 
     @GetMapping("/posts/{id}/comments")
     public ResponseEntity<Map<String, Object>> getComments(
-        @PathVariable Long id,
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "1") int size
-    ) {
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "1") int size) {
         // Retrieve post and return 404 if it does not exist
         Optional<Post> op = postService.findById(id);
-        if (op.isEmpty()) return ResponseEntity.notFound().build();
+        if (op.isEmpty())
+            return ResponseEntity.notFound().build();
 
         Post post = op.get();
         User currentUser = controllerUtils.getAuthenticatedUser();
 
         // If the post is private return 403
-        if (!post.isPublic()) return ResponseEntity.status(403).build();
-        
+        if (!post.isPublic())
+            return ResponseEntity.status(403).build();
+
         // Retrieve comments of the post paginated
         Page<Comment> commentPage = commentService.findByPostOrderByCreatedAtDesc(
-            post,
-            PageRequest.of(page, size)
-        );
+                post,
+                PageRequest.of(page, size));
 
         // Create comment DTO list
         List<CommentDTO> commentDTOs = commentService.getCommentsDTO(post, currentUser);
@@ -115,5 +115,5 @@ public class RestPostsController {
 
         return ResponseEntity.ok(response);
     }
-    
+
 }
