@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    {{> components/head-tags}}
+    <link rel="stylesheet" href="styles/index.css">
+    <link rel="stylesheet" href="styles/settings.css">
+</head>
+
+<body>
+    <div class="container">
+        {{> components/navbar}}
+        <div class="settings-container">
+            <h1>Ajustes del Perfil</h1>
+            <div class="profile-info">
+                <div class="img-container">
+                    <img src="{{avatar}}" alt="Avatar de {{username}}">
+                </div>
+                <div class="fields-container">
+                    <p>Nombre: {{name}}</p>
+                    <p>Nombre de usuario: {{username}}</p>
+                    <p>Correo electrónico: {{email}}</p>
+                </div>
+            </div>
+            <span class="delete-account"> </span>
+        </div>
+        {{> components/footer}}
+        <script src="scripts/themeToggle.js"></script>
+    </div>
+</body>
+
+</html>

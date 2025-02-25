@@ -44,7 +44,7 @@ public class MainController {
     }
 
     @GetMapping("/profile")
-    public String getProfilePage(Model model, HttpServletRequest request) {
+    public String getProfilePage(Model model) {
         // Add user data to the model
         controllerUtils.addUserDataToModel(model);
         

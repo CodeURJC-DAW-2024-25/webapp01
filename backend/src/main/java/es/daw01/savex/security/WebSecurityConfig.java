@@ -59,6 +59,7 @@ public class WebSecurityConfig {
                 .requestMatchers("/admin").hasAnyRole(UserType.ADMIN.name())
                 .requestMatchers("/profile").authenticated()
                 .requestMatchers("/api/profile/avatar").authenticated()
+                .requestMatchers("/settings").authenticated()
                 .anyRequest().authenticated()
                 
             )
