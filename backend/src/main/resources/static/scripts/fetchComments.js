@@ -73,7 +73,5 @@ function createHTMLComment(comment) {
     `;
 }
 
-// TODO Implement load more comments when clicking the button
-
 // Load comments when the page is loaded
 loadComments();

@@ -14,11 +14,10 @@
         <h2>¿Quieres saber más sobre cómo ahorrar dinero?</h2>
         {{> components/searchbar}}
         <div class="posts-preview">
-            <div class="posts-preview-content extended">
-                {{#posts}}
-                    {{> components/post}}
-                {{/posts}}
+            <div class="posts-preview-content extended" id="posts-preview-container">
+                <!-- Posts will be inserted here using AJAX -->
             </div>
+            <button id="load-more-button" class="clickable clickable-primary">Cargar más</button>
         </div>
         <hr>
             
@@ -26,6 +25,7 @@
         {{> components/footer}}
     </div>
     <script src="scripts/themeToggle.js"></script>
+    <script src="scripts/fetchPosts.js"></script>
 </body>
 
 </html>
