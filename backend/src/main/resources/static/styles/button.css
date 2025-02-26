@@ -55,6 +55,18 @@
     }
 }
 
+.clickable-danger {
+    background-color: var(--danger-color);
+    border: 1px solid var(--danger-color);
+    color: var(--white-color);
+    transition: all 0.3s ease;
+    cursor: pointer;
+    
+    &:hover {
+        filter: brightness(105%) contrast(95%);
+    }
+}
+
 .clickable-tool {
     --size: 26px;
     height: var(--size);

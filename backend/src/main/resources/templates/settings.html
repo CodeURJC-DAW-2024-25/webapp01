@@ -5,6 +5,9 @@
     {{> components/head-tags}}
     <link rel="stylesheet" href="styles/index.css">
     <link rel="stylesheet" href="styles/settings.css">
+    <link rel="stylesheet" href="styles/form.css">
+    <link rel="stylesheet" href="styles/button.css">
+
 </head>
 
 <body>
@@ -12,17 +15,32 @@
         {{> components/navbar}}
         <div class="settings-container">
             <h1>Ajustes del Perfil</h1>
-            <div class="profile-info">
-                <div class="img-container">
-                    <img src="{{avatar}}" alt="Avatar de {{username}}">
-                </div>
-                <div class="fields-container">
-                    <p>Nombre: {{name}}</p>
-                    <p>Nombre de usuario: {{username}}</p>
-                    <p>Correo electrónico: {{email}}</p>
-                </div>
+            <div class="img-container">
+                <img src="{{avatar}}" alt="avatar del usuario {{username}}">
             </div>
-            <span class="delete-account"> </span>
+            <div class="profile-info">
+                <form action="/" method="post">
+                    <div class="form-group">
+                        <label for="name">Nombre</label>
+                        <input type="text" id="name" name="name" value="{{name}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Correo Electrónico</label>
+                        <input type="email" id="email" name="email" value="{{email}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="username">Nombre de Usuario</label>
+                        <input type="text" id="username" name="username" value="{{username}}">
+                    </div>
+                    <input type="hidden" name="_csrf" value="{{token}}" />
+                    <button class="clickable clickable-primary full-width" type="submit">Guardar Cambios</button>
+                </form>
+            </div>
+
+            
+
+
+            <button class="clickable clickable-danger full-width"> Borrar Mi cuenta </button>
         </div>
         {{> components/footer}}
         <script src="scripts/themeToggle.js"></script>

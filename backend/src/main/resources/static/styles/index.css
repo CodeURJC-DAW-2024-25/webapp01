@@ -29,6 +29,8 @@
     --bg-color: #fff;
     --semi-bg-color: #fcfcfc;
     --primary-color-hover: #0f7a97;
+
+    --danger-color: #cd3333;
 }
 
 .dark, .dark * {
