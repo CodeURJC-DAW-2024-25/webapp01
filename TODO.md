@@ -9,6 +9,8 @@
   - [ ] algoritmo de filtrado - victor
   - [ ] algoritmo de recomendacion
 - [ ] controlar las listas de la compra
-- [ ] acabar la página del perfil - dani
-- [ ] página de editar perfil - dani
+- [x] acabar la página del perfil - dani
+- [x] página de editar perfil - dani
+- [ ] implementar funcionalidad página editar perfil
+- [ ] revisar el error del login
 - [ ] filtros  
