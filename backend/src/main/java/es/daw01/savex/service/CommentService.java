@@ -89,9 +89,14 @@ public class CommentService {
         return commentRepository.findByPost(post);
     }
 
+    /**
+     * Get all comments from a post paginated
+     * @param post Post to get the comments from
+     * @param pageable Pageable object to paginate the results
+     * @return Page of comments from the given post
+    */
     public Page<Comment> findByPostOrderByCreatedAtDesc(Post post, Pageable pageable) {
-        Page<Comment> comments = commentRepository.findByPostOrderByCreatedAtDesc(post, pageable);
-        return comments;
+        return commentRepository.findByPostOrderByCreatedAtDesc(post, pageable);
     }
 
     /**
