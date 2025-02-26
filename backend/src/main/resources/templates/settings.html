@@ -37,14 +37,36 @@
                 </form>
             </div>
 
-            
 
-
-            <button class="clickable clickable-danger full-width"> Borrar Mi cuenta </button>
+            <div class="profile-info">
+                <h1>Cambiar Contraseña</h1>
+                <form action="/" method="post">
+                    <div class="form-group">
+                        <label for="current-password">Contraseña Actual</label>
+                        <input type="password" id="current-password" name="current-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="new-password">Nueva Contraseña</label>
+                        <input type="password" id="new-password" name="new-password">
+                    </div>
+                    <div class="form-group">
+                        <label for="confirm-password">Confirmar Contraseña</label>
+                        <input type="password" id="confirm-password" name="confirm-password">
+                    </div>
+                    <input type="hidden" name="_csrf" value="{{token}}" />
+                    <button class="clickable clickable-primary full-width" type="submit">Cambiar Contraseña</button>
+                </form>
+            </div>
+                <div class="delete-account form-group">
+                <form action="/" method="post">
+                    <input type="hidden" name="_csrf" value="{{token}}" />
+                    <button class="clickable clickable-danger full-width" type="submit">Eliminar Cuenta</button>
+                </form>
+                </div>
+            </div>
+            {{> components/footer}}
+            <script src="scripts/themeToggle.js"></script>
         </div>
-        {{> components/footer}}
-        <script src="scripts/themeToggle.js"></script>
-    </div>
 </body>
 
 </html>
