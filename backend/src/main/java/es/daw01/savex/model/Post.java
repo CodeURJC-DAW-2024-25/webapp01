@@ -2,6 +2,7 @@ package es.daw01.savex.model;
 
 import java.io.IOException;
 import java.sql.Blob;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Map;
 
@@ -9,6 +10,7 @@ import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.data.annotation.CreatedDate;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -27,7 +29,10 @@ public class Post {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     
+    @Column(nullable = false)
     private String title;
+
+    @Column(nullable = false)
     private String description;
     
     @Lob    
@@ -37,11 +42,24 @@ public class Post {
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Comment> comments;
 
+    @Column(nullable = false)
     private String author;
+
+    @Column(nullable = false)
     private String date;
+
+    @Column(nullable = false)
     private String readingTime;
+
+    @Column(nullable = false)
     private VisibilityType visibility;
+
+    @Column(nullable = false)
     private List<String> tags;
+
+    @Column(nullable = false)
+    @CreatedDate
+    private LocalDateTime createdAt;
 
     @Lob
     private Blob banner;
@@ -59,6 +77,7 @@ public class Post {
         this.readingTime = yamlFrontMatter.get("reading_time").get(0);
         this.visibility = VisibilityType.valueOf(yamlFrontMatter.get("visibility").get(0).toUpperCase());
         this.tags = yamlFrontMatter.get("tags");
+        this.createdAt = LocalDateTime.now();
         this.setBanner(yamlFrontMatter.get("banner").get(0));
     }
 

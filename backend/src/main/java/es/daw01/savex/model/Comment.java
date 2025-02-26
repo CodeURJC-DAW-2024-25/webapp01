@@ -3,6 +3,8 @@ package es.daw01.savex.model;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import org.springframework.data.annotation.CreatedDate;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -24,6 +26,7 @@ public class Comment {
     private Post post;
     
     @Column(nullable = false)
+    @CreatedDate
     private LocalDateTime createdAt;
     
     private String formatedDate;
