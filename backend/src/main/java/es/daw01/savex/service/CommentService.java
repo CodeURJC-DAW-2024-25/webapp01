@@ -1,7 +1,9 @@
 package es.daw01.savex.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -132,5 +134,24 @@ public class CommentService {
         }
 
         return commentsDTO;
+    }
+
+    public Map<String, Object> retrieveCommentsFromPost(Post post, User user, Pageable pageable) {
+        Map<String, Object> response = new HashMap<>();
+
+        // Retrieve comments of the post paginated
+        Page<Comment> commentPage = this.findByPostOrderByCreatedAtDesc(post, pageable);
+
+        // Create comment DTO list
+        List<CommentDTO> commentDTOs = this.getCommentsDTO(commentPage.getContent(), user);
+
+        // Generate response map
+        response.put("comments", commentDTOs);
+        response.put("currentPage", commentPage.getNumber());
+        response.put("totalItems", commentPage.getTotalElements());
+        response.put("totalPages", commentPage.getTotalPages());
+        response.put("isLastPage", commentPage.isLast());
+
+        return response;
     }
 }

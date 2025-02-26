@@ -3,8 +3,6 @@ package es.daw01.savex.controller;
 import java.io.IOException;
 import java.sql.Blob;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -13,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +21,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.daw01.savex.components.ControllerUtils;
-import es.daw01.savex.model.Comment;
-import es.daw01.savex.model.CommentDTO;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.User;
 import es.daw01.savex.service.CommentService;
@@ -81,9 +76,10 @@ public class RestPostsController {
 
     @GetMapping("/posts/{id}/comments")
     public ResponseEntity<Map<String, Object>> getComments(
-            @PathVariable Long id,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "1") int size) {
+        @PathVariable Long id,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "1") int size
+    ) {
         // Retrieve post and return 404 if it does not exist
         Optional<Post> op = postService.findById(id);
         if (op.isEmpty())
@@ -97,20 +93,11 @@ public class RestPostsController {
             return ResponseEntity.status(403).build();
 
         // Retrieve comments of the post paginated
-        Page<Comment> commentPage = commentService.findByPostOrderByCreatedAtDesc(
-                post,
-                PageRequest.of(page, size));
-
-        // Create comment DTO list
-        List<CommentDTO> commentDTOs = commentService.getCommentsDTO(commentPage.getContent(), currentUser);
-
-        // Generate response map
-        Map<String, Object> response = new HashMap<>();
-        response.put("comments", commentDTOs);
-        response.put("currentPage", commentPage.getNumber());
-        response.put("totalItems", commentPage.getTotalElements());
-        response.put("totalPages", commentPage.getTotalPages());
-        response.put("isLastPage", commentPage.isLast());
+        Map<String, Object> response = commentService.retrieveCommentsFromPost(
+            post,
+            currentUser,
+            PageRequest.of(page, size)
+        );
 
         return ResponseEntity.ok(response);
     }
@@ -121,17 +108,9 @@ public class RestPostsController {
         @RequestParam(defaultValue = "5") int size
     ) {
         // Retrieve posts paginated
-        Page<Post> postPage = postService.findAllOrderByCreatedAtDesc(
+        Map<String, Object> response = postService.retrievePosts(
             PageRequest.of(page, size)
         );
-
-        // Generate response map
-        Map<String, Object> response = new HashMap<>();
-        response.put("posts", postPage.getContent());
-        response.put("currentPage", postPage.getNumber());
-        response.put("totalItems", postPage.getTotalElements());
-        response.put("totalPages", postPage.getTotalPages());
-        response.put("isLastPage", postPage.isLast());
 
         return ResponseEntity.ok(response);
     }

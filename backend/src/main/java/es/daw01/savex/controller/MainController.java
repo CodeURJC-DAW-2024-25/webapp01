@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Post;
+import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.service.PostService;
 
 @Controller
@@ -29,7 +30,7 @@ public class MainController {
         controllerUtils.addUserDataToModel(model);
         //Add posts to the model
         List<Post> posts = postService
-            .findAllOrderByCreatedAtDesc(PageRequest.of(0, LANDING_POSTS))
+            .findByVisibilityOrderByCreatedAtDesc(VisibilityType.PUBLIC, PageRequest.of(0, LANDING_POSTS))
             .getContent();
 
         model.addAttribute("title", "SaveX - Ahorra dinero, tiempo y esfuerzo");
