@@ -115,4 +115,24 @@ public class RestPostsController {
         return ResponseEntity.ok(response);
     }
 
+    @GetMapping("/posts")
+    public ResponseEntity<Map<String, Object>> getPosts(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "5") int size
+    ) {
+        // Retrieve posts paginated
+        Page<Post> postPage = postService.findAllOrderByCreatedAtDesc(
+            PageRequest.of(page, size)
+        );
+
+        // Generate response map
+        Map<String, Object> response = new HashMap<>();
+        response.put("posts", postPage.getContent());
+        response.put("currentPage", postPage.getNumber());
+        response.put("totalItems", postPage.getTotalElements());
+        response.put("totalPages", postPage.getTotalPages());
+        response.put("isLastPage", postPage.isLast());
+
+        return ResponseEntity.ok(response);
+    }
 }

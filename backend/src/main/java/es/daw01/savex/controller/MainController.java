@@ -3,6 +3,7 @@ package es.daw01.savex.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +14,8 @@ import es.daw01.savex.service.PostService;
 
 @Controller
 public class MainController {
+
+    private static final int LANDING_POSTS = 4;
 
     @Autowired
     private ControllerUtils controllerUtils;
@@ -25,7 +28,9 @@ public class MainController {
         // Add user data to the model
         controllerUtils.addUserDataToModel(model);
         //Add posts to the model
-        List<Post> posts = postService.findAll();
+        List<Post> posts = postService
+            .findAllOrderByCreatedAtDesc(PageRequest.of(0, LANDING_POSTS))
+            .getContent();
 
         model.addAttribute("title", "SaveX - Ahorra dinero, tiempo y esfuerzo");
         model.addAttribute("extendedClass", "");
