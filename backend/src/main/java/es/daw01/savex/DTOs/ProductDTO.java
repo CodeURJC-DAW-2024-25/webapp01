@@ -11,7 +11,6 @@ public class ProductDTO {
     private List<String> product_categories;
     private PriceDTO price;
     private String thumbnail;
-    private List<String> images;
 
     // Getters and Setters ---------------------------------------------------->>
     public String getSupermarket_name() {
@@ -61,11 +60,5 @@ public class ProductDTO {
     }
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
-    }
-    public List<String> getImages() {
-        return images;
-    }
-    public void setImages(List<String> images) {
-        this.images = images;
     }
 }
