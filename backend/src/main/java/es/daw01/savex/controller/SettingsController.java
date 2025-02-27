@@ -67,4 +67,15 @@ public class SettingsController {
         return "redirect:/index";
 
 }
+
+
+@PostMapping("/delete-account")
+    public String postDeleteAccount(Model model) {
+
+        User user = controllerUtils.getAuthenticatedUser();
+        
+        user.getComments().clear();
+        userService.deleteById(user.getId());
+        return "redirect:/login";
+    }
 }

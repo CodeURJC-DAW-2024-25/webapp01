@@ -61,6 +61,8 @@ public class WebSecurityConfig {
                         .requestMatchers("/profile").authenticated()
                         .requestMatchers("/settings").authenticated()
                         .requestMatchers("/api/profile/avatar").authenticated()
+                        .requestMatchers("/delete-account").authenticated()
+                        .requestMatchers("/update-account-data").authenticated()
                         .anyRequest().authenticated()
 
                 )

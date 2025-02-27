@@ -24,4 +24,10 @@
 
 idea -> creo que hay un problema con la seguridad y modificar los datos del usuario, necesariamente debe desloggearlo, como cuando un usuario se registra, que no se puede autoregistrar, debe loggearse con los datos que ha metido
 
+2. Problema con el borrado de usuario
+  - he creado una ruta que borra el usuario, pero no lo borra bien porque los usuarios tienen posts. al intentar borrar los posts del usuario me da un problema de concurrencia.
+
+
 falta implementar el borrado de la cuenta y la modificación de la contraseña.
+
+
