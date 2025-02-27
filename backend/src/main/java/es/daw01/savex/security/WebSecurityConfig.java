@@ -53,6 +53,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/posts/**").permitAll()
                         .requestMatchers("/error").permitAll()
                         .requestMatchers("/products").permitAll()
+                        .requestMatchers("/products/**").permitAll()
                         .requestMatchers("/search").permitAll()
 
                         // Private routes

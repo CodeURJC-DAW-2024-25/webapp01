@@ -23,10 +23,7 @@ public class ApiService {
      * @param supermarket The supermarket to search in
      * @return A list of products
     */
-    public List<ProductDTO> fetchProducts(
-        String searchInput,
-        String supermarket
-    ) {
+    public List<ProductDTO> fetchProducts(String searchInput, String supermarket) {
         // Format the API URL
         String apiUrl = String.format("%s/%s?product_name=%s", API_BASE_URL, supermarket, searchInput);
 
@@ -39,5 +36,26 @@ public class ApiService {
         );
 
         return response.getBody();
+    }
+
+    /**
+     * Fetches a product from the API
+     * 
+     * @param id The product ID
+     * @return The product
+    */
+    public ProductDTO fetchProduct(String supermarket, String id) {
+        // Format the API URL
+        String apiUrl = String.format("%s/%s?product_id=%s", API_BASE_URL, supermarket.toLowerCase(), id);
+
+        // Make the API request
+        ResponseEntity<List<ProductDTO>> response = restTemplate.exchange(
+            apiUrl,
+            HttpMethod.GET,
+            null,
+            new ParameterizedTypeReference<List<ProductDTO>>() {}
+        );
+
+        return response.getBody().get(0);
     }
 }

@@ -12,8 +12,6 @@ import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.service.ApiService;
 import java.util.List;
-import java.util.Map;
-import java.util.Optional;
 
 @Controller
 public class ProductsController {
@@ -23,8 +21,6 @@ public class ProductsController {
 
     @Autowired
     private ApiService apiService;
-
-    private List<Map<String, Object>> products;
 
     @GetMapping("/search")
     public String searchProducts(@RequestParam(required = false) String searchInput, Model model) {
@@ -39,27 +35,14 @@ public class ProductsController {
         return "products";
     }
 
-    @GetMapping("/products/{id}")
-    public String getProduct(@PathVariable String id, Model model) {
+    @GetMapping("/products/{supermarket}/{id}")
+    public String getProduct(@PathVariable String supermarket, @PathVariable String id, Model model) {
+        ProductDTO product = apiService.fetchProduct(supermarket, id);
         
+        // Set model attributes
         controllerUtils.addUserDataToModel(model);
-        model.addAttribute("title", "SaveX - Producto");
-        //Delete leading and trailing whitespaces
-        final String trimmedId = id.trim();
-        //Find the product with the given id
-        Optional<Map<String, Object>> productOpt = products.stream()
-        .filter(product -> trimmedId.equals(String.valueOf(product.get("product_id")).trim()))
-        .findFirst();
-    
-        
-        //If the product exists, add it to the model
-        if (productOpt.isPresent()) {
-            model.addAttribute("product", productOpt.get());
-        } else {
-            model.addAttribute("product", null);
-        }
-
+        model.addAttribute("product", product);
+        model.addAttribute("title", "SaveX - " + product.getDisplay_name());
         return "product-detail";
-
     }
 }
