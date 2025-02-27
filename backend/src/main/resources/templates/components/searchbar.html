@@ -1,5 +1,5 @@
-<form class="search-bar" action="/search" method="POST">
-    <input type="text" id="searchInput" name="searchInput" placeholder="Buscar productos...">
+<form class="search-bar" action="/search" method="GET">
+    <input type="text" id="searchInput" name="searchInput" placeholder="Buscar productos..." value="{{searchQuery}}">
     <button type="submit" class="clickable clickable-tool bordered">
         <i class="bi bi-search"></i>
     </button>

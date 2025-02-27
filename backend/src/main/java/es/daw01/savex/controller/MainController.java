@@ -35,6 +35,7 @@ public class MainController {
 
         model.addAttribute("title", "SaveX - Ahorra dinero, tiempo y esfuerzo");
         model.addAttribute("extendedClass", "");
+        model.addAttribute("searchQuery", "");
         model.addAttribute("posts", posts);
         return "index";
     }

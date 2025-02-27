@@ -11,13 +11,7 @@
 <body>
     <div class="container no-gap">
         {{> components/navbar}}
-        <form class="search-bar" action="/search" method="POST">
-            <input type="text" id="searchInput" name="searchInput" placeholder="Buscar productos..." value="{{searchQuery}}" required>
-            <button type="submit" class="clickable clickable-tool bordered">
-                <i class="bi bi-search"></i>
-            </button>
-            <input type="hidden" name="_csrf" value="{{token}}" />
-        </form>
+        {{> components/searchbar}}
 
         <div class="grid-layout">
             {{#products}}
