@@ -1,7 +1,6 @@
 package es.daw01.savex.controller;
 
 import java.sql.SQLException;
-import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Comment;
-import es.daw01.savex.model.CommentDTO;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
@@ -41,18 +39,12 @@ public class PostsController {
 
     @GetMapping("/posts")
     public String getPostsPage(Model model) {
-        List<Post> posts = postService.findAll();
-
-        // Remove private posts
-        posts.removeIf(post -> post.getVisibility() == VisibilityType.PRIVATE);
-
         // Add user data to the model
         controllerUtils.addUserDataToModel(model);
 
         // Add template variables and render the view
         model.addAttribute("title", "SaveX - Aprende más con nuestras guías y posts");
         model.addAttribute("extendedClass", "extended");
-        model.addAttribute("posts", posts);
         return "posts";
     }
 
@@ -71,28 +63,20 @@ public class PostsController {
             return "redirect:/posts";
         }
 
-        // Create a new comment DTO list
-        List<CommentDTO> commentDTOs = commentService.getCommentsDTO(
-                post,
-                controllerUtils.getAuthenticatedUser());
-
         // Add user data to the model
         controllerUtils.addUserDataToModel(model);
 
         // Add template variables and render the view
         model.addAttribute("title", "SaveX - " + post.getTitle());
         model.addAttribute("post", post);
-        model.addAttribute("comments", commentDTOs);
         model.addAttribute("content", markdownService.renderMarkdown(post.getContent()));
         return "post";
     }
  
     @PostMapping("/posts/{id}/addComment")
     public String addComment(@PathVariable long id, @RequestParam String comment) {
-        System.out.println("Comment: " + comment);
-        System.out.println("--------------------------------------------------------------------");
         // Get the post by id
-        Optional<Post> op = postService.findById(id); 
+        Optional<Post> op = postService.findById(id);
 
         if (op.isEmpty())
             throw new IllegalArgumentException("Post not found");
