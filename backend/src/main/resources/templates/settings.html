@@ -19,18 +19,27 @@
                 <img src="{{avatar}}" alt="avatar del usuario {{username}}">
             </div>
             <div class="profile-info">
-                <form action="/" method="post">
+                <form action="/update-account-data" method="post">
                     <div class="form-group">
                         <label for="name">Nombre</label>
                         <input type="text" id="name" name="name" value="{{name}}">
+                        {{#errors.name}}
+                        <small class="error">{{.}}</small>
+                        {{/errors.name}}
                     </div>
                     <div class="form-group">
                         <label for="email">Correo Electrónico</label>
                         <input type="email" id="email" name="email" value="{{email}}">
+                        {{#errors.email}}
+                        <small class="error">{{.}}</small>
+                        {{/errors.email}}
                     </div>
                     <div class="form-group">
                         <label for="username">Nombre de Usuario</label>
                         <input type="text" id="username" name="username" value="{{username}}">
+                        {{#errors.username}}
+                        <small class="error">{{.}}</small>
+                        {{/errors.username}}
                     </div>
                     <input type="hidden" name="_csrf" value="{{token}}" />
                     <button class="clickable clickable-primary full-width" type="submit">Guardar Cambios</button>

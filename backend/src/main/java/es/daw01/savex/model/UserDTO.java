@@ -18,11 +18,18 @@ public class UserDTO {
     @Pattern(regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$", message = "La contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número")
     private String password;
 
+    // @NotNull
+    // @Size(min = 3, max = 20, message = "El nombre debe tener entre 3 y 20 caracteres")
+    // @Pattern(regexp = "^[a-zA-Z]*$", message = "El nombre solo puede contener letras")
+    // private String name;
+
+
     // Constructors ----------------------------------------------------------->>
     public UserDTO() {
         this.email = "";
         this.username = "";
         this.password = "";
+        // this.name = "";
     }
 
     // Getters and setters ---------------------------------------------------->>
@@ -50,4 +57,13 @@ public class UserDTO {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    // public String getName() {
+    //     return name;
+    // }
+
+    // public void setName(String name) {
+    //     this.name = name;
+    // }
+
 }

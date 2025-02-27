@@ -19,6 +19,12 @@
             <div class="profile-info">
                 <h2 class="profile-name">{{name}}</h2>
                 <p class="profile-username">@{{username}}</p>
+                <form action="/settings" method="get" class="settings-form">
+                    <button type="submit" class="clickable clickable-secondary">
+                        <i class="bi bi-gear icon"></i>
+                        <span>Ajustes del Perfil</span>
+                    </button>
+                </form>
                 <form action="/logout" method="post" class="logout-form">
                     <input type="hidden" name="_csrf" value="{{token}}"/>
                     <button type="submit" class="clickable clickable-secondary">

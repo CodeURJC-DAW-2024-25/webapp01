@@ -95,6 +95,21 @@ public class UserService {
 
     }
 
+    public void updateUserAccount(UserDTO userDTO) {
+        Optional<User> optionalUser = userRepository.findByUsername(userDTO.getUsername());
+        if (optionalUser.isEmpty())
+            throw new IllegalArgumentException("User not found");
+        // if (usernameExists(userDTO.getUsername()))
+        //     throw new EntityExistsException("Username already exists");
+        // if (emailExists(userDTO.getEmail()))
+        //         throw new EntityExistsException("Email already exists");
+        User user = optionalUser.get();
+        user.setEmail(userDTO.getEmail());
+        user.setUsername(userDTO.getUsername());
+        // user.setName(userDTO.getName());
+        userRepository.save(user);
+    }
+
     // Private Methods -------------------------------------------------------->>
 
     /**
