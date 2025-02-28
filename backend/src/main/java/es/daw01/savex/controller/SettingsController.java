@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserDTO;
+import es.daw01.savex.model.UserType;
 import es.daw01.savex.service.UserService;
 import jakarta.validation.Valid;
 
@@ -72,7 +73,6 @@ public class SettingsController {
 
 @PostMapping("/delete-account")
     public String postDeleteAccount(Model model) {
-
         User user = controllerUtils.getAuthenticatedUser();
         user.getComments().forEach(comment -> comment.setAuthor(null));
         userService.deleteById(user.getId());
