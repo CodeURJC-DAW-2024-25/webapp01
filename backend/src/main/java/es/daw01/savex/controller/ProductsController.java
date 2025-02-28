@@ -15,6 +15,7 @@ import java.util.List;
 
 @Controller
 public class ProductsController {
+    private final static int PRODUCTS_PER_PAGE = 10;
 
     @Autowired
     private ControllerUtils controllerUtils;
@@ -23,8 +24,23 @@ public class ProductsController {
     private ApiService apiService;
 
     @GetMapping("/search")
-    public String searchProducts(@RequestParam(required = false) String searchInput, Model model) {
-        List<ProductDTO> products = apiService.fetchProducts(searchInput, "mercadona");
+    public String searchProducts(
+        @RequestParam(required = false) String searchInput,
+        @RequestParam(required = false) String supermarket,
+        @RequestParam(required = false) Double minPrice,
+        @RequestParam(required = false) Double maxPrice,
+        @RequestParam(required = false) Integer page,
+        Model model
+    ) {
+        List<ProductDTO> products = apiService.fetchProducts(
+            searchInput,
+            supermarket,
+            minPrice,
+            maxPrice,
+            PRODUCTS_PER_PAGE,
+            page
+        );
+
         searchInput = searchInput == null ? "" : searchInput;
 
         // Set model attributes

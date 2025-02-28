@@ -23,11 +23,27 @@ public class ApiService {
      * @param supermarket The supermarket to search in
      * @return A list of products
     */
-    public List<ProductDTO> fetchProducts(String searchInput, String supermarket) {
-        System.out.println(searchInput);
-        System.out.println(supermarket);
+    public List<ProductDTO> fetchProducts(
+        String searchInput,
+        String supermarket,
+        Double minPrice,
+        Double maxPrice,
+        Integer limit,
+        Integer page
+    ) {
+        // Set default values
+        if (page == null) page = 0;
+        if (limit == null) limit = 20;
+
         // Format the API URL
-        String apiUrl = String.format("%s?supermarket=%s&search=%s", API_BASE_URL, supermarket, searchInput);
+        String apiUrl = String.format("%s?", API_BASE_URL);
+
+        if (supermarket != null) apiUrl = apiUrl.concat(String.format("supermarket=%s&", supermarket));
+        if (searchInput != null) apiUrl = apiUrl.concat(String.format("search=%s&", searchInput));
+        if (minPrice != null) apiUrl = apiUrl.concat(String.format("min_price=%s&", minPrice));
+        if (maxPrice != null) apiUrl = apiUrl.concat(String.format("max_price=%s&", maxPrice));
+        if (limit != null) apiUrl = apiUrl.concat(String.format("limit=%s&", limit));
+        if (page != null) apiUrl = apiUrl.concat(String.format("offset=%s&", page * limit));
 
         System.out.println(apiUrl);
 
