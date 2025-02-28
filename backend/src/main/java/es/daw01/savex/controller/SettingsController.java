@@ -73,9 +73,11 @@ public class SettingsController {
     public String postDeleteAccount(Model model) {
 
         User user = controllerUtils.getAuthenticatedUser();
-        
-        user.getComments().clear();
+        user.getComments().forEach(comment -> comment.setAuthor(null));
+        System.out.println("BORRE LOS COMENTARIOS");
         userService.deleteById(user.getId());
-        return "redirect:/login";
+        System.out.println("BORRE EL USUARIO");
+
+        return "redirect:/";
     }
 }
