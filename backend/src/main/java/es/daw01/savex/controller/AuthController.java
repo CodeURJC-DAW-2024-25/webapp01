@@ -13,8 +13,8 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
+import es.daw01.savex.DTOs.UserDTO;
 import es.daw01.savex.components.ControllerUtils;
-import es.daw01.savex.model.UserDTO;
 import es.daw01.savex.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.PostMapping;

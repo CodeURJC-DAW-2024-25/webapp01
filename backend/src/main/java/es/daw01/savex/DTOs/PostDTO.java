@@ -1,6 +1,9 @@
-package es.daw01.savex.model;
+package es.daw01.savex.DTOs;
 
 import java.util.List;
+
+import es.daw01.savex.model.Post;
+import es.daw01.savex.model.VisibilityType;
 
 public class PostDTO {
     private long id;

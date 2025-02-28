@@ -1,4 +1,4 @@
-package es.daw01.savex.model;
+package es.daw01.savex.DTOs;
 
 import jakarta.validation.constraints.*;
 
