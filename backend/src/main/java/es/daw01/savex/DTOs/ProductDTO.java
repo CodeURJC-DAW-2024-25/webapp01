@@ -3,6 +3,7 @@ package es.daw01.savex.DTOs;
 import java.util.List;
 
 public class ProductDTO {
+    private String _id;
     private String supermarket_name;
     private String product_id;
     private String product_url;
@@ -13,6 +14,12 @@ public class ProductDTO {
     private String thumbnail;
 
     // Getters and Setters ---------------------------------------------------->>
+    public String get_id() {
+        return _id;
+    }
+    public void set_id(String _id) {
+        this._id = _id;
+    }
     public String getSupermarket_name() {
         return supermarket_name;
     }

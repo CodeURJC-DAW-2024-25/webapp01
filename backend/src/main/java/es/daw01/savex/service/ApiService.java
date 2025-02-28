@@ -13,7 +13,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class ApiService {
-    private final String API_BASE_URL = "https://market-pricings-server.vercel.app/api/v1/markets/";
+    private final String API_BASE_URL = "https://market-pricings-server.vercel.app/api/v1/query";
     private final RestTemplate restTemplate = new RestTemplate();
 
     /**
@@ -24,8 +24,12 @@ public class ApiService {
      * @return A list of products
     */
     public List<ProductDTO> fetchProducts(String searchInput, String supermarket) {
+        System.out.println(searchInput);
+        System.out.println(supermarket);
         // Format the API URL
-        String apiUrl = String.format("%s/%s?product_name=%s", API_BASE_URL, supermarket, searchInput);
+        String apiUrl = String.format("%s?supermarket=%s&search=%s", API_BASE_URL, supermarket, searchInput);
+
+        System.out.println(apiUrl);
 
         // Make the API request
         ResponseEntity<List<ProductDTO>> response = restTemplate.exchange(
