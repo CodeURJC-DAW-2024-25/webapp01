@@ -36,6 +36,19 @@
             {{/products}}
         </div>
 
+        <div class="pagination">
+            {{#hasPreviousPage}}
+                <a href="/search?searchInput={{searchQuery}}&page={{prevPage}}">Página anterior</a>
+            {{/hasPreviousPage}}
+
+            Página {{currentPage}}
+
+            {{#hasNextPage}}
+                <a href="/search?searchInput={{searchQuery}}&page={{nextPage}}">Página siguiente</a>
+            {{/hasNextPage}}
+        </div>
+
+
         {{> components/footer}}
     </div>
 
