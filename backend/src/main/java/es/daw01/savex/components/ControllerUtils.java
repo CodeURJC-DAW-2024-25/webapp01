@@ -27,7 +27,11 @@ public class ControllerUtils {
         User user = null;
 
         // Check if user is authenticated and add data to the model
-        if (auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
+        if (
+            auth != null &
+            !(auth instanceof AnonymousAuthenticationToken) &
+            this.userService.findByUsername(auth.getName()).isPresent()
+        ) {
             model.addAttribute("isAuthenticated", true);
 
             // Retrieve user data

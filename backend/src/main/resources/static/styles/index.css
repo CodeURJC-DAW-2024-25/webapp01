@@ -132,3 +132,8 @@ hr {
         }
     }
 }
+
+.error {
+    margin-top: 2px;
+    color: red;
+}

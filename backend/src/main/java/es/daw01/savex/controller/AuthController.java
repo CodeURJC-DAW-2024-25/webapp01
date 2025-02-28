@@ -53,7 +53,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String postRegiserPage(
+    public String postRegisterPage(
         @Valid @ModelAttribute UserDTO userDTO, 
         BindingResult bindingResult, 
         Model model) {

@@ -1,6 +1,7 @@
 package es.daw01.savex.service;
 
 import java.io.IOException;
+import java.util.Map;
 import java.util.Optional;
 
 import org.hibernate.engine.jdbc.BlobProxy;
@@ -93,6 +94,25 @@ public class UserService {
         user.setAvatar(BlobProxy.generateProxy(avatar.getInputStream(), avatar.getSize()));
         userRepository.save(user);
 
+    }
+
+    public void updateUserAccount(User user, UserDTO userDTO, Map<String, String> errors) {
+        // Check if the username exists
+        if (usernameExists(userDTO.getUsername()) && !userDTO.getUsername().equals(user.getUsername()))
+            errors.put("username", String.format("El nombre de usuario %s ya existe", userDTO.getUsername()));
+
+        // Check if the email exists
+        if (emailExists(userDTO.getEmail()) && !userDTO.getEmail().equals(user.getEmail()))
+            errors.put("email", String.format("El email %s ya existe", userDTO.getEmail()));
+
+        // Check if there are errors
+        if (!errors.isEmpty()) return;
+
+        user.setEmail(userDTO.getEmail().isBlank() ? user.getEmail() : userDTO.getEmail());
+        user.setUsername(userDTO.getUsername().isBlank() ? user.getUsername() : userDTO.getUsername());
+        user.setName(userDTO.getName().isBlank() ? user.getName() : userDTO.getName());
+        // user.setPassword(userDTO.getPassword() != null ? hashPassword(userDTO.getPassword()) : user.getPassword());
+        userRepository.save(user);
     }
 
     // Private Methods -------------------------------------------------------->>

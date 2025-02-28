@@ -11,26 +11,41 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="container small-padding">
         {{> components/navbar}}
         <div class="settings-container">
             <h1>Ajustes del Perfil</h1>
             <div class="img-container">
-                <img src="{{avatar}}" alt="avatar del usuario {{username}}">
+                <div class="profile-image">
+                    <img src="{{avatar}}" class="avatar" alt="Imagen de perfil">
+                    <input type="file" name="avatar" id="avatar-input" style="display:none;">
+                    <button type="button" id="submit-button" class="clickable clickable-tool bordered invert upload">
+                        <i class="bi bi-upload icon"></i>
+                    </button>
+                </div>
             </div>
             <div class="profile-info">
-                <form action="/" method="post">
+                <form action="/update-account-data" method="post">
                     <div class="form-group">
                         <label for="name">Nombre</label>
                         <input type="text" id="name" name="name" value="{{name}}">
+                        {{#errors.name}}
+                        <small class="error">{{.}}</small>
+                        {{/errors.name}}
                     </div>
                     <div class="form-group">
                         <label for="email">Correo Electrónico</label>
                         <input type="email" id="email" name="email" value="{{email}}">
+                        {{#errors.email}}
+                        <small class="error">{{.}}</small>
+                        {{/errors.email}}
                     </div>
                     <div class="form-group">
                         <label for="username">Nombre de Usuario</label>
                         <input type="text" id="username" name="username" value="{{username}}">
+                        {{#errors.username}}
+                        <small class="error">{{.}}</small>
+                        {{/errors.username}}
                     </div>
                     <input type="hidden" name="_csrf" value="{{token}}" />
                     <button class="clickable clickable-primary full-width" type="submit">Guardar Cambios</button>
@@ -58,7 +73,7 @@
                 </form>
             </div>
                 <div class="delete-account form-group">
-                <form action="/" method="post">
+                <form action="/delete-account" method="post">
                     <input type="hidden" name="_csrf" value="{{token}}" />
                     <button class="clickable clickable-danger full-width" type="submit">Eliminar Cuenta</button>
                 </form>
@@ -66,6 +81,7 @@
             </div>
             {{> components/footer}}
             <script src="scripts/themeToggle.js"></script>
+            <script src="scripts/updateAvatar.js"></script>
         </div>
 </body>
 
