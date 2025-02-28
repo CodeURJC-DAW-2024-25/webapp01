@@ -77,7 +77,7 @@ public class SettingsController {
         System.out.println("BORRE LOS COMENTARIOS");
         userService.deleteById(user.getId());
         System.out.println("BORRE EL USUARIO");
-
-        return "redirect:/";
+        
+        return "/logout";
     }
 }
