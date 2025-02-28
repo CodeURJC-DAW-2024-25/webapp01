@@ -16,7 +16,13 @@
         <div class="settings-container">
             <h1>Ajustes del Perfil</h1>
             <div class="img-container">
-                <img src="{{avatar}}" alt="avatar del usuario {{username}}">
+                <div class="profile-image">
+                    <img src="{{avatar}}" class="avatar" alt="Imagen de perfil">
+                    <input type="file" name="avatar" id="avatar-input" style="display:none;">
+                    <button type="button" id="submit-button" class="clickable clickable-tool bordered invert upload">
+                        <i class="bi bi-upload icon"></i>
+                    </button>
+                </div>
             </div>
             <div class="profile-info">
                 <form action="/update-account-data" method="post">
@@ -75,6 +81,7 @@
             </div>
             {{> components/footer}}
             <script src="scripts/themeToggle.js"></script>
+            <script src="scripts/updateAvatar.js"></script>
         </div>
 </body>
 

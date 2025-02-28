@@ -19,16 +19,6 @@
             height: 100%;
             border-radius: 4px;
         }
-
-        .upload {
-            position: absolute;
-            bottom: 0;
-            right: 0;
-
-            .icon {
-                font-weight: bold;
-            }
-        }
     }
 
     .profile-info {

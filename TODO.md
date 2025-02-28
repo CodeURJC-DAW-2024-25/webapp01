@@ -11,6 +11,7 @@
 - [ ] controlar las listas de la compra
 - [x] acabar la página del perfil - dani
 - [x] página de editar perfil - dani
+- [ ] añadir un plantilla intermedia para confirmar el borrado de la cuenta
 - [ ] implementar funcionalidad página editar perfil
 - [ ] revisar el error del login
 - [ ] filtros  

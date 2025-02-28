@@ -18,6 +18,7 @@ import es.daw01.savex.model.UserDTO;
 import es.daw01.savex.service.UserService;
 import jakarta.validation.Valid;
 
+
 @Controller
 public class SettingsController {
 
@@ -74,10 +75,7 @@ public class SettingsController {
 
         User user = controllerUtils.getAuthenticatedUser();
         user.getComments().forEach(comment -> comment.setAuthor(null));
-        System.out.println("BORRE LOS COMENTARIOS");
         userService.deleteById(user.getId());
-        System.out.println("BORRE EL USUARIO");
-        
         return "/logout";
     }
 }
