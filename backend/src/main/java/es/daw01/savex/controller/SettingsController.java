@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -15,7 +14,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserDTO;
-import es.daw01.savex.model.UserType;
 import es.daw01.savex.service.UserService;
 import jakarta.validation.Valid;
 
@@ -31,51 +29,81 @@ public class SettingsController {
 
     @GetMapping("/settings")
     public String getSettingsPage(Model model) {
-
-        User user = controllerUtils.getAuthenticatedUser();
-        controllerUtils.addUserDataToModel(model);
-        model.addAttribute("email",user.getEmail());
-        model.addAttribute("title", "SaveX - ".concat(model.getAttribute("name").toString()));
-        return "settings";
+        return renderSettingsPage(model);
     }
 
     @PostMapping("/update-account-data")
     public String postUpdateAccountInfo(
         @Valid @ModelAttribute("user") UserDTO userDTO, 
         BindingResult bindingResult, 
-        Model model) {
-        
-        if (bindingResult.hasErrors()) {
-            // In case of errors, return to the form with the errors mapped
-            Map<String, String> errors = new HashMap<>();
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errors.put(error.getField(), error.getDefaultMessage());
-            }
+        Model model
+    ) {
+        // Retrieve the authenticated user
+        User currentUser = controllerUtils.getAuthenticatedUser();
+        String currentUsername = currentUser.getUsername();
 
-            model.addAttribute("title", "SaveX - Registrarse");
-            model.addAttribute("user", userDTO);
-            model.addAttribute("errors", errors);
-            return "settings";
+        // Errors map
+        Map<String, String> errors = new HashMap<>();
+
+        // Check email errors
+        if (!userDTO.getEmail().isBlank() && bindingResult.getFieldError("email") != null) {
+            errors.put("email", bindingResult.getFieldError("email").getDefaultMessage());
         }
-    // TODO revisar si esto sobra
+
+        // Check username errors
+        if (!userDTO.getUsername().isBlank() && bindingResult.getFieldError("username") != null) {
+            errors.put("username", bindingResult.getFieldError("username").getDefaultMessage());
+        }
+
+        // Check password errors
+        if (!userDTO.getPassword().isBlank() && bindingResult.getFieldError("password") != null) {
+            errors.put("password", bindingResult.getFieldError("password").getDefaultMessage());
+        }
+
+        // If there are errors, return to the form with the errors mapped
+        if (!errors.isEmpty()) {
+            model.addAttribute("errors", errors);
+            return renderSettingsPage(model);
+        }
+
         // Try to update the user
         try {
-            userService.updateUserAccount(userDTO);
+            userService.updateUserAccount(currentUser, userDTO, errors);
+
+            // If there are errors, return to the form with the errors mapped
+            if (!errors.isEmpty()) {
+                model.addAttribute("errors", errors);
+                return renderSettingsPage(model);
+            }
         } catch(Exception e) {
-            return "redirect:/settings?error=exists";
+            return renderSettingsPage(model);
         }
 
-        // Redirect to the settings page
-        return "redirect:/index";
+        // Redirect
+        if (userDTO.getUsername().equals(currentUsername)) return "redirect:/settings?success=true";
+        else return "/logout";
+    }
 
-}
-
-
-@PostMapping("/delete-account")
+    @PostMapping("/delete-account")
     public String postDeleteAccount(Model model) {
         User user = controllerUtils.getAuthenticatedUser();
         user.getComments().forEach(comment -> comment.setAuthor(null));
         userService.deleteById(user.getId());
         return "/logout";
+    }
+
+
+    // Private Methods ------------------------------------------------------------>>
+
+    private String renderSettingsPage(Model model) {
+        // Retrieve the authenticated user
+        User user = controllerUtils.getAuthenticatedUser();
+
+        // Add user data to the model
+        controllerUtils.addUserDataToModel(model);
+        model.addAttribute("email",user.getEmail());
+        model.addAttribute("title", "SaveX - ".concat(model.getAttribute("name").toString()));
+
+        return "settings";
     }
 }
