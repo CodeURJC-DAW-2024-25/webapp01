@@ -3,16 +3,15 @@
 
 <head>
     {{> components/head-tags}}
-    <link rel="stylesheet" href="styles/searchbar.css">
-    <link rel="stylesheet" href="styles/posts.css">
-    <link rel="stylesheet" href="styles/products.css">
+    <link rel="stylesheet" href="/styles/searchbar.css">
+    <link rel="stylesheet" href="/styles/posts.css">
+    <link rel="stylesheet" href="/styles/products.css">
 </head>
 
 <body>
     <div class="container no-gap">
         {{> components/navbar}}
         
-
         <div class="filters-bar">
             {{> components/searchbar}}
             <form id="filtersForm" method="get" action="/search" class="filters-form">
@@ -56,45 +55,20 @@
             </form>
         </div>
 
-        <div class="grid-layout">
-            {{#products}}
-            <div class="grid-item">
-                <h1>{{_id}}</h1>
-                <div class="image-container">
-                    <img src="{{thumbnail}}" alt="{{display_name}}">
-                </div>
-                <div class="info-container">
-                    <h1 class="product-title">{{display_name}}</h1>
-                    <p class="product-description">{{product_type}}</p>
-                    <p class="product-price">{{price.total}}&euro;</p>
-                    <a href="products/{{supermarket_name}}/{{product_id}}">
-                        <button class="clickable clickable-primary">Ver Producto</button>
-                    </a>
-                </div>
-            </div>
-            {{/products}}
-
-            {{^products}}
-            <p class="loader">No se encontraron productos.</p>
-            {{/products}}
+        <div class="grid-layout products-container">
+            <!-- Products will be rendered here -->
         </div>
 
         <div class="pagination">
-            {{#hasPreviousPage}}
-                <a href="/search?searchInput={{searchQuery}}&page={{prevPage}}">Página anterior</a>
-            {{/hasPreviousPage}}
-
-            Página {{currentPage}}
-
-            {{#hasNextPage}}
-                <a href="/search?searchInput={{searchQuery}}&page={{nextPage}}">Página siguiente</a>
-            {{/hasNextPage}}
+            <button id="previous-button" class="clickable clickable-primary">Página anterior</button>
+            <span id="page-number"></span>
+            <button id="next-button" class="clickable clickable-primary">Página siguiente</button>
         </div>
-
 
         {{> components/footer}}
     </div>
 
-    <script src="scripts/themeToggle.js"></script>
+    <script src="/scripts/themeToggle.js"></script>
+    <script src="/scripts/fetchProducts.js"></script>
 </body>
 </html>
