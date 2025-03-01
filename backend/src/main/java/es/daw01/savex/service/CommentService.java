@@ -11,8 +11,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import es.daw01.savex.DTOs.CommentDTO;
 import es.daw01.savex.model.Comment;
-import es.daw01.savex.model.CommentDTO;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.User;
 import es.daw01.savex.repository.CommentRepository;

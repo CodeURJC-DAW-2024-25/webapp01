@@ -10,8 +10,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.daw01.savex.DTOs.UserDTO;
 import es.daw01.savex.model.User;
-import es.daw01.savex.model.UserDTO;
 import es.daw01.savex.model.UserType;
 import es.daw01.savex.repository.UserRepository;
 import jakarta.persistence.EntityExistsException;

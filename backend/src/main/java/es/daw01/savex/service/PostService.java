@@ -12,8 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.daw01.savex.DTOs.PostDTO;
 import es.daw01.savex.model.Post;
-import es.daw01.savex.model.PostDTO;
 import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.repository.PostRepository;
 
