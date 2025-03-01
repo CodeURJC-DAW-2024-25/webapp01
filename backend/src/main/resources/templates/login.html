@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    {{> components/head-tags}}
+
     <link rel="stylesheet" href="styles/form.css">
     <link rel="stylesheet" href="styles/login.css">
+    <link rel="stylesheet" href="styles/button.css">
+    <link rel="stylesheet" href="styles/popup.css">
+    {{> components/head-tags}}
 </head>
 <body>
     <div class="container">
         {{> components/navbar}}
 
+        {{> components/popup}}
         <div class="login-form">
             <h1>Iniciar sesión</h1>
 
@@ -30,6 +34,7 @@
 
         {{> components/footer}}
         <script src="scripts/themeToggle.js"></script>
+        <script src="scripts/popup.js"></script>
     </div>
 </body>
 </html>

@@ -5,6 +5,8 @@ import java.util.Map;
 
 
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Null;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -18,6 +20,7 @@ import es.daw01.savex.model.UserDTO;
 import es.daw01.savex.service.UserService;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 
 @Controller
@@ -30,10 +33,13 @@ public class AuthController {
     private UserService userService;
 
     @GetMapping("/login")
-    public String getLoginPage(Model model, HttpServletRequest request) {
+    public String getLoginPage(@RequestParam(required = false) boolean error,  Model model, HttpServletRequest request) {
         // Add user data to the model
         controllerUtils.addUserDataToModel(model);
-
+        if (error) {
+            model.addAttribute("popupTitle", "Error al iniciar sesión");
+            model.addAttribute("popupContent", "Usuario o contraseña incorrectos");
+        }
         model.addAttribute("title", "SaveX - Iniciar sesión");
         return "login";
     }
@@ -53,7 +59,7 @@ public class AuthController {
     }
 
     @PostMapping("/register")
-    public String postRegiserPage(
+    public String postRegisterPage(
         @Valid @ModelAttribute UserDTO userDTO, 
         BindingResult bindingResult, 
         Model model) {

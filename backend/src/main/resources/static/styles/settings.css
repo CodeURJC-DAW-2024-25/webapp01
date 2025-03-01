@@ -6,18 +6,31 @@
     padding: 20px;
     min-height: 100vh;
 }
-.img-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin-bottom: 20px;
- img {
-    width: 150px;
-    height: 150px;
-    border-radius: 50%;
-    object-fit: cover;
-    border: 2px solid var(--primary-color);
- }
+
+.profile-image {
+    position: relative;
+    --size: 160px;
+    width: var(--size);
+    height: var(--size);
+    padding: 4px;
+    border-radius:8px;
+    background-color: var(--primary-color);
+
+    img {
+        width: 100%;
+        height: 100%;
+        border-radius: 4px;
+    }
+
+    .upload {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+
+        .icon {
+            font-weight: bold;
+        }
+    }
 }
 
 .profile-info {

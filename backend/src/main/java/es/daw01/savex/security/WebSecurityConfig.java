@@ -60,14 +60,16 @@ public class WebSecurityConfig {
                         .requestMatchers("/admin").hasAnyRole(UserType.ADMIN.name())
                         .requestMatchers("/createPost").hasAnyRole(UserType.ADMIN.name())
                         .requestMatchers("/profile").authenticated()
-                        .requestMatchers("/settings").authenticated()
+                        .requestMatchers("/settings").hasAnyRole(UserType.USER.name())
                         .requestMatchers("/api/profile/avatar").authenticated()
+                        .requestMatchers("/delete-account").hasAnyRole(UserType.USER.name())
+                        .requestMatchers("/update-account-data").authenticated()
                         .anyRequest().authenticated()
 
                 )
                 .formLogin(form -> form
                         .loginPage("/login")
-                        .failureUrl("/login?error")
+                        .failureUrl("/login?error=true")
                         .defaultSuccessUrl("/", true)
                         .permitAll())
                 .logout(logout -> logout

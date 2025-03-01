@@ -31,6 +31,7 @@
     --primary-color-hover: #0f7a97;
 
     --danger-color: #cd3333;
+    --grey-bg-color: #c7c6c6;
 }
 
 .dark, .dark * {
@@ -44,6 +45,9 @@
     --bg-color: #000;
     --semi-bg-color: #111;
     --primary-color-hover: #87d2e7;
+
+    --danger-color: #ff4d4d;
+    --grey-bg-color: #1a1a1d;
 }
 
 body {
@@ -131,4 +135,9 @@ hr {
             margin-bottom: 32px;
         }
     }
+}
+
+.error {
+    margin-top: 2px;
+    color: red;
 }
