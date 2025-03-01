@@ -76,10 +76,9 @@ public class RestPostsController {
 
     @GetMapping("/posts/{id}/comments")
     public ResponseEntity<Map<String, Object>> getComments(
-        @PathVariable Long id,
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "1") int size
-    ) {
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "1") int size) {
         // Retrieve post and return 404 if it does not exist
         Optional<Post> op = postService.findById(id);
         if (op.isEmpty())
@@ -94,23 +93,20 @@ public class RestPostsController {
 
         // Retrieve comments of the post paginated
         Map<String, Object> response = commentService.retrieveCommentsFromPost(
-            post,
-            currentUser,
-            PageRequest.of(page, size)
-        );
+                post,
+                currentUser,
+                PageRequest.of(page, size));
 
         return ResponseEntity.ok(response);
     }
 
     @GetMapping("/posts")
     public ResponseEntity<Map<String, Object>> getPosts(
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "5") int size
-    ) {
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
         // Retrieve posts paginated
         Map<String, Object> response = postService.retrievePosts(
-            PageRequest.of(page, size)
-        );
+                PageRequest.of(page, size));
 
         return ResponseEntity.ok(response);
     }

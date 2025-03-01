@@ -5,16 +5,30 @@
     <link rel="stylesheet" href="/styles/post-detail.css">
     {{> components/head-tags}}
 </head>
+
 <body>
     <div class="container no-gap small-padding">
         {{> components/navbar}}
         <section class="post-detail">
+            {{#isAuthenticated}}
+            <div th:if="${#authentication.principal.authorities.contains('ROLE_ADMIN')}">
+                <div class="button-container">
+                    <form action="/posts/delete/{{post.id}}" method="post"
+                        onsubmit="return confirm('¿Estás seguro de que quieres eliminar este post?');">
+                        <button type="submit" class="clickable clickable-danger">Eliminar Post</button>
+                    </form>
+                    <!-- Otros botones, si los hay -->
+                    <button type="button" class="clickable clickable-primary">Editar Post</button>
+                </div>
+            </div>
+            {{/isAuthenticated}}
+
             <header class="post-header">
                 <div class="post-header-left">
                     <h2 class="post-title">{{post.title}}</h2>
                     <div class="post-tags-container">
                         {{#post.tags}}
-                            <span class="post-tag">{{.}}</span>
+                        <span class="post-tag">{{.}}</span>
                         {{/post.tags}}
                     </div>
                     <p class="description">{{post.description}}</p>
@@ -45,7 +59,7 @@
                 <h4>Deja un comentario</h4>
                 <textarea class="comment-input" name="comment" placeholder="Escribe un comentario..."></textarea>
                 <button type="submit" class="clickable clickable-primary">Comentar</button>
-                <input type="hidden" name="_csrf" value="{{token}}"/>
+                <input type="hidden" name="_csrf" value="{{token}}" />
             </form>
             {{/isAuthenticated}}
         </section>
@@ -54,4 +68,5 @@
     <script src="/scripts/themeToggle.js"></script>
     <script src="/scripts/fetchComments.js"></script>
 </body>
+
 </html>

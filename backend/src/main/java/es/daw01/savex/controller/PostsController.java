@@ -1,7 +1,10 @@
 package es.daw01.savex.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
+import java.util.Collections;
+import java.io.File;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -21,6 +24,7 @@ import es.daw01.savex.service.PostService;
 
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 public class PostsController {
@@ -72,7 +76,7 @@ public class PostsController {
         model.addAttribute("content", markdownService.renderMarkdown(post.getContent()));
         return "post";
     }
- 
+
     @PostMapping("/posts/{id}/addComment")
     public String addComment(@PathVariable long id, @RequestParam String comment) {
         // Get the post by id
@@ -140,5 +144,53 @@ public class PostsController {
 
         controllerUtils.addUserDataToModel(model);
         return "create-Post";
+    }
+
+    @PostMapping("/createPost")
+    public String createPost(
+            @RequestParam("title") String title,
+            @RequestParam("description") String description,
+            @RequestParam("author") String author,
+            @RequestParam("tags") String tags,
+            @RequestParam("date") String date,
+            @RequestParam("banner") MultipartFile banner) {
+        // Crear una nueva instancia de Post
+        Post newPost = new Post();
+        newPost.setTitle(title);
+        newPost.setDescription(description);
+        newPost.setAuthor(author);
+        newPost.setDate(date);
+        newPost.setTags(Collections.singletonList(tags)); // Convertimos tags en lista
+        newPost.setVisibility(VisibilityType.PUBLIC); // Por defecto
+
+        // Guardar la imagen
+        if (!banner.isEmpty()) {
+            try {
+                String uploadDir = "uploads/";
+                File uploadPath = new File(uploadDir);
+                if (!uploadPath.exists()) {
+                    uploadPath.mkdirs(); // Crea la carpeta si no existe
+                }
+                String filePath = uploadDir + banner.getOriginalFilename();
+                banner.transferTo(new File(filePath));
+
+                // Aquí podrías almacenar la URL en la base de datos si el modelo tiene un campo
+                // `imageUrl`
+            } catch (IOException e) {
+                return "redirect:/createPost?error=upload";
+            }
+        }
+
+        // Guardar el post en la base de datos
+        postService.save(newPost);
+
+        // Redirigir a la página del post recién creado
+        return "redirect:/posts/" + newPost.getId();
+    }
+
+    @PostMapping("/delete/{postId}")
+    public String deletePost(@PathVariable Long postId) {
+        postService.deletePost(postId); // Eliminar el post en el servicio
+        return "redirect:/posts"; // Redirigir a la lista de posts después de la eliminación
     }
 }
