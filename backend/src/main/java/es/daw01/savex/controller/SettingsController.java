@@ -55,6 +55,11 @@ public class SettingsController {
             errors.put("username", bindingResult.getFieldError("username").getDefaultMessage());
         }
 
+        // Check name errors
+        if (!userDTO.getName().isBlank() && bindingResult.getFieldError("name") != null) {
+            errors.put("name", bindingResult.getFieldError("name").getDefaultMessage());
+        }
+
         // Check password errors
         if (!userDTO.getPassword().isBlank() && bindingResult.getFieldError("password") != null) {
             errors.put("password", bindingResult.getFieldError("password").getDefaultMessage());

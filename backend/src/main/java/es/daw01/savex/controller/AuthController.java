@@ -62,13 +62,20 @@ public class AuthController {
         @Valid @ModelAttribute UserDTO userDTO, 
         BindingResult bindingResult, 
         Model model) {
+
+        Map<String, String> errors = new HashMap<>();
         
-        if (bindingResult.hasErrors()) {
-            // In case of errors, return to the form with the errors mapped
-            Map<String, String> errors = new HashMap<>();
-            for (FieldError error : bindingResult.getFieldErrors()) {
-                errors.put(error.getField(), error.getDefaultMessage());
-            }
+        if (bindingResult.getFieldError("username") != null) {
+            errors.put("username", bindingResult.getFieldError("username").getDefaultMessage());    
+        }
+        if (bindingResult.getFieldError("email") != null) {
+            errors.put("email", bindingResult.getFieldError("email").getDefaultMessage());
+        }
+        if (bindingResult.getFieldError("password") != null) {
+            errors.put("password", bindingResult.getFieldError("password").getDefaultMessage());
+        }
+
+        if (!errors.isEmpty()) {
 
             model.addAttribute("title", "SaveX - Registrarse");
             model.addAttribute("user", userDTO);
