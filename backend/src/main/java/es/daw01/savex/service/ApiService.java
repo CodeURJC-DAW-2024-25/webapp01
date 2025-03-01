@@ -10,7 +10,7 @@ import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-
+ 
 @Service
 public class ApiService {
     private final String API_BASE_URL = "https://market-pricings-server.vercel.app/api/v1/query";
@@ -23,17 +23,17 @@ public class ApiService {
      * @param supermarket The supermarket to search in
      * @return A list of products
     */
-    public List<ProductDTO> fetchProducts(
+    public List<ProductDTO> fetchProducts( 
         String searchInput,
         String supermarket,
         Double minPrice,
         Double maxPrice,
         Integer limit,
-        Integer page
-    ) {
+        Integer page 
+    ) { 
         // Set default values
         if (page == null) page = 0;
-        if (limit == null) limit = 20;
+        if (limit == null) limit = 2000;
 
         // Format the API URL
         String apiUrl = String.format("%s?", API_BASE_URL);
@@ -44,6 +44,7 @@ public class ApiService {
         if (maxPrice != null) apiUrl = apiUrl.concat(String.format("max_price=%s&", maxPrice));
         if (limit != null) apiUrl = apiUrl.concat(String.format("limit=%s&", limit));
         if (page != null) apiUrl = apiUrl.concat(String.format("offset=%s&", page * limit));
+
 
         System.out.println(apiUrl);
 
@@ -79,3 +80,85 @@ public class ApiService {
         return response.getBody().get(0);
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
