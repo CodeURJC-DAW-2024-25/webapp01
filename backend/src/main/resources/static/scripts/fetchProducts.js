@@ -66,7 +66,7 @@ async function loadProducts(page = 0) {
 function createHTMLProduct(product) {
     return `
     <div class="product-card">
-        <a href="${product.url}" class="product-link">
+        <a href="/products/${product._id}" class="product-link">
             <div class="product-image-container">
                 <div class="supermarket-badge">${product.supermarket_name}</div>
                 <div class="product-image">
@@ -77,8 +77,7 @@ function createHTMLProduct(product) {
             <div class="product-info">
                 <div class="product-meta">
                     <span class="product-brand">${product.brand || '?'}</span>
-                    <span>·</span>
-                    <span class="product-category">${product.product_categories ? product.product_categories[0] : ''}</span>
+                    <span class="product-category">• ${product.product_categories ? product.product_categories[0] : ''}</span>
                 </div>
 
                 <h3 class="product-name">${product.display_name}</h3>
