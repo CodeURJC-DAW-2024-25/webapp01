@@ -11,7 +11,50 @@
 <body>
     <div class="container no-gap">
         {{> components/navbar}}
-        {{> components/searchbar}}
+        
+
+        <div class="filters-bar">
+            {{> components/searchbar}}
+            <form id="filtersForm" method="get" action="/search" class="filters-form">
+           
+                <div class="filter-item">
+                    <label for="supermarket">Supermercado:</label>
+                    <select id="supermarket" name="supermarket">
+                        <option value="">Todos</option>
+                        <option value="mercadona">Mercadona</option>
+                        <option value="carrefour">Carrefour</option>
+                        <option value="lidl">Lidl</option>
+                    </select>
+                </div>
+
+                
+                <div class="filter-item">
+                    <label for="minPrice">Precio min:</label>
+                    <input type="number" step="0.01" id="minPrice" name="minPrice" placeholder="€">
+                </div>
+
+     
+                <div class="filter-item">
+                    <label for="maxPrice">Precio max:</label>
+                    <input type="number" step="0.01" id="maxPrice" name="maxPrice" placeholder="€">
+                </div>
+
+                <div class="filter-item">
+                    <label for="productType">Tipo:</label>
+                    <select id="productType" name="productType">
+                        <option value="">Todos</option>
+                        <option value="fresco">Frescos</option>
+                        <option value="bebidas">Bebidas</option>
+                        <option value="higiene">Higiene</option>
+                    </select>
+                </div>
+
+                <!-- Botón -->
+                <div class="filter-item filter-button">
+                    <button type="submit" class="clickable clickable-primary">Aplicar</button>
+                </div>
+            </form>
+        </div>
 
         <div class="grid-layout">
             {{#products}}
