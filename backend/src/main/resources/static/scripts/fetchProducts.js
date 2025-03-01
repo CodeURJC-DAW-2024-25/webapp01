@@ -7,7 +7,7 @@ const $nextButton = document.querySelector("#next-button");
 const CSRF_TOKEN = document.querySelector('meta[name="_csrf"]').content;
 const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
 
-const PRODUCTS_SIZE = 24;
+const PRODUCTS_SIZE = 16;
 
 let currentPage = 0;
 let loading = false;
@@ -65,19 +65,35 @@ async function loadProducts(page = 0) {
 
 function createHTMLProduct(product) {
     return `
-        <div class="grid-item">
-            <h1>${product._id}</h1>
-            <div class="image-container">
-                <img src="${product.thumbnail}" alt="${product.display_name}">
+    <div class="product-card">
+        <a href="${product.url}" class="product-link">
+            <div class="product-image-container">
+                <div class="supermarket-badge">${product.supermarket_name}</div>
+                <div class="product-image">
+                    <img src="${product.thumbnail}" alt="${product.display_name}" />
+                </div>
             </div>
-            <div class="info-container">
-                <h1 class="product-title">${product.display_name}</h1>
-                <p class="product-description">${product.product_type}</p>
-                <p class="product-price">${product.price.total}&euro;</p>
-                <a class="clickable clickable-primary" href="products/${product._id}">
-                    Ver Producto
-                </a>
+
+            <div class="product-info">
+                <div class="product-meta">
+                    <span class="product-brand">${product.brand || '?'}</span>
+                    <span>·</span>
+                    <span class="product-category">${product.product_categories ? product.product_categories[0] : ''}</span>
+                </div>
+
+                <h3 class="product-name">${product.display_name}</h3>
+
+                <div class="product-price-container">
+                    <div class="price-info">
+                        <p class="product-price">${product.price.total} €</p>
+                        <p class="product-unit-price">${product.price.per_reference_unit} €/${product.price.reference_unit_name}</p>
+                    </div>
+                    <button class="action-button">
+                        <i class="bi bi-plus"></i>
+                    </button>
+                </div>
             </div>
-        </div>
+        </a>
+    </div>
     `;
 }

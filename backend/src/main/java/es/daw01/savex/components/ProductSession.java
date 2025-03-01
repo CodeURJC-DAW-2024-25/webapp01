@@ -7,6 +7,8 @@ import org.springframework.web.context.annotation.SessionScope;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO Review if this class is necessary
+
 @Component
 @SessionScope  
 public class ProductSession {
