@@ -33,7 +33,7 @@ public class ApiService {
     ) { 
         // Set default values
         if (page == null) page = 0;
-        if (limit == null) limit = 2220;
+        if (limit == null) limit = 2000;
 
         // Format the API URL
         String apiUrl = String.format("%s?", API_BASE_URL);

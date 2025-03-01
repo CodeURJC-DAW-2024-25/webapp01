@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import es.daw01.savex.DTOs.PriceDTO;
 import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.components.ControllerUtils;
+import es.daw01.savex.components.ProductSession;
 import es.daw01.savex.service.ApiService;
 import java.util.List;
 
@@ -24,6 +25,9 @@ public class ProductsController {
     @Autowired
     private ApiService apiService;
 
+    @Autowired
+    private ProductSession productSession;
+
     @GetMapping("/search")
     public String searchProducts(
         @RequestParam(required = false) String searchInput,
@@ -33,18 +37,49 @@ public class ProductsController {
         @RequestParam(required = false) Integer page,
         Model model
     ) {
-        List<ProductDTO> products = apiService.fetchProducts(
-            searchInput,
-            supermarket,
-            minPrice,
-            maxPrice,
-            null,
-            null
-        );
-
         
-        // Process products data to avoid null values
-        products.forEach(product -> { 
+        int currentPage = (page != null) ? page : 0;
+
+        // If the search input is empty, we show all products
+        if (currentPage == 0 || productSession.hasSearchParamsChanged(searchInput, supermarket, minPrice, maxPrice)) {
+            List<ProductDTO> products = apiService.fetchProducts(
+                    searchInput, supermarket, minPrice, maxPrice, null, null
+            );
+            processProducts(products);
+            productSession.setProductList(products);
+
+            // Save search params
+            productSession.saveSearchParams(searchInput, supermarket, minPrice, maxPrice);
+        }
+       
+        List<ProductDTO> products = productSession.getProductList();
+
+        // Pagination
+        int totalProducts = products.size();
+        int fromIndex = currentPage * PRODUCTS_PER_PAGE;
+        int toIndex = Math.min(fromIndex + PRODUCTS_PER_PAGE, totalProducts);
+
+        List<ProductDTO> paginatedProducts = products.subList(fromIndex, toIndex);
+
+        boolean hasNextPage = toIndex < totalProducts;
+        boolean hasPreviousPage = fromIndex > 0;
+
+
+        controllerUtils.addUserDataToModel(model);
+        model.addAttribute("products", paginatedProducts);
+        model.addAttribute("searchQuery", searchInput == null ? "" : searchInput);
+        model.addAttribute("currentPage", currentPage);
+        model.addAttribute("hasNextPage", hasNextPage);
+        model.addAttribute("hasPreviousPage", hasPreviousPage);
+        model.addAttribute("prevPage", currentPage - 1);
+        model.addAttribute("nextPage", currentPage + 1);
+        model.addAttribute("title", "SaveX - Productos");
+
+        return "products";
+    }
+    
+    private void processProducts(List<ProductDTO> products) {
+        products.forEach(product -> {
             product.setDisplay_name(product.getDisplay_name() != null ? product.getDisplay_name() : "Producto sin nombre");
             product.setThumbnail(product.getThumbnail() != null ? product.getThumbnail() : "backend/src/main/resources/posts/images/post1.png");
             product.setProduct_type(product.getProduct_type() != null ? product.getProduct_type() : "Tipo desconocido");
@@ -55,44 +90,19 @@ public class ProductsController {
             product.setProduct_url(product.getProduct_url() != null ? product.getProduct_url() : "#");
             product.set_id(product.get_id() != null ? product.get_id() : "ID desconocido");
         });
-        
-        searchInput = searchInput == null ? "" : searchInput;
-        
-        // Pagination
-        int totalProducts = products.size();
-        int currentPage = (page != null) ? page : 0;
-        int fromIndex = currentPage * PRODUCTS_PER_PAGE;
-        int toIndex = Math.min(fromIndex + PRODUCTS_PER_PAGE, totalProducts);
-    
-        List<ProductDTO> paginatedProducts = products.subList(fromIndex, toIndex);
-        paginatedProducts.forEach(System.out::println);
-
-        boolean hasNextPage = toIndex < totalProducts;
-        boolean hasPreviousPage = fromIndex > 0;
-        
-        
-       // Set model attributes
-        controllerUtils.addUserDataToModel(model);
-        model.addAttribute("products", paginatedProducts);
-        model.addAttribute("searchQuery", searchInput);
-        model.addAttribute("currentPage", currentPage);
-        model.addAttribute("hasNextPage", hasNextPage);
-        model.addAttribute("hasPreviousPage", hasPreviousPage);
-        model.addAttribute("prevPage", currentPage - 1);
-        model.addAttribute("nextPage", currentPage + 1);
-        model.addAttribute("title", "SaveX - Productos");
-        return "products";
     }
 
     @GetMapping("/products/{supermarket}/{id}")
     public String getProduct(@PathVariable String supermarket, @PathVariable String id, Model model) {
         ProductDTO product = apiService.fetchProduct(supermarket, id);
         
-        // Set model attributes
+
         controllerUtils.addUserDataToModel(model);
         model.addAttribute("product", product);
         
         model.addAttribute("title", "SaveX - " + product.getDisplay_name());
         return "product-detail";
     }
+
+
 }
