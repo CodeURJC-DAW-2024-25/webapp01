@@ -33,6 +33,7 @@
     --blue-color: #64748b;
 
     --danger-color: #cd3333;
+    --danger-bg-color: #f4dcdd;
     --grey-bg-color: #c7c6c6;
 }
 
@@ -51,6 +52,7 @@
     --blue-color: #b1c2d8;
 
     --danger-color: #ff4d4d;
+    --danger-bg-color: #3e2222;
     --grey-bg-color: #1a1a1d;
 }
 

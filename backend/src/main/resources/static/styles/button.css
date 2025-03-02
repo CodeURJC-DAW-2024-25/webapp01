@@ -89,6 +89,11 @@
         border: 1px solid var(--grey-color);
         background-color: var(--semi-bg-color);
 
+        &.danger {
+            border: 1px solid var(--danger-color);
+            background-color: var(--danger-bg-color);
+        }
+
         &:hover {
             filter: brightness(105%) contrast(95%);
         }
