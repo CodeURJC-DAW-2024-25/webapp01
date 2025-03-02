@@ -86,8 +86,13 @@ body {
 }
 
 a {
-    text-decoration: none;
+    text-decoration: underline;
     color: var(--primary-color);
+    transition: all 0.1s ease;
+
+    &:hover {
+        font-weight: 500;
+    }
 }
 
 h1 {
@@ -117,6 +122,7 @@ h3 {
 p {
     font-size: 1rem;
     line-height: 1.5;
+    margin-bottom: 6px;
     color: var(--text-color);
 }
 
