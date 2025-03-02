@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', function () {
     if (window.location.search) {
         const queryParams = new URLSearchParams(window.location.search);
-        if (queryParams.has('error')) {
+        if (queryParams.has('error') || queryParams.has('success')) {
             const modal = document.getElementById('popup');
             if (modal) {
                 modal.classList.add('show');

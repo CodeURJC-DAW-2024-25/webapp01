@@ -17,6 +17,7 @@ import es.daw01.savex.model.Post;
 import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.repository.PostRepository;
 import es.daw01.savex.utils.DateUtils;
+import jakarta.transaction.Transactional;
 
 @Service
 public class PostService {
@@ -169,5 +170,18 @@ public class PostService {
 
     public void deletePost(Long postId) {
         postRepository.deleteById(postId);
+    }
+
+    @Transactional
+    public void deletePost(long postId) {
+        Optional<Post> postOptional = postRepository.findById(postId);
+        if (postOptional.isPresent()) {
+            Post post = postOptional.get();
+            // Eliminar todas las relaciones del post antes de eliminar el post
+            post.getComments().clear();
+            postRepository.delete(post);
+        } else {
+            throw new IllegalArgumentException("Post not found");
+        }
     }
 }

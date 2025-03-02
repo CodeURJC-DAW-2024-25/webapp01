@@ -29,14 +29,14 @@ public class Post {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    
+
     @Column(nullable = false)
     private String title;
 
     @Column(nullable = false)
     private String description;
-    
-    @Lob    
+
+    @Lob
     @Column(columnDefinition = "LONGTEXT")
     private String content;
 
@@ -114,7 +114,7 @@ public class Post {
      * 
      * @param imageFile the image file to save as the post banner
      * @throws IOException if the image file cannot be read
-    */
+     */
     public void saveImage(MultipartFile imageFile) throws IOException {
         if (!imageFile.isEmpty()) {
             this.banner = BlobProxy.generateProxy(imageFile.getInputStream(), imageFile.getSize());
@@ -125,7 +125,7 @@ public class Post {
      * Add a comment to the post
      * 
      * @param comment the comment to add to the post
-    */
+     */
     public void addComment(Comment comment) {
         this.comments.add(comment);
     }
@@ -134,7 +134,7 @@ public class Post {
      * Remove a comment from the post
      * 
      * @param comment the comment to remove from the post
-    */
+     */
     public void removeComment(Comment comment) {
         this.comments.remove(comment);
     }
@@ -144,7 +144,7 @@ public class Post {
      * 
      * @param user the user to check if they have commented on the post
      * @return true if the user has commented on the post, false otherwise
-    */
+     */
     public boolean hasCommented(User user) {
         for (Comment comment : this.getComments()) {
             if (comment.getAuthor().equals(user)) {
@@ -159,7 +159,7 @@ public class Post {
      * Check if the post is public
      * 
      * @return true if the post is public, false otherwise
-    */
+     */
     public boolean isPublic() {
         return this.visibility == VisibilityType.PUBLIC;
     }

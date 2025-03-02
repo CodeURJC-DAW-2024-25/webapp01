@@ -10,12 +10,14 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.daw01.savex.DTOs.UserDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.User;
 import es.daw01.savex.service.UserService;
 import jakarta.validation.Valid;
+
 
 
 @Controller
@@ -36,7 +38,8 @@ public class SettingsController {
     public String postUpdateAccountInfo(
         @Valid @ModelAttribute("user") UserDTO userDTO, 
         BindingResult bindingResult, 
-        Model model
+        Model model,
+        RedirectAttributes redirectAttributes
     ) {
         // Retrieve the authenticated user
         User currentUser = controllerUtils.getAuthenticatedUser();
@@ -85,9 +88,31 @@ public class SettingsController {
         }
 
         // Redirect
+        redirectAttributes.addFlashAttribute("popupTitle", "Cambios guardados");
+        redirectAttributes.addFlashAttribute("popupContent", "Usuario actualizado correctamente");
         if (userDTO.getUsername().equals(currentUsername)) return "redirect:/settings?success=true";
         else return "/logout";
     }
+
+    @PostMapping("/change-password")
+    public String postChangePassword(String password, String newPassword, String confirmPassword, Model model, RedirectAttributes redirectAttributes) {
+        
+        User user = controllerUtils.getAuthenticatedUser();
+        Map<String, String> errors = new HashMap<>();
+
+        // Check if the password is correct
+        userService.checkPassword(user, password, newPassword, confirmPassword, errors);
+        
+        if (!errors.isEmpty()) {
+            model.addAttribute("errors", errors);
+            return renderSettingsPage(model);
+        }
+
+        redirectAttributes.addFlashAttribute("popupTitle", "Cambios guardados");
+        redirectAttributes.addFlashAttribute("popupContent", "Contraseña cambiada correctamente");
+        return "redirect:/settings?success=true";
+    }
+    
 
     @PostMapping("/delete-account")
     public String postDeleteAccount(Model model) {

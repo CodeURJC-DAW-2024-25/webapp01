@@ -4,6 +4,7 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Comment;
 import es.daw01.savex.model.Post;
+import es.daw01.savex.model.Product;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
 import es.daw01.savex.model.VisibilityType;
@@ -141,6 +143,76 @@ public class PostsController {
         model.addAttribute("title", "SaveX - Crea un nuevo post");
         return "create-Post";
     }
+    /*
+     * @PostMapping("/createPost")
+     * public String createPost(
+     * 
+     * @RequestParam("title") String title,
+     * 
+     * @RequestParam("description") String description,
+     * 
+     * @RequestParam("author") String author,
+     * 
+     * @RequestParam("tags") String tags,
+     * 
+     * @RequestParam("date") String date,
+     * 
+     * @RequestParam("banner") MultipartFile banner) {
+     * // Crear una nueva instancia de Post
+     * Post newPost = new Post();
+     * newPost.setTitle(title);
+     * newPost.setDescription(description);
+     * newPost.setAuthor(author);
+     * newPost.setDate(date);
+     * newPost.setTags(Collections.singletonList(tags)); // Convertimos tags en
+     * lista
+     * newPost.setVisibility(VisibilityType.PUBLIC); // Por defecto
+     * 
+     * // Guardar la imagen
+     * if (!banner.isEmpty()) {
+     * try {
+     * String uploadDir = "uploads/";
+     * File uploadPath = new File(uploadDir);
+     * if (!uploadPath.exists()) {
+     * uploadPath.mkdirs(); // Crea la carpeta si no existe
+     * }
+     * String filePath = uploadDir + banner.getOriginalFilename();
+     * banner.transferTo(new File(filePath));
+     * 
+     * // Aquí podrías almacenar la URL en la base de datos si el modelo tiene un
+     * campo
+     * // `imageUrl`
+     * } catch (IOException e) {
+     * return "redirect:/createPost?error=upload";
+     * }
+     * }
+     * 
+     * // Guardar el post en la base de datos
+     * postService.save(newPost);
+     * 
+     * // Redirigir a la página del post recién creado
+     * return "redirect:/posts/" + newPost.getId();
+     * }
+     */
+    /*
+     * @PostMapping("/delete-post/{postId}")
+     * public String removePost(Model model, @PathVariable long postId) {
+     * User user = controllerUtils.getAuthenticatedUser();
+     * Optional<Post> postOptional = postService.findById(postId);
+     * if (postOptional.isEmpty()) {
+     * throw new IllegalArgumentException("Post not found");
+     * 
+     * }
+     * if (postOptional.get().getAuthor().equals(user) || user.getRole() ==
+     * UserType.ADMIN) {
+     * postService.deleteById(postId);
+     * return "redirect:/";
+     * 
+     * }
+     * 
+     * return "/";
+     * }
+     */
 
     @PostMapping("/createPost")
     public String createPost(
@@ -152,15 +224,8 @@ public class PostsController {
         @RequestParam String visibility,
         @RequestParam MultipartFile banner
     ) {
-        System.out.println(title);
-        System.out.println(description);
-        System.out.println(content);
-        System.out.println(author);
-        System.out.println(tags);
-        System.out.println(visibility);
         // Create a new post with the form data
         Post newPost = postService.createPost(title, description, content, author, tags, visibility);
-
 
         // Save the post in the database
         postService.save(newPost, banner);
@@ -169,9 +234,35 @@ public class PostsController {
         return "redirect:/posts/" + newPost.getId();
     }
 
-    // @PostMapping("/delete/{postId}")
-    // public String deletePost(@PathVariable Long postId) {
-    //     postService.deletePost(postId); // Eliminar el post en el servicio
-    //     return "redirect:/posts"; // Redirigir a la lista de posts después de la eliminación
-    // }
+    @PostMapping("/delete-post/{id}")
+    public String removePost(Model model, @PathVariable long id) {
+        try {
+            User user = controllerUtils.getAuthenticatedUser();
+            System.out.println("Usuario autenticado: " + (user != null ? user.getUsername() : "null"));
+
+            Optional<Post> postOptional = postService.findById(id);
+            if (postOptional.isEmpty()) {
+                System.out.println("Post no encontrado: " + id);
+                return "redirect:/posts?error=not_found";
+            }
+
+            Post post = postOptional.get();
+            System.out.println("Post encontrado: " + post.getTitle());
+
+            // Verificar si el usuario es el autor del post o un administrador
+            if (post.getAuthor().equals(user.getUsername()) || user.getRole() == UserType.ADMIN) {
+                postService.deletePost(id);
+                System.out.println("Post eliminado correctamente.");
+                return "redirect:/";
+            } else {
+                System.out.println("Usuario no autorizado para eliminar este post.");
+                return "redirect:/posts?error=forbidden";
+            }
+        } catch (Exception e) {
+            System.out.println("Error 500 al eliminar post: " + e.getMessage());
+            e.printStackTrace();
+            return "redirect:/posts?error=server_error";
+        }
+    }
+
 }
