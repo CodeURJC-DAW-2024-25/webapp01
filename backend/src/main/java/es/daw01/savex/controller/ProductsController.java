@@ -1,5 +1,8 @@
 package es.daw01.savex.controller;
 
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,11 +13,15 @@ import org.springframework.web.bind.annotation.GetMapping;
 import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.service.ApiService;
+import es.daw01.savex.service.ProductService;
 
 @Controller
 public class ProductsController {
     @Autowired
     private ControllerUtils controllerUtils;
+
+    @Autowired
+    private ProductService productService;
 
     @Autowired
     private ApiService apiService;
@@ -37,16 +44,10 @@ public class ProductsController {
         model.addAttribute("productType", productType != null ? productType : "");
         model.addAttribute("page", page != null ? page : 0);
         
-        // Add flags for productType options
-        model.addAttribute("isFresco", "fresco".equalsIgnoreCase(productType));
-        model.addAttribute("isBebidas", "bebidas".equalsIgnoreCase(productType));
-        model.addAttribute("isHigiene", "higiene".equalsIgnoreCase(productType));
-        
-        // Flags for supermarket (if needed)
-        model.addAttribute("isMercadona", "mercadona".equalsIgnoreCase(supermarket));
-        model.addAttribute("isCarrefour", "carrefour".equalsIgnoreCase(supermarket));
-        model.addAttribute("isLidl", "lidl".equalsIgnoreCase(supermarket));
+        // Parse available supermarkets
+        List<Map<String, Object>> supermarkets = productService.getAvailableSupermarkets(supermarket);
 
+        model.addAttribute("supermarkets", supermarkets);
         model.addAttribute("title", "SaveX - Products");
         return "products";
     }

@@ -1,13 +1,12 @@
 
-.search-bar {
+form.search-bar {
     height: 100%;
     width: 100%;
     display: flex;
+    flex-direction: row;
     align-items: center;
     justify-content: center;
     gap: 8px;
-
-
     
     input {
         width: 500px;
@@ -26,6 +25,4 @@
             box-shadow: 0 0 1px 1px var(--primary-color);
         }
     }
-   
-    
 }
