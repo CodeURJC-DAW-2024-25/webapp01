@@ -23,7 +23,7 @@ public class ProductService {
             .map(s -> Map.of(
                 "name", (Object) s.getName(),
                 "isSelected", (Object) s.getName().equalsIgnoreCase(currentSupermarket),
-                "id", (Object) s.getName().toLowerCase().replace(" ", "")
+                "id", (Object) s.getName().toLowerCase()
             ))
             .collect(Collectors.toList());
     }

@@ -1,56 +1,87 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     {{> components/head-tags}}
-    <link rel="stylesheet" href="styles/profile.css">
-</head>
-<body>
-    <div class="container no-gap">
-        {{> components/navbar}}
+    <link rel="stylesheet" href="/styles/profile.css">
 
+<body>
+    <div class="container no-gap small-padding">
+        {{> components/navbar}}
         <div class="profile-header">
-            <div class="profile-image">
-                <img src="{{avatar}}" class="avatar" alt="Imagen de perfil">
-            </div>
+            <div class="gradient-background"></div>
             <div class="profile-info">
-                <h2 class="profile-name">{{name}}</h2>
-                <p class="profile-username">@{{username}}</p>
-                {{^isAdmin}}
-                <a href="/settings" class="clickable clickable-secondary">
-                    <i class="bi bi-gear icon"></i>
-                    <span>Ajustes del Perfil</span>
-                </a>
-                {{/isAdmin}}
-                <form action="/logout" method="post" class="logout-form">
-                    <input type="hidden" name="_csrf" value="{{token}}"/>
-                    <button type="submit" class="clickable clickable-secondary">
-                        <i class="bi bi-box-arrow-right icon"></i>
-                        <span>Cerrar sesión</span>
-                    </button>
-                </form>
-            </div>
-        </div>
-        <div class="profile-content">
-            <div class="profile-lists">
-                <h3 class="profile-lists-title">Tus listas</h3>
-                <hr>
-                <div class="profile-lists-content">
-                    <div class="profile-list">
-                        <h4>Lista 1</h4>
-                        <p>Descripción de la lista 1</p>
+                <div class="profile-avatar">
+                    <img src="{{avatar}}" alt="Avatar de {{name}}">
+                </div>
+                <div class="user-details">
+                    <div class="name-badge">
+                        <h2>{{name}}</h2>
+                        <span class="badge">
+                            {{role}}
+                        </span>
                     </div>
-                    <div class="profile-list">
-                        <h4>Lista 1</h4>
-                        <p>Descripción de la lista 1</p>
+                    <p class="username">@{{username}}</p>
+                    <div class="user-stats">
+                        <span><i class="bi bi-calendar"></i> Se unió: Enero 2023</span>
+                        <span><i class="bi bi-list-task"></i> 3 listas</span>
                     </div>
-                    <div class="profile-list">
-                        <h4>Lista 1</h4>
-                        <p>Descripción de la lista 1</p>
+                    <div class="user-actions">
+                        {{^isAdmin}}
+                        <a href="/settings" class="clickable clickable-secondary">
+                            <i class="bi bi-gear icon"></i>
+                            <span>Ajustes</span>
+                        </a>
+                        {{/isAdmin}}
+                        <form action="/logout" method="post" class="logout-form">
+                            <input type="hidden" name="_csrf" value="{{token}}" />
+                            <button type="submit" class="clickable clickable-secondary">
+                                <i class="bi bi-box-arrow-right icon"></i>
+                                <span>Cerrar sesión</span>
+                            </button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
-        
+
+        <!-- Sección de listas -->
+        <div class="lists-section">
+            <div class="lists-header">
+                <h3>Tus listas</h3>
+                <button class="clickable clickable-secondary">
+                    <i class="bi bi-plus-lg"></i> 
+                    Nueva lista
+                </button>
+            </div>
+            <hr>
+            <div class="lists-grid">
+                <div class="list-card">
+                    <div class="list-card-header">
+                        <h4>Lista 1</h4>
+                        <span class="badge badge-secondary">5 items</span>
+                    </div>
+                    <p>Descripción de la lista 1</p>
+                    <button class="clickable clickable-secondary full-width">Ver detalles</button>
+                </div>
+                <div class="list-card">
+                    <div class="list-card-header">
+                        <h4>Lista 2</h4>
+                        <span class="badge badge-secondary">3 items</span>
+                    </div>
+                    <p>Descripción de la lista 2</p>
+                    <button class="clickable clickable-secondary full-width">Ver detalles</button>
+                </div>
+                <div class="list-card">
+                    <div class="list-card-header">
+                        <h4>Lista 3</h4>
+                        <span class="badge badge-secondary">7 items</span>
+                    </div>
+                    <p>Descripción de la lista 3</p>
+                    <button class="clickable clickable-secondary full-width">Ver detalles</button>
+                </div>
+            </div>
+        </div>
         {{> components/footer}}
     </div>
     <script src="scripts/themeToggle.js"></script>

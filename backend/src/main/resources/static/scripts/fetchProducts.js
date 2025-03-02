@@ -2,6 +2,11 @@ const $productsContainer = document.querySelector(".products-container");
 const $previousButton = document.querySelector("#previous-button");
 const $pageNumber = document.querySelector("#page-number");
 const $nextButton = document.querySelector("#next-button");
+const $applyFiltersButton = document.querySelector("#apply-filters");
+
+const $minPriceInput = document.querySelector("#minPrice");
+const $maxPriceInput = document.querySelector("#maxPrice");
+const $supermarketRadios = document.querySelectorAll("input[name='supermarket']")
 
 const CSRF_TOKEN = document.querySelector('meta[name="_csrf"]').content;
 const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
@@ -19,13 +24,22 @@ let queryParams = null;
 document.addEventListener("DOMContentLoaded", () => {
     queryParams = new URLSearchParams(window.location.search);
     searchQuery = queryParams.get("searchInput") || "";
+
     // Load filters from URL
     const supermarket = queryParams.get("supermarket") || "";
     const minPrice = queryParams.get("minPrice") || "";
     const maxPrice = queryParams.get("maxPrice") || "";
-    const productType = queryParams.get("productType") || "";
+
     // Store filters globally
-    window.filterOptions = { supermarket, minPrice, maxPrice, productType };
+    window.filterOptions = { supermarket, minPrice, maxPrice };
+
+    // Set filters in the form
+    $minPriceInput.value = minPrice;
+    $maxPriceInput.value = maxPrice;
+    $supermarketRadios.forEach(radio => {
+        if (radio.value === supermarket) radio.checked = true;
+    });
+
     // Load products when the page loads
     loadProducts();
 });
@@ -33,18 +47,18 @@ document.addEventListener("DOMContentLoaded", () => {
 // Events for pagination
 $previousButton.addEventListener("click", () => loadProducts(currentPage - 1));
 $nextButton.addEventListener("click", () => loadProducts(currentPage + 1));
+$applyFiltersButton.addEventListener("click", () => applyFilters(currentPage));
 
 async function loadProducts(page = 0) {
     if (loading || isEnd) return;
     if (page < 0) return;
 
-    loading = true;
+    loading = true; 
     const { supermarket, minPrice, maxPrice, productType } = window.filterOptions || {};
     let url = `/api/products?page=${page}&limit=${PRODUCTS_SIZE}&search=${encodeURIComponent(searchQuery)}`;
     if (supermarket) url += `&supermarket=${encodeURIComponent(supermarket)}`;
-    if (minPrice) url += `&minprice=${encodeURIComponent(minPrice)}`;
-    if (maxPrice) url += `&maxprice=${encodeURIComponent(maxPrice)}`;
-    if (productType) url += `&type=${encodeURIComponent(productType)}`;
+    if (minPrice) url += `&minPrice=${encodeURIComponent(minPrice)}`;
+    if (maxPrice) url += `&maxPrice=${encodeURIComponent(maxPrice)}`;
 
     console.log("Fetching products from URL:", url);
     
@@ -69,14 +83,31 @@ async function loadProducts(page = 0) {
     $pageNumber.textContent = `Page ${currentPage + 1} of ${totalPages}`;
 }
 
+async function applyFilters(page = 0) {
+    // Retrieve filters from the form
+    const minPrice = $minPriceInput.value;
+    const maxPrice = $maxPriceInput.value;
+    const supermarket = document.querySelector("input[name='supermarket']:checked")?.value || "";
+
+    // Store filters globally
+    window.filterOptions = { supermarket, minPrice, maxPrice };
+
+    // Retrieve new products with the new filters
+    currentPage = 0;
+    isEnd = false;
+    loadProducts(page);
+}
+
+
 function createHTMLProduct(product) {
+    const thumbnail = product.thumbnail || "/assets/template_image.png";
     return `
     <div class="product-card">
-        <a href="/products/${product._id}?searchInput=${encodeURIComponent(searchQuery)}" class="product-link">
+        <a href="/products/${product._id}" class="product-link">
             <div class="product-image-container">
                 <div class="supermarket-badge">${product.supermarket_name}</div>
                 <div class="product-image">
-                    <img src="${product.thumbnail}" alt="${product.display_name}" />
+                    <img src="${thumbnail}" alt="${product.display_name}" />
                 </div>
             </div>
             <div class="product-info">

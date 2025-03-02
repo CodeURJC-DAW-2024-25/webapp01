@@ -1,98 +1,190 @@
 .profile-header {
     width: 100%;
+    background-color: var(--bg-color);
+    border-radius: 0.5rem;
+    overflow: hidden;
+    box-shadow: 0 4px 6px -1px var(--grey-color), 0 2px 4px -1px var(--grey-color);
+    margin-bottom: 2rem;
+}
+
+.gradient-background {
+    height: 12rem;
+    background: linear-gradient(to right, #e0edf2, #a393c8);
+}
+
+.profile-info {
+    padding: 2rem;
     display: flex;
-    gap: 16px;
-    justify-content: space-between;
-    flex-wrap: wrap;
-
-    .profile-image {
-        position: relative;
-        --size: 160px;
-        width: var(--size);
-        height: var(--size);
-        padding: 4px;
-        border-radius: 8px;
-        background-color: var(--primary-color);
-
-        img {
-            width: 100%;
-            height: 100%;
-            border-radius: 4px;
-        }
-    }
-
-    .profile-info {
-        display: flex;
-        flex-direction: column;
-        align-items: flex-end;
-        gap: 4px;
-
-        --padding-right: 4px;
-
-        .profile-name {
-            font-size: 32px;
-            font-weight: bold;
-            text-align: right;
-            padding-right: var(--padding-right);
-        }
-
-        .profile-username {
-            font-size: 16px;
-            text-align: right;
-            color: var(--text-color);
-            padding-right: var(--padding-right);
-            margin-bottom: 16px;
-        }
-    }
+    flex-direction: row;
+    align-items: center;
+    text-align: left;
 }
 
-.profile-content {
+.profile-avatar {
+    width: 150px;
+    height: 150px;
+    border-radius: 8px;
+    border: 4px solid var(--white-color);
+    overflow: hidden;
+    margin-top: -250px;
+    box-shadow: 0 4px 6px -1px var(--grey-color);
+}
+
+.profile-avatar img {
     width: 100%;
-
-    .profile-lists-title {
-        font-weight: 500;
-    }
-
-    .profile-lists-content {
-        width: 100%;
-        display: flex;
-        gap: 16px;
-        flex-wrap: wrap;
-        padding-top: 24px;
-
-        .profile-list {
-            width: 100%;
-            max-width: 300px;
-            padding: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
-            border-radius: 8px;
-            background-color: var(--grey-color);
-            cursor: pointer;
-
-            h4 {
-                color: var(--primary-color);
-            }
-        }
-    }
+    height: 100%;
+    object-fit: cover;
 }
 
-@media (max-width: 500px) {
-    .profile-header {
+.user-details {
+    margin-top: 1rem;
+    margin-left: 2rem;
+}
+
+.name-badge {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content:left;
+    gap: 0.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.badge {
+    background-color: var(--grey-color);
+    color: var(--text-color);
+    padding: 0.25rem 0.5rem;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.username {
+    color: var(--blue-color);
+    margin-bottom: 1rem;
+}
+
+.user-stats {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    color: var(--blue-color);
+    font-size: 0.875rem;
+    margin-bottom: 1rem;
+}
+
+.user-actions {
+    display: flex;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+.lists-section {
+    width: 100%;
+    background-color: var(--bg-color);
+    border-radius: 0.5rem;
+    padding: 2rem;
+    color: var(--text-color);
+    box-shadow: 0 4px 6px -1px var(--grey-color), 0 2px 4px -1px var(--grey-color);
+}
+
+.lists-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.lists-header h3 {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+hr {
+    border: none;
+    border-top: 1px solid var(--grey-color);
+    margin: 1rem 0;
+}
+
+.lists-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.list-card {
+    border: 2px solid transparent;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 3px var(--grey-color);
+}
+
+.list-card:hover {
+    border-color: rgba(59, 130, 246, 0.1);
+    box-shadow: 0 4px 6px -1px var(--grey-color), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+}
+
+.list-card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+    margin-bottom: 0.75rem;
+}
+
+.list-card-header h4 {
+    font-size: 1.125rem;
+    font-weight: 500;
+}
+
+.list-card p {
+    color: var(--text-color);
+    margin-bottom: 1rem;
+}
+
+.badge-secondary {
+    background-color: var(--grey-color);
+    color: var(--secondary-color);
+}
+@media (max-width: 1024px) {
+    .gradient-background {
+        height: 8rem;
+    }
+
+    .profile-avatar {
+        width: 180px;
+        height: 180px;
+        margin-top: -250px;
+    }
+
+    .name-badge h2 {
+        font-size: 1.875rem;
+    }
+}
+@media (max-width: 768px) {
+    .profile-info {
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
-
-        .profile-info {
-            .profile-name {
-                text-align: center;
-            }
-    
-            .profile-username {
-                text-align: center;
-            }
-        }
+        text-align: left;
+        gap: 2rem;
+        padding: 5px, 10px
     }
 
+    .profile-avatar {
+        margin-top: -100px;
+        width: 150px;
+        height: 150px;
+    }
+
+    .user-details {
+        margin-left: 0;
+        flex-grow: 1;
+    }
+
+    .name-badge, .user-stats, .user-actions, .username {
+        text-align: center;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+    }
 }
+
