@@ -29,12 +29,14 @@
                 <div class="product-header">
                     <span class="badge">{{supermarket_name}}</span>
                     <h1 class="product-title">{{display_name}}</h1>
+                    {{#brand}}
                     <p class="product-brand">{{brand}}</p>
+                    {{/brand}}
                 </div>
 
                 <div class="product-price">
                     <span class="price-main">{{price.total}}&euro;</span>
-                    <span class="price-unit">{{price.per_reference_unit}}/{{price.reference_unit_name}}</span>
+                    <span class="price-unit">{{price.per_reference_unit}}&euro;/{{price.reference_unit_name}}</span>
                 </div>
 
                 <button class="clickable clickable-primary">

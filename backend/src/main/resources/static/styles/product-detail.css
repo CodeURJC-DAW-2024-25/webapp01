@@ -45,6 +45,8 @@
 
 .product-header .badge {
     margin-bottom: 0.5rem;
+    color: var(--text-color);
+    background-color: var(--grey-color);
 }
 
 .product-title {
