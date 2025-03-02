@@ -20,7 +20,7 @@
     --max-width: 1200px;
 
     /* Colors */
-    --grey-color: #f4f4f5;
+    --grey-color: #e7ebf1;
     --white-color: #fff;
 
     --primary-color: #222;
@@ -29,6 +29,7 @@
     --bg-color: #fff;
     --semi-bg-color: #fcfcfc;
     --primary-color-hover: #0f7a97;
+    --accent-color: #64748b;
 
     --danger-color: #cd3333;
     --grey-bg-color: #c7c6c6;
@@ -45,6 +46,7 @@
     --bg-color: #000;
     --semi-bg-color: #111;
     --primary-color-hover: #87d2e7;
+    --accent-color: #bfd1e9;
 
     --danger-color: #ff4d4d;
     --grey-bg-color: #1a1a1d;
