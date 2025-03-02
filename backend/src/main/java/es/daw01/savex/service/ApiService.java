@@ -1,6 +1,6 @@
 package es.daw01.savex.service;
 
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestTemplate; 
 
 import es.daw01.savex.DTOs.ProductDTO;
 
@@ -11,9 +11,9 @@ import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
  
-@Service
+@Service 
 public class ApiService {
-    private final String API_BASE_URL = "https://market-pricings-server.vercel.app/api/v2";
+    private final String API_BASE_URL = "https://market-pricings-server.vercel.app/api/v2"; 
     private final RestTemplate restTemplate = new RestTemplate();
 
     /**
@@ -28,13 +28,15 @@ public class ApiService {
         String supermarket,
         Double minPrice,
         Double maxPrice,
-        Integer limit,
-        Integer page 
-    ) { 
+        String productType,
+        Integer limit, 
+        Integer page
+    ){ 
         // Set default values
         if (page == null) page = 0;
-        if (limit == null) limit = 2000;
+        if (limit == null) limit = 2000; 
 
+      
         // Format the API URL
         String apiUrl = String.format("%s/query?", API_BASE_URL);
 
@@ -42,17 +44,18 @@ public class ApiService {
         if (searchInput != null) apiUrl = apiUrl.concat(String.format("search=%s&", searchInput));
         if (minPrice != null) apiUrl = apiUrl.concat(String.format("min_price=%s&", minPrice));
         if (maxPrice != null) apiUrl = apiUrl.concat(String.format("max_price=%s&", maxPrice));
+        if (productType != null && !productType.isEmpty()) apiUrl = apiUrl.concat(String.format("type=%s&", productType));
         if (limit != null) apiUrl = apiUrl.concat(String.format("limit=%s&", limit));
         if (page != null) apiUrl = apiUrl.concat(String.format("page=%s&", page));
-
-        // Make the API request
+    
+        System.out.println("API URL: " + apiUrl); 
         ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
             apiUrl,
             HttpMethod.GET,
             null,
             new ParameterizedTypeReference<Map<String, Object>>() {}
         );
-
+    
         return response;
     }
 
@@ -63,7 +66,7 @@ public class ApiService {
      * @param id The product ID
      * @return A product
     */
-    public ProductDTO fetchProduct(String productId) {
+    public ProductDTO fetchProduct(String productId) { 
         // Format the API URL
         String apiUrl = String.format("%s/product/%s", API_BASE_URL, productId);
         

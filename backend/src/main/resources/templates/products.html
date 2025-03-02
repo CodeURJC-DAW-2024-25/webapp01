@@ -1,56 +1,60 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     {{> components/head-tags}}
     <link rel="stylesheet" href="/styles/searchbar.css">
     <link rel="stylesheet" href="/styles/posts.css">
     <link rel="stylesheet" href="/styles/products.css">
 </head>
-
 <body>
     <div class="container no-gap small-padding">
         {{> components/navbar}}
         
-        <div class="filters-bar">
+        <!-- Search bar -->
+        <div class="search-bar-container">
             {{> components/searchbar}}
+        </div>
+        
+        <!-- Filters bar below the search bar -->
+        <div class="filters-bar">
             <form id="filtersForm" method="get" action="/search" class="filters-form">
-           
-                <div class="filter-item">
-                    <label for="supermarket">Supermercado:</label>
-                    <select id="supermarket" name="supermarket">
-                        <option value="">Todos</option>
-                        <option value="mercadona">Mercadona</option>
-                        <option value="carrefour">Carrefour</option>
-                        <option value="lidl">Lidl</option>
-                    </select>
-                </div>
-
+                <!-- Hidden input to preserve the search term -->
+                <input type="hidden" name="searchInput" value="{{searchQuery}}">
                 
                 <div class="filter-item">
-                    <label for="minPrice">Precio min:</label>
-                    <input type="number" step="0.01" id="minPrice" name="minPrice" placeholder="€">
-                </div>
-
-     
-                <div class="filter-item">
-                    <label for="maxPrice">Precio max:</label>
-                    <input type="number" step="0.01" id="maxPrice" name="maxPrice" placeholder="€">
-                </div>
-
-                <div class="filter-item">
-                    <label for="productType">Tipo:</label>
-                    <select id="productType" name="productType">
-                        <option value="">Todos</option>
-                        <option value="fresco">Frescos</option>
-                        <option value="bebidas">Bebidas</option>
-                        <option value="higiene">Higiene</option>
+                    <label for="supermarket">Supermarket:</label>
+                    <select id="supermarket" name="supermarket">
+                        <option value="" {{^supermarket}}selected{{/supermarket}}>All</option>
+                        <option value="mercadona" {{#isMercadona}}selected{{/isMercadona}}>Mercadona</option>
+                        <option value="carrefour" {{#isCarrefour}}selected{{/isCarrefour}}>Carrefour</option>
+                        <option value="lidl" {{#isLidl}}selected{{/isLidl}}>Lidl</option>
                     </select>
                 </div>
 
-                <!-- Botón -->
+                <div class="filter-item">
+                    <label for="minPrice">Min price:</label>
+                    <input type="number" step="0.01" id="minPrice" name="minPrice" placeholder="€" value="{{minPrice}}">
+                </div>
+
+                <div class="filter-item">
+                    <label for="maxPrice">Max price:</label>
+                    <input type="number" step="0.01" id="maxPrice" name="maxPrice" placeholder="€" value="{{maxPrice}}">
+                </div>
+
+                <div class="filter-item">
+                    <label for="productType">Type:</label>
+                    <select id="productType" name="productType">
+                        <option value="">All</option>
+                        <option value="fresco" {{#isFresco}}selected{{/isFresco}}>Fresh</option>
+                        <option value="bebidas" {{#isBebidas}}selected{{/isBebidas}}>Drinks</option>
+                        <option value="higiene" {{#isHigiene}}selected{{/isHigiene}}>Hygiene</option>
+                    </select>
+                </div>
+                
+                
+
                 <div class="filter-item filter-button">
-                    <button type="submit" class="clickable clickable-primary">Aplicar</button>
+                    <button type="submit" class="clickable clickable-primary">Apply</button>
                 </div>
             </form>
         </div>
@@ -60,9 +64,9 @@
         </div>
 
         <div class="pagination">
-            <button id="previous-button" class="clickable clickable-primary">Página anterior</button>
+            <button id="previous-button" class="clickable clickable-primary">Previous page</button>
             <span id="page-number"></span>
-            <button id="next-button" class="clickable clickable-primary">Página siguiente</button>
+            <button id="next-button" class="clickable clickable-primary">Next page</button>
         </div>
 
         {{> components/footer}}
