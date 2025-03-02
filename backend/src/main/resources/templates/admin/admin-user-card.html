@@ -1,14 +1,14 @@
 <tbody>
-    {{#posts}}
+    {{#users}}
         <tr>
-            <td>{{title}}</td>
-            <td>{{author}}</td>
+            <td><kbd>@{{username}}</kbd></td>
+            <td>{{email}}</td>
+            <td>{{role}}</td>
             <td>{{nComments}}</td>
-            <td>{{date}}</td>
             <td class="text-end">
                 <button class="btn btn-warning">Editar</button>
                 <button class="btn btn-danger">Eliminar</button>
             </td>
         </tr>
-    {{/posts}}
+    {{/users}}
 </tbody>
