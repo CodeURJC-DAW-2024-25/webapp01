@@ -4,7 +4,7 @@ public enum SupermarketType {
     MERCADONA("Mercadona"),
     CARREFOUR("Carrefour"),
     DIA("Dia"),
-    ELCORTEINGLES("El Corte Inglés"),
+    ELCORTEINGLES("ElCorteIngles"),
     CONSUM("Consum"),
     BM("BM");
 
