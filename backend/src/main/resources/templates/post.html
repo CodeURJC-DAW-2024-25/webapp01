@@ -10,8 +10,8 @@
     <div class="container no-gap small-padding">
         {{> components/navbar}}
         <section class="post-detail">
-            {{#isAuthenticated}}
-            <div th:if="${#authentication.principal.authorities.contains('ROLE_ADMIN')}">
+            {{#isAdmin}}
+            <div>
                 <div class="button-container">
                     <form action="/delete-post/{{post.id}}" method="post"
                         onsubmit="return confirm('¿Estás seguro de que quieres eliminar este post?');">
@@ -23,7 +23,7 @@
                     </form>
                 </div>
             </div>
-            {{/isAuthenticated}}
+            {{/isAdmin}}
 
             <header class="post-header">
                 <div class="post-header-left">
