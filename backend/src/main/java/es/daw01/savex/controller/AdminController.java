@@ -8,8 +8,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import es.daw01.savex.DTOs.PostDTO;
 import es.daw01.savex.components.ControllerUtils;
-import es.daw01.savex.model.PostDTO;
 import es.daw01.savex.service.PostService;
 
 
