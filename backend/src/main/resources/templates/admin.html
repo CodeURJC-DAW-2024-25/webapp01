@@ -38,6 +38,11 @@
                         </tr>
                     </thead>
                     {{> admin/admin-user-card}}
+                    {{^users}}
+                    <tr>
+                        <td colspan="5" class="text-center">No hay usuarios</td>
+                    </tr>
+                    {{/users}}
                 </table>
             </div>
             <h3>Posts</h3>
@@ -53,6 +58,11 @@
                         </tr>
                     </thead>
                     {{> admin/admin-post-card}}
+                    {{^posts}}
+                    <tr>
+                        <td colspan="5" class="text-center">No hay posts</td>
+                    </tr>
+                    {{/posts}}
                 </table>
             </div>
         </section>
