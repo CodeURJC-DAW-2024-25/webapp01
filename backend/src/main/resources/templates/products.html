@@ -1,62 +1,54 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     {{> components/head-tags}}
     <link rel="stylesheet" href="/styles/searchbar.css">
-    <link rel="stylesheet" href="/styles/posts.css">
     <link rel="stylesheet" href="/styles/products.css">
+    <link rel="stylesheet" href="/styles/form.css">
 </head>
+
 <body>
     <div class="container no-gap small-padding">
         {{> components/navbar}}
-        
-        <!-- Search bar -->
-        <div class="search-bar-container">
-            {{> components/searchbar}}
-        </div>
-        
-        <!-- Filters bar below the search bar -->
-        <div class="filters-bar">
-            <form id="filtersForm" method="get" action="/search" class="filters-form">
-                <!-- Hidden input to preserve the search term -->
+
+        <div class="query-container">
+            <div class="search-bar-container">
+                {{> components/searchbar}}
+            </div>
+
+            <div class="filters-bar">
                 <input type="hidden" name="searchInput" value="{{searchQuery}}">
-                
-                <div class="filter-item">
-                    <label for="supermarket">Supermarket:</label>
-                    <select id="supermarket" name="supermarket">
-                        <option value="" {{^supermarket}}selected{{/supermarket}}>All</option>
-                        <option value="mercadona" {{#isMercadona}}selected{{/isMercadona}}>Mercadona</option>
-                        <option value="carrefour" {{#isCarrefour}}selected{{/isCarrefour}}>Carrefour</option>
-                        <option value="lidl" {{#isLidl}}selected{{/isLidl}}>Lidl</option>
-                    </select>
-                </div>
 
                 <div class="filter-item">
-                    <label for="minPrice">Min price:</label>
-                    <input type="number" step="0.01" id="minPrice" name="minPrice" placeholder="€" value="{{minPrice}}">
+                    <label for="supermarket">Supermercado</label>
+                    <div class="radio-buttons">
+                        <input type="radio" id="all" name="supermarket" value="" {{^supermarket}}checked{{/supermarket}}>
+                        <label for="all">Todos</label>
+                        {{#supermarkets}}
+                            <input type="radio" id="{{id}}" name="supermarket" value="{{id}}" {{#isSupermarket}}checked{{/isSupermarket}}>
+                            <label for="{{id}}">{{name}}</label>
+                        {{/supermarkets}}
+                    </div>
                 </div>
 
-                <div class="filter-item">
-                    <label for="maxPrice">Max price:</label>
-                    <input type="number" step="0.01" id="maxPrice" name="maxPrice" placeholder="€" value="{{maxPrice}}">
+                <div class="filter-row">
+                    <div class="filter-item">
+                        <label for="minPrice">Precio mínimo</label>
+                        <input type="number" step="0.01" id="minPrice" name="minPrice" placeholder="€"
+                            value="{{minPrice}}">
+                    </div>
+                    <div class="filter-item">
+                        <label for="maxPrice">Precio máximo</label>
+                        <input type="number" step="0.01" id="maxPrice" name="maxPrice" placeholder="€"
+                            value="{{maxPrice}}">
+                    </div>
+                    <div class="filter-item">
+                        <span></span>
+                        <button type="submit" class="clickable clickable-primary">Aplicar</button>
+                    </div>
                 </div>
-
-                <div class="filter-item">
-                    <label for="productType">Type:</label>
-                    <select id="productType" name="productType">
-                        <option value="">All</option>
-                        <option value="fresco" {{#isFresco}}selected{{/isFresco}}>Fresh</option>
-                        <option value="bebidas" {{#isBebidas}}selected{{/isBebidas}}>Drinks</option>
-                        <option value="higiene" {{#isHigiene}}selected{{/isHigiene}}>Hygiene</option>
-                    </select>
-                </div>
-                
-                
-
-                <div class="filter-item filter-button">
-                    <button type="submit" class="clickable clickable-primary">Apply</button>
-                </div>
-            </form>
+            </div>
         </div>
 
         <div class="grid-layout products-container">
@@ -75,4 +67,5 @@
     <script src="/scripts/themeToggle.js"></script>
     <script src="/scripts/fetchProducts.js"></script>
 </body>
+
 </html>

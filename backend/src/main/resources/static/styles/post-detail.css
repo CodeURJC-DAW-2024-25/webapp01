@@ -1,4 +1,5 @@
 .post-detail {
+    margin-top: -24px;
     width: 100%;
     max-width: 763px;
     display: flex;
@@ -41,6 +42,13 @@
     display: flex;
     gap: 8px;
     margin-bottom: 8px;
+}
+
+.back-link {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
 }
 
 .post-tag {
