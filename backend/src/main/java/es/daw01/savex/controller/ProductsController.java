@@ -1,40 +1,45 @@
 package es.daw01.savex.controller;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import es.daw01.savex.DTOs.PriceDTO;
 import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.service.ApiService;
 import es.daw01.savex.service.ProductService;
 
 @Controller
-public class ProductsController {
+public class ProductsController { 
     @Autowired
     private ControllerUtils controllerUtils;
 
     @Autowired
-    private ProductService productService;
+    private ProductService productService; 
 
-    @Autowired
-    private ApiService apiService;
+    @Autowired 
+    private ApiService apiService;  
 
-    @GetMapping("/search")
-    public String searchProducts( 
+    @GetMapping("/search")    
+    public String searchProducts(  
         @RequestParam(required = false) String searchInput,
         @RequestParam(required = false) String supermarket,
         @RequestParam(required = false) Double minPrice,
         @RequestParam(required = false) Double maxPrice,
         @RequestParam(required = false) String productType,
         @RequestParam(required = false) Integer page,
-        Model model
+        Model model        
     ) {
         controllerUtils.addUserDataToModel(model);
         model.addAttribute("searchQuery", searchInput != null ? searchInput : "");
@@ -56,13 +61,94 @@ public class ProductsController {
     public String getProduct(@PathVariable String id, 
                              @RequestParam(required = false) String searchInput,
                              Model model) {
-        ProductDTO product = apiService.fetchProduct(id);
-        controllerUtils.addUserDataToModel(model);
-        model.addAttribute("product", product);
-        model.addAttribute("searchQuery", searchInput != null ? searchInput : "");
+            ProductDTO product = apiService.fetchProduct(id);
+            controllerUtils.addUserDataToModel(model);
+            model.addAttribute("product", product);
+            model.addAttribute("searchQuery", searchInput != null ? searchInput : "");
 
         model.addAttribute("title", "SaveX - " + product.getDisplay_name());
         return "product-detail";
     }
+    
+
+    @GetMapping("/compare")
+    public String compareProducts(@RequestParam(required = false) String searchInput, Model model) {
+        controllerUtils.addUserDataToModel(model);
+
+        // Lista de supermercados a comparar
+        List<String> supermarkets = Arrays.asList("mercadona", "dia", "elcorteingles","consum","bm");
+
+        // Mapa para almacenar el producto encontrado por cada supermercado
+        Map<String, ProductDTO> comparisonMap = new HashMap<>();
+
+        for (String market : supermarkets) {
+            try {
+                ResponseEntity<Map<String, Object>> response = apiService.fetchProducts(
+                    searchInput, market, null, null, 1, 0
+                );
+                List<?> data = (List<?>) response.getBody().get("data");
+                if (data != null && !data.isEmpty()) {
+                    ProductDTO product = convertToProductDTO(data.get(0));
+                    comparisonMap.put(market, product);
+                }
+            } catch (Exception ex) {
+                System.err.println("Error obteniendo producto de " + market + ": " + ex.getMessage());
+            } 
+        } 
+        System.out.println("Comparison Map: " + comparisonMap);
+
+
+        List<Map<String, Object>> comparisons = new ArrayList<>();
+        for (String market : supermarkets) {
+            Map<String, Object> entry = new HashMap<>();
+            ProductDTO product = comparisonMap.get(market); 
+
+            entry.put("market", market);
+            entry.put("product_name", product != null && product.getDisplay_name() != null ? product.getDisplay_name(): "No disponible");
+            entry.put("price", product != null && product.getPrice() != null ? product.getPrice().getTotal() : "-");
+            if (product.getDisplay_name() == null) {
+                entry.put("price", "-");
+            }
+
+            comparisons.add(entry);               
+        }
+               
+        model.addAttribute("comparisons", comparisons);   
+        model.addAttribute("supermarkets", supermarkets);
+        model.addAttribute("searchQuery", searchInput != null ? searchInput : "");
+
+        System.out.println("MODEL DATA: " + model);
+
+        return "compare-table";
+    }
+
+        // Método auxiliar para convertir un objeto (Map) a ProductDTO
+        private ProductDTO convertToProductDTO(Object data) {
+            Map<String, Object> map = (Map<String, Object>) data;
+            ProductDTO p = new ProductDTO();
+            p.setDisplay_name((String) map.get("display_name"));
+            p.setSupermarket_name((String) map.get("supermarket_name"));
+        
+            // Procesar el precio correctamente (esperando un objeto anidado)
+            PriceDTO priceDTO = new PriceDTO();
+            if (map.get("price") instanceof Map) {
+                Map<String, Object> priceMap = (Map<String, Object>) map.get("price");
+                Double totalPrice = priceMap.get("total") instanceof Number 
+                    ? ((Number) priceMap.get("total")).doubleValue()
+                    : 0.0;
+        
+                priceDTO.setTotal(totalPrice.toString());
+            } else {
+                // Por si acaso, si "price" no es un mapa (API mal formateada), lo tratamos como 0
+                priceDTO.setTotal("0.0");
+            }
+        
+            p.setPrice(priceDTO);
+            return p;
+        }
+        
+
+
+    
     
 }

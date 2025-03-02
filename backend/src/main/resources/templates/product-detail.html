@@ -1,11 +1,10 @@
 <!DOCTYPE html>
 <html lang="es">
-
 <head>
     <link rel="stylesheet" href="/styles/product-detail.css">
+    <script src="/scripts/details.js" defer></script>
     {{> components/head-tags}}
 </head>
-
 <body>
     <div class="container no-gap small-padding">
         {{> components/navbar}}
@@ -18,17 +17,19 @@
         </div>
 
         <div class="product-grid">
-            {{#product}}
-            <!-- Product Image -->
+            {{#product}} 
+            <!-- Imagen del producto -->
             <div class="product-image">
                 <img src="{{thumbnail}}" alt="{{display_name}}">
             </div>
 
-            <!-- Product Info -->
+            <!-- Información del producto -->
             <div class="product-info">
                 <div class="product-header">
                     <span class="badge">{{supermarket_name}}</span>
-                    <h1 class="product-title">{{display_name}}</h1>
+                    <!-- Se usa este id para obtener el término de búsqueda (nombre del producto) -->
+                    <h1 id="productTitle" class="product-title">{{display_name}}</h1>
+                    
                     {{#brand}}
                     <p class="product-brand">{{brand}}</p>
                     {{/brand}}
@@ -70,17 +71,27 @@
                 </div>
 
                 <div class="external-link">
-                    <a href="{{product_url}}" target="_blank" rel="noopener noreferrer"
-                        class="clickable clickable-secondary">
+                    <a href="{{product_url}}" target="_blank" rel="noopener noreferrer" class="clickable clickable-secondary">
                         Ver en {{supermarket_name}}
                     </a>
                 </div>
             </div>
             {{/product}}
         </div>
+
+        <!-- Botón para cargar la comparación vía AJAX -->
+        <div class="compare-button">
+            <button id="compareBtn" class="clickable clickable-secondary">
+                Comparar Productos
+                <i class="bi bi-arrow-left-right"></i>
+            </button>
+        </div>
+
+        <!-- Contenedor donde se inyectará la tabla comparadora -->
+        <div id="compareContainer" style="display: none;"></div>
+
         {{> components/footer}}
     </div>
     <script src="/scripts/themeToggle.js"></script>
 </body>
-
 </html>
