@@ -98,6 +98,17 @@ public class DatabaseLoader {
             );
         }
 
+        userRepository.save(
+                new User(
+                    "a@gmail.com",
+                    "a",
+                    "a",
+                    passwordEncoder.encode("a"),
+                    null,
+                    UserType.ADMIN
+                )
+            );
+
         DatabaseLoader.logger.info("Users added to the database.");
     }
 

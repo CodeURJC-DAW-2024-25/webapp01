@@ -3,6 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="/styles/product-detail.css">
+    <link rel="stylesheet" href="/styles/suggested-product.css">
     {{> components/head-tags}}
 </head>
 
@@ -78,9 +79,16 @@
             </div>
             {{/product}}
         </div>
+        <div class="product-suggested">
+            <h2 class="section-title">Productos relacionados</h2>
+            <div class="product-suggested-grid" data-product-category="{{product.product_categories.0}}">
+                <!-- FETCHED IN BACKGROUND -->
+            </div>
+        </div>
         {{> components/footer}}
     </div>
     <script src="/scripts/themeToggle.js"></script>
+    <script src="/scripts/suggestedProducts.js"></script>
 </body>
 
 </html>
