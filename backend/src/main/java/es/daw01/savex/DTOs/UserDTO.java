@@ -2,8 +2,8 @@ package es.daw01.savex.DTOs;
 
 import jakarta.validation.constraints.*;
 
-
 public class UserDTO {
+
     @Size(min = 3, max = 20, message = "El nombre de usuario debe tener entre 3 y 20 caracteres")
     @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "El nombre de usuario solo puede contener letras y números")
     private String username;
@@ -17,7 +17,7 @@ public class UserDTO {
     private String password;
 
     @Size(min = 3, max = 20, message = "El nombre debe tener entre 3 y 20 caracteres")
-    @Pattern(regexp = "^[a-zA-Z]*$", message = "El nombre solo puede contener letras")
+    @Pattern(regexp = "^[a-zA-Z ]*$", message = "El nombre solo puede contener letras")
     private String name;
 
 

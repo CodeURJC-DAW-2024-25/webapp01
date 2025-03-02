@@ -16,6 +16,8 @@ import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.User;
 import es.daw01.savex.service.UserService;
 import jakarta.validation.Valid;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -85,9 +87,31 @@ public class SettingsController {
         }
 
         // Redirect
+        model.addAttribute("popupTitle", "Cambios guardados");
+        model.addAttribute("popupContent", "Usuario actualizado correctamente");
         if (userDTO.getUsername().equals(currentUsername)) return "redirect:/settings?success=true";
         else return "/logout";
     }
+
+    @PostMapping("/change-password")
+    public String postChangePassword(String password, String newPassword, String confirmPassword, Model model) {
+        
+        User user = controllerUtils.getAuthenticatedUser();
+        Map<String, String> errors = new HashMap<>();
+
+        // Check if the password is correct
+        userService.checkPassword(user, password, newPassword, confirmPassword, errors);
+        
+        if (!errors.isEmpty()) {
+            model.addAttribute("errors", errors);
+            return renderSettingsPage(model);
+        }
+
+        model.addAttribute("popupTitle", "Cambios guardados");
+        model.addAttribute("popupContent", "Contraseña cambiada correctamente");
+        return "redirect:/settings?success=true";
+    }
+    
 
     @PostMapping("/delete-account")
     public String postDeleteAccount(Model model) {

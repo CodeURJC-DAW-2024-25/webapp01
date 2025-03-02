@@ -115,6 +115,43 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public void checkPassword(User user, String password, String newPassword, String ConfirmPassword, Map<String, String> errors) {
+
+        //Check if the fields are empty
+        if (password.isBlank() || newPassword.isBlank() || ConfirmPassword.isBlank()) {
+            errors.put("password", "Todos los campos son obligatorios");
+        }
+
+        //Check if the password is correct
+        if (!checkPasswordMatches(password,user.getHashedPassword())) {
+            errors.put("password", "La contraseña actual no coincide");
+        }
+
+        //Check if the new password is the same as the current one
+        if (checkPasswordMatches(newPassword, user.getHashedPassword())) {
+            errors.put("newPassword", "La nueva contraseña no puede ser igual a la actual");
+        }
+
+        //Check if the new password and the confirm password are the same
+        if (!newPassword.equals(ConfirmPassword)) {
+            errors.put("confirmPassword", "Las contraseñas no coinciden");
+        }
+
+        //Check if the new password is valid
+        if (newPassword.length() < 8 || newPassword.length() > 50) {
+            errors.put("newPassword", "La nueva contraseña debe tener entre 8 y 50 caracteres");
+        } else if (!newPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$")) {
+            errors.put("newPassword", "La nueva contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número");
+        }
+
+        if(!errors.isEmpty()) return;
+        
+        // Update the password
+        user.setHashedPassword(hashPassword(newPassword));
+        userRepository.save(user);   
+
+    }
+
     // Private Methods -------------------------------------------------------->>
 
     /**
@@ -145,5 +182,17 @@ public class UserService {
      */
     private String hashPassword(String password) {
         return passwordEncoder.encode(password);
+    }
+
+
+    /**
+     * Checks if a raw password matches an encoded password
+     * 
+     * @param rawPassword
+     * @param encodedPassword
+     * @return true if the passwords match, false otherwise
+     */
+    private boolean checkPasswordMatches(String rawPassword, String encodedPassword) {
+        return passwordEncoder.matches(rawPassword, encodedPassword);
     }
 }
