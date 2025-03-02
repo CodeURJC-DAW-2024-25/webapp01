@@ -1,6 +1,6 @@
 ---
 title: Cómo hacer una compra inteligente en el supermercado
-date: 2025-02-18
+date: 18-02-2026
 description: Descubre consejos prácticos para ahorrar dinero y optimizar tu compra en el supermercado.
 author: SaveX
 visibility: PUBLIC

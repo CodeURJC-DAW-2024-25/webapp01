@@ -1,6 +1,6 @@
 ---
 title: Cómo usar nuestro comparador de precios
-date: 2025-02-17
+date: 17-02-2025
 description: Aprende a utilizar nuestro comparador de precios para encontrar las mejores ofertas
 author: SaveX
 visibility: PUBLIC

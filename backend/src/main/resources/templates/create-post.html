@@ -11,7 +11,8 @@
         {{> components/navbar}}
 
         <h1 class="title">Crea un nuevo post!</h1>
-        <form action="/create-post" method="POST" enctype="multipart/form-data">
+        <form action="/createPost" method="post" enctype="multipart/form-data">
+            <input type="hidden" name="_csrf" value="{{token}}">
             <div class="form-row">
                 <div class="form-group">
                     <label for="title">Titular</label>
@@ -38,13 +39,13 @@
             </div>
             <div class="form-row">
                 <div class="form-group">
-                    <label for="tags">Categorías</label>
+                    <label for="tags">Categoría</label>
                     <select id="tags" name="tags" required>
-                        <option value="1">Ahorro</option>
-                        <option value="2">Finanzas</option>
-                        <option value="3">Supermercado</option>
-                        <option value="4">Producto</option>
-                        <option value="5">Tip</option>
+                        <option value="Ahorro">Ahorro</option>
+                        <option value="Finanzas">Finanzas</option>
+                        <option value="Supermercado">Supermercado</option>
+                        <option value="Product">Producto</option>
+                        <option value="Tip">Tip</option>
                     </select>
                 </div>
                 <div class="form-group">

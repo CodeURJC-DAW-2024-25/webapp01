@@ -67,8 +67,9 @@ public class Post {
 
     // Constructors ----------------------------------------------------------->>
 
-    protected Post() {
-        /* Used by Spring Data JPA */ }
+    public Post() {
+        this.createdAt = LocalDateTime.now();
+    }
 
     public Post(String markdownContent, Map<String, List<String>> yamlFrontMatter) {
         this.title = yamlFrontMatter.get("title").get(0);
@@ -84,15 +85,17 @@ public class Post {
     }
 
     public Post(
-            String title,
-            String description,
-            String content,
-            String author,
-            String date,
-            String readingTime,
-            VisibilityType visibility,
-            List<String> tags,
-            Blob banner) {
+        String title,
+        String description,
+        String content,
+        String author,
+        String date,
+        String readingTime,
+        VisibilityType visibility,
+        List<String> tags,
+        Blob banner
+    ) {
+        this.createdAt = LocalDateTime.now();
         this.title = title;
         this.description = description;
         this.content = content;
@@ -160,6 +163,20 @@ public class Post {
     public boolean isPublic() {
         return this.visibility == VisibilityType.PUBLIC;
     }
+
+    /**
+     * Calculate the reading time of the post in minutes
+     * 
+     * @return the reading time of the post in minutes
+    */
+    public String calulateReadingTime() {
+        int words = this.content.split(" ").length;
+        int minutes = words / 200;
+
+        if (minutes < 1) minutes = 1;
+        return String.format("%d min", minutes);
+    }
+
 
     // Getters and setters ---------------------------------------------------->>
 

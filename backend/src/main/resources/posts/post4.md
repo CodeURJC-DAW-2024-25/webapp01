@@ -1,6 +1,6 @@
 ---
 title: La evolución de los supermercados en España y sus curiosidades
-date: 2025-02-18
+date: 18-02-2025
 description: Un recorrido por la historia de los supermercados españoles y las particularidades que sorprenden a los visitantes.
 author: SaveX
 visibility: PUBLIC

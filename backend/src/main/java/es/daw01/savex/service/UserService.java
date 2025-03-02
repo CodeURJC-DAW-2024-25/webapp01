@@ -25,6 +25,17 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    // Public Methods --------------------------------------------------------->>
+
+    /**
+     * Finds all users in the database
+     * 
+     * @return A list of all users
+     */
+    public Iterable<User> findAll() {
+        return userRepository.findAll();
+    }
+
     /**
      * Deletes a user from the database
      * 

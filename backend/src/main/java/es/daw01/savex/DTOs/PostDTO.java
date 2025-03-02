@@ -15,6 +15,7 @@ public class PostDTO {
     private String readingTime;
     private VisibilityType visibility;
     private List<String> tags;
+    private int nComments;
 
     // Constructors ----------------------------------------------------------->>
     public PostDTO() { }
@@ -50,6 +51,7 @@ public class PostDTO {
         this.readingTime = post.getReadingTime();
         this.visibility = post.getVisibility();
         this.tags = post.getTags();
+        this.nComments = post.getComments().size();
     }
 
     // Getters and setters ---------------------------------------------------->>
@@ -123,5 +125,13 @@ public class PostDTO {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
+    }
+
+    public int getnComments() {
+        return nComments;
+    }
+
+    public void setnComments(int nComments) {
+        this.nComments = nComments;
     }
 }
