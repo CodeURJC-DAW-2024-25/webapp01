@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api") 
 public class RestProductsController {
 
     @Autowired
@@ -26,11 +26,19 @@ public class RestProductsController {
         @RequestParam(required = false) String supermarket,
         @RequestParam(required = false) Double minPrice,
         @RequestParam(required = false) Double maxPrice,
+        @RequestParam(required = false) String productType,
         @RequestParam(required = false) Integer limit,
         @RequestParam(required = false) Integer page
     ) {
+        System.out.println("search: " + search);
+        System.out.println("supermarket: " + supermarket);
+        System.out.println("minPrice: " + minPrice);
+        System.out.println("maxPrice: " + maxPrice);
+        System.out.println("productType: " + productType);
+        System.out.println("limit: " + limit);
+        System.out.println("page: " + page);
         return apiService.fetchProducts(
-            search, supermarket, minPrice, maxPrice, limit, page
+            search, supermarket, minPrice, maxPrice, productType, limit, page
         );
     }
 }

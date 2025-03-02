@@ -100,7 +100,6 @@ h1 {
     font-size: 3rem;
     margin-bottom: 16px;
     color: var(--primary-color);
-    text-wrap: balance;
 }
 
 h2 {
@@ -108,7 +107,6 @@ h2 {
     font-size: 2rem;
     margin-bottom: 8px;
     color: var(--primary-color);
-    text-wrap: balance;
 }
 
 h3 {

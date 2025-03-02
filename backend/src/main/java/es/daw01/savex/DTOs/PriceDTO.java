@@ -8,7 +8,7 @@ public class PriceDTO {
 
     // Getters and Setters ---------------------------------------------------->>
     public String getTotal() {
-        return total;
+        return total;  
     }
     public void setTotal(String total) {
         this.total = total;
