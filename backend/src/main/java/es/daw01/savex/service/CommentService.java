@@ -154,4 +154,23 @@ public class CommentService {
 
         return response;
     }
+
+    /**
+     * Delete all comments by a given author
+     * @param authorId Author id
+     * @return Number of deleted comments
+     */
+    public void deleteByAuthorId(Long authorId) {
+        commentRepository.deleteByAuthorId(authorId);
+    }
+
+
+    /**
+     * Delete all comments from a post
+     * @param postId Post id
+     * @return Number of deleted comments
+     */
+    public void deleteByPostId(Long postId) {
+        commentRepository.deleteByPostId(postId);
+    }
 }

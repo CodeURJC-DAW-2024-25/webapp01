@@ -66,6 +66,10 @@ public class WebSecurityConfig {
                         .requestMatchers("/api/profile/avatar").authenticated()
                         .requestMatchers("/delete-account").hasAnyRole(UserType.USER.name())
                         .requestMatchers("/update-account-data").authenticated()
+
+                        // Admin
+                        .requestMatchers("/admin/**").hasRole(UserType.ADMIN.name()) 
+
                         .anyRequest().authenticated()
 
                 )

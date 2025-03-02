@@ -6,8 +6,7 @@
             <td>{{role}}</td>
             <td>{{nComments}}</td>
             <td class="text-end">
-                <button class="btn btn-warning">Editar</button>
-                <button class="btn btn-danger">Eliminar</button>
+                <button class="btn btn-danger" data-admin-command="user-delete" data-user-id="{{id}}">Eliminar</button>
             </td>
         </tr>
     {{/users}}
