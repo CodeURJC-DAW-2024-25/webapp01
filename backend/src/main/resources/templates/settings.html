@@ -49,6 +49,10 @@
                         {{#errors.username}}
                         <small class="error">{{.}}</small>
                         {{/errors.username}}
+                        <small class="warning">
+                            <i class="bi bi-exclamation-triangle"></i>
+                            Al cambiar el nombre de usuario será necesario volver a iniciar sesión.
+                        </small>
                     </div>
                     <input type="hidden" name="_csrf" value="{{token}}" />
                     <button class="clickable clickable-primary full-width" type="submit">Guardar Cambios</button>
@@ -89,6 +93,10 @@
                     <input type="hidden" name="_csrf" value="{{token}}" />
                     <button class="clickable clickable-danger full-width" type="submit">Eliminar Cuenta</button>
                 </form>
+                <small class="warning">
+                    <i class="bi bi-exclamation-triangle"></i>
+                    Ten cuidado, esta acción no se puede deshacer.
+                </small>
                 </div>
             </div>
             {{> components/footer}}

@@ -12,7 +12,7 @@ public class ProductDTO {
     private List<String> product_categories;
     private PriceDTO price;
     private String thumbnail;
-
+    private String brand;
     // Getters and Setters ---------------------------------------------------->>
     public String get_id() {
         return _id;
@@ -67,5 +67,11 @@ public class ProductDTO {
     }
     public void setThumbnail(String thumbnail) {
         this.thumbnail = thumbnail;
+    }
+    public String getBrand() {
+        return brand;
+    }
+    public void setBrand(String brand) {
+        this.brand = brand;
     }
 }

@@ -1,0 +1,152 @@
+.product-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 2rem;
+}
+
+@media (min-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+/* Back link */
+.back-link {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+
+/* Product image */
+.product-image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    border-radius: 0.5rem;
+    padding: 1.5rem;
+    border: 1px solid var(--grey-color);
+}
+
+.product-image img {
+    max-height: 400px;
+    object-fit: contain;
+    width: 100%;
+}
+
+/* Product info */
+.product-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.product-header .badge {
+    margin-bottom: 0.5rem;
+    color: var(--text-color);
+    background-color: var(--grey-color);
+}
+
+.product-title {
+    font-size: 1.875rem;
+    font-weight: 700;
+    line-height: 1.2;
+    text-align: left;
+}
+
+.product-brand {
+    font-size: 1.25rem;
+    font-weight: 600;
+    color: var(--accent-color);
+    margin-top: 0.25rem;
+}
+
+/* Price */
+.product-price {
+    display: flex;
+    align-items: baseline;
+}
+
+.price-main {
+    font-size: 1.875rem;
+    font-weight: 700;
+    color: var(--primary-color);
+}
+
+.price-unit {
+    margin-left: 0.5rem;
+    font-size: 0.875rem;
+    color: var(--accent-color);
+}
+
+/* Separator */
+.separator {
+    height: 1px;
+    background-color: var(--grey-color);
+    border: none;
+}
+
+/* Product details card */
+.product-details-card {
+    background-color: var(--semi-bg-color);
+    border-radius: 0.5rem;
+    padding: 1rem;
+    border: 1px solid var(--grey-color);
+}
+
+.section-title {
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+    font-size: 1rem;
+    text-align: left;
+}
+
+.details-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.details-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0.25rem;
+}
+
+.details-row dt {
+    color: var(--accent-color);
+}
+
+.details-row dd {
+    color: var(--text-color);
+}
+
+/* Categories */
+.categories-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+/* Badges */
+.badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 0.5rem;
+    font-size: 0.75rem;
+    font-weight: 500;
+    padding: 0.25rem 0.5rem;
+    border: 1px solid 0.5rem;
+}
+
+.badge-secondary {
+    background-color: var(--grey-color);
+    color: var(--text-color);
+}
+
+/* External link */
+.external-link {
+    width: 100%;
+}

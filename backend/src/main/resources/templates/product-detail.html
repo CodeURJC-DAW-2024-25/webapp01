@@ -2,54 +2,84 @@
 <html lang="es">
 
 <head>
+    <link rel="stylesheet" href="/styles/product-detail.css">
     {{> components/head-tags}}
-    <link rel="stylesheet" href="../static/styles/products.css">
 </head>
 
 <body>
-    <div class="container no-gap">
+    <div class="container no-gap small-padding">
         {{> components/navbar}}
 
-        <main class="container">
+        <div class="back-link">
+            <a href="/" class="clickable clickable-text">
+                <i class="bi bi-arrow-left"></i>
+                Volver a productos
+            </a>
+        </div>
+
+        <div class="product-grid">
             {{#product}}
-            <!-- Left Column / Product Image -->
-            <div class="left-column">
+            <!-- Product Image -->
+            <div class="product-image">
                 <img src="{{thumbnail}}" alt="{{display_name}}">
             </div>
 
-            <!-- Right Column -->
-            <div class="right-column">
-                <!-- Product Description -->
-                <div class="product-description">
-                    <h1>{{display_name}}</h1>
-                    <p><strong>Categoría:</strong> {{product_type}}</p>
-                    <p><strong>Precio:</strong> {{price.total}}&euro;</p>
+            <!-- Product Info -->
+            <div class="product-info">
+                <div class="product-header">
+                    <span class="badge">{{supermarket_name}}</span>
+                    <h1 class="product-title">{{display_name}}</h1>
+                    {{#brand}}
+                    <p class="product-brand">{{brand}}</p>
+                    {{/brand}}
                 </div>
 
-                <!-- Product Configuration -->
-                <div class="product-configuration">
-                    <!-- Product Category -->
-                    <div class="product-category">
-                        <span>Categoría</span>
-                        <p>{{#product_categories}}{{.}}{{/product_categories}}</p>
+                <div class="product-price">
+                    <span class="price-main">{{price.total}}&euro;</span>
+                    <span class="price-unit">{{price.per_reference_unit}}&euro;/{{price.reference_unit_name}}</span>
+                </div>
+
+                <button class="clickable clickable-primary">
+                    Añadir a mi Lista
+                    <i class="bi bi-plus-circle"></i>
+                </button>
+
+                <hr class="separator">
+
+                <div class="product-details-card">
+                    <h3 class="section-title">Detalles del producto</h3>
+                    <dl class="details-list">
+                        <div class="details-row">
+                            <dt>Tipo</dt>
+                            <dd>{{product_type}}</dd>
+                        </div>
+                        <div class="details-row">
+                            <dt>ID</dt>
+                            <dd>{{product_id}}</dd>
+                        </div>
+                    </dl>
+                </div>
+
+                <div class="product-categories">
+                    <h3 class="section-title">Categorías</h3>
+                    <div class="categories-list">
+                        {{#product_categories}}
+                        <span class="badge badge-secondary">{{.}}</span>
+                        {{/product_categories}}
                     </div>
                 </div>
 
-                <!-- Product Pricing -->
-                <div class="product-price">
-                    <a href="{{product_url}}" target="_blank" class="cart-btn">Comprar en {{supermarket_name}}</a>
+                <div class="external-link">
+                    <a href="{{product_url}}" target="_blank" rel="noopener noreferrer"
+                        class="clickable clickable-secondary">
+                        Ver en {{supermarket_name}}
+                    </a>
                 </div>
             </div>
             {{/product}}
-
-            {{^product}}
-            <p class="loader">El producto no fue encontrado.</p>
-            {{/product}}
-        </main>
-
+        </div>
         {{> components/footer}}
     </div>
-
     <script src="/scripts/themeToggle.js"></script>
 </body>
 

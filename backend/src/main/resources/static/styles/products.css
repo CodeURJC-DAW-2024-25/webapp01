@@ -54,7 +54,7 @@
                 .product-brand {
                     font-size: 12px;
                     font-weight: 700;
-                    color: #1a8754;
+                    color: var(--accent-color);
                 }
             
                 .product-category {
@@ -111,7 +111,7 @@
         }
 
         .action-button {
-            background-color: #1a8754;
+            background-color: var(--accent-color);
             color: white;
             border: none;
             border-radius: 50%;
