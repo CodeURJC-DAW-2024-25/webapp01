@@ -1,6 +1,6 @@
 ---
 title: Cómo mantener una alimentación equilibrada sin gastar de más
-date: 2025-02-18
+date: 18-02-2025
 description: Descubre cómo llevar una dieta balanceada sin afectar tu bolsillo con estos consejos prácticos.
 author: SaveX
 visibility: PUBLIC

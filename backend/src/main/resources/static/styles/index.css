@@ -86,12 +86,10 @@ body {
 }
 
 a {
-    text-decoration: underline;
-    color: var(--primary-color);
-    transition: all 0.1s ease;
+    text-decoration: none;
 
-    &:hover {
-        font-weight: 500;
+    &:hover, &:active, &:focus, &:visited {
+        text-decoration: none;
     }
 }
 
