@@ -53,13 +53,12 @@ async function loadProducts(page = 0) {
     if (loading || isEnd) return;
     if (page < 0) return;
 
-    loading = true;
+    loading = true; 
     const { supermarket, minPrice, maxPrice, productType } = window.filterOptions || {};
     let url = `/api/products?page=${page}&limit=${PRODUCTS_SIZE}&search=${encodeURIComponent(searchQuery)}`;
     if (supermarket) url += `&supermarket=${encodeURIComponent(supermarket)}`;
-    if (minPrice) url += `&minprice=${encodeURIComponent(minPrice)}`;
-    if (maxPrice) url += `&maxprice=${encodeURIComponent(maxPrice)}`;
-    if (productType) url += `&type=${encodeURIComponent(productType)}`;
+    if (minPrice) url += `&minPrice=${encodeURIComponent(minPrice)}`;
+    if (maxPrice) url += `&maxPrice=${encodeURIComponent(maxPrice)}`;
 
     console.log("Fetching products from URL:", url);
     
@@ -94,6 +93,8 @@ async function applyFilters(page = 0) {
     window.filterOptions = { supermarket, minPrice, maxPrice };
 
     // Retrieve new products with the new filters
+    currentPage = 0;
+    isEnd = false;
     loadProducts(page);
 }
 

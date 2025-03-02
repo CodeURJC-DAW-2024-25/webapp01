@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 
-@RestController
+@RestController 
 @RequestMapping("/api") 
 public class RestProductsController {
 
@@ -26,7 +26,6 @@ public class RestProductsController {
         @RequestParam(required = false) String supermarket,
         @RequestParam(required = false) Double minPrice,
         @RequestParam(required = false) Double maxPrice,
-        @RequestParam(required = false) String productType,
         @RequestParam(required = false) Integer limit,
         @RequestParam(required = false) Integer page
     ) {
@@ -34,11 +33,11 @@ public class RestProductsController {
         System.out.println("supermarket: " + supermarket);
         System.out.println("minPrice: " + minPrice);
         System.out.println("maxPrice: " + maxPrice);
-        System.out.println("productType: " + productType);
+        
         System.out.println("limit: " + limit);
         System.out.println("page: " + page);
         return apiService.fetchProducts(
-            search, supermarket, minPrice, maxPrice, productType, limit, page
+            search, supermarket, minPrice, maxPrice, limit, page
         );
     }
 }
