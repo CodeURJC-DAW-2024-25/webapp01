@@ -12,6 +12,7 @@ import es.daw01.savex.model.ShoppingList;
 import es.daw01.savex.model.User;
 import es.daw01.savex.service.ShoppingListService;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -40,16 +41,16 @@ public class ShoppingListController {
     }
     
     @GetMapping("/{id}")
-    public String getShoppingList(@RequestParam Long id, Model model){
-        Optional<ShoppingList> op = shoppingListService.findById(id);
-        if(op.isEmpty()) return "redirect:/";
+    public String getShoppingList(@PathVariable Long id, Model model){
+        // Optional<ShoppingList> op = shoppingListService.findById(id);
+        // if(op.isEmpty()) return "redirect:/";
 
-        ShoppingList shoppingList = op.get();
+        // ShoppingList shoppingList = op.get();
 
         // Add attributes to the model
         controllerUtils.addUserDataToModel(model);
-        model.addAttribute("shoppingList", shoppingList);
-        model.addAttribute("title", "SaveX - Lista " + shoppingList.getName());
+        // model.addAttribute("shoppingList", shoppingList);
+        model.addAttribute("title", "SaveX - Lista ");
 
         return "shoppingList-detail";
     }
