@@ -52,6 +52,9 @@ public class ControllerUtils {
             if (user.getAvatar() == null) model.addAttribute("avatar", DEFAULT_AVATAR);
             else model.addAttribute("avatar", String.format("/api/profile/%d/avatar", user.getId()));
             
+            // Set role attribute
+            model.addAttribute("role", user.getRole().getName());
+
             // Set name attribute
             if (user.getName().isEmpty()) model.addAttribute("name", user.getUsername());
             else model.addAttribute("name", user.getName());
@@ -62,7 +65,6 @@ public class ControllerUtils {
         
         // Add the rest of the data to the model
         model.addAttribute("username", auth.getName());
-        model.addAttribute("role", auth.getAuthorities().stream().findFirst().get().getAuthority());
     }
 
     /**
