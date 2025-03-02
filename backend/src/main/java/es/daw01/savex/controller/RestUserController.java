@@ -73,8 +73,6 @@ public class RestUserController {
 
     @PostMapping("/profile/avatar")
     public ResponseEntity<Map<String,Object>> uploadAvatar(@RequestParam MultipartFile avatar) {
-        System.out.println("----------------------------------------------------------------------------");
-        System.out.println(avatar.toString());
         User user = controllerUtils.getAuthenticatedUser();
 
         try {

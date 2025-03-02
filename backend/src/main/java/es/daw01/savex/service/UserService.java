@@ -1,6 +1,8 @@
 package es.daw01.savex.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
@@ -160,7 +162,14 @@ public class UserService {
         // Update the password
         user.setHashedPassword(hashPassword(newPassword));
         userRepository.save(user);   
+    }
 
+    public List<UserDTO> getUsersDTO(Iterable<User> users) {
+        List<UserDTO> usersDTO = new ArrayList<>();
+        for (User user : users) {
+            usersDTO.add(new UserDTO(user));
+        }
+        return usersDTO;
     }
 
     // Private Methods -------------------------------------------------------->>

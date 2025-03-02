@@ -25,11 +25,35 @@
 
         <section>
             <h2>Panel de Control</h2>
+            <h3>Usuarios</h3>
+            <div class="admin-users">
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Usuario</th>
+                            <th scope="col">Email</th>
+                            <th scope="col">Rol</th>
+                            <th scope="col">Comentarios</th>
+                            <th scope="col" class="text-end">Acciones</th>
+                        </tr>
+                    </thead>
+                    {{> admin/admin-user-card}}
+                </table>
+            </div>
             <h3>Posts</h3>
             <div class="admin-posts">
-                {{#posts}}
+                <table class="table table-striped">
+                    <thead>
+                        <tr>
+                            <th scope="col">Título</th>
+                            <th scope="col">Autor</th>
+                            <th scope="col">Comentarios</th>
+                            <th scope="col">Fecha</th>
+                            <th scope="col" class="text-end">Acciones</th>
+                        </tr>
+                    </thead>
                     {{> admin/admin-post-card}}
-                {{/posts}}
+                </table>
             </div>
         </section>
     </div>
