@@ -60,7 +60,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/admin").hasAnyRole(UserType.ADMIN.name())
                         .requestMatchers("/createPost").hasAnyRole(UserType.ADMIN.name())
                         .requestMatchers("/editPost/**").hasAnyRole(UserType.ADMIN.name())
-                        .requestMatchers("/deletePost/**").hasAnyRole(UserType.ADMIN.name())
+                        .requestMatchers("/delete-post/**").hasAnyRole(UserType.ADMIN.name())
                         .requestMatchers("/profile").authenticated()
                         .requestMatchers("/settings").hasAnyRole(UserType.USER.name())
                         .requestMatchers("/api/profile/avatar").authenticated()

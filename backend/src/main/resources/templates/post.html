@@ -13,12 +13,14 @@
             {{#isAuthenticated}}
             <div th:if="${#authentication.principal.authorities.contains('ROLE_ADMIN')}">
                 <div class="button-container">
-                    <form action="/posts/delete/{{post.id}}" method="post"
+                    <form action="/delete-post/{{post.id}}" method="post"
                         onsubmit="return confirm('¿Estás seguro de que quieres eliminar este post?');">
+                        <input type="hidden" name="_csrf" value="{{token}}" />
                         <button type="submit" class="clickable clickable-danger">Eliminar Post</button>
                     </form>
-                    <!-- Otros botones, si los hay -->
-                    <button type="button" class="clickable clickable-primary">Editar Post</button>
+                    <form action="/edit-post/{{post.id}}" method="get">
+                        <button type="submit" class="clickable clickable-primary">Editar Post</button>
+                    </form>
                 </div>
             </div>
             {{/isAuthenticated}}
