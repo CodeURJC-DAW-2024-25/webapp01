@@ -13,8 +13,7 @@
             {{#isAdmin}}
             <div>
                 <div class="button-container">
-                    <form action="/delete-post/{{post.id}}" method="post"
-                        onsubmit="return confirm('¿Estás seguro de que quieres eliminar este post?');">
+                    <form action="/delete-post/{{post.id}}" method="post">
                         <input type="hidden" name="_csrf" value="{{token}}" />
                         <button type="submit" class="clickable clickable-danger">Eliminar Post</button>
                     </form>

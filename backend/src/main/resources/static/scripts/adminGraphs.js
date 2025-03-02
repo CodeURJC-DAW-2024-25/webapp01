@@ -1,15 +1,15 @@
 
 
 // Prducts Bar chart
-const ctx = document.getElementById('chart-1');
-new Chart(ctx, {
+const ctx1 = document.getElementById('chart-1');
+const data1 = {
     type: 'bar',
     data: {
         labels: ['Mercadona', 'El Corte inglés', 'Carrefour', 'Lidl', 'Dia', 'Consum', 'BM'],
         datasets: [{
             label: '# de productos',
             //   total: 59825
-            data: [4993, 28520, 26539, 0, 1000, 6500, 4000, 3500, 3000],
+            data: [0, 0, 0, 0, 0, 0, 0, 0, 0],
             borderWidth: 1
         }]
     },
@@ -26,11 +26,12 @@ new Chart(ctx, {
             }
         }
     }
-});
+}
+const chart1 = new Chart(ctx1, data1);
 
 // Activity Line chart
 const ctx2 = document.getElementById('chart-2');
-new Chart(ctx2, {
+const data2 = {
     type: 'line',
     data: {
         labels: ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'],
@@ -57,4 +58,23 @@ new Chart(ctx2, {
             }
         }
     }
-});
+}
+const chart2 = new Chart(ctx2, data2);
+
+
+const supermarkets = ['mercadona', 'elcorteingles', 'Carrefour', 'lidl', 'dia', 'consum', 'bm'];
+const total_items = {};
+
+const fetchItems = async () => {
+    await Promise.all(supermarkets.map(async supermarket => {
+        const res = await fetch(`/api/products?supermarket=${supermarket}`);
+        const data = await res.json();
+        console.log(`Total items in ${supermarket}: ${data.total_items}`);
+        total_items[supermarket] = data.total_items;
+    }))
+
+    console.log(total_items);
+    data1.data.datasets[0].data = supermarkets.map(supermarket => total_items[supermarket]);
+    chart1.update();
+}
+fetchItems();

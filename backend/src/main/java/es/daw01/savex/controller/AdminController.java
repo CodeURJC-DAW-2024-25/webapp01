@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import es.daw01.savex.DTOs.PostDTO;
+import es.daw01.savex.DTOs.UserDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.service.PostService;
+import es.daw01.savex.service.UserService;
 
 
 @Controller
@@ -18,8 +20,8 @@ import es.daw01.savex.service.PostService;
 public class AdminController {
     
     // --- Services ---
-    // @Autowired
-    // private CommentService commentService;
+    @Autowired
+    private UserService userService;
     @Autowired
     private PostService postService;
     @Autowired
@@ -33,10 +35,13 @@ public class AdminController {
         controllerUtils.addUserDataToModel(model);
 
         List<PostDTO> postDetails = postService.getPostsDTO(postService.findAll());
+        List<UserDTO> userDetails = userService.getUsersDTO(userService.findAll());
 
         // Add data to the model
         model.addAttribute("title", "SaveX - Panel de administración");
         model.addAttribute("posts", postDetails);
+        model.addAttribute("users", userDetails);
+
         // model.addAttribute("comments", commentService.findAll());
 
         return "admin";

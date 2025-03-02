@@ -1,5 +1,6 @@
 package es.daw01.savex.DTOs;
 
+import es.daw01.savex.model.User;
 import jakarta.validation.constraints.*;
 
 public class UserDTO {
@@ -20,6 +21,9 @@ public class UserDTO {
     @Pattern(regexp = "^[a-zA-Z ]*$", message = "El nombre solo puede contener letras")
     private String name;
 
+    private String role;
+    private int nComments;
+
 
     // Constructors ----------------------------------------------------------->>
     public UserDTO() {
@@ -27,6 +31,26 @@ public class UserDTO {
         this.username = "";
         this.password = "";
         this.name = "";
+        this.role = "";
+        this.nComments = 0;
+    }
+
+    public UserDTO(String username, String email, String password, String name, String role, int nComment) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.name = name;
+        this.role = role;
+        this.nComments = nComment;
+    }
+
+    public UserDTO(User user) {
+        this.username = user.getUsername();
+        this.email = user.getEmail();
+        this.password = user.getHashedPassword();
+        this.name = user.getName();
+        this.role = user.getRole().toString();
+        this.nComments = user.getComments().size();
     }
 
     // Getters and setters ---------------------------------------------------->>
@@ -61,6 +85,22 @@ public class UserDTO {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
+    }
+
+    public int getnComments() {
+        return nComments;
+    }
+
+    public void setnComments(int nComment) {
+        this.nComments = nComment;
     }
 
 }
