@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    {{> components/head-tags}}
+    <link rel="stylesheet" href="/styles/shoppingLists.css">
+</head>
+
+<body>
+    <div class="container no-gap small-padding">
+        {{> components/navbar}}
+
+        <h1 class="list-title">Tus listas de la compra</h1>
+
+        <div class="shopping-lists-container">
+            <div class="shopping-lists {{^shoppingLists}}empty{{/shoppingLists}}">
+                {{#shoppingLists}}
+                <div class="list-card">
+                    <div class="list-card-header">
+                        <h2 class="list-card-title">Weekly Groceries</h2>
+                        <span class="list-card-items">7 items</span>
+                    </div>
+                    <div class="list-card-body">
+                        <p class="list-card-description">Items needed for the week of March 4th. This shopping list
+                            contains all the essential groceries we need to buy for our weekly meal prep.</p>
+                    </div>
+                </div>
+                {{/shoppingLists}}
+                <div class="list-card add-new">
+                    <a href="/shoppingList/new">
+                        <i class="bi bi-plus-circle"></i>
+                        <span>Crea una nueva lista</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+        {{> components/footer}}
+    </div>
+    <script src="/scripts/themeToggle.js"></script>
+</body>
+
+</html>

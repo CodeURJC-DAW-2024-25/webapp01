@@ -1,0 +1,105 @@
+
+.shopping-lists-container {
+    width: 100%;
+    min-height: 50vh;
+}
+
+h1.list-title {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+}
+
+
+.shopping-lists {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+
+    &.empty {
+        .list-card.add-new {
+            min-height: 200px;
+        }
+    }
+
+    .list-card {
+        background-color: var(--semi-bg-color);
+        border: 1px solid transparent;
+        border-radius: 8px;
+        box-shadow: 0 2px 2px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        
+        &.add-new {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: var(--text-color);
+            font-size: 1.5rem;
+    
+            a, a:visited, a:active {
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 8px;
+                color: var(--text-color);
+            }
+        }
+    
+        &:hover {
+            border: 1px solid var(--grey-color);
+        }
+    
+        .list-card-header {
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background-color: var(--accent-color);
+            padding: 15px;
+    
+            .list-card-title {
+                font-size: 1.2rem;
+                margin-bottom: 0;
+                color: #fff;
+            }
+    
+            .list-card-items {
+                background-color: #fff;
+                color: #333;
+                border-radius: 18px;
+                padding: 2px 10px;
+                font-size: 0.9rem;
+                opacity: 0.8;
+            }
+        }
+    
+        .list-card-body {
+            padding: 15px;
+        
+            .list-card-description {
+                margin-bottom: 10px;
+                font-size: 0.9rem;
+                color: var(--text-color);
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+        }
+    }
+}
+
+
+@media (max-width: 768px) {
+    .shopping-lists {
+        grid-template-columns: 1fr;
+
+        .list-card.add-new {
+            min-height: 100px;
+        }
+    }
+}
