@@ -43,7 +43,7 @@ public class User {
     @Column(nullable = false)
     private UserType role;
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "author", cascade = CascadeType.REMOVE, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Comment> comments;
 
     // Constructors ----------------------------------------------------------->>

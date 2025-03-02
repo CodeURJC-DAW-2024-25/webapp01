@@ -17,6 +17,8 @@ import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
 import es.daw01.savex.repository.UserRepository;
 import jakarta.persistence.EntityExistsException;
+import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 
 @Service
 public class UserService {
@@ -43,8 +45,15 @@ public class UserService {
      * 
      * @param id The id of the user to delete
      */
+    @Transactional
     public void deleteById(long id) {
-        userRepository.deleteById(id);
+        Optional<User> userOptional = userRepository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = userOptional.get();
+            userRepository.delete(user);
+        } else {
+            throw new EntityNotFoundException("User not found with id: " + id);
+        }
     }
 
     /**

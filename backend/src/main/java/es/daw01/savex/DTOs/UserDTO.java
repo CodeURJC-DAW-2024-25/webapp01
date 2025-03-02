@@ -4,7 +4,8 @@ import es.daw01.savex.model.User;
 import jakarta.validation.constraints.*;
 
 public class UserDTO {
-
+    private long id;
+    
     @Size(min = 3, max = 20, message = "El nombre de usuario debe tener entre 3 y 20 caracteres")
     @Pattern(regexp = "^[a-zA-Z0-9]*$", message = "El nombre de usuario solo puede contener letras y números")
     private String username;
@@ -33,18 +34,22 @@ public class UserDTO {
         this.name = "";
         this.role = "";
         this.nComments = 0;
+        this.id = 0;
     }
 
-    public UserDTO(String username, String email, String password, String name, String role, int nComment) {
+    public UserDTO(long id, String username, String email, String password, String name, String role, int nComment) {
+        this.id = id;
         this.username = username;
         this.email = email;
         this.password = password;
         this.name = name;
         this.role = role;
         this.nComments = nComment;
+
     }
 
     public UserDTO(User user) {
+        this.id = user.getId();
         this.username = user.getUsername();
         this.email = user.getEmail();
         this.password = user.getHashedPassword();
@@ -54,6 +59,13 @@ public class UserDTO {
     }
 
     // Getters and setters ---------------------------------------------------->>
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 
     public String getUsername() {
         return username;
