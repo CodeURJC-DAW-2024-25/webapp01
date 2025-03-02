@@ -143,6 +143,7 @@ public class PostsController {
     @GetMapping("/createPost")
     public String createPost(Model model) {
         controllerUtils.addUserDataToModel(model);
+        model.addAttribute("title", "SaveX - Crea un nuevo post");
         return "create-Post";
     }
     /*
