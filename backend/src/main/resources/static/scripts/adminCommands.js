@@ -1,11 +1,8 @@
 
 
-// Buttons leading routes
-const btns = [...document.querySelectorAll('[data-command-url]')]
+const posts = [...document.querySelectorAll('[data-post-id]')]
 
-btns.forEach(btn => {
-    btn.addEventListener('click', () => {
-        const url = btn.getAttribute('data-command-url')
-        window.location.href = url
-    })
+posts.forEach(post => {
+    const postId = post.getAttribute('data-post-id')
+    post.addEventListener('click', () => location.href = `/post/${postId}`)
 })

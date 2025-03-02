@@ -55,15 +55,8 @@ public class MainController {
         controllerUtils.addUserDataToModel(model);
         
         model.addAttribute("title", "SaveX - ".concat(model.getAttribute("name").toString()));
+
         return "profile";
     }
 
-    @GetMapping("/admin")
-    public String getAdminPage(Model model) {
-        // Add user data to the model
-        controllerUtils.addUserDataToModel(model);
-        
-        model.addAttribute("title", "SaveX - Panel de administración");
-        return "admin";
-    }
 }

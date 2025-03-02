@@ -25,28 +25,11 @@
 
         <section>
             <h2>Panel de Control</h2>
-            <h3>Usuarios</h3>
-            <div class="control_panel">
-                <div class="cp_col">
-                    <div class="control_panel_item" data-style-create data-command-url="/admin/form-create-user"><h4>Crear usuario</h4></div>
-                    <div class="control_panel_item" data-style-update data-command-url="/admin/form-edit-user"><h4>Modificar usuario</h4></div>
-                </div>
-                <div class="cp_col">
-                    <div class="control_panel_item" data-style-read data-command-url="/admin/view-users"><h4>Ver usuarios</h4></div>
-                    <div class="control_panel_item" data-style-delete data-command-url="/admin/form-delete-user"><h4>Eliminar usuario</h4></div>
-                </div>
-            </div>
-            <h3>Productos</h3>
-            <div class="control_panel">
-                <div class="cp_col">
-                    <div class="control_panel_item" data-style-create data-command-url="/admin/form-create-product"><h4>Crear producto</h4></div>
-                    <div class="control_panel_item" data-style-update data-command-url="/admin/form-edit-product"><h4>Modificar producto</h4></div>
-                </div>
-                <div class="cp_col">
-                    <div class="control_panel_item" data-style-read data-command-url="/admin/view-products"><h4>Ver productos</h4></div>
-                    <div class="control_panel_item" data-style-delete data-command-url="/admin/form-delete-product"><h4>Eliminar producto</h4></div>
-                </div>
-            </div>
+            <h3>Posts</h3>
+            <div class="admin-posts">
+                {{#posts}}
+                    {{> admin/admin-post-card}}
+                {{/posts}}
             </div>
         </section>
     </div>

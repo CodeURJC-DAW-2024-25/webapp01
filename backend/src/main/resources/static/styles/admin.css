@@ -20,64 +20,58 @@ section{
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
-.control_panel{
-    display: flex;
-    justify-content: center;
+.admin-posts{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
     gap: 10px;
-    padding: 10px;
-
-    .cp_col{
-        display: flex;
-        flex-direction: column;
-        gap:10px;
-        width: 100%;
-    }
-
-    .control_panel_item{
-        display: flex;
-        gap: 10px;
-        align-items: center;
-        padding: 10px;
-        border-radius: 5px;
-        background-color: #f5f5f5;
-        cursor: pointer;
-        width: 100%;
-
-        h4{
-            font-size: 16px;
-            margin: 0;
-            padding: 0;
-            text-align: center;
-            width: 100%;
-        }
-
-        &:hover{
-            background-color: #e5e5e5;
-        }
-
-        .icon{
-            font-size: 20px;
-        }
-
-        &[data-style-create]{
-            border: 1px solid #5ae000;
-            color: #1b4200;
-            &:hover{background-color: #5ae00044;}
-        }
-        &[data-style-update]{
-            border: 1px solid #fae20c;
-            color: #5a5100;
-            &:hover{background-color: #fae20c44;}
-        }
-        &[data-style-delete]{
-            border: 1px solid #cc0000;
-            color: #4e0000;
-            &:hover{background-color: #cc000044;}
-        }
-        &[data-style-read]{
-            border: 1px solid #0056b3;
-            color: #00264e;
-            &:hover{background-color: #0056b344;}
-        }
-    }
 }
+
+.admin-post-card{
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    height: fit-content;
+    cursor: pointer;
+}
+
+.admin-post-top{
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.admin-post-bottom{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 12px;
+    padding-top: 10px;
+}
+
+.admin-post-left{
+    display: flex;
+    gap: 5px;
+}
+
+.admin-post-bottom-left{
+    display: flex;
+    gap: 5px;
+}
+
+.admin-post-bottom-right{
+    display: flex;
+    gap: 5px;
+}
+
+.admin-post-bottom-right a{
+    color: #000;
+    text-decoration: none;
+}
+
+.admin-post-bottom-right a:hover{
+    color: #000;
+    text-decoration: underline;
+}
+
