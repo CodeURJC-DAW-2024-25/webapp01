@@ -1,10 +1,77 @@
-.post-in-line {
-    width: 100%;
+.graphics_wrap{
     display: flex;
-    flex-wrap: wrap;
-    flex-direction: row;
-    align-items: center;
     justify-content: center;
-    gap: 24px;
-    margin: 20px 0;
+    margin-top: 20px;
+    gap: 20px;
 }
+
+h3{
+    font-size: 30px;
+    margin: 30px;
+    padding: 0;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+section{
+    width: 100%;
+    padding: 20px;
+    border-radius: 5px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+.admin-posts{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 10px;
+}
+
+.admin-post-card{
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 10px;
+    border: 1px solid #e5e5e5;
+    height: fit-content;
+    cursor: pointer;
+}
+
+.admin-post-top{
+    padding-bottom: 5px;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.admin-post-bottom{
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    font-size: 12px;
+    padding-top: 10px;
+}
+
+.admin-post-left{
+    display: flex;
+    gap: 5px;
+}
+
+.admin-post-bottom-left{
+    display: flex;
+    gap: 5px;
+}
+
+.admin-post-bottom-right{
+    display: flex;
+    gap: 5px;
+}
+
+.admin-post-bottom-right a{
+    color: #000;
+    text-decoration: none;
+}
+
+.admin-post-bottom-right a:hover{
+    color: #000;
+    text-decoration: underline;
+}
+
