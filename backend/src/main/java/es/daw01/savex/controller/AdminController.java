@@ -54,24 +54,22 @@ public class AdminController {
         return "admin";
     }
 
-    @DeleteMapping("/users/{id}")
+    @DeleteMapping("/user/{id}")
     public String deleteUser(Model model, @PathVariable long id) {
-        System.out.println("Deleting user with id: " + id);
-
         // Delete comments
         commentService.deleteByAuthorId(id);
         // Delete user
         userService.deleteById(id);
         
-        return "/admin";
+        return "redirect:/admin";
     }
 
-    @GetMapping("/comments/author/{id}/delete")
-    public String deleteCommentsByAuthor(@PathVariable long id) {
-        System.out.println("Deleting comments by author with id: " + id);
-
+    @DeleteMapping("/post/{id}")
+    public String deletePost(Model model, @PathVariable long id) {
         // Delete comments
-        commentService.deleteByAuthorId(id);
+        commentService.deleteByPostId(id);
+        // Delete post
+        postService.deleteById(id);
         
         return "redirect:/admin";
     }

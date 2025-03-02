@@ -6,37 +6,8 @@
             <td>{{role}}</td>
             <td>{{nComments}}</td>
             <td class="text-end">
-                <button class="btn btn-warning" data-admin-command="user-edit" data-user-id="{{id}}">Editar</button>
                 <button class="btn btn-danger" data-admin-command="user-delete" data-user-id="{{id}}">Eliminar</button>
             </td>
         </tr>
     {{/users}}
 </tbody>
-<script>
-    const CSRF_TOKEN = document.querySelector('meta[name="_csrf"]').content;
-    const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
-    const $editButton = document.querySelector('[data-admin-command="user-edit"]');
-    const $deleteButton = document.querySelector('[data-admin-command="user-delete"]');
-    const uid = $editButton.dataset.userId;
-
-    $editButton.addEventListener('click', () => {
-        window.location.href = `/admin/users/${uid}`;
-    });
-
-    $deleteButton.addEventListener('click', () => {
-        const confirmDelete = confirm('¿Estás seguro de que deseas eliminar este usuario?');
-
-        if (confirmDelete) {
-            fetch(`/admin/users/${uid}`, {
-                method: 'DELETE',
-                headers: {
-                    [CSRF_HEADER]: CSRF_TOKEN
-                }
-            })
-            .then(() => {
-                window.location.reload();
-            });
-        }
-    });
-
-</script>
