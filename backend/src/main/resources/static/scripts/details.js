@@ -5,14 +5,14 @@ document.addEventListener("DOMContentLoaded", function() {
     compareBtn.addEventListener("click", function(e) {
         e.preventDefault();
 
-        // Usamos el contenido del elemento con id "productTitle" como término de búsqueda
+        // Use the content of the element with id "productTitle" as the search term
         const searchInput = document.getElementById("productTitle").textContent.trim();
         console.log("Search term:", searchInput);
         
-        const url = `/compare?searchInput=${encodeURIComponent(searchInput)}`;
+        const url = `/compare?searchInput=${encodeURIComponent(searchQuery)}`;
 
-        // Indicador de carga
-        compareContainer.innerHTML = "<p>Cargando comparación...</p>";
+        // Loading indicator
+        compareContainer.innerHTML = "<p>Loading comparison...</p>";
         compareContainer.style.display = "block";
 
         fetch(url, {
@@ -22,7 +22,7 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         })
         .then(response => {
-            if (!response.ok) throw new Error("Error al cargar la comparación");
+            if (!response.ok) throw new Error("Error loading comparison");
             return response.text();
         })
         .then(html => {
@@ -30,7 +30,19 @@ document.addEventListener("DOMContentLoaded", function() {
         })
         .catch(error => {
             console.error("Error fetching compare table:", error);
-            compareContainer.innerHTML = "<p>Error al cargar la comparación.</p>";
+            compareContainer.innerHTML = "<p>Error loading comparison.</p>";
         });
     });
+});
+
+document.getElementById('compareBtn').addEventListener('click', () => {
+    const originalSearchQuery = localStorage.getItem("originalSearchQuery") || "";
+
+    fetch(`/compare?searchInput=${encodeURIComponent(originalSearchQuery)}`)
+        .then(response => response.text())
+        .then(html => {
+            document.getElementById('compareContainer').innerHTML = html;
+            document.getElementById('compareContainer').style.display = 'block';
+        })
+        .catch(error => console.error('Error loading comparison:', error));
 });

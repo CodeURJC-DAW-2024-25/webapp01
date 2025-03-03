@@ -31,7 +31,7 @@ public class ProductsController {
     @Autowired 
     private ApiService apiService;  
 
-    @GetMapping("/search")    
+    @GetMapping("/search")     
     public String searchProducts(  
         @RequestParam(required = false) String searchInput,
         @RequestParam(required = false) String supermarket,
@@ -57,19 +57,19 @@ public class ProductsController {
         return "products";
     }
 
-    @GetMapping("/products/{id}")
+    @GetMapping("/products/{id}") 
     public String getProduct(@PathVariable String id, 
-                             @RequestParam(required = false) String searchInput,
-                             Model model) {
-            ProductDTO product = apiService.fetchProduct(id);
-            controllerUtils.addUserDataToModel(model);
-            model.addAttribute("product", product);
-            model.addAttribute("searchQuery", searchInput != null ? searchInput : "");
-
+                 @RequestParam(required = false) String searchInput,
+                 Model model) {
+            
+        ProductDTO product = apiService.fetchProduct(id);
+        controllerUtils.addUserDataToModel(model);
+        model.addAttribute("product", product);
+        model.addAttribute("searchQuery", searchInput != null ? searchInput : "");
+        
         model.addAttribute("title", "SaveX - " + product.getDisplay_name());
         return "product-detail";
     }
-
 
     @GetMapping("/products/custom")
     public String GenerateCustomProductCard(Model model, @RequestParam String name, @RequestParam String price, @RequestParam String src, @RequestParam String id){
@@ -83,16 +83,14 @@ public class ProductsController {
         return "custom-product";
     }
         
-    
-
     @GetMapping("/compare")
     public String compareProducts(@RequestParam(required = false) String searchInput, Model model) {
         controllerUtils.addUserDataToModel(model);
 
-        // Lista de supermercados a comparar
+        // List of supermarkets to compare
         List<String> supermarkets = Arrays.asList("mercadona", "dia", "elcorteingles","consum","bm");
 
-        // Mapa para almacenar el producto encontrado por cada supermercado
+        // Map to store the product found for each supermarket
         Map<String, ProductDTO> comparisonMap = new HashMap<>();
 
         for (String market : supermarkets) {
@@ -106,19 +104,19 @@ public class ProductsController {
                     comparisonMap.put(market, product);
                 }
             } catch (Exception ex) {
-                System.err.println("Error obteniendo producto de " + market + ": " + ex.getMessage());
+                System.err.println("Error obtaining product from " + market + ": " + ex.getMessage());
             } 
         } 
         System.out.println("Comparison Map: " + comparisonMap);
 
-
         List<Map<String, Object>> comparisons = new ArrayList<>();
+       
         for (String market : supermarkets) {
             Map<String, Object> entry = new HashMap<>();
             ProductDTO product = comparisonMap.get(market); 
 
             entry.put("market", market);
-            entry.put("product_name", product != null && product.getDisplay_name() != null ? product.getDisplay_name(): "No disponible");
+            entry.put("product_name", product != null && product.getDisplay_name() != null ? product.getDisplay_name(): "Not available");
             entry.put("price", product != null && product.getPrice() != null ? product.getPrice().getTotal() : "-");
             if (product.getDisplay_name() == null) {
                 entry.put("price", "-");
@@ -136,33 +134,28 @@ public class ProductsController {
         return "compare-table";
     }
 
-        // Método auxiliar para convertir un objeto (Map) a ProductDTO
-        private ProductDTO convertToProductDTO(Object data) {
-            Map<String, Object> map = (Map<String, Object>) data;
-            ProductDTO p = new ProductDTO();
-            p.setDisplay_name((String) map.get("display_name"));
-            p.setSupermarket_name((String) map.get("supermarket_name"));
-        
-            // Procesar el precio correctamente (esperando un objeto anidado)
-            PriceDTO priceDTO = new PriceDTO();
-            if (map.get("price") instanceof Map) {
-                Map<String, Object> priceMap = (Map<String, Object>) map.get("price");
-                Double totalPrice = priceMap.get("total") instanceof Number 
-                    ? ((Number) priceMap.get("total")).doubleValue()
-                    : 0.0;
-        
-                priceDTO.setTotal(totalPrice.toString());
-            } else {
-                // Por si acaso, si "price" no es un mapa (API mal formateada), lo tratamos como 0
-                priceDTO.setTotal("0.0");
-            }
-        
-            p.setPrice(priceDTO);
-            return p;
+    // Helper method to convert an object (Map) to ProductDTO
+    private ProductDTO convertToProductDTO(Object data) {
+        Map<String, Object> map = (Map<String, Object>) data;
+        ProductDTO p = new ProductDTO();
+        p.setDisplay_name((String) map.get("display_name"));
+        p.setSupermarket_name((String) map.get("supermarket_name"));
+    
+        // Process the price correctly (expecting a nested object)
+        PriceDTO priceDTO = new PriceDTO();
+        if (map.get("price") instanceof Map) {
+            Map<String, Object> priceMap = (Map<String, Object>) map.get("price");
+            Double totalPrice = priceMap.get("total") instanceof Number 
+                ? ((Number) priceMap.get("total")).doubleValue()
+                : 0.0;
+    
+            priceDTO.setTotal(totalPrice.toString());
+        } else {
+            // Just in case, if "price" is not a map (malformed API), treat it as 0
+            priceDTO.setTotal("0.0");
         }
-        
-
-
     
-    
+        p.setPrice(priceDTO);
+        return p;
+    }
 }
