@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/shoppingList")
@@ -70,4 +71,11 @@ public class ShoppingListController {
             return "redirect:/profile";
         return String.format("redirect:/shoppingList/%d", newShoppingList.getId());
     }
+
+    @PostMapping("/{id}/delete")
+    public String deleteShoppingList(@PathVariable Long id) {
+        shoppingListService.deleteById(id);
+        return "redirect:/profile";
+    }
+
 }
