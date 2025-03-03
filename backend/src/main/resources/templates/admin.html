@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     {{> components/head-tags}}
 </head>
+
 <body>
     <div class="container no-gap">
         {{> components/navbar}}
@@ -46,6 +47,13 @@
                 </table>
             </div>
             <h3>Posts</h3>
+            <div class="d-flex justify-content-between mb-3">
+
+                <button class="clickable clickable-secondary" onclick="window.location.href='/createPost'">
+                    <i class="bi bi-plus-lg"></i>
+                    Crear Nuevo Post
+                </button>
+            </div>
             <div class="admin-posts">
                 <table class="table table-striped">
                     <thead>
@@ -72,7 +80,7 @@
     <script src="scripts/themeToggle.js"></script>
     <script src="scripts/adminGraphs.js"></script>
     <script src="scripts/adminCommands.js"></script>
-    
+
 </body>
 
 </html>
