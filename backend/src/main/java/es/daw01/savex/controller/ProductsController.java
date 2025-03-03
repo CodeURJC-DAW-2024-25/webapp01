@@ -117,7 +117,7 @@ public class ProductsController {
             ProductDTO product = comparisonMap.get(market); 
 
             entry.put("market", market);
-            entry.put("product_name", product != null && product.getDisplay_name() != null ? product.getDisplay_name(): "Not available");
+            entry.put("product_name", product != null && product.getDisplay_name() != null ? product.getDisplay_name(): "No disponible");
             entry.put("price", product != null && product.getPrice() != null ? product.getPrice().getTotal() : "-");
             if (product.getDisplay_name() == null) {
                 entry.put("price", "-");
