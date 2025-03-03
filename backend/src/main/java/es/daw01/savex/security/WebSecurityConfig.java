@@ -55,6 +55,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/products").permitAll()
                         .requestMatchers("/products/**").permitAll()
                         .requestMatchers("/search").permitAll()
+                        .requestMatchers("/compare").permitAll()
 
                         // Private routes
                         .requestMatchers("/admin").hasAnyRole(UserType.ADMIN.name())
