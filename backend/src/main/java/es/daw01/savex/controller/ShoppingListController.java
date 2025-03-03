@@ -1,6 +1,7 @@
 package es.daw01.savex.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -13,8 +14,8 @@ import es.daw01.savex.service.ShoppingListService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 
@@ -43,27 +44,27 @@ public class ShoppingListController {
     
     @GetMapping("/{id}")
     public String getShoppingList(@PathVariable Long id, Model model){
-        // Optional<ShoppingList> op = shoppingListService.findById(id);
-        // if(op.isEmpty()) return "redirect:/";
+        Optional<ShoppingList> op = shoppingListService.findById(id);
+        if(op.isEmpty()) return "redirect:/";
 
-        // ShoppingList shoppingList = op.get();
+        ShoppingList shoppingList = op.get();
 
         // Add attributes to the model
         controllerUtils.addUserDataToModel(model);
-        // model.addAttribute("shoppingList", shoppingList);
+        model.addAttribute("shoppingList", shoppingList);
         model.addAttribute("title", "SaveX - Lista ");
 
         return "shoppingList-detail";
     }
     
     @PostMapping("/create")
-    public String postMethodName(@RequestBody ShoppingList shoppingList) {
+    public String postMethodName(@RequestParam String name, @RequestParam String description) {
         User user = controllerUtils.getAuthenticatedUser();
         
         // Add the shopping list to the user
         ShoppingList newShoppingList = shoppingListService.createShoppingList(
-            shoppingList.getName(),
-            shoppingList.getDescription(),
+            name,
+            description,
             user
         );
 

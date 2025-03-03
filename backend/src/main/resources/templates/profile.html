@@ -11,33 +11,32 @@
     <div class="container no-gap small-padding">
         {{> components/navbar}}
         <div class="profile-header">
+            <span class="badge">
+                {{role}}
+            </span>
             <div class="gradient-background"></div>
             <div class="profile-info">
                 <div class="profile-avatar">
                     <img src="{{avatar}}" alt="Avatar de {{name}}">
                 </div>
                 <div class="user-details">
-                    <div class="name-badge">
-                        <h2>{{name}}</h2>
-                        <span class="badge">
-                            {{role}}
-                        </span>
-                    </div>
-                    <p class="username">@{{username}}</p>
-                    <div class="user-stats">
-                        <span><i class="bi bi-calendar"></i> Se unió: Enero 2023</span>
-                        <span><i class="bi bi-list-task"></i> 3 listas</span>
+                    <div class="user-naming-section">
+                        <div class="names">
+                            <h2 class="name-badge">{{name}}</h2>
+                            <p class="username">@{{username}}</p>
+                        </div>
+                        <span class="date"><i class="bi bi-calendar"></i> Se unió en Enero 2023</span>
                     </div>
                     <div class="user-actions">
                         {{^isAdmin}}
-                        <a href="/settings" class="clickable clickable-secondary">
+                        <a href="/settings" class="clickable clickable-primary">
                             <i class="bi bi-gear icon"></i>
                             <span>Ajustes</span>
                         </a>
                         {{/isAdmin}}
-                        <form action="/logout" method="post" class="logout-form">
+                        <form action="/logout" method="post" class="logout-form inline">
                             <input type="hidden" name="_csrf" value="{{token}}" />
-                            <button type="submit" class="clickable clickable-secondary">
+                            <button type="submit" class="clickable clickable-secondary danger">
                                 <i class="bi bi-box-arrow-right icon"></i>
                                 <span>Cerrar sesión</span>
                             </button>

@@ -40,7 +40,7 @@ public class ShoppingList {
     public ShoppingList(String name, String description, User user, List<Product> products) {
         this.name = name;
         this.description = description;
-        this.numberOfProducts = products.size();
+        this.numberOfProducts = products != null ? products.size() : 0;
         this.user = user;
         this.products = products;
     }
@@ -83,7 +83,7 @@ public class ShoppingList {
     }
 
     public void setProducts(List<Product> products) {
-        this.numberOfProducts = products.size();
+        this.numberOfProducts = products != null ? products.size() : 0;
         this.products = products;
     }
 
