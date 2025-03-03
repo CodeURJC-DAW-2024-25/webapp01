@@ -63,9 +63,6 @@ public class ShoppingListService {
      */
     public ShoppingList createShoppingList(String name, String description, User user) {
         ShoppingList shoppingList = new ShoppingList(name, description, user, null);
-        shoppingList.setName(name);
-        shoppingList.setDescription(description);
-        shoppingList.setUser(user);
         shoppingListRepository.save(shoppingList);
         return shoppingList;
     }
@@ -91,16 +88,4 @@ public class ShoppingListService {
         shoppingList.getProducts().removeIf(product -> product.getId() == productId);
         shoppingListRepository.save(shoppingList);
     }
-
-    public ShoppingList createShoppingList(String name, String description, User user, List<Product> products) {
-        ShoppingList shoppingList = new ShoppingList();
-        shoppingList.setName(name);
-        shoppingList.setDescription(description);
-        shoppingList.setUser(user);
-        shoppingList.setProducts(products);
-        shoppingListRepository.save(shoppingList);
-        return shoppingListRepository.save(shoppingList);
-
-    }
-
 }

@@ -31,7 +31,6 @@ public class ShoppingListController {
     public String getShoppingLists(Model model) {
         User user = controllerUtils.getAuthenticatedUser();
         List<ShoppingList> shoppingLists = shoppingListService.findAllByUser(user);
-        System.out.println(shoppingLists.toString());
 
         // Add attributes to the model
         controllerUtils.addUserDataToModel(model);
