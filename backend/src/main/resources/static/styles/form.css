@@ -4,6 +4,10 @@ form {
     flex-direction: column;
     align-items: center;
 
+    &.inline {
+        width: auto;
+    }
+
     .form-row {
         width: 100%;
         display: flex;
