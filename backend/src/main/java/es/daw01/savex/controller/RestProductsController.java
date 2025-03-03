@@ -29,13 +29,6 @@ public class RestProductsController {
         @RequestParam(required = false) Integer limit,
         @RequestParam(required = false) Integer page
     ) {
-        System.out.println("search: " + search);
-        System.out.println("supermarket: " + supermarket);
-        System.out.println("minPrice: " + minPrice);
-        System.out.println("maxPrice: " + maxPrice);
-        
-        System.out.println("limit: " + limit);
-        System.out.println("page: " + page);
         return apiService.fetchProducts(
             search, supermarket, minPrice, maxPrice, limit, page
         );

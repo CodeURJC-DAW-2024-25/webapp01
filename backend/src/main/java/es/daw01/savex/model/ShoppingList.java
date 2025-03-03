@@ -35,7 +35,8 @@ public class ShoppingList {
     private List<Product> products;
 
     // Constructors ----------------------------------------------------------->>
-    public ShoppingList() { /* Used by Spring Data JPA */ }
+    public ShoppingList() {
+        /* Used by Spring Data JPA */ }
 
     public ShoppingList(String name, String description, User user, List<Product> products) {
         this.name = name;
@@ -94,4 +95,5 @@ public class ShoppingList {
     public void setNumberOfProducts(int numberOfProducts) {
         this.numberOfProducts = numberOfProducts;
     }
+
 }

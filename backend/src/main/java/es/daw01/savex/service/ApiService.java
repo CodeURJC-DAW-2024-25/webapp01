@@ -46,7 +46,6 @@ public class ApiService {
         if (limit != null) apiUrl = apiUrl.concat(String.format("limit=%s&", limit));
         if (page != null) apiUrl = apiUrl.concat(String.format("page=%s&", page));
     
-        System.out.println("API URL: " + apiUrl); 
         ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
             apiUrl,
             HttpMethod.GET,

@@ -4,7 +4,6 @@ import java.sql.SQLException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.method.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Comment;
 import es.daw01.savex.model.Post;
-import es.daw01.savex.model.Product;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
 import es.daw01.savex.model.VisibilityType;
@@ -168,28 +166,22 @@ public class PostsController {
     public String removePost(Model model, @PathVariable long id) {
         try {
             User user = controllerUtils.getAuthenticatedUser();
-            System.out.println("Usuario autenticado: " + (user != null ? user.getUsername() : "null"));
 
             Optional<Post> postOptional = postService.findById(id);
             if (postOptional.isEmpty()) {
-                System.out.println("Post no encontrado: " + id);
                 return "redirect:/posts?error=not_found";
             }
 
             Post post = postOptional.get();
-            System.out.println("Post encontrado: " + post.getTitle());
 
             // Verificar si el usuario es el autor del post o un administrador
             if (post.getAuthor().equals(user.getUsername()) || user.getRole() == UserType.ADMIN) {
                 postService.deletePost(id);
-                System.out.println("Post eliminado correctamente.");
                 return "redirect:/";
             } else {
-                System.out.println("Usuario no autorizado para eliminar este post.");
                 return "redirect:/posts?error=forbidden";
             }
         } catch (Exception e) {
-            System.out.println("Error 500 al eliminar post: " + e.getMessage());
             e.printStackTrace();
             return "redirect:/posts?error=server_error";
         }

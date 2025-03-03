@@ -11,7 +11,7 @@ const $supermarketRadios = document.querySelectorAll("input[name='supermarket']"
 const CSRF_TOKEN = document.querySelector('meta[name="_csrf"]').content;
 const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
 
-const PRODUCTS_SIZE = 16;
+const PRODUCTS_SIZE = 10;
 
 let currentPage = 0;
 let loading = false;

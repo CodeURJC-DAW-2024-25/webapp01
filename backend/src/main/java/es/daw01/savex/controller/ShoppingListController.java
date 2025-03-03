@@ -17,8 +17,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
-
 @Controller
 @RequestMapping("/shoppingList")
 public class ShoppingListController {
@@ -29,8 +27,8 @@ public class ShoppingListController {
     @Autowired
     private ShoppingListService shoppingListService;
 
-    @GetMapping({"", "/"})
-    public String getShoppingLists(Model model){
+    @GetMapping({ "", "/" })
+    public String getShoppingLists(Model model) {
         User user = controllerUtils.getAuthenticatedUser();
         List<ShoppingList> shoppingLists = shoppingListService.findAllByUser(user);
 
@@ -41,11 +39,12 @@ public class ShoppingListController {
 
         return "shoppingLists";
     }
-    
+
     @GetMapping("/{id}")
-    public String getShoppingList(@PathVariable Long id, Model model){
+    public String getShoppingList(@PathVariable Long id, Model model) {
         Optional<ShoppingList> op = shoppingListService.findById(id);
-        if(op.isEmpty()) return "redirect:/";
+        if (op.isEmpty())
+            return "redirect:/";
 
         ShoppingList shoppingList = op.get();
 
@@ -56,19 +55,19 @@ public class ShoppingListController {
 
         return "shoppingList-detail";
     }
-    
+
     @PostMapping("/create")
     public String postMethodName(@RequestParam String name, @RequestParam String description) {
         User user = controllerUtils.getAuthenticatedUser();
-        
+
         // Add the shopping list to the user
         ShoppingList newShoppingList = shoppingListService.createShoppingList(
-            name,
-            description,
-            user
-        );
+                name,
+                description,
+                user);
 
-        if (newShoppingList == null) return "redirect:/profile";
+        if (newShoppingList == null)
+            return "redirect:/profile";
         return String.format("redirect:/shoppingList/%d", newShoppingList.getId());
     }
 }

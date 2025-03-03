@@ -51,36 +51,25 @@
             <div class="lists-header">
                 <h3>Tus listas</h3>
                 <button class="clickable clickable-secondary" onclick="openModal()">
-                    <i class="bi bi-plus-lg"></i> 
+                    <i class="bi bi-plus-lg"></i>
                     Nueva lista
                 </button>
             </div>
             <hr>
             <div class="lists-grid">
+                {{#shoppingLists}}
                 <div class="list-card">
                     <div class="list-card-header">
-                        <h4>Lista 1</h4>
-                        <span class="badge badge-secondary">5 items</span>
+                        <h4>{{name}}</h4>
+                        <span class="badge badge-secondary">{{numberOfProducts}}</span>
                     </div>
-                    <p>Descripción de la lista 1</p>
+                    <p>{{description}}</p>
                     <button class="clickable clickable-secondary full-width">Ver detalles</button>
                 </div>
-                <div class="list-card">
-                    <div class="list-card-header">
-                        <h4>Lista 2</h4>
-                        <span class="badge badge-secondary">3 items</span>
-                    </div>
-                    <p>Descripción de la lista 2</p>
-                    <button class="clickable clickable-secondary full-width">Ver detalles</button>
-                </div>
-                <div class="list-card">
-                    <div class="list-card-header">
-                        <h4>Lista 3</h4>
-                        <span class="badge badge-secondary">7 items</span>
-                    </div>
-                    <p>Descripción de la lista 3</p>
-                    <button class="clickable clickable-secondary full-width">Ver detalles</button>
-                </div>
+                {{/shoppingLists}}
+                {{^shoppingLists}}
+                <p>No tienes listas</p>
+                {{/shoppingLists}}
             </div>
         </div>
         {{> components/footer}}
@@ -89,4 +78,5 @@
     <script src="scripts/modal.js"></script>
     <script src="scripts/themeToggle.js"></script>
 </body>
+
 </html>
