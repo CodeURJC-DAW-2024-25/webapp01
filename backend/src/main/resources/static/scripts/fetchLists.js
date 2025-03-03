@@ -40,12 +40,12 @@ function closeModal() {
 
 function createHTMLList(list) {
     return `
-        <form action="#" method="post" class="create-list-form">
+        <form action="#" method="post" class="modal-display-list">
             <input type="hidden" name="_csrf" value="{{token}}" />
-            <div class="form-group">
-                <label for="listName">${list.name}</label>
-                <button type="submit" class="clickable clickable-primary">añadir a la lista</button>
-            </div>
+            <label for="listName">${list.name}</label>
+            <button type="submit" class="clickable clickable-tool bordered">
+                <i class="bi bi-plus-lg"></i>
+            </button>
         </form>
     `
 }
