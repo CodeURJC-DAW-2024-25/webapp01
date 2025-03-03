@@ -24,6 +24,9 @@ public class ShoppingList {
     @Column(nullable = false)
     private String description;
 
+    @Column(nullable = false)
+    private int numberOfProducts;
+
     @ManyToOne
     private User user;
 
@@ -37,11 +40,12 @@ public class ShoppingList {
     public ShoppingList(String name, String description, User user, List<Product> products) {
         this.name = name;
         this.description = description;
+        this.numberOfProducts = products.size();
         this.user = user;
         this.products = products;
     }
 
-    // Getters and Setters ----------------------------------------------------->>
+    // Getters and Setters ---------------------------------------------------->>
     public long getId() {
         return id;
     }
@@ -79,6 +83,15 @@ public class ShoppingList {
     }
 
     public void setProducts(List<Product> products) {
+        this.numberOfProducts = products.size();
         this.products = products;
+    }
+
+    public int getNumberOfProducts() {
+        return numberOfProducts;
+    }
+
+    public void setNumberOfProducts(int numberOfProducts) {
+        this.numberOfProducts = numberOfProducts;
     }
 }

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="/styles/shoppingList-detail.css">
+    {{> components/head-tags}}
+</head>
+<body>
+    <div class="container small-gap small-padding">
+        {{> components/navbar}}
+        <header class="shopping-list-header">
+            <div class="left">
+                <a href="/shoppingList" class="back-link">← Back to Shopping Lists</a>
+                <h1>Weekly Groceries</h1>
+            </div>
+            <div class="right">
+                <a href="#" class="clickable clickable-primary">Eliminar Lista</a>
+            </div>
+        </header>
+        
+        <div class="shopping-list-card">
+            <div class="title">
+                <h2>Descripción</h2>
+            </div>
+            <p>Items needed for the week of March 4th. This shopping list contains all the essential groceries we need to buy for our weekly meal prep. Make sure to check for coupons and discounts before heading to the store.</p>
+        </div>
+        
+        <div class="shopping-list-card">
+            <div class="title">
+                <h2>Productos</h2>
+                <a href="#" class="clickable clickable-secondary">Agregar Producto</a>
+            </div>
+            <ul class="product-list">
+                <li class="product-item">
+                    <div class="product-info">
+                        <h3>Milk</h3>
+                        <p>1 gallon, whole milk</p>
+                        <p>$2.99</p>
+                    </div>
+                    <div class="product-actions">
+                        <a href="#">Edit</a>
+                        <a href="#">Delete</a>
+                    </div>
+                </li>
+                <li class="product-item">
+                    <div class="product-info">
+                        <h3>Bread</h3>
+                        <p>Whole wheat, sliced</p>
+                        <p>$3.49</p>
+                    </div>
+                    <div class="product-actions">
+                        <a href="#">Edit</a>
+                        <a href="#">Delete</a>
+                    </div>
+                </li>
+                <li class="product-item">
+                    <div class="product-info">
+                        <h3>Eggs</h3>
+                        <p>Dozen, large, free-range</p>
+                        <p>$4.99</p>
+                    </div>
+                    <div class="product-actions">
+                        <a href="#">Edit</a>
+                        <a href="#">Delete</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+        {{> components/footer}}
+    </div>
+</body>
+</html>

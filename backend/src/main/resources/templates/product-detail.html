@@ -2,7 +2,10 @@
 <html lang="es">
 <head>
     <link rel="stylesheet" href="/styles/product-detail.css">
+    <!-- Script for product details functionality -->
     <script src="/scripts/details.js" defer></script>
+    <!-- Additional stylesheet for suggested products -->
+    <link rel="stylesheet" href="/styles/suggested-product.css">
     {{> components/head-tags}}
 </head>
 <body>
@@ -12,22 +15,23 @@
         <div class="back-link">
             <a href="/" class="clickable clickable-text">
                 <i class="bi bi-arrow-left"></i>
-                Volver a productos
+                Back to products
             </a>
         </div>
+        <input type="hidden" id="originalSearchQuery" value="{{searchQuery}}">
 
         <div class="product-grid">
             {{#product}} 
-            <!-- Imagen del producto -->
+            <!-- Product image -->
             <div class="product-image">
                 <img src="{{thumbnail}}" alt="{{display_name}}">
             </div>
 
-            <!-- Información del producto -->
+            <!-- Product information -->
             <div class="product-info">
                 <div class="product-header">
                     <span class="badge">{{supermarket_name}}</span>
-                    <!-- Se usa este id para obtener el término de búsqueda (nombre del producto) -->
+                    <!-- This id is used to get the search term (product name) -->
                     <h1 id="productTitle" class="product-title">{{display_name}}</h1>
                     
                     {{#brand}}
@@ -41,17 +45,17 @@
                 </div>
 
                 <button class="clickable clickable-primary">
-                    Añadir a mi Lista
+                    Add to my List
                     <i class="bi bi-plus-circle"></i>
                 </button>
 
                 <hr class="separator">
 
                 <div class="product-details-card">
-                    <h3 class="section-title">Detalles del producto</h3>
+                    <h3 class="section-title">Product Details</h3>
                     <dl class="details-list">
                         <div class="details-row">
-                            <dt>Tipo</dt>
+                            <dt>Type</dt>
                             <dd>{{product_type}}</dd>
                         </div>
                         <div class="details-row">
@@ -62,7 +66,7 @@
                 </div>
 
                 <div class="product-categories">
-                    <h3 class="section-title">Categorías</h3>
+                    <h3 class="section-title">Categories</h3>
                     <div class="categories-list">
                         {{#product_categories}}
                         <span class="badge badge-secondary">{{.}}</span>
@@ -72,26 +76,34 @@
 
                 <div class="external-link">
                     <a href="{{product_url}}" target="_blank" rel="noopener noreferrer" class="clickable clickable-secondary">
-                        Ver en {{supermarket_name}}
+                        View on {{supermarket_name}}
                     </a>
                 </div>
             </div>
             {{/product}}
         </div>
 
-        <!-- Botón para cargar la comparación vía AJAX -->
+        <!-- Button to load comparison via AJAX -->
         <div class="compare-button">
             <button id="compareBtn" class="clickable clickable-secondary">
-                Comparar Productos
+                Compare Products
                 <i class="bi bi-arrow-left-right"></i>
             </button>
         </div>
 
-        <!-- Contenedor donde se inyectará la tabla comparadora -->
+        <!-- Container where the comparison table will be injected -->
         <div id="compareContainer" style="display: none;"></div>
+
+        <div class="product-suggested">
+            <h2 class="section-title">Related Products</h2>
+            <div class="product-suggested-grid" data-product-category="{{product.product_categories.0}}">
+                <!-- FETCHED IN BACKGROUND -->
+            </div>
+        </div>
 
         {{> components/footer}}
     </div>
     <script src="/scripts/themeToggle.js"></script>
+    <script src="/scripts/suggestedProducts.js"></script>
 </body>
 </html>

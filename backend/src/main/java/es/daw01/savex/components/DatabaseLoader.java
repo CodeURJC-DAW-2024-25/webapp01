@@ -83,13 +83,13 @@ public class DatabaseLoader {
 
         // Load default admin
         if (
-            !userRepository.existsByUsername("adminDefault") &&
+            !userRepository.existsByUsername("admin") &&
             !userRepository.existsByEmail("adminEmail@gmail.com")
         ) {
             userRepository.save(
                 new User(
                     "adminEmail@gmail.com",
-                    "adminDefault",
+                    "admin",
                     "Admin",
                     passwordEncoder.encode("admin"),
                     null,
@@ -97,6 +97,17 @@ public class DatabaseLoader {
                 )
             );
         }
+
+        userRepository.save(
+                new User(
+                    "a@gmail.com",
+                    "a",
+                    "a",
+                    passwordEncoder.encode("a"),
+                    null,
+                    UserType.ADMIN
+                )
+            );
 
         DatabaseLoader.logger.info("Users added to the database.");
     }
