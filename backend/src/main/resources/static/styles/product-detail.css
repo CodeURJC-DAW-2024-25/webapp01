@@ -144,14 +144,265 @@
 }
 
 
-/* Suggested */
-/* <div class="product-suggested-card">
-                    <a href="/product/ID" class="clickable">
-                        <img src="#SRC" alt="ALT">
-                        <h3 class="product-suggested-title">Name producti .....</h3>
-                        <span class="product-suggested-price">0.00&euro;</span>
-                    </a>
-                </div> */
+.container {
+    max-width: 1200px;
+  }
+
+/* Tarjeta principal */
+.card {
+
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.card-header {
+    background-color: rgba(59, 130, 246, 0.05);
+    padding: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.card-title {
+    font-size: 24px;
+    font-weight: 700;
+    color: #111827;
+    margin-bottom: 5px;
+}
+
+.card-description {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+.card-content {
+    padding: 20px;
+}
+
+/* Controles de búsqueda y filtros */
+.controls {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+    .controls {
+        flex-direction: row;
+        align-items: center;
+    }
+}
+
+.search-container {
+    position: relative;
+    flex: 1;
+}
+
+.search-icon {
+    position: absolute;
+    left: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #6b7280;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 10px 10px 35px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    font-size: 14px;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.select-container {
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .select-container {
+        width: 180px;
+    }
+}
+
+.select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d1d5db;
+    border-radius: 6px;
+    background-color: #fff;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.select:focus {
+    outline: none;
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 2px rgba(59, 130, 246, 0.2);
+}
+
+.button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .button {
+        width: auto;
+    }
+}
+
+.button-outline {
+    background-color: transparent;
+    border: 1px solid #d1d5db;
+    color: #374151;
+}
+
+.button-outline:hover {
+    background-color: #f9fafb;
+}
+
+.button-primary {
+    background-color: #3b82f6;
+    border: 1px solid #3b82f6;
+    color: white;
+}
+
+.button-primary:hover {
+    background-color: #2563eb;
+}
+
+.button-icon {
+    margin-right: 8px;
+}
+
+/* Tabla de comparación */
+.table-container {
+    border: 1px solid #e5e7eb;
+    border-radius: 6px;
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+th {
+    background-color: #f9fafb;
+    font-weight: 600;
+    text-align: left;
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    color: #374151;
+    font-size: 14px;
+}
+
+td {
+    padding: 12px 16px;
+    border-bottom: 1px solid #e5e7eb;
+    font-size: 14px;
+    vertical-align: middle;
+}
+
+tr:last-child td {
+    border-bottom: none;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.product-name {
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.badge {
+    display: inline-block;
+    padding: 2px 8px;
+    border-radius: 9999px;
+    font-size: 12px;
+    font-weight: 500;
+    background-color: #f3f4f6;
+    color: #6b7280;
+    border: 1px solid #e5e7eb;
+}
+
+.price {
+    font-weight: 500;
+}
+
+.price-lowest {
+    color: #059669;
+}
+
+.no-stock {
+    color: #ef4444;
+    font-size: 12px;
+    margin-top: 2px;
+}
+
+.check-icon {
+    color: #059669;
+    margin-top: 2px;
+}
+
+.best-price {
+    font-weight: 700;
+    color: #059669;
+}
+
+.empty-message {
+    text-align: center;
+    padding: 40px 0;
+    color: #6b7280;
+}
+
+/* Footer */
+.footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 20px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.footer-text {
+    color: #6b7280;
+    font-size: 14px;
+}
+
+/* Iconos */
+.icon {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    stroke-width: 2;
+    stroke: currentColor;
+    fill: none;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    vertical-align: middle;
+}
+
+
 .product-suggested {
     width: 100%;
     

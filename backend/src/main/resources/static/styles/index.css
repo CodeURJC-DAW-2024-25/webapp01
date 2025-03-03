@@ -90,6 +90,11 @@ body {
     &.small-padding {
         padding-top: calc(var(--navbar-height) + 50px);
     }
+
+    &.no-padding {
+        padding-top: 0;
+        padding: 0;
+    }
 }
 
 a {
