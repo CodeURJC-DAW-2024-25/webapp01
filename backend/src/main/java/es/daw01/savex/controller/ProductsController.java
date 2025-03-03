@@ -59,9 +59,11 @@ public class ProductsController {
     }
 
     @GetMapping("/products/{id}") 
-    public String getProduct(@PathVariable String id, 
-                 @RequestParam(required = false) String searchInput,
-                 Model model) {
+    public String getProduct(
+        @PathVariable String id, 
+        @RequestParam(required = false) String searchInput,
+        Model model
+    ) {
       
         ProductDTO product = apiService.fetchProduct(id);
         controllerUtils.addUserDataToModel(model);
