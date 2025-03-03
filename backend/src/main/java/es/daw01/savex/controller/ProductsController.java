@@ -22,6 +22,7 @@ import es.daw01.savex.service.ProductService;
 
 @Controller
 public class ProductsController { 
+
     @Autowired
     private ControllerUtils controllerUtils;
 
@@ -87,7 +88,6 @@ public class ProductsController {
     public String compareProducts(@RequestParam(required = false) String searchInput, Model model) {
         controllerUtils.addUserDataToModel(model);
         
-      
         // List of supermarkets to compare
         List<String> supermarkets = Arrays.asList("mercadona", "dia", "elcorteingles","consum","bm");
 
@@ -125,15 +125,11 @@ public class ProductsController {
                 entry.put("price", "-");
             }
             comparisons.add(entry);
-        
-
         }
         
         model.addAttribute("comparisons", comparisons);   
         model.addAttribute("supermarkets", supermarkets);
         model.addAttribute("searchQuery", searchInput != null ? searchInput : "");
-
-
 
         return "compare-table";
     }
