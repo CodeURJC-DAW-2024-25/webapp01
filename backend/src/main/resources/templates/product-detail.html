@@ -1,17 +1,16 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="stylesheet" href="/styles/product-detail.css">
-    <!-- Script for product details functionality -->
-    <script src="/scripts/details.js" defer></script>
-    <!-- Additional stylesheet for suggested products -->
-    <link rel="stylesheet" href="/styles/suggested-product.css">
     {{> components/head-tags}}
+    <link rel="stylesheet" href="/styles/product-detail.css">
+    <link rel="stylesheet" href="/styles/suggested-product.css">
+    <link rel="stylesheet" href="/styles/modal.css">
+    
 </head>
 <body>
     <div class="container no-gap small-padding">
         {{> components/navbar}}
-
+        
         <div class="back-link">
             <a href="/" class="clickable clickable-text">
                 <i class="bi bi-arrow-left"></i>
@@ -19,14 +18,14 @@
             </a>
         </div>
         <input type="hidden" id="originalSearchQuery" value="{{searchQuery}}">
-
+        
         <div class="product-grid">
             {{#product}} 
             <!-- Product image -->
             <div class="product-image">
                 <img src="{{thumbnail}}" alt="{{display_name}}">
             </div>
-
+            
             <!-- Product information -->
             <div class="product-info">
                 <div class="product-header">
@@ -38,21 +37,21 @@
                     <p class="product-brand">{{brand}}</p>
                     {{/brand}}
                 </div>
-
+                
                 <div class="product-price">
                     <span class="price-main">{{price.total}}&euro;</span>
                     <span class="price-unit">{{price.per_reference_unit}}&euro;/{{price.reference_unit_name}}</span>
                 </div>
-
+                
                 {{#isAuthenticated}}
-              <button id="addToListBtn" class="clickable clickable-primary">
-                Add to my List
-                <i class="bi bi-plus-circle"></i>
-              </button>
+                <button id="addToListBtn" onclick="openModal()" class="clickable clickable-primary">
+                    Add to my List
+                    <i class="bi bi-plus-circle"></i>
+                </button>
                 {{/isAuthenticated}}
-
+                
                 <hr class="separator">
-
+                
                 <div class="product-details-card">
                     <h3 class="section-title">Product Details</h3>
                     <dl class="details-list">
@@ -66,7 +65,7 @@
                         </div>
                     </dl>
                 </div>
-
+                
                 <div class="product-categories">
                     <h3 class="section-title">Categories</h3>
                     <div class="categories-list">
@@ -75,7 +74,7 @@
                         {{/product_categories}}
                     </div>
                 </div>
-
+                
                 <div class="external-link">
                     <a href="{{product_url}}" target="_blank" rel="noopener noreferrer" class="clickable clickable-secondary">
                         View on {{supermarket_name}}
@@ -84,7 +83,7 @@
             </div>
             {{/product}}
         </div>
-
+        
         <!-- Button to load comparison via AJAX -->
         <div class="compare-button">
             <button id="compareBtn" class="clickable clickable-secondary">
@@ -92,20 +91,23 @@
                 <i class="bi bi-arrow-left-right"></i>
             </button>
         </div>
-
+        
         <!-- Container where the comparison table will be injected -->
         <div id="compareContainer" style="display: none;"></div>
-
+        
         <div class="product-suggested">
             <h2 class="section-title">Related Products</h2>
             <div class="product-suggested-grid" data-product-category="{{product.product_categories.0}}">
                 <!-- FETCHED IN BACKGROUND -->
             </div>
         </div>
-
+        
         {{> components/footer}}
     </div>
+    {{> components/add-product}}
     <script src="/scripts/themeToggle.js"></script>
     <script src="/scripts/suggestedProducts.js"></script>
+    <script src="/scripts/details.js" defer></script>
+    <script src="/scripts/fetchLists.js"></script>
 </body>
 </html>
