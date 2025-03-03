@@ -70,4 +70,11 @@ public class ShoppingListController {
             return "redirect:/profile";
         return String.format("redirect:/shoppingList/%d", newShoppingList.getId());
     }
+
+    @PostMapping("/{id}/delete")
+    public String deleteShoppingList(@PathVariable Long id) {
+        shoppingListService.deleteById(id);
+        return "redirect:/profile";
+    }
+
 }

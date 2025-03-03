@@ -21,10 +21,13 @@
                 <h1>{{shoppingList.name}}</h1>
             </div>
             <div class="right">
-                <a href="#" class="clickable clickable-primary">
-                    <i class="bi bi-trash"></i>
-                    Eliminar Lista
-                </a>
+                <form action="/shoppingList/{{shoppingList.id}}/delete" method="post" style="display:inline;">
+                    <input type="hidden" name="_csrf" value="{{token}}">
+                    <button type="submit" class="clickable clickable-primary">
+                        <i class="bi bi-trash"></i>
+                        Eliminar Lista
+                    </button>
+                </form>
             </div>
         </header>
 
