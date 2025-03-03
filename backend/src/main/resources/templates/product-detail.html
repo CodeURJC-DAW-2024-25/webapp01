@@ -44,10 +44,12 @@
                     <span class="price-unit">{{price.per_reference_unit}}&euro;/{{price.reference_unit_name}}</span>
                 </div>
 
-                <button class="clickable clickable-primary">
-                    Add to my List
-                    <i class="bi bi-plus-circle"></i>
-                </button>
+                {{#isAuthenticated}}
+              <button id="addToListBtn" class="clickable clickable-primary">
+                Add to my List
+                <i class="bi bi-plus-circle"></i>
+              </button>
+                {{/isAuthenticated}}
 
                 <hr class="separator">
 
