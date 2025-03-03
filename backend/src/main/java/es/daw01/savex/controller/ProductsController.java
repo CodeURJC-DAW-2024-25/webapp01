@@ -99,7 +99,7 @@ public class ProductsController {
                 ResponseEntity<Map<String, Object>> response = apiService.fetchProducts(
                     searchInput, market, null, null, 1, 0
                 );
-                List<?> data = (List<?>) response.getBody().get("data");
+                List<?> data =  (List<?>) response.getBody().get("data");
                 if (data != null && !data.isEmpty()) {
                     ProductDTO product = convertToProductDTO(data.get(0));
                     comparisonMap.put(market, product);
@@ -114,18 +114,22 @@ public class ProductsController {
        
         for (String market : supermarkets) {
             Map<String, Object> entry = new HashMap<>();
-            ProductDTO product = comparisonMap.get(market); 
-
+            ProductDTO product = comparisonMap.get(market);
+        
             entry.put("market", market);
-            entry.put("product_name", product != null && product.getDisplay_name() != null ? product.getDisplay_name(): "No disponible");
-            entry.put("price", product != null && product.getPrice() != null ? product.getPrice().getTotal() : "-");
-            if (product.getDisplay_name() == null) {
+        
+            if (product != null) {
+                entry.put("product_name", product.getDisplay_name() != null ? product.getDisplay_name() : "No disponible");
+                entry.put("price", (product.getPrice() != null && product.getPrice().getTotal() != null) ? product.getPrice().getTotal() : "-");
+            } else {
+                entry.put("product_name", "No disponible");
                 entry.put("price", "-");
             }
+            comparisons.add(entry);
+        
 
-            comparisons.add(entry);               
         }
-               
+        
         model.addAttribute("comparisons", comparisons);   
         model.addAttribute("supermarkets", supermarkets);
         model.addAttribute("searchQuery", searchInput != null ? searchInput : "");
@@ -136,10 +140,10 @@ public class ProductsController {
     }
 
     // Helper method to convert an object (Map) to ProductDTO
-    private ProductDTO convertToProductDTO(Object data) {
+    private ProductDTO convertToProductDTO(Object data) { 
         Map<String, Object> map = (Map<String, Object>) data;
         ProductDTO p = new ProductDTO();
-        p.setDisplay_name((String) map.get("display_name"));
+        p.setDisplay_name(map.get("display_name") != null ? (String) map.get("display_name") : (String) map.get("name"));
         p.setSupermarket_name((String) map.get("supermarket_name"));
     
         // Process the price correctly (expecting a nested object)
