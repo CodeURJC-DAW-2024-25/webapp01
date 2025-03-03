@@ -19,12 +19,19 @@ let isEnd = false;
 let totalPages = Infinity;
 let searchQuery = "";
 
+
 // Retrieve URL parameters
 let queryParams = null;
 document.addEventListener("DOMContentLoaded", () => {
     queryParams = new URLSearchParams(window.location.search);
     searchQuery = queryParams.get("searchInput") || "";
 
+    // Save the original search in localStorage to have it on other pages
+    if (searchQuery) {
+        localStorage.setItem("originalSearchQuery", searchQuery);
+    } else {
+        searchQuery = localStorage.getItem("originalSearchQuery") || "";
+    }
     // Load filters from URL
     const supermarket = queryParams.get("supermarket") || "";
     const minPrice = queryParams.get("minPrice") || "";
@@ -59,7 +66,7 @@ async function loadProducts(page = 0) {
     if (supermarket) url += `&supermarket=${encodeURIComponent(supermarket)}`;
     if (minPrice) url += `&minPrice=${encodeURIComponent(minPrice)}`;
     if (maxPrice) url += `&maxPrice=${encodeURIComponent(maxPrice)}`;
-
+    
     console.log("Fetching products from URL:", url);
     
     const response = await fetch(url, {
@@ -98,12 +105,13 @@ async function applyFilters(page = 0) {
     loadProducts(page);
 }
 
-
 function createHTMLProduct(product) {
     const thumbnail = product.thumbnail || "/assets/template_image.png";
+    const searchQueryParam = encodeURIComponent(localStorage.getItem("originalSearchQuery") || searchQuery);
+    console.log("Search Query Param:", searchQueryParam);
     return `
     <div class="product-card">
-        <a href="/products/${product._id}" class="product-link">
+        <a href="/products/${product._id}?searchInput=${searchQueryParam}" class="product-link">
             <div class="product-image-container">
                 <div class="supermarket-badge">${product.supermarket_name}</div>
                 <div class="product-image">

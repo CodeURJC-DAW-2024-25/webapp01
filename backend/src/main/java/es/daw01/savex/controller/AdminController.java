@@ -12,18 +12,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import es.daw01.savex.DTOs.PostDTO;
 import es.daw01.savex.DTOs.UserDTO;
+import es.daw01.savex.model.User;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.PostService;
 import es.daw01.savex.service.UserService;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
-
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    
+
     // --- Services ---
     @Autowired
     private UserService userService;
@@ -33,7 +32,6 @@ public class AdminController {
     private CommentService commentService;
     @Autowired
     private ControllerUtils controllerUtils;
-
 
     // --- Methods ---
     @GetMapping("")
@@ -56,11 +54,16 @@ public class AdminController {
 
     @DeleteMapping("/user/{id}")
     public String deleteUser(Model model, @PathVariable long id) {
+
+        User authenticatedUser = controllerUtils.getAuthenticatedUser();
+        if (authenticatedUser.getId() == id) {
+            return "redirect:/admin";
+        }
         // Delete comments
         commentService.deleteByAuthorId(id);
         // Delete user
         userService.deleteById(id);
-        
+
         return "redirect:/admin";
     }
 
@@ -70,8 +73,8 @@ public class AdminController {
         commentService.deleteByPostId(id);
         // Delete post
         postService.deleteById(id);
-        
+
         return "redirect:/admin";
     }
-    
+
 }

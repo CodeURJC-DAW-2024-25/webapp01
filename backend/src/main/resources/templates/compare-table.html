@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <link rel="stylesheet" href="/styles/compare-table.css">
+    <title>Comparador de Precios</title>
+</head>
+<body>
+    <div class="compare-table">
+        <h2>Comparación para "{{searchQuery}}"</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Supermercado</th>
+                    <th>Producto</th>
+                    <th>Precio</th>
+                </tr>
+            </thead>
+            <tbody>
+                {{#comparisons}}
+                <tr>
+                    <td>{{market}}</td>
+                    <td>{{product_name}}</td>
+                    <td>{{price}}</td>
+                </tr>
+                {{/comparisons}}
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>
