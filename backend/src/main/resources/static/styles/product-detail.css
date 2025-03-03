@@ -454,6 +454,7 @@ tr:last-child td {
     margin: 20px 0;
     font-size: 1rem;
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 15px;
 }
 
 .compare-table th {
