@@ -5,12 +5,10 @@ document.addEventListener("DOMContentLoaded", function() {
     compareBtn.addEventListener("click", function(e) {
         e.preventDefault();
 
-        // Use the content of the element with id "productTitle" as the search term
-        const searchInput = document.getElementById("productTitle").textContent.trim();
-        console.log("Search term:", searchInput);
-        
+        const searchQuery = localStorage.getItem("originalSearchQuery") || "";
+                
         const url = `/compare?searchInput=${encodeURIComponent(searchQuery)}`;
-
+  
         // Loading indicator
         compareContainer.innerHTML = "<p>Loading comparison...</p>";
         compareContainer.style.display = "block";

@@ -61,7 +61,7 @@ public class ProductsController {
     public String getProduct(@PathVariable String id, 
                  @RequestParam(required = false) String searchInput,
                  Model model) {
-            
+      
         ProductDTO product = apiService.fetchProduct(id);
         controllerUtils.addUserDataToModel(model);
         model.addAttribute("product", product);
@@ -70,23 +70,24 @@ public class ProductsController {
         model.addAttribute("title", "SaveX - " + product.getDisplay_name());
         return "product-detail";
     }
-
+ 
     @GetMapping("/products/custom")
     public String GenerateCustomProductCard(Model model, @RequestParam String name, @RequestParam String price, @RequestParam String src, @RequestParam String id){
         controllerUtils.addUserDataToModel(model);
-
+ 
         model.addAttribute("id", id);
         model.addAttribute("name", name);
         model.addAttribute("price", price);
         model.addAttribute("src", src);
 
-        return "custom-product";
+        return "custom-product";   
     }
         
     @GetMapping("/compare")
     public String compareProducts(@RequestParam(required = false) String searchInput, Model model) {
         controllerUtils.addUserDataToModel(model);
-
+        
+        System.out.println("Search Input: " + searchInput);
         // List of supermarkets to compare
         List<String> supermarkets = Arrays.asList("mercadona", "dia", "elcorteingles","consum","bm");
 
