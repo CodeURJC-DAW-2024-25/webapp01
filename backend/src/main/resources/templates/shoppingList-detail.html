@@ -8,8 +8,14 @@
     <div class="container small-gap small-padding">
         {{> components/navbar}}
         <header class="shopping-list-header">
+            
             <div class="left">
-                <a href="/shoppingList" class="back-link">← Back to Shopping Lists</a>
+                <div class="back-link">
+                    <a href="/shoppingList" class="clickable clickable-text">
+                        <i class="bi bi-arrow-left"></i>
+                        Volver a mis listas
+                    </a>
+                </div>
                 <h1>Weekly Groceries</h1>
             </div>
             <div class="right">
@@ -32,40 +38,76 @@
             <ul class="product-list">
                 <li class="product-item">
                     <div class="product-info">
-                        <h3>Milk</h3>
-                        <p>1 gallon, whole milk</p>
-                        <p>$2.99</p>
+                        <h3 class="product-name">Leche condensada de Hacendado</h3>
+                        <div class="product-meta">
+                            <span class="product-brand">Mercadona</span>
+                            <span class="product-price">2.99 €</span>
+                        </div>
                     </div>
                     <div class="product-actions">
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
+                        <a class="clickable clickable-tool bordered" href="#">
+                            <i class="bi bi-box-arrow-up-right"></i>
+                        </a>
+                        <a class="clickable clickable-tool bordered danger" href="#">
+                            <i class="bi bi-trash"></i>
+                        </a>
                     </div>
                 </li>
                 <li class="product-item">
                     <div class="product-info">
-                        <h3>Bread</h3>
-                        <p>Whole wheat, sliced</p>
-                        <p>$3.49</p>
+                        <h3 class="product-name">Leche condensada de Hacendado</h3>
+                        <div class="product-meta">
+                            <span class="product-brand">Mercadona</span>
+                            <span class="product-price">2.99 €</span>
+                        </div>
                     </div>
                     <div class="product-actions">
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
+                        <a class="clickable clickable-tool bordered" href="#">
+                            <i class="bi bi-box-arrow-up-right"></i>
+                        </a>
+                        <a class="clickable clickable-tool bordered danger" href="#">
+                            <i class="bi bi-trash"></i>
+                        </a>
                     </div>
                 </li>
                 <li class="product-item">
                     <div class="product-info">
-                        <h3>Eggs</h3>
-                        <p>Dozen, large, free-range</p>
-                        <p>$4.99</p>
+                        <h3 class="product-name">Leche condensada de Hacendado</h3>
+                        <div class="product-meta">
+                            <span class="product-brand">Mercadona</span>
+                            <span class="product-price">2.99 €</span>
+                        </div>
                     </div>
                     <div class="product-actions">
-                        <a href="#">Edit</a>
-                        <a href="#">Delete</a>
+                        <a class="clickable clickable-tool bordered" href="#">
+                            <i class="bi bi-box-arrow-up-right"></i>
+                        </a>
+                        <a class="clickable clickable-tool bordered danger" href="#">
+                            <i class="bi bi-trash"></i>
+                        </a>
+                    </div>
+                </li>
+                <li class="product-item">
+                    <div class="product-info">
+                        <h3 class="product-name">Leche condensada de Hacendado</h3>
+                        <div class="product-meta">
+                            <span class="product-brand">Mercadona</span>
+                            <span class="product-price">2.99 €</span>
+                        </div>
+                    </div>
+                    <div class="product-actions">
+                        <a class="clickable clickable-tool bordered" href="#">
+                            <i class="bi bi-box-arrow-up-right"></i>
+                        </a>
+                        <a class="clickable clickable-tool bordered danger" href="#">
+                            <i class="bi bi-trash"></i>
+                        </a>
                     </div>
                 </li>
             </ul>
         </div>
         {{> components/footer}}
     </div>
+    <script src="/scripts/themeToggle.js"></script>
 </body>
 </html>

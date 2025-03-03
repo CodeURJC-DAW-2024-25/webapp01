@@ -1,7 +1,6 @@
 package es.daw01.savex.controller;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -14,7 +13,9 @@ import es.daw01.savex.service.ShoppingListService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 
 @Controller
@@ -55,4 +56,18 @@ public class ShoppingListController {
         return "shoppingList-detail";
     }
     
+    @PostMapping("/create")
+    public String postMethodName(@RequestBody ShoppingList shoppingList) {
+        User user = controllerUtils.getAuthenticatedUser();
+        
+        // Add the shopping list to the user
+        ShoppingList newShoppingList = shoppingListService.createShoppingList(
+            shoppingList.getName(),
+            shoppingList.getDescription(),
+            user
+        );
+
+        if (newShoppingList == null) return "redirect:/profile";
+        return String.format("redirect:/shoppingList/%d", newShoppingList.getId());
+    }
 }
