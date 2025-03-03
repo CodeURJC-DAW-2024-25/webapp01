@@ -10,8 +10,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Post;
+import es.daw01.savex.model.ShoppingList;
+import es.daw01.savex.model.User;
 import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.service.PostService;
+import es.daw01.savex.service.ShoppingListService;
 
 @Controller
 public class MainController {
@@ -23,15 +26,18 @@ public class MainController {
 
     @Autowired
     private PostService postService;
-    
+
+    @Autowired
+    private ShoppingListService shoppingListService;
+
     @GetMapping("/")
     public String getRootPage(Model model) {
         // Add user data to the model
         controllerUtils.addUserDataToModel(model);
-        //Add posts to the model
+        // Add posts to the model
         List<Post> posts = postService
-            .findByVisibilityOrderByCreatedAtDesc(VisibilityType.PUBLIC, PageRequest.of(0, LANDING_POSTS))
-            .getContent();
+                .findByVisibilityOrderByCreatedAtDesc(VisibilityType.PUBLIC, PageRequest.of(0, LANDING_POSTS))
+                .getContent();
 
         model.addAttribute("title", "SaveX - Ahorra dinero, tiempo y esfuerzo");
         model.addAttribute("extendedClass", "");
@@ -39,7 +45,7 @@ public class MainController {
         model.addAttribute("posts", posts);
         return "index";
     }
-    
+
     @GetMapping("/about")
     public String getAboutPage(Model model) {
         // Add user data to the model
@@ -51,10 +57,14 @@ public class MainController {
 
     @GetMapping("/profile")
     public String getProfilePage(Model model) {
+        User user = controllerUtils.getAuthenticatedUser();
+        List<ShoppingList> shoppingLists = shoppingListService.findAllByUser(user);
+
         // Add user data to the model
         controllerUtils.addUserDataToModel(model);
-        
+
         model.addAttribute("title", "SaveX - ".concat(model.getAttribute("name").toString()));
+        model.addAttribute("shoppingLists", shoppingLists);
 
         return "profile";
     }
