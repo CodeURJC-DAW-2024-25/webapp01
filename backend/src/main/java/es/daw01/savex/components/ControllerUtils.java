@@ -13,7 +13,7 @@ import es.daw01.savex.service.UserService;
 @Component
 public class ControllerUtils {
 
-    private static final String DEFAULT_AVATAR = "/assets/defaultAvatar.svg";
+    private static final String DEFAULT_AVATAR = "/assets/defaultAvatar.jpg";
 
     @Autowired
     private UserService userService;
