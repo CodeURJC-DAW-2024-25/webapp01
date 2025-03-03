@@ -29,7 +29,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 @RequestMapping("/api")
 public class RestUserController {
 
-    private final static String DEFAULT_AVATAR_PATH = "static/assets/defaultAvatar.svg";
+    private final static String DEFAULT_AVATAR_PATH = "static/assets/defaultAvatar.jpg";
 
     @Autowired
     private UserService userService;
