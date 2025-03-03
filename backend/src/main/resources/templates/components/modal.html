@@ -1,0 +1,21 @@
+
+<div class="modal-container" id="modal">
+    <div class="modal-header"> 
+        <span>Crea tu Lista</span>
+        <button onclick="closeModal()" class="close-button"><i class="bi bi-x"></i></button>
+    </div>
+    <div class="modal-message">
+        <form action="/create-list" method="post" class="create-list-form">
+            <input type="hidden" name="_csrf" value="{{token}}" />
+            <div class="form-group">
+                <label for="list-name">Nombre de la lista</label>
+                <input type="text" id="listName" name="listName" class="form-control" required />
+            </div>
+            <div class="form-group">
+                <label for="list-description">Descripción</label>
+                <textarea id="listDescription" name="listDescription" class="form-control" required></textarea>
+            </div>
+                <button type="submit" class="clickable clickable-primary full-width">Crear lista</button>
+        </form>
+    </div>
+</div>
