@@ -87,7 +87,7 @@ public class ProductsController {
     public String compareProducts(@RequestParam(required = false) String searchInput, Model model) {
         controllerUtils.addUserDataToModel(model);
         
-        System.out.println("Search Input: " + searchInput);
+      
         // List of supermarkets to compare
         List<String> supermarkets = Arrays.asList("mercadona", "dia", "elcorteingles","consum","bm");
 
@@ -108,8 +108,7 @@ public class ProductsController {
                 System.err.println("Error obtaining product from " + market + ": " + ex.getMessage());
             } 
         } 
-        System.out.println("Comparison Map: " + comparisonMap);
-
+      
         List<Map<String, Object>> comparisons = new ArrayList<>();
        
         for (String market : supermarkets) {
@@ -134,7 +133,7 @@ public class ProductsController {
         model.addAttribute("supermarkets", supermarkets);
         model.addAttribute("searchQuery", searchInput != null ? searchInput : "");
 
-        System.out.println("MODEL DATA: " + model);
+
 
         return "compare-table";
     }
