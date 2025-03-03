@@ -18,33 +18,32 @@ async function loadComments() {
     if (loading || isEnd) return;
     loading = true;
 
-    // Fetch for comments from the server
-    const response = await fetch(`/api/posts/${POST_ID}/comments?page=${currentPage}&size=${COMMENTS_SIZE}`, {
-        headers: {
-            "Content-Type": "application/json",
-            [CSRF_HEADER]: CSRF_TOKEN
+    try {
+        const response = await fetch(`/api/posts/${POST_ID}/comments?page=${currentPage}&size=${COMMENTS_SIZE}`, {
+            headers: {
+                "Content-Type": "application/json",
+                [CSRF_HEADER]: CSRF_TOKEN
+            }
+        });
+
+        if (!response.ok) throw new Error("Failed to load comments");
+
+        const data = await response.json();
+        console.log(data);
+
+        data.comments.forEach(comment => {
+            $commentsContainer.insertAdjacentHTML("beforeend", createHTMLComment(comment));
+        });
+
+        currentPage++;
+        loading = false;
+
+        if (data.isLastPage) {
+            $loadMoreButton.remove();
         }
-    })
-
-    if (!response.ok) throw new Error("Failed to load comments");
-
-    // Parse the response
-    const data = await response.json();
-
-    console.log(data);
-
-    // Insert comments to the DOM
-    data.comments.forEach(comment => {
-        $commentsContainer.insertAdjacentHTML("beforeend", createHTMLComment(comment));
-    });
-
-    // Update the current page and loading status
-    currentPage++;
-    loading = false;
-
-    // Check if there are more comments to load
-    if (data.isLastPage) {
-        $loadMoreButton.remove();
+    } catch (error) {
+        console.error(error);
+        loading = false;
     }
 }
 
