@@ -20,6 +20,7 @@ public class RestProductsController {
     @Autowired
     private ApiService apiService;
 
+
     @GetMapping("/products")
     public ResponseEntity<Map<String, Object>> getProducts(
         @RequestParam(required = false) String search,

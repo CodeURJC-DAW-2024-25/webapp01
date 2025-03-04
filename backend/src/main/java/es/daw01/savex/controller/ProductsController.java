@@ -1,10 +1,10 @@
 package es.daw01.savex.controller;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -31,6 +31,64 @@ public class ProductsController {
 
     @Autowired 
     private ApiService apiService;  
+
+    private static final int LIMIT_COMPARE_REQUEST = 5000;
+ 
+    // Constructor or bean configuration (you can create it as @Component or initialize it manually)
+    public ProductsController() {
+        this.productService = new ProductService();
+    }
+
+    @GetMapping("/compare")
+    public String compareProducts(@RequestParam(required = false) String searchInput, Model model) {
+        controllerUtils.addUserDataToModel(model);
+        List<String> supermarkets = List.of("mercadona","dia", "elcorteingles", "consum", "bm");
+        Map<String, ProductDTO> comparisonMap = new HashMap<>();
+
+        for (String market : supermarkets) {
+            try {
+                ResponseEntity<Map<String, Object>> response = apiService.fetchProducts(
+                    searchInput, market, null, null, LIMIT_COMPARE_REQUEST, 0 // Request up to 5 products to compare
+                );
+
+                List<?> data = (List<?>) response.getBody().get("data");
+                if (data != null && !data.isEmpty()) {
+                    List<ProductDTO> candidates = data.stream()
+                        .map(this::convertToProductDTO)
+                        .toList();
+                      
+                    // Compare products using the new service
+                    Optional<ProductDTO> bestMatch = productService.findBestMatch(searchInput, null, candidates);
+                 
+                    bestMatch.ifPresent(product -> comparisonMap.put(market, product));
+                }
+            } catch (Exception ex) {
+                System.err.println("Error fetching products from " + market + ": " + ex.getMessage());
+            }
+        }
+
+        List<Map<String, Object>> comparisons = new ArrayList<>();
+        for (String market : supermarkets) {
+            Map<String, Object> entry = new HashMap<>();
+            ProductDTO product = comparisonMap.get(market);
+
+            entry.put("market", market);
+            if (product != null) {
+                entry.put("product_name", product.getDisplay_name());
+                entry.put("price", product.getPrice() != null ? product.getPrice().getTotal() : "-");
+            } else {
+                entry.put("product_name", "Not available");
+                entry.put("price", "-");
+            }
+            comparisons.add(entry);
+        }
+
+        model.addAttribute("comparisons", comparisons);
+        model.addAttribute("supermarkets", supermarkets);
+        model.addAttribute("searchQuery", searchInput != null ? searchInput : "");
+
+        return "compare-table";
+    }
 
     @GetMapping("/search")     
     public String searchProducts(  
@@ -64,12 +122,12 @@ public class ProductsController {
         @RequestParam(required = false) String searchInput,
         Model model
     ) {
-      
+        
         ProductDTO product = apiService.fetchProduct(id);
+       
         controllerUtils.addUserDataToModel(model);
         model.addAttribute("product", product);
         model.addAttribute("searchQuery", searchInput != null ? searchInput : "");
-        
         model.addAttribute("title", "SaveX - " + product.getDisplay_name());
         return "product-detail";
     }
@@ -86,56 +144,6 @@ public class ProductsController {
         return "custom-product";   
     }
         
-    @GetMapping("/compare")
-    public String compareProducts(@RequestParam(required = false) String searchInput, Model model) {
-        controllerUtils.addUserDataToModel(model);
-        
-        // List of supermarkets to compare
-        List<String> supermarkets = Arrays.asList("mercadona", "dia", "elcorteingles","consum","bm");
-
-        // Map to store the product found for each supermarket
-        Map<String, ProductDTO> comparisonMap = new HashMap<>();
-
-        for (String market : supermarkets) {
-            try {
-                ResponseEntity<Map<String, Object>> response = apiService.fetchProducts(
-                    searchInput, market, null, null, 1, 0
-                );
-                List<?> data =  (List<?>) response.getBody().get("data");
-                if (data != null && !data.isEmpty()) {
-                    ProductDTO product = convertToProductDTO(data.get(0));
-                    comparisonMap.put(market, product);
-                }
-            } catch (Exception ex) {
-                System.err.println("Error obtaining product from " + market + ": " + ex.getMessage());
-            } 
-        } 
-      
-        List<Map<String, Object>> comparisons = new ArrayList<>();
-       
-        for (String market : supermarkets) {
-            Map<String, Object> entry = new HashMap<>();
-            ProductDTO product = comparisonMap.get(market);
-        
-            entry.put("market", market);
-        
-            if (product != null) {
-                entry.put("product_name", product.getDisplay_name() != null ? product.getDisplay_name() : "No disponible");
-                entry.put("price", (product.getPrice() != null && product.getPrice().getTotal() != null) ? product.getPrice().getTotal() : "-");
-            } else {
-                entry.put("product_name", "No disponible");
-                entry.put("price", "-");
-            }
-            comparisons.add(entry);
-        }
-        
-        model.addAttribute("comparisons", comparisons);   
-        model.addAttribute("supermarkets", supermarkets);
-        model.addAttribute("searchQuery", searchInput != null ? searchInput : "");
-
-        return "compare-table";
-    }
-
     // Helper method to convert an object (Map) to ProductDTO
     private ProductDTO convertToProductDTO(Object data) { 
         Map<String, Object> map = (Map<String, Object>) data;

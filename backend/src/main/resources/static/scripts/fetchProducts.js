@@ -108,7 +108,6 @@ async function applyFilters(page = 0) {
 function createHTMLProduct(product) {
     const thumbnail = product.thumbnail || "/assets/template_image.png";
     const searchQueryParam = encodeURIComponent(localStorage.getItem("originalSearchQuery") || searchQuery);
-    console.log("Search Query Param:", searchQueryParam);
     return `
     <div class="product-card">
         <a href="/products/${product._id}?searchInput=${searchQueryParam}" class="product-link">

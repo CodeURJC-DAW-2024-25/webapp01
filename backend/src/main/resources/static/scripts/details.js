@@ -1,40 +1,34 @@
 document.addEventListener("DOMContentLoaded", function() {
     const compareBtn = document.getElementById("compareBtn");
     const compareContainer = document.getElementById("compareContainer");
-
+    
     compareBtn.addEventListener("click", function(e) {
         e.preventDefault();
-
-        const searchQuery = localStorage.getItem("originalSearchQuery") || "";
+    
+        const productName = document.getElementById("productTitle")?.textContent.trim();
+        const searchQuery = productName || localStorage.getItem("originalSearchQuery") || "";
+    
         const url = `/compare?searchInput=${encodeURIComponent(searchQuery)}`;
-
+        console.log("Fetching comparison from URL:", url);
+    
         compareContainer.innerHTML = "<p>Loading comparison...</p>";
         compareContainer.style.display = "block";
-
-        fetch(url, {
-            method: "GET",
-            headers: {
-                "Content-Type": "text/html"
-            }
-        })
-        .then(response => {
-            if (!response.ok) throw new Error("Error loading comparison");
-            return response.text();
-        })
-        .then(html => {
-            compareContainer.innerHTML = html;
-            highlightBestAndWorstPrices(); // Call the function that highlights prices
-        })
-        .catch(error => {
-            console.error("Error loading comparison table:", error);
-            compareContainer.innerHTML = "<p>Error loading comparison.</p>";
-        });
+    
+        fetch(url, { method: "GET", headers: { "Content-Type": "text/html" } })
+            .then(response => response.text())
+            .then(html => {
+                compareContainer.innerHTML = html;
+                highlightBestAndWorstPrices();
+            })
+            .catch(error => {
+                console.error("Error loading comparison table:", error);
+                compareContainer.innerHTML = "<p>Error loading comparison.</p>";
+            });
     });
 });
 
-
 /**
- * Highlights the cell with the best price in the comparison table.
+ * Highlights the cells with the best and worst prices in the comparison table.
  */
 function highlightBestAndWorstPrices() {
     const priceCells = document.querySelectorAll("#compareContainer table tbody tr td:nth-child(3)");
