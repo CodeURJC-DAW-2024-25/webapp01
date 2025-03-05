@@ -1,3 +1,5 @@
+import { fetchData } from "./services/fetchService.js";
+
 const $productsContainer = document.querySelector(".products-container");
 const $previousButton = document.querySelector("#previous-button");
 const $pageNumber = document.querySelector("#page-number");
@@ -7,9 +9,6 @@ const $applyFiltersButton = document.querySelector("#apply-filters");
 const $minPriceInput = document.querySelector("#minPrice");
 const $maxPriceInput = document.querySelector("#maxPrice");
 const $supermarketRadios = document.querySelectorAll("input[name='supermarket']")
-
-const CSRF_TOKEN = document.querySelector('meta[name="_csrf"]').content;
-const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
 
 const PRODUCTS_SIZE = 10;
 
@@ -57,37 +56,33 @@ $nextButton.addEventListener("click", () => loadProducts(currentPage + 1));
 $applyFiltersButton.addEventListener("click", () => applyFilters(currentPage));
 
 async function loadProducts(page = 0) {
-    if (loading || isEnd) return;
+    if (loading) return;
     if (page < 0) return;
 
     loading = true; 
-    const { supermarket, minPrice, maxPrice, productType } = window.filterOptions || {};
-    let url = `/api/products?page=${page}&limit=${PRODUCTS_SIZE}&search=${encodeURIComponent(searchQuery)}`;
+
+    // Format the URL with the search query and filters
+    const { supermarket, minPrice, maxPrice } = window.filterOptions || {};
+    let endpoint = `/products?page=${page}&limit=${PRODUCTS_SIZE}&search=${encodeURIComponent(searchQuery)}`;
     if (supermarket) url += `&supermarket=${encodeURIComponent(supermarket)}`;
     if (minPrice) url += `&minPrice=${encodeURIComponent(minPrice)}`;
     if (maxPrice) url += `&maxPrice=${encodeURIComponent(maxPrice)}`;
     
-    console.log("Fetching products from URL:", url);
-    
-    const response = await fetch(url, {
-        method: "GET",
-        headers: {
-            "Content-Type": "application/json",
-            [CSRF_HEADER]: CSRF_TOKEN
-        }
-    });
-    
-    if (!response.ok) throw new Error("Failed to load products");
+    const data = await fetchData(endpoint, "GET");
 
-    const data = await response.json();
     currentPage = data.current_page;
-    isEnd = data.is_last_page;
-    totalPages = data.total_pages;
-    loading = false;
+    totalPages = data.total_pages < 1 ? 1 : data.total_pages + 1;
+    isEnd = currentPage >= totalPages - 1;
 
+    // Update disabled state of buttons
+    $previousButton.disabled = currentPage === 0;
+    $nextButton.disabled = isEnd;
+    
     const productsHTML = data.data.map(createHTMLProduct).join("");
     $productsContainer.innerHTML = productsHTML;
     $pageNumber.textContent = `Page ${currentPage + 1} of ${totalPages}`;
+
+    loading = false;
 }
 
 async function applyFilters(page = 0) {
@@ -128,9 +123,7 @@ function createHTMLProduct(product) {
                         <p class="product-price">${product.price.total} €</p>
                         <p class="product-unit-price">${product.price.per_reference_unit} €/${product.price.reference_unit_name}</p>
                     </div>
-                    <button class="action-button">
-                        <i class="bi bi-plus"></i>
-                    </button>
+                    <i class="icon bi bi-arrows-angle-expand"></i>
                 </div>
             </div>
         </a>
