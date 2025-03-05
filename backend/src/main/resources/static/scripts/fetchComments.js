@@ -3,6 +3,8 @@ import { fetchData } from "./services/fetchService.js";
 const $commentsContainer = document.querySelector(".comments-container");
 const $loadMoreButton = document.querySelector("#load-more-button");
 
+const CSRF_TOKEN = document.querySelector('meta[name="_csrf"]').content;
+
 const POST_ID = $commentsContainer.dataset.postId;
 const COMMENTS_SIZE = 3;
 
