@@ -149,6 +149,53 @@ This schema provides an overview of how different entities interact within the s
 - **Price Comparison**: We will implement an algorithm to compare the prices of the products in the shopping list between the different supermarkets.
 - **Recommendation System**: We will implement a recommendation system to suggest products to the users based on the current product being viewed or added to the shopping list.
 
+  ### 🔎 Price Comparison Algorithm
+
+    The price comparison algorithm used in SaveX is designed to find the most suitable product match across different supermarkets. This is essential for ensuring that the user is comparing the same or very similar products between stores, even if the product names or packaging differ slightly.
+    
+    #### Steps of the Algorithm
+    
+    1. **Text Normalization**  
+       Both the target product name (from the user's search) and the candidate product names (fetched from the API) are **normalized**. This involves:
+       - Removing accents and special characters.
+       - Converting to lowercase.
+       - Removing extra spaces.
+    
+    2. **Quantity Extraction**  
+       If the product name contains a quantity (e.g., "1L", "500g"), the algorithm extracts this value to improve comparison accuracy.
+    
+    3. **Similarity Calculation**  
+       The core of the algorithm calculates a **weighted similarity score** for each candidate product. This score is composed of:
+       - **Name Similarity** (60% weight) — Uses Levenshtein Distance to calculate how similar the normalized product names are.
+       - **Brand Similarity** (20% weight) — Direct match comparison between brands (if available).
+       - **Quantity Similarity** (10% weight) — Compares product quantities when available (e.g., 500g vs 1kg).
+    
+    4. **Best Match Selection**  
+       After computing the weighted similarity score for all candidates, the algorithm selects the product with the **highest score**, provided it exceeds a predefined similarity threshold (e.g., 0.4). If no product meets the threshold, no match is returned.
+    
+    #### Key Factors Considered
+    
+    | Factor              | Weight  | Description                                                                 |
+    |--------------------|--------|-----------------------------------------------------------------------------|
+    | Product Name       | 60%    | Main criterion; higher similarity means better match.                       |
+    | Brand              | 20%    | Exact match = 100% similarity; no brand = neutral (50% similarity).         |
+    | Quantity           | 10%    | Compares numeric quantities (e.g., 1L vs 500ml); closer quantities score higher. |
+    
+    #### Example
+    
+    If the user searches for "Coca-Cola 1.5L" and we have the following candidates:
+    
+    | Candidate Name          | Brand      | Quantity | Name Similarity | Brand Similarity | Quantity Similarity | Final Score |
+    |----------------------|-----------|----------|----------------|----------------|------------------|------------|
+    | Coca-Cola Zero 1L     | Coca-Cola | 1L       | 0.85           | 1.0            | 0.67             | 0.84       |
+    | Pepsi 1.5L            | Pepsi     | 1.5L     | 0.70           | 0.0            | 1.0              | 0.58       |
+    | Coca-Cola 1.5L       | Coca-Cola | 1.5L     | 0.95           | 1.0            | 1.0              | 0.97       |
+    
+    In this case, the algorithm would correctly choose "Coca-Cola 1.5L" as the best match.
+    
+  
+    
+
 ---
 
 ## 📄 License

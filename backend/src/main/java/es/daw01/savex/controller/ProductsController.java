@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import es.daw01.savex.DTOs.PriceDTO;
 import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.service.ApiService;
