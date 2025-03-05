@@ -1,5 +1,6 @@
 package es.daw01.savex.service;
 
+import es.daw01.savex.DTOs.PriceDTO;
 import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.model.SupermarketType;
 import org.apache.commons.text.similarity.LevenshteinDistance;
@@ -109,4 +110,27 @@ public class ProductService {
         int distance = LevenshteinDistance.getDefaultInstance().apply(text1, text2);
         return 1.0 - ((double) distance / maxLen);
     }
+
+    public ProductDTO mapToProductDTO(Map<String, Object> map) {
+    ProductDTO p = new ProductDTO();
+    p.setDisplay_name(map.get("display_name") != null ? (String) map.get("display_name") : (String) map.get("name"));
+    p.setSupermarket_name((String) map.get("supermarket_name"));
+
+    PriceDTO priceDTO = new PriceDTO();
+    if (map.get("price") instanceof Map) {
+        Map<String, Object> priceMap = (Map<String, Object>) map.get("price");
+        Double totalPrice = priceMap.get("total") instanceof Number
+            ? ((Number) priceMap.get("total")).doubleValue()
+            : 0.0;
+
+        priceDTO.setTotal(totalPrice.toString());
+    } else {
+        priceDTO.setTotal("0.0");
+    }
+
+    p.setPrice(priceDTO);
+    return p;
+}
+
+
 }

@@ -54,8 +54,8 @@ public class ProductsController {
                 List<?> data = (List<?>) response.getBody().get("data");
                 if (data != null && !data.isEmpty()) {
                     List<ProductDTO> candidates = data.stream()
-                        .map(this::convertToProductDTO)
-                        .toList();
+                    .map(item -> productService.mapToProductDTO((Map<String, Object>) item))
+                    .toList();
                       
                     // Compare products using the new service
                     Optional<ProductDTO> bestMatch = productService.findBestMatch(searchInput, null, candidates);
@@ -100,7 +100,7 @@ public class ProductsController {
         @RequestParam(required = false) Integer page,
         Model model        
     ) {
-        controllerUtils.addUserDataToModel(model);
+        controllerUtils.addUserDataToModel(model); 
         model.addAttribute("searchQuery", searchInput != null ? searchInput : "");
         model.addAttribute("supermarket", supermarket != null ? supermarket : "");
         model.addAttribute("minPrice", minPrice != null ? minPrice : "");
@@ -150,29 +150,5 @@ public class ProductsController {
 
         return "custom-product";   
     }
-        
-    // Helper method to convert an object (Map) to ProductDTO
-    private ProductDTO convertToProductDTO(Object data) { 
-        Map<String, Object> map = (Map<String, Object>) data;
-        ProductDTO p = new ProductDTO();
-        p.setDisplay_name(map.get("display_name") != null ? (String) map.get("display_name") : (String) map.get("name"));
-        p.setSupermarket_name((String) map.get("supermarket_name"));
     
-        // Process the price correctly (expecting a nested object)
-        PriceDTO priceDTO = new PriceDTO();
-        if (map.get("price") instanceof Map) {
-            Map<String, Object> priceMap = (Map<String, Object>) map.get("price");
-            Double totalPrice = priceMap.get("total") instanceof Number 
-                ? ((Number) priceMap.get("total")).doubleValue()
-                : 0.0;
-    
-            priceDTO.setTotal(totalPrice.toString());
-        } else {
-            // Just in case, if "price" is not a map (malformed API), treat it as 0
-            priceDTO.setTotal("0.0");
-        }
-    
-        p.setPrice(priceDTO);
-        return p;
-    }
 }
