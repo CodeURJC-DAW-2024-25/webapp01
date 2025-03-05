@@ -24,10 +24,22 @@
     color: var(--white-color);
     transition: all 0.3s ease;
     cursor: pointer;
-    
+
     &:hover {
         background-color: var(--secondary-color);
         color: var(--white-color);
+    }
+
+    &.danger {
+        background-color: var(--danger-color);
+        border: 1px solid var(--danger-color);
+        color: #fff;
+
+        &:hover {
+            background-color: var(--danger-color);
+            color: #fff;
+            filter: brightness(105%) contrast(95%);
+        }
     }
 }
 

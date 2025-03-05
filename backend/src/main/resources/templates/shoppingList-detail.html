@@ -23,9 +23,9 @@
             <div class="right">
                 <form action="/shoppingList/{{shoppingList.id}}/delete" method="post" style="display:inline;">
                     <input type="hidden" name="_csrf" value="{{token}}">
-                    <button type="submit" class="clickable clickable-primary">
+                    <button type="submit" class="clickable clickable-primary danger">
                         <i class="bi bi-trash"></i>
-                        Eliminar Lista
+                        <span>Eliminar Lista</span>
                     </button>
                 </form>
             </div>

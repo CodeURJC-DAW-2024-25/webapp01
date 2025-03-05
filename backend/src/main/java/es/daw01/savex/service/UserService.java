@@ -39,6 +39,10 @@ public class UserService {
     public Iterable<User> findAll() {
         return userRepository.findAll();
     }
+    
+    public List<User> findAllByRole(UserType role) {
+        return userRepository.findAllByRole(role);
+    }
 
     /**
      * Deletes a user from the database

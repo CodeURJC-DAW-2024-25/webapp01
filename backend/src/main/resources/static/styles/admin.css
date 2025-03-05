@@ -5,18 +5,11 @@
     gap: 20px;
 }
 
-h3{
-    font-size: 30px;
-    margin: 30px;
-    padding: 0;
-    border-bottom: 1px solid #e5e5e5;
-}
-
 section{
     width: 100%;
     padding: 20px;
-    border-radius: 5px;
-    background-color: #fff;
+    border-radius: 10px;
+    background-color: var(--semi-bg-color);
     box-shadow: 0 0 10px rgba(0,0,0,0.1);
 }
 
@@ -24,92 +17,52 @@ section{
     text-align: end;
 }
 
-/* ---------------------------------- USERS ---------------------------------- */
-
-.user-card{
-    background-color: #fff;
+.action-container {
+    width: 100%;
     display: flex;
-    justify-content: space-between;
-    padding: 10px;
-    border: 1px solid #e5e5e5;
-    height: fit-content;
-    cursor: pointer;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 10px;
+}
 
-    .card-info{
-        
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
+.admin-users, .admin-posts{
+    width: 100%;
+    border-radius: 5px;
+    background-color: var(--semi-bg-color);
 
-        .username{
-            font-size: 18px;
-            font-weight: 600;
-    
-            kbd{
-                font-size: 16px;
-                font-weight: 400;
+    & > table.table {
+
+        thead > tr > th {
+            border: none;
+            border-style: hidden;
+
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+
+            &:first-child {
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+
+            &:last-child {
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
             }
         }
-    
-        .details{
-            display: flex;
-            justify-content: space-between;
-            width: 100%;
-            font-size: 12px;
+
+        tbody > tr {
+            border: none;
+            border-style: hidden;
+
+            &:nth-child(even) td {
+                background-color: var(--semi-bg-color);
+                color: var(--text-color);
+            }
+
+            &:nth-child(odd) td {
+                background-color: var(--grey-color);
+                color: var(--text-color);
+            }
         }
     }
-
 }
-
-
-/* ---------------------------------- POSTS ---------------------------------- */
-
-.admin-post-card{
-    background-color: #fff;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    padding: 10px;
-    border: 1px solid #e5e5e5;
-    height: fit-content;
-    cursor: pointer;
-}
-
-.admin-post-top{
-    padding-bottom: 5px;
-    border-bottom: 1px solid #e5e5e5;
-}
-
-.admin-post-bottom{
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    font-size: 12px;
-    padding-top: 10px;
-}
-
-.admin-post-left{
-    display: flex;
-    gap: 5px;
-}
-
-.admin-post-bottom-left{
-    display: flex;
-    gap: 5px;
-}
-
-.admin-post-bottom-right{
-    display: flex;
-    gap: 5px;
-}
-
-.admin-post-bottom-right a{
-    color: #000;
-    text-decoration: none;
-}
-
-.admin-post-bottom-right a:hover{
-    color: #000;
-    text-decoration: underline;
-}
-

@@ -13,11 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import es.daw01.savex.DTOs.PostDTO;
 import es.daw01.savex.DTOs.UserDTO;
 import es.daw01.savex.model.User;
+import es.daw01.savex.model.UserType;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.PostService;
 import es.daw01.savex.service.UserService;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/admin")
@@ -40,7 +40,7 @@ public class AdminController {
         controllerUtils.addUserDataToModel(model);
 
         List<PostDTO> postDetails = postService.getPostsDTO(postService.findAll());
-        List<UserDTO> userDetails = userService.getUsersDTO(userService.findAll());
+        List<UserDTO> userDetails = userService.getUsersDTO(userService.findAllByRole(UserType.USER));
 
         // Add data to the model
         model.addAttribute("title", "SaveX - Panel de administración");
