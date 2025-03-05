@@ -1,8 +1,7 @@
+import { fetchData } from "./services/fetchService.js";
+
 const $commentsContainer = document.querySelector(".comments-container");
 const $loadMoreButton = document.querySelector("#load-more-button");
-
-const CSRF_TOKEN = document.querySelector('meta[name="_csrf"]').content;
-const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
 
 const POST_ID = $commentsContainer.dataset.postId;
 const COMMENTS_SIZE = 3;
@@ -18,33 +17,18 @@ async function loadComments() {
     if (loading || isEnd) return;
     loading = true;
 
-    try {
-        const response = await fetch(`/api/posts/${POST_ID}/comments?page=${currentPage}&size=${COMMENTS_SIZE}`, {
-            headers: {
-                "Content-Type": "application/json",
-                [CSRF_HEADER]: CSRF_TOKEN
-            }
-        });
+    const endpoint = `/posts/${POST_ID}/comments?page=${currentPage}&size=${COMMENTS_SIZE}`;
+    const data = await fetchData(endpoint, "GET");
 
-        if (!response.ok) throw new Error("Failed to load comments");
+    data.comments.forEach(comment => {
+        $commentsContainer.insertAdjacentHTML("beforeend", createHTMLComment(comment));
+    });
 
-        const data = await response.json();
-        console.log(data);
+    currentPage++;
+    loading = false;
 
-        data.comments.forEach(comment => {
-            $commentsContainer.insertAdjacentHTML("beforeend", createHTMLComment(comment));
-        });
-
-        currentPage++;
-        loading = false;
-
-        if (data.isLastPage) {
-            $loadMoreButton.remove();
-        }
-    } catch (error) {
-        console.error(error);
-        loading = false;
-    }
+    if (data.isLastPage) $loadMoreButton.remove();
+    loading = false;
 }
 
 function createHTMLComment(comment) {

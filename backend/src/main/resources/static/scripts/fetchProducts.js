@@ -64,9 +64,9 @@ async function loadProducts(page = 0) {
     // Format the URL with the search query and filters
     const { supermarket, minPrice, maxPrice } = window.filterOptions || {};
     let endpoint = `/products?page=${page}&limit=${PRODUCTS_SIZE}&search=${encodeURIComponent(searchQuery)}`;
-    if (supermarket) url += `&supermarket=${encodeURIComponent(supermarket)}`;
-    if (minPrice) url += `&minPrice=${encodeURIComponent(minPrice)}`;
-    if (maxPrice) url += `&maxPrice=${encodeURIComponent(maxPrice)}`;
+    if (supermarket) endpoint += `&supermarket=${encodeURIComponent(supermarket)}`;
+    if (minPrice) endpoint += `&minPrice=${encodeURIComponent(minPrice)}`;
+    if (maxPrice) endpoint += `&maxPrice=${encodeURIComponent(maxPrice)}`;
     
     const data = await fetchData(endpoint, "GET");
 

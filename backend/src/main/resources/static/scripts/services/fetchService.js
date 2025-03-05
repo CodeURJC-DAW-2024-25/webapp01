@@ -20,7 +20,7 @@ export async function fetchData(endpoint, method, body = null) {
     if (cache) return cache;
 
     const options = {
-        method,
+        method: method || "GET",
         headers: {
             "Content-Type": "application/json",
             [CSRF_HEADER]: CSRF_TOKEN
