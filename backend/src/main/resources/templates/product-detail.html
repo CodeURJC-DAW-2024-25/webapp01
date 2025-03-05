@@ -12,7 +12,7 @@
         {{> components/navbar}}
         
         <div class="back-link">
-            <a href="/" class="clickable clickable-text">
+            <a href="/search" class="clickable clickable-text">
                 <i class="bi bi-arrow-left"></i>
                 Back to products
             </a>
@@ -21,12 +21,10 @@
         
         <div class="product-grid">
             {{#product}} 
-            <!-- Product image -->
             <div class="product-image">
                 <img src="{{thumbnail}}" alt="{{display_name}}">
             </div>
             
-            <!-- Product information -->
             <div class="product-info">
                 <div class="product-header">
                     <span class="badge">{{supermarket_name}}</span>

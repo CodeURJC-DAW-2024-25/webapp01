@@ -5,6 +5,7 @@
     {{> components/head-tags}}
     <link rel="stylesheet" href="/styles/searchbar.css">
     <link rel="stylesheet" href="/styles/products.css">
+    <link rel="stylesheet" href="/styles/product-card.css">
     <link rel="stylesheet" href="/styles/form.css">
 </head>
 
@@ -53,19 +54,22 @@
 
         <div class="grid-layout products-container">
             <!-- Products will be rendered here -->
+            {{#templateProducts}}
+            {{> components/product-card-template}}
+            {{/templateProducts}}
         </div>
 
         <div class="pagination">
-            <button id="previous-button" class="clickable clickable-primary">Previous page</button>
+            <button id="previous-button" class="clickable clickable-primary">Página anterior</button>
             <span id="page-number"></span>
-            <button id="next-button" class="clickable clickable-primary">Next page</button>
+            <button id="next-button" class="clickable clickable-primary">Página siguiente</button>
         </div>
 
         {{> components/footer}}
     </div>
 
     <script src="/scripts/themeToggle.js"></script>
-    <script src="/scripts/fetchProducts.js"></script>
+    <script src="/scripts/fetchProducts.js" type="module"></script>
 </body>
 
 </html>

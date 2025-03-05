@@ -41,6 +41,11 @@
             filter: brightness(105%) contrast(95%);
         }
     }
+
+    &:disabled {
+        filter: brightness(50%) contrast(75%);
+        cursor: auto;
+    }
 }
 
 .clickable-secondary {
@@ -58,6 +63,12 @@
     
     &:hover {
         filter: brightness(105%) contrast(95%);
+    }
+
+    &:disabled {
+        background-color: var(--grey-color);
+        color: var(--text-color);
+        cursor: not-allowed;
     }
 }
 

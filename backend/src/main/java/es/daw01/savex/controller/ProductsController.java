@@ -111,8 +111,15 @@ public class ProductsController {
         // Parse available supermarkets
         List<Map<String, Object>> supermarkets = productService.getAvailableSupermarkets(supermarket);
 
+        // Template products to fill the page
+        List<ProductDTO> templateProducts = new ArrayList<>(5);
+        for (int i = 0; i < 5; i++) {
+            templateProducts.add(new ProductDTO());
+        }
+
         model.addAttribute("supermarkets", supermarkets);
         model.addAttribute("title", "SaveX - Products");
+        model.addAttribute("templateProducts", templateProducts);
         return "products";
     }
 
