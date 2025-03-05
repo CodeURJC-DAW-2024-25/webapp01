@@ -30,18 +30,28 @@ public class CommentDTO {
 
     // Inner classes ---------------------------------------------------------->>
     private class AuthorDTO {
+        private long id;
         private String username;
         
         public AuthorDTO(User author) {
             this.username = (author != null)
                 ? author.getUsername()
                 : "Anonymous";
+            
+            this.id = (author != null)
+                ? author.getId()
+                : -1;
         }
         
         @JsonProperty("username")
         public String getUsername() {
             return username;
-        }        
+        }
+
+        @JsonProperty("id")
+        public long getId() {
+            return id;
+        }
     }
 
     // Getters and setters ---------------------------------------------------->>

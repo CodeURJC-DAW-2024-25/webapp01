@@ -52,7 +52,7 @@ function createHTMLComment(comment) {
     <div class="comment">
         <div class="comment-header">
             <div class="left">
-                <img class="user-avatar" src="/assets/defaultAvatar.jpg" alt="User">
+                <img class="user-avatar" src="/api/profile/${comment.author.id}/avatar" alt="User">
                 <span class="comment-author">@${comment.author.username}</span>
             </div>
             <div class="right">
