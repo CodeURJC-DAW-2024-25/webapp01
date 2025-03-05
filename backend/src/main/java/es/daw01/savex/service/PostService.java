@@ -134,26 +134,25 @@ public class PostService {
     /**
      * Creates a new post
      * 
-     * @param title      The title of the post
+     * @param title       The title of the post
      * @param description The description of the post
-     * @param content    The content of the post
-     * @param author     The author of the post
-     * @param tags       The tags of the post
-     * @param visibility The visibility of the post
+     * @param content     The content of the post
+     * @param author      The author of the post
+     * @param tags        The tags of the post
+     * @param visibility  The visibility of the post
      * @return The created post
-    */
+     */
     public Post createPost(
-        String title,
-        String description,
-        String content,
-        String author,
-        String tags,
-        String visibility
-    ) {
+            String title,
+            String description,
+            String content,
+            String author,
+            String tags,
+            String visibility) {
         // Parse visibility string to VisibilityType
         VisibilityType visibilityType = VisibilityType.valueOf(visibility) == null
-            ? VisibilityType.PUBLIC
-            : VisibilityType.valueOf(visibility);
+                ? VisibilityType.PUBLIC
+                : VisibilityType.valueOf(visibility);
 
         Post post = new Post();
         post.setTitle(title);
@@ -183,5 +182,16 @@ public class PostService {
         } else {
             throw new IllegalArgumentException("Post not found");
         }
+    }
+
+    public void updatePost(Post post, String title, String description, String content, String author, String tags,
+            String visibility, MultipartFile banner) {
+        post.setTitle(title);
+        post.setDescription(description);
+        post.setContent(content);
+        post.setAuthor(author);
+        // post.setTags(tags);
+        post.setVisibility(VisibilityType.valueOf(visibility));
+        save(post, banner);
     }
 }

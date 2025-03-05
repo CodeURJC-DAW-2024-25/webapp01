@@ -3,6 +3,7 @@
 
 <head>
     <link rel="stylesheet" href="/styles/form.css">
+    <link rel="stylesheet" href="/styles/create-post.css">
     {{> components/head-tags}}
 </head>
 
@@ -10,13 +11,15 @@
     <div class="container no-gap small-padding">
         {{> components/navbar}}
 
-        <h1 class="title">Crea un nuevo post!</h1>
-        <form action="/createPost" method="post" enctype="multipart/form-data">
+        <h1 class="title">{{#post}}Edita tu post!{{/post}}{{^post}}Crea un nuevo post!{{/post}}</h1>
+        <form action="{{#post}}/editPost/{{post.id}}{{/post}}{{^post}}/createPost{{/post}}" method="post"
+            enctype="multipart/form-data">
             <input type="hidden" name="_csrf" value="{{token}}">
             <div class="form-row">
                 <div class="form-group">
                     <label for="title">Titular</label>
-                    <input type="text" id="title" name="title" placeholder="Introduzca el título del post" required>
+                    <input type="text" id="title" name="title" value="{{#post}}{{post.title}}{{/post}}"
+                        placeholder="Introduzca el título del post" required>
                 </div>
                 <div class="form-group">
                     <label for="visibility">Visibilidad</label>
@@ -29,28 +32,40 @@
             <div class="form-row">
                 <div class="form-group">
                     <label for="description">Descripción</label>
-                    <input type="text" id="description" name="description" placeholder="¿Sobre qué trata el post?"
-                        required>
+                    <input type="text" id="description" name="description"
+                        value="{{#post}}{{post.description}}{{/post}}" placeholder="¿Sobre qué trata el post?" required>
                 </div>
                 <div class="form-group">
                     <label for="author">Autor</label>
-                    <input type="text" id="author" name="author" placeholder="¿Quién es el autor?" required>
+                    <input type="text" id="author" name="author" value="{{#post}}{{post.author}}{{/post}}"
+                        placeholder="¿Quién es el autor?" required>
                 </div>
             </div>
             <div class="form-row">
                 <div class="form-group">
                     <label for="tags">Categoría</label>
                     <select id="tags" name="tags" required>
-                        <option value="Ahorro">Ahorro</option>
-                        <option value="Finanzas">Finanzas</option>
-                        <option value="Supermercado">Supermercado</option>
-                        <option value="Product">Producto</option>
-                        <option value="Tip">Tip</option>
+                        <option value="Ahorro" {{#post.tags.Ahorro}}selected{{/post.tags.Ahorro}}>Ahorro</option>
+                        <option value="Finanzas" {{#post.tags.Finanzas}}selected{{/post.tags.Finanzas}}>Finanzas
+                        </option>
+                        <option value="Supermercado" {{#post.tags.Supermercado}}selected{{/post.tags.Supermercado}}>
+                            Supermercado</option>
+                        <option value="Producto" {{#post.tags.Producto}}selected{{/post.tags.Producto}}>Producto
+                        </option>
+                        <option value="Tip" {{#post.tags.Tip}}selected{{/post.tags.Tip}}>Tip</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="image">Banner</label>
-                    <input type="file" id="banner" name="banner" class="form-control" accept=".jpg, .jpeg, .png" required>
+                    <input type="file" id="banner" name="banner" class="form-control" accept=".jpg, .jpeg, .png"
+                        {{^post}}required{{/post}}>
+                    {{#post.banner}}
+                    <div class="current-banner">
+                        <p>Banner actual:</p>
+                        <img src="/api/posts/{{post.id}}/banner" alt="Banner del post" class="img-fluid">
+                    </div>
+                    {{/post.banner}}
+
                 </div>
             </div>
             <div class="form-group space-top">
@@ -58,13 +73,16 @@
                 <p>Utilice el editor de texto para dar formato al contenido del post.</p>
                 <p>
                     Este post será renderizado usando Markdown. Para más información puede consultar la
-                    <a href="https://www.markdownguide.org/getting-started/" target="_blank" rel="noopener noreferrer">guía de Markdown</a>.    
+                    <a href="https://www.markdownguide.org/getting-started/" target="_blank"
+                        rel="noopener noreferrer">guía de Markdown</a>.
                 </p>
-                <textarea id="content" name="content" placeholder="Escriba el contenido del post" required></textarea>
+                <textarea id="content" name="content" placeholder="Escriba el contenido del post"
+                    required>{{#post}}{{post.content}}{{/post}}</textarea>
             </div>
             <div class="form-buttons">
                 <a href="/admin" class="clickable clickable-secondary">Cancelar</a>
-                <button type="submit" class="clickable clickable-primary">Guardar</button>
+                <button type="submit" class="clickable clickable-primary">{{#post}}Actualizar
+                    Post{{/post}}{{^post}}Crear Post{{/post}}</button>
             </div>
         </form>
         {{> components/footer}}

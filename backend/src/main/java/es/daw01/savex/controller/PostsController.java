@@ -144,14 +144,13 @@ public class PostsController {
 
     @PostMapping("/createPost")
     public String createPost(
-        @RequestParam String title,
-        @RequestParam String description,
-        @RequestParam String content,
-        @RequestParam String author,
-        @RequestParam String tags,
-        @RequestParam String visibility,
-        @RequestParam MultipartFile banner
-    ) {
+            @RequestParam String title,
+            @RequestParam String description,
+            @RequestParam String content,
+            @RequestParam String author,
+            @RequestParam String tags,
+            @RequestParam String visibility,
+            @RequestParam MultipartFile banner) {
         // Create a new post with the form data
         Post newPost = postService.createPost(title, description, content, author, tags, visibility);
 
@@ -185,6 +184,37 @@ public class PostsController {
             e.printStackTrace();
             return "redirect:/posts?error=server_error";
         }
+    }
+
+    @GetMapping("/edit-post/{id}")
+    public String editPost(Model model, @PathVariable long id) {
+        Optional<Post> postOptional = postService.findById(id);
+        Post post = postOptional.get();
+        controllerUtils.addUserDataToModel(model);
+        model.addAttribute("title", "SaveX - Editar post");
+        model.addAttribute("post", post);
+        return "create-Post";
+    }
+
+    @PostMapping("/editPost/{id}")
+    public String editPost(
+            @PathVariable long id,
+            @RequestParam String title,
+            @RequestParam String description,
+            @RequestParam String content,
+            @RequestParam String author,
+            @RequestParam String tags,
+            @RequestParam String visibility,
+            @RequestParam MultipartFile banner) {
+        Optional<Post> postOptional = postService.findById(id);
+        if (postOptional.isEmpty()) {
+            return "redirect:/posts?error=not_found";
+        }
+
+        Post post = postOptional.get();
+        postService.updatePost(post, title, description, content, author, tags, visibility, banner);
+
+        return "redirect:/posts/" + id;
     }
 
 }
