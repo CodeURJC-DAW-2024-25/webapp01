@@ -1,3 +1,5 @@
+import { fetchData } from "./services/fetchService.js";
+
 const CSRF_TOKEN = document.querySelector('meta[name="_csrf"]').content;
 const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
 
@@ -40,12 +42,20 @@ function closeModal() {
 
 function createHTMLList(list) {
     return `
-        <form action="#" method="post" class="modal-display-list">
-            <input type="hidden" name="_csrf" value="{{token}}" />
+        <div class="modal-display-list">
             <label for="listName">${list.name}</label>
-            <button type="submit" class="clickable clickable-tool bordered">
+            <button type="submit" onclick="addProductToList(${list.id})" class="clickable clickable-tool bordered">
                 <i class="bi bi-plus-lg"></i>
             </button>
-        </form>
+        </div>
     `
+}
+
+async function addProductToList(listId) {
+    
+    const productId = document.querySelector('[data-product-id]').getAttribute('data-product-id');
+    
+    const response = await fetchData(`/user-lists/${listId}/product/${productId}`, 'POST');
+    console.log(response);
+
 }

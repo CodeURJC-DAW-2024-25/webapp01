@@ -46,6 +46,11 @@ public class ShoppingList {
         this.products = products;
     }
 
+    public void addProduct(Product product) {
+        this.products.add(product);
+        this.numberOfProducts++;
+    }
+
     // Getters and Setters ---------------------------------------------------->>
     public long getId() {
         return id;

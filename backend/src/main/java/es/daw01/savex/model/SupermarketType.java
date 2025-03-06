@@ -16,4 +16,13 @@ public enum SupermarketType {
     public String getName() {
         return name;
     }
+
+    public static SupermarketType fromString(String name) {
+        for (SupermarketType type : SupermarketType.values()) {
+            if (type.name.equalsIgnoreCase(name)) {
+                return type;
+            }
+        }
+        throw new IllegalArgumentException("No enum constant for name: " + name);
+    }
 }

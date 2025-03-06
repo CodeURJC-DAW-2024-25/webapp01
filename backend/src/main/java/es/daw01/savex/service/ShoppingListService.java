@@ -7,9 +7,11 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.DTOs.ShoppingListDTO;
 import es.daw01.savex.model.Product;
 import es.daw01.savex.model.ShoppingList;
+import es.daw01.savex.model.SupermarketType;
 import es.daw01.savex.model.User;
 import es.daw01.savex.repository.ShoppingListRepository;
 
@@ -18,6 +20,9 @@ public class ShoppingListService {
 
     @Autowired
     private ShoppingListRepository shoppingListRepository;
+
+    @Autowired
+    private ProductService productService;
 
     /**
      * Find a shopping list by id
@@ -75,8 +80,24 @@ public class ShoppingListService {
      * @param shoppingList The shopping list to add the product
      * @param product      The product to add
      */
-    public void addProduct(ShoppingList shoppingList, Product product) {
-        shoppingList.getProducts().add(product);
+    public void addProductToList(ShoppingList shoppingList, ProductDTO productDTO) {
+        SupermarketType supermarketType;
+        String supermarketName = productDTO.getSupermarket_name();
+        String productId = productDTO.getProduct_id();
+
+        supermarketType = SupermarketType.fromString(supermarketName);
+        
+        Optional<Product> op = productService.findBySupermarketAndProductId(supermarketType, productId);
+        
+        Product product = null;
+        if (op.isEmpty()) {
+            product = productService.createProductFromDTO(productDTO);
+            productService.save(product);
+        }else{
+            product = op.get();
+        }
+
+        shoppingList.addProduct(product);
         shoppingListRepository.save(shoppingList);
     }
 

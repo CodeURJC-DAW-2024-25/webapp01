@@ -25,7 +25,7 @@
                 <img src="{{thumbnail}}" alt="{{display_name}}">
             </div>
             
-            <div class="product-info">
+            <div class="product-info" data-product-id="{{_id}}">
                 <div class="product-header">
                     <span class="badge">{{supermarket_name}}</span>
                     <!-- This id is used to get the search term (product name) -->
@@ -106,6 +106,6 @@
     <script src="/scripts/themeToggle.js"></script>
     <script src="/scripts/suggestedProducts.js"></script>
     <script src="/scripts/details.js" defer></script>
-    <script src="/scripts/fetchLists.js"></script>
+    <script type="module" src="/scripts/fetchLists.js"></script>
 </body>
 </html>

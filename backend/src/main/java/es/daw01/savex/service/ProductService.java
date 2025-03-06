@@ -2,7 +2,9 @@ package es.daw01.savex.service;
 
 import es.daw01.savex.DTOs.PriceDTO;
 import es.daw01.savex.DTOs.ProductDTO;
+import es.daw01.savex.model.Product;
 import es.daw01.savex.model.SupermarketType;
+import es.daw01.savex.repository.ProductRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +17,9 @@ public class ProductService {
 
     @Autowired
     private ComparisonService comparisonService;
+
+    @Autowired
+    private ProductRepository productRepository;
 
     /**
      * Find the best match for a product based on the target name and brand
@@ -78,5 +83,24 @@ public class ProductService {
     return p;
 }
 
+    public Product createProductFromDTO(ProductDTO productDTO) {
+        Product product = new Product();
+        product.setName(productDTO.getDisplay_name());
+        product.setProductId(productDTO.getProduct_id());
+        product.setProductUrl(productDTO.getProduct_url());
+        product.setSupermarket(SupermarketType.fromString(productDTO.getSupermarket_name()));
+        product.setProductType(productDTO.getProduct_type());
+        product.setThumbnail(productDTO.getThumbnail());
+        product.setProductCategories(productDTO.getProduct_categories());
+        return product;
+    }
+
+    public Optional<Product> findBySupermarketAndProductId(SupermarketType supermarketType, String productId) {
+        return productRepository.findBySupermarketAndProductId(supermarketType, productId);
+    }
+
+    public void save(Product product) {
+        productRepository.save(product);
+    }
 
 }
