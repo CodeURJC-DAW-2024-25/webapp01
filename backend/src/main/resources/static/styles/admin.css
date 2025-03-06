@@ -64,5 +64,11 @@ section{
                 color: var(--text-color);
             }
         }
+
+        
     }
+}
+
+.load-more-btn td{
+    padding: 10px 0;
 }

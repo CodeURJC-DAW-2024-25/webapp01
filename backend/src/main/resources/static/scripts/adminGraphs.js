@@ -77,22 +77,4 @@ const fetchProducts = async () => {
     data1.data.datasets[0].data = supermarkets.map(supermarket => total_items[supermarket]);
     chart1.update();
 }
-
-
-const fetchUsersTable = async () => {
-    const res = await fetch('/admin/template/users');
-    const data = await res.text();
-    document.querySelector('[data-table="admin-users"]').innerHTML += data;
-}
-
-const fetchPostsTable = async () => {
-    const res = await fetch('/admin/template/posts');
-    const data = await res.text();
-    document.querySelector('[data-table="admin-posts"]').innerHTML += data;
-}
-
-// ---------------------------------------------------------------------------------------------------------
-
 fetchProducts();
-fetchUsersTable();
-fetchPostsTable();
