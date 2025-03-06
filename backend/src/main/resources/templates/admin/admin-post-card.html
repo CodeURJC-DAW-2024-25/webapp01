@@ -10,4 +10,9 @@
             </td>
         </tr>
     {{/posts}}
+    {{^maxReached}}
+    <tr class="load-more-btn"><td><button data-admin-command="load-more-posts">Cargar más ({{n}}/{{total}})</button></td></tr>
+    {{/maxReached}}
 </tbody>
+
+

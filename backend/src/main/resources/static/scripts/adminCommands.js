@@ -58,3 +58,40 @@ $deletePostButtons.forEach($deletePostButton => {
         }
     });
 });
+
+
+
+let loadedUsers = 0;
+const fetchUsersTable = async () => {
+    loadedUsers += 5;
+    const res = await fetch(`/admin/template/users?max=${loadedUsers}`);
+    const data = await res.text();
+    document.querySelector('[data-table="admin-users"]').innerHTML = data;
+    if (firstLoadUsers) setUserButtonListener();
+}
+
+let loadedPosts = 0;
+const fetchPostsTable = async () => {
+    loadedPosts += 5;
+    const res = await fetch(`/admin/template/posts?max=${loadedPosts}`);
+    const data = await res.text();
+    document.querySelector('[data-table="admin-posts"]').innerHTML = data;
+    if (firstLoadPosts) setPostButtonListener();
+}
+
+const firstLoadUsers = true
+const setUserButtonListener = () => {
+    const $loadMoreUsers = document.querySelector('[data-admin-command="load-more-users"]');
+    $loadMoreUsers?.addEventListener('click', fetchUsersTable);
+}
+
+const firstLoadPosts = true
+const setPostButtonListener = () => {
+    const $loadMorePosts = document.querySelector('[data-admin-command="load-more-posts"]');
+    $loadMorePosts?.addEventListener('click', fetchPostsTable);
+}
+
+// ---------------------------------------------------------------------------------------------------------
+
+fetchUsersTable();
+fetchPostsTable();
