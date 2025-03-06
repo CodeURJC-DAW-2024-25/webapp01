@@ -59,22 +59,24 @@
                     <label for="image">Banner</label>
                     <input type="file" id="banner" name="banner" class="form-control" accept=".jpg, .jpeg, .png"
                         {{^post}}required{{/post}}>
-                    {{#post.banner}}
-                    <div class="current-banner">
-                        <p>Banner actual:</p>
-                        <img src="/api/posts/{{post.id}}/banner" alt="Banner del post" class="img-fluid">
-                    </div>
-                    {{/post.banner}}
-
                 </div>
             </div>
+            {{#post.banner}}
+            <div class="current-banner">
+                <img src="/api/posts/{{post.id}}/banner" alt="Banner del post">
+            </div>
+            {{/post.banner}}
             <div class="form-group space-top">
                 <label for="content">Contenido</label>
                 <p>Utilice el editor de texto para dar formato al contenido del post.</p>
                 <p>
                     Este post será renderizado usando Markdown. Para más información puede consultar la
-                    <a href="https://www.markdownguide.org/getting-started/" target="_blank"
-                        rel="noopener noreferrer">guía de Markdown</a>.
+                    <a
+                        class="clickable clickable-text inline underline"
+                        href="https://www.markdownguide.org/getting-started/"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                    >guía de Markdown</a>.
                 </p>
                 <textarea id="content" name="content" placeholder="Escriba el contenido del post"
                     required>{{#post}}{{post.content}}{{/post}}</textarea>
@@ -87,7 +89,7 @@
         </form>
         {{> components/footer}}
     </div>
-    <script src="scripts/themeToggle.js"></script>
+    <script src="/scripts/themeToggle.js"></script>
 </body>
 
 </html>

@@ -18,7 +18,7 @@
     
                 {{#isAdmin}}
                     <div class="post-admin-controls">
-                        <a href="/edit-post/{{post.id}}" class="clickable clickable-tool bordered">
+                        <a href="/editPost/{{post.id}}" class="clickable clickable-tool bordered">
                             <i class="bi bi-pencil"></i>
                         </a>
                         <button type="submit" class="clickable clickable-tool bordered danger">
@@ -69,7 +69,7 @@
         </section>
         {{> components/footer}}
     </div>
-    <script src="/scripts/themeToggle.js"></script>
+    <script src="/scripts/themeToggle.js" type="module"></script>
     <script src="/scripts/fetchComments.js" type="module"></script>
 </body>
 
