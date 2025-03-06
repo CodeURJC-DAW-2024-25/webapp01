@@ -19,7 +19,7 @@ import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.PostService;
 import es.daw01.savex.service.UserService;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import es.daw01.savex.utils.DataUtils;
 
 @Controller
 @RequestMapping("/admin")
@@ -80,9 +80,14 @@ public class AdminController {
     }
 
     @GetMapping("/template/users")
-    public String getUsersTemplateString(Model model) {
+    public String getUsersTemplateString(Model model, @RequestParam(defaultValue = "5") int max) {
         List<UserDTO> users = userService.getUsersDTO(userService.findAllByRole(UserType.USER));
 
+        // Slice the list to show only 5 users
+        model.addAttribute("n", max);
+        model.addAttribute("total", users.size());
+        model.addAttribute("maxReached", max >= users.size());
+        users = users.subList(0, DataUtils.clamp(max, 0, users.size()));
         model.addAttribute("users", users);
 
         return "admin/admin-user-card";
@@ -90,9 +95,14 @@ public class AdminController {
     
 
     @GetMapping("/template/posts")
-    public String getPostsTemplateString(Model model) {
+    public String getPostsTemplateString(Model model, @RequestParam(defaultValue = "5") int max) {
         List<PostDTO> posts = postService.getPostsDTO(postService.findAll());
 
+        // Slice the list to show only 5 posts
+        model.addAttribute("n", max);
+        model.addAttribute("total", posts.size());
+        model.addAttribute("maxReached", max >= posts.size());
+        posts = posts.subList(0, DataUtils.clamp(max, 0, posts.size()));
         model.addAttribute("posts", posts);
 
         return "admin/admin-post-card";
