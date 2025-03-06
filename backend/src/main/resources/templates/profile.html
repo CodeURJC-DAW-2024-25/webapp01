@@ -28,6 +28,12 @@
                         <span class="date"><i class="bi bi-calendar"></i> Se unió en Enero 2023</span>
                     </div>
                     <div class="user-actions">
+                        {{#isAdmin}}
+                        <a href="/admin" class="clickable clickable-primary">
+                            <i class="bi bi-database-gear icon"></i>
+                            <span>Admin Panel</span>
+                        </a>
+                        {{/isAdmin}}
                         {{^isAdmin}}
                         <a href="/settings" class="clickable clickable-primary">
                             <i class="bi bi-gear icon"></i>
