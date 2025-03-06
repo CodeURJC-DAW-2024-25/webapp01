@@ -41,7 +41,7 @@ public class ProductsController {
     @GetMapping("/compare")
     public String compareProducts(@RequestParam(required = false) String searchInput, Model model) {
         controllerUtils.addUserDataToModel(model);
-        List<String> supermarkets = List.of("mercadona","dia", "elcorteingles", "consum", "bm");
+        List<String> supermarkets = productService.getSupermarkets();
         Map<String, ProductDTO> comparisonMap = new HashMap<>();
 
         for (String market : supermarkets) {

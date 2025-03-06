@@ -35,12 +35,25 @@ public class ProductService {
      * @return A list of available supermarkets
     */
     public List<Map<String, Object>> getAvailableSupermarkets(String currentSupermarket) {
+
         return Arrays.stream(SupermarketType.values())
             .map(s -> Map.of(
                 "name", (Object) s.getName(),
                 "isSelected", (Object) s.getName().equalsIgnoreCase(currentSupermarket),
                 "id", (Object) s.getName().toLowerCase()
             ))
+            .collect(Collectors.toList());
+    }
+
+    /**
+     * Get a list of available supermarkets
+     * 
+     * @return A list of available supermarkets as lowercase strings
+    */
+    public List<String> getSupermarkets() {
+        return Arrays.stream(SupermarketType.values())
+            .map(SupermarketType::getName)
+            .map(String::toLowerCase)
             .collect(Collectors.toList());
     }
     
