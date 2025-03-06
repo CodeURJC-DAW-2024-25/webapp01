@@ -18,6 +18,8 @@ import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.PostService;
 import es.daw01.savex.service.UserService;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 @RequestMapping("/admin")
@@ -75,6 +77,25 @@ public class AdminController {
         postService.deleteById(id);
 
         return "redirect:/admin";
+    }
+
+    @GetMapping("/template/users")
+    public String getUsersTemplateString(Model model) {
+        List<UserDTO> users = userService.getUsersDTO(userService.findAllByRole(UserType.USER));
+
+        model.addAttribute("users", users);
+
+        return "admin/admin-user-card";
+    }
+    
+
+    @GetMapping("/template/posts")
+    public String getPostsTemplateString(Model model) {
+        List<PostDTO> posts = postService.getPostsDTO(postService.findAll());
+
+        model.addAttribute("posts", posts);
+
+        return "admin/admin-post-card";
     }
 
 }

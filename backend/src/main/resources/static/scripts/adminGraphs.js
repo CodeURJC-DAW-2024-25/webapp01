@@ -65,7 +65,7 @@ const chart2 = new Chart(ctx2, data2);
 const supermarkets = ['mercadona', 'elcorteingles', 'Carrefour', 'lidl', 'dia', 'consum', 'bm'];
 const total_items = {};
 
-const fetchItems = async () => {
+const fetchProducts = async () => {
     await Promise.all(supermarkets.map(async supermarket => {
         const res = await fetch(`/api/products?supermarket=${supermarket}`);
         const data = await res.json();
@@ -77,4 +77,22 @@ const fetchItems = async () => {
     data1.data.datasets[0].data = supermarkets.map(supermarket => total_items[supermarket]);
     chart1.update();
 }
-fetchItems();
+
+
+const fetchUsersTable = async () => {
+    const res = await fetch('/admin/template/users');
+    const data = await res.text();
+    document.querySelector('[data-table="admin-users"]').innerHTML += data;
+}
+
+const fetchPostsTable = async () => {
+    const res = await fetch('/admin/template/posts');
+    const data = await res.text();
+    document.querySelector('[data-table="admin-posts"]').innerHTML += data;
+}
+
+// ---------------------------------------------------------------------------------------------------------
+
+fetchProducts();
+fetchUsersTable();
+fetchPostsTable();
