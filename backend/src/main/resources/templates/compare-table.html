@@ -1,30 +1,56 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-    <link rel="stylesheet" href="/styles/compare-table.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/styles/product-details.css">
     <title>Comparador de Precios</title>
-</head>
+  </head>
 <body>
-    <div class="compare-table">
-        <h2>Comparación para "{{searchQuery}}"</h2>
-        <table>
-            <thead>
-                <tr>
-                    <th>Supermercado</th>
-                    <th>Producto</th>
-                    <th>Precio</th>
-                </tr>
-            </thead>
-            <tbody>
-                {{#comparisons}}
-                <tr>
-                    <td>{{market}}</td>
-                    <td>{{product_name}}</td>
-                    <td>{{price}}</td>
-                </tr>
-                {{/comparisons}}
-            </tbody>
-        </table>
+    <div class="compare-container">
+        <header class="compare-header">
+            <h1 class="compare-title">Comparador de Precios</h1>
+        </header>
+        
+        <div class="compare-table">
+            <h2>
+                <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="9" cy="21" r="1"></circle>
+                    <circle cx="20" cy="21" r="1"></circle>
+                    <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                Comparación para "{{searchQuery}}"
+            </h2>
+            
+            <div class="table-wrapper">
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="sortable" data-column="market">
+                                Supermercado
+                            </th>
+                            <th class="sortable" data-column="product">
+                                Producto
+                            </th>
+                            <th class="sortable" data-column="price">
+                                Precio
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#comparisons}}
+                        <tr data-price="{{price}}">
+                            <td>{{market}}</td>
+                            <td>{{product_name}}</td>
+                            <td class="price-cell">{{price}}</td>
+                        </tr>
+                        {{/comparisons}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
+
+    <script src="scripts/product/compareTable.js"></script>
 </body>
 </html>
