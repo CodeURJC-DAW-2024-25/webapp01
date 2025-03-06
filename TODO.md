@@ -10,6 +10,7 @@
 - [ ] Create navigation map between screens
 - [ ] Check all links
 - [ ] Fix related products
+- [ ] modificar parser de markdown
 
 ## If there is time
 - [ ] Fix styles
