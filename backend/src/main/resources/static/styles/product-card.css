@@ -26,7 +26,9 @@
 
         .product-meta {
             display: flex;
-            flex-wrap: wrap;
+            flex-direction: row;
+            justify-content: flex-start;
+            align-items: center;
             gap: 4px;
             margin-bottom: 8px;
         
@@ -34,11 +36,16 @@
                 font-size: 12px;
                 font-weight: 700;
                 color: var(--accent-color);
+                margin: 0;
             }
         
             .product-category {
                 font-size: 12px;
                 color: var(--text-color);
+                margin: 0;
+                text-overflow: ellipsis;
+                text-wrap: nowrap;
+                overflow: hidden;
             }
         }
         .product-name {

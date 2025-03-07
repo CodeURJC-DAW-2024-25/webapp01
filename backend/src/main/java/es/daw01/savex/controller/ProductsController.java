@@ -137,17 +137,4 @@ public class ProductsController {
         model.addAttribute("title", "SaveX - " + product.getDisplay_name());
         return "product-detail";
     }
- 
-    @GetMapping("/products/custom")
-    public String GenerateCustomProductCard(Model model, @RequestParam String name, @RequestParam String price, @RequestParam String src, @RequestParam String id){
-        controllerUtils.addUserDataToModel(model);
- 
-        model.addAttribute("id", id);
-        model.addAttribute("name", name);
-        model.addAttribute("price", price);
-        model.addAttribute("src", src);
-
-        return "custom-product";   
-    }
-    
 }

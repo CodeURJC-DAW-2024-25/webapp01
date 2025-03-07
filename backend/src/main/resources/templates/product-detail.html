@@ -1,16 +1,18 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
     {{> components/head-tags}}
     <link rel="stylesheet" href="/styles/product-detail.css">
-    <link rel="stylesheet" href="/styles/suggested-product.css">
     <link rel="stylesheet" href="/styles/modal.css">
-    
+    <link rel="stylesheet" href="/styles/products.css">
+    <link rel="stylesheet" href="/styles/product-card.css">
 </head>
+
 <body>
     <div class="container small-gap small-padding">
         {{> components/navbar}}
-        
+
         <div class="back-link">
             <a href="/search" class="clickable clickable-text">
                 <i class="bi bi-arrow-left"></i>
@@ -18,38 +20,38 @@
             </a>
         </div>
         <input type="hidden" id="originalSearchQuery" value="{{searchQuery}}">
-        
+
         <div class="product-grid">
-            {{#product}} 
+            {{#product}}
             <div class="product-image">
                 <img src="{{thumbnail}}" alt="{{display_name}}">
             </div>
-            
+
             <div class="product-info" data-product-id="{{_id}}">
                 <div class="product-header">
                     <span class="badge">{{supermarket_name}}</span>
                     <!-- This id is used to get the search term (product name) -->
                     <h1 id="productTitle" class="product-title">{{display_name}}</h1>
-                    
+
                     {{#brand}}
                     <p class="product-brand">{{brand}}</p>
                     {{/brand}}
                 </div>
-                
+
                 <div class="product-price">
                     <span class="price-main">{{price.total}}&euro;</span>
                     <span class="price-unit">{{price.per_reference_unit}}&euro;/{{price.reference_unit_name}}</span>
                 </div>
-                
+
                 {{#isAuthenticated}}
                 <button id="addToListBtn" class="clickable clickable-primary">
                     Add to my List
                     <i class="bi bi-plus-circle"></i>
                 </button>
                 {{/isAuthenticated}}
-                
+
                 <hr class="separator">
-                
+
                 <div class="product-details-card">
                     <h3 class="section-title">Product Details</h3>
                     <dl class="details-list">
@@ -63,7 +65,7 @@
                         </div>
                     </dl>
                 </div>
-                
+
                 <div class="product-categories">
                     <h3 class="section-title">Categories</h3>
                     <div class="categories-list">
@@ -72,9 +74,10 @@
                         {{/product_categories}}
                     </div>
                 </div>
-                
+
                 <div class="product-actions">
-                    <a href="{{product_url}}" target="_blank" rel="noopener noreferrer" class="clickable clickable-secondary full-width">
+                    <a href="{{product_url}}" target="_blank" rel="noopener noreferrer"
+                        class="clickable clickable-secondary full-width">
                         Ver en {{supermarket_name}}
                     </a>
                     <button id="compareBtn" class="clickable clickable-tool bordered">
@@ -84,22 +87,21 @@
             </div>
             {{/product}}
         </div>
-        
+
         <div id="compareContainer"></div>
-        
-        <div class="product-suggested">
-            <h2 class="section-title">Related Products</h2>
-            <div class="product-suggested-grid" data-product-category="{{product.product_categories.0}}">
-                <!-- FETCHED IN BACKGROUND -->
-            </div>
+
+        <h2 class="section-title">Related Products</h2>
+        <div class="grid-layout products-container" data-product-category="{{product.product_categories.0}}">
+            <!-- FETCHED IN BACKGROUND -->
         </div>
-        
+
         {{> components/footer}}
     </div>
     {{> components/add-product}}
-    <script src="/scripts/themeToggle.js"></script>
-    <script src="/scripts/suggestedProducts.js"></script>
+    <script src="/scripts/themeToggle.js" type="module"></script>
+    <script src="/scripts/suggestedProducts.js" type="module"></script>
     <script src="/scripts/details.js" defer></script>
-    <script type="module" src="/scripts/fetchLists.js"></script>
+    <script type="module" src="/scripts/fetchLists.js" type="module"></script>
 </body>
+
 </html>

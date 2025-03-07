@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const url = `/compare?searchInput=${encodeURIComponent(searchQuery)}`;
         console.log("Fetching comparison from URL:", url);
     
-        compareContainer.innerHTML = "<p>Loading comparison...</p>";
+        compareContainer.innerHTML = "<p>Cargando resultados...</p>";
         compareContainer.style.display = "block";
         compareBtn.innerHTML = "<i class='bi bi-arrow-repeat spin'></i>";
     
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
             })
             .catch(error => {
                 console.error("Error loading comparison table:", error);
-                compareContainer.innerHTML = "<p>Error loading comparison.</p>";
+                compareContainer.innerHTML = "<p>Error al comparar resultados</p>";
                 compareBtn.innerHTML = "<i class='bi bi-ban'></i>";
             });
     });
