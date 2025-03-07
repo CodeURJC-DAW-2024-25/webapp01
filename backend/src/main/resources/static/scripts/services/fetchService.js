@@ -9,18 +9,22 @@ const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
  * @param {string} endpoint
  * @param {string} method
  * @param {object} params
+ * @param {boolean} params.useBaseUrl
  * @param {boolean} params.cacheData
+ * @param {"JSON" | "TEXT"} params.reponseType
  * @param {object} params.body
  * @returns {Promise<any>}
 */
 export async function fetchData(endpoint, method, params = {
+    useBaseUrl: true,
     cacheData: true,
+    reponseType: "JSON",
     body: null
 }) {
-    const BASE_URL = "/api";
+    const BASE_URL = params.useBaseUrl ? "/api" : "";
     const url = `${BASE_URL}${endpoint}`;
 
-    const { body, cacheData } = params;
+    const { body, cacheData, reponseType } = params;
 
     // Check if the data is in the cache
     if (cacheData) {
@@ -39,7 +43,10 @@ export async function fetchData(endpoint, method, params = {
     if (body) options.body = JSON.stringify(body);
 
     const response = await fetch(url, options);
-    const result = await response.json();
+
+    let result;
+    if (reponseType === "JSON") result = await response.json();
+    else result = await response.text();
 
     if (!response.ok) {
         throw new Error(result.message || "Failed to fetch data");
