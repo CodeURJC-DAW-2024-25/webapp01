@@ -8,12 +8,12 @@ const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
  *
  * @param {string} endpoint
  * @param {string} method
- * @param {object} options
- * @param {boolean} options.cacheData
- * @param {object} options.body
+ * @param {object} params
+ * @param {boolean} params.cacheData
+ * @param {object} params.body
  * @returns {Promise<any>}
 */
-export async function fetchData(endpoint, method, options = {
+export async function fetchData(endpoint, method, params = {
     cacheData: true,
     body: null
 }) {
