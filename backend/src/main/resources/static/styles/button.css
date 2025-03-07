@@ -128,6 +128,18 @@
         }
     }
 
+    &[disabled] {
+        cursor: auto;
+        background-color: var(--grey-color);
+        filter: brightness(40%) contrast(85%);
+
+        &:hover {
+            background-color: var(--grey-color);
+            filter: brightness(40%) contrast(85%);
+        }
+
+    }
+
     &.invert {
         color: var(--white-color);
         background-color: var(--primary-color);
