@@ -121,7 +121,12 @@ function createHTMLProduct(product) {
                 <div class="product-price-container">
                     <div class="price-info">
                         <p class="product-price">${product.price.total} €</p>
-                        <p class="product-unit-price">${product.price.per_reference_unit} €/${product.price.reference_unit_name}</p>
+                        ${
+                            (product.price.per_reference_unit && product.price.reference_unit_name) ? 
+                            `<p class="product-unit-price">${product.price.per_reference_unit} €/${product.price.reference_unit_name}</p>` : 
+                            `<p class="product-unit-price">Sin datos</p>`
+
+                        }
                     </div>
                     <i class="icon bi bi-arrows-angle-expand"></i>
                 </div>
