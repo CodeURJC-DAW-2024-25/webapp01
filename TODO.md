@@ -1,7 +1,7 @@
 # TODO
 
 - [ ] Pageable in shopping lists on the product page
-- [ ] Load admin lists with ajax
+- [x] Load admin lists with ajax
 - [ ] Fix edit posts form
 - [ ] Add products to the shopping list
 - [ ] Create SQL diagrams

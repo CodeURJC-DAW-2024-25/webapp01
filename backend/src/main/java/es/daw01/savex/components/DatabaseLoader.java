@@ -108,6 +108,16 @@ public class DatabaseLoader {
                     UserType.ADMIN
                 )
             );
+        userRepository.save(
+                new User(
+                    "b@gmail.com",
+                    "b",
+                    "b",
+                    passwordEncoder.encode("b"),
+                    null,
+                    UserType.USER
+                )
+            );
 
         DatabaseLoader.logger.info("Users added to the database.");
     }
