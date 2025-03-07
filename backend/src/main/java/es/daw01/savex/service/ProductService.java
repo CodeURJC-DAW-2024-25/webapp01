@@ -74,9 +74,9 @@ public class ProductService {
             ? ((Number) priceMap.get("total")).doubleValue()
             : 0.0;
 
-        priceDTO.setTotal(totalPrice.toString());
+        priceDTO.setTotal(totalPrice);
     } else {
-        priceDTO.setTotal("0.0");
+        priceDTO.setTotal(0.0);
     }
 
     p.setPrice(priceDTO);
@@ -84,15 +84,19 @@ public class ProductService {
 }
 
     public Product createProductFromDTO(ProductDTO productDTO) {
-        Product product = new Product();
-        product.setName(productDTO.getDisplay_name());
-        product.setProductId(productDTO.getProduct_id());
-        product.setProductUrl(productDTO.getProduct_url());
-        product.setSupermarket(SupermarketType.fromString(productDTO.getSupermarket_name()));
-        product.setProductType(productDTO.getProduct_type());
-        product.setThumbnail(productDTO.getThumbnail());
-        product.setProductCategories(productDTO.getProduct_categories());
-        return product;
+        return new Product(
+            productDTO.getDisplay_name(),
+            productDTO.getProduct_id(),
+            productDTO.getProduct_url(),
+            SupermarketType.fromString(productDTO.getSupermarket_name()),
+            productDTO.getProduct_type(),
+            productDTO.getThumbnail(),
+            productDTO.getProduct_categories(),
+            productDTO.getPrice().getTotal(),
+            productDTO.getPrice().getPer_reference_unit(),
+            productDTO.getPrice().getReference_units(),
+            productDTO.getPrice().getReference_unit_name()
+        );
     }
 
     public Optional<Product> findBySupermarketAndProductId(SupermarketType supermarketType, String productId) {

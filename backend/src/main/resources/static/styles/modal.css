@@ -68,3 +68,6 @@
     background-color: var(--semi-bg-color);
 
 }
+.checked {
+    color: var(--accent-color);
+}

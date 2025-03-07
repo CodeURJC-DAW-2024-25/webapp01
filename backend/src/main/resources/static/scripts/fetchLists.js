@@ -4,19 +4,16 @@ const CSRF_TOKEN = document.querySelector('meta[name="_csrf"]').content;
 const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
 
 const listsContainer = document.querySelector('.modal-message');
+const button = document.getElementById('addToListBtn')
+
+const closeButton = document.getElementsByClassName('close-button')[0];
+
+// Check if the button exists
+button && button.addEventListener('click', openModal);
+closeButton && closeButton.addEventListener('click', closeModal);
 
 async function openModal() {
-
-
-
-    const response = await fetch(`/api/user-lists`, {
-        headers: {
-            'Content-Type': 'application/json',
-            [CSRF_HEADER]: CSRF_TOKEN
-        }
-    });
-
-    const data = await response.json();
+    const data = await fetchData(`/user-lists`, 'GET');
 
     console.log(data);
     if (data.length === 0) {
@@ -25,7 +22,9 @@ async function openModal() {
     else {
         listsContainer.innerHTML = '';
         data.forEach(list => {
-            listsContainer.insertAdjacentHTML('beforeend', createHTMLList(list));
+            const content = createHTMLList(list);
+            listsContainer.insertAdjacentHTML('beforeend', content);
+            document.querySelector(`button[data-list-id="${list.id}"]`).addEventListener('click', () => addProductToList(list.id));
         });
     }
 
@@ -44,7 +43,7 @@ function createHTMLList(list) {
     return `
         <div class="modal-display-list">
             <label for="listName">${list.name}</label>
-            <button type="submit" onclick="addProductToList(${list.id})" class="clickable clickable-tool bordered">
+            <button data-list-id="${list.id}" class="clickable clickable-tool bordered">
                 <i class="bi bi-plus-lg"></i>
             </button>
         </div>
@@ -52,10 +51,18 @@ function createHTMLList(list) {
 }
 
 async function addProductToList(listId) {
-    
+    // Get the product id from the data attribute
     const productId = document.querySelector('[data-product-id]').getAttribute('data-product-id');
     
-    const response = await fetchData(`/user-lists/${listId}/product/${productId}`, 'POST');
-    console.log(response);
+    // Send the request to the server
+    try {
+        const response = await fetchData(`/user-lists/${listId}/product/${productId}`, 'POST');
 
+        // If the response is successful, update the UI
+        document.querySelector(`button[data-list-id="${listId}"]`).innerHTML = '<i class="bi bi-check-lg checked"></i>';
+        document.querySelector(`button[data-list-id="${listId}"]`).disabled = true
+
+    } catch (error) {
+        console.error(error);
+    }
 }
