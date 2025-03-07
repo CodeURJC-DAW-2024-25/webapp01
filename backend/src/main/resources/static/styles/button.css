@@ -130,14 +130,14 @@
 
     &[disabled] {
         cursor: auto;
-        background-color: var(--grey-color);
-        filter: brightness(40%) contrast(85%);
+        background-color: var(--semi-bg-color);
+        filter: brightness(100%) contrast(100%);
+        color: var(--text-color);
 
         &:hover {
-            background-color: var(--grey-color);
-            filter: brightness(40%) contrast(85%);
+            background-color: var(--semi-bg-color);
+            filter: brightness(100%) contrast(100%);
         }
-
     }
 
     &.invert {

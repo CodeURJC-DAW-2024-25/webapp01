@@ -13,6 +13,7 @@ document.addEventListener("DOMContentLoaded", function() {
     
         compareContainer.innerHTML = "<p>Loading comparison...</p>";
         compareContainer.style.display = "block";
+        compareBtn.innerHTML = "<i class='bi bi-arrow-repeat spin'></i>";
     
         fetch(url, { method: "GET", headers: { "Content-Type": "text/html" } })
             .then(response => response.text())
@@ -20,10 +21,12 @@ document.addEventListener("DOMContentLoaded", function() {
                 compareContainer.innerHTML = html;
                 highlightBestAndWorstPrices();
                 compareBtn.disabled = true;
+                compareBtn.innerHTML = "<i class='bi bi-check-lg'></i>";
             })
             .catch(error => {
                 console.error("Error loading comparison table:", error);
                 compareContainer.innerHTML = "<p>Error loading comparison.</p>";
+                compareBtn.innerHTML = "<i class='bi bi-ban'></i>";
             });
     });
 });
