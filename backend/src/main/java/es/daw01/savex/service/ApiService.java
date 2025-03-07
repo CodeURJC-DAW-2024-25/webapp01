@@ -118,10 +118,10 @@ public void loadAllProductsIntoCache() {
                 ? ((Number) priceMap.get("total")).doubleValue()
                 : 0.0;
     
-            priceDTO.setTotal(totalPrice.toString());
+            priceDTO.setTotal(totalPrice);
         } else {
             // Just in case, if "price" is not a map (malformed API), treat it as 0
-            priceDTO.setTotal("0.0");
+            priceDTO.setTotal(0.0);
         }
     
         p.setPrice(priceDTO);
