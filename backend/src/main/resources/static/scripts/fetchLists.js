@@ -13,9 +13,9 @@ button && button.addEventListener('click', openModal);
 closeButton && closeButton.addEventListener('click', closeModal);
 
 async function openModal() {
-    const data = await fetchData(`/user-lists`, 'GET');
-
-    console.log(data);
+    const res = await fetchData(`/user-lists`, 'GET', { cacheData: false });
+    const data = res.data
+    console.log(res);
     if (data.length === 0) {
         listsContainer.innerHTML = '<p>No hay listas disponibles</p>';
     }
@@ -56,7 +56,7 @@ async function addProductToList(listId) {
     
     // Send the request to the server
     try {
-        const response = await fetchData(`/user-lists/${listId}/product/${productId}`, 'POST');
+        await fetchData(`/user-lists/${listId}/product/${productId}`, 'POST');
 
         // If the response is successful, update the UI
         document.querySelector(`button[data-list-id="${listId}"]`).innerHTML = '<i class="bi bi-check-lg checked"></i>';

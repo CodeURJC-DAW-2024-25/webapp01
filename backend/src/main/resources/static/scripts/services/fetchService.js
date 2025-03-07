@@ -8,16 +8,25 @@ const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
  *
  * @param {string} endpoint
  * @param {string} method
- * @param {any} body
+ * @param {object} options
+ * @param {boolean} options.cacheData
+ * @param {object} options.body
  * @returns {Promise<any>}
 */
-export async function fetchData(endpoint, method, body = null) {
+export async function fetchData(endpoint, method, options = {
+    cacheData: true,
+    body: null
+}) {
     const BASE_URL = "/api";
     const url = `${BASE_URL}${endpoint}`;
 
+    const { body, cacheData } = params;
+
     // Check if the data is in the cache
-    const cache = getCache(url);
-    if (cache) return cache;
+    if (cacheData) {
+        const cache = getCache(url);
+        if (cache) return cache;
+    }
 
     const options = {
         method: method || "GET",

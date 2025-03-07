@@ -37,7 +37,7 @@ public class RestShoppingListController {
     private ApiService apiService;
 
     @GetMapping("/user-lists")
-    public ResponseEntity<List<ShoppingListDTO>> getUserLists() {
+    public ResponseEntity<Map<String, Object>> getUserLists() {
 
         // Get the authenticated user
         User user = controllerUtils.getAuthenticatedUser();
@@ -49,7 +49,9 @@ public class RestShoppingListController {
         List<ShoppingListDTO> listsDTO = shoppingListService.parseToDTOs(lists);
 
         // Return the shopping lists
-        return ResponseEntity.ok(listsDTO);
+        return ResponseEntity.ok(
+            Map.of("data", listsDTO)
+        );
     }
 
     @PostMapping("/user-lists/{id}/product/{productId}")
