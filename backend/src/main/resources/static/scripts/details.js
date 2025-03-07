@@ -19,6 +19,7 @@ document.addEventListener("DOMContentLoaded", function() {
             .then(html => {
                 compareContainer.innerHTML = html;
                 highlightBestAndWorstPrices();
+                compareBtn.disabled = true;
             })
             .catch(error => {
                 console.error("Error loading comparison table:", error);

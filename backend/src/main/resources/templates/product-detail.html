@@ -8,7 +8,7 @@
     
 </head>
 <body>
-    <div class="container no-gap small-padding">
+    <div class="container small-gap small-padding">
         {{> components/navbar}}
         
         <div class="back-link">
@@ -73,20 +73,16 @@
                     </div>
                 </div>
                 
-                <div class="external-link">
-                    <a href="{{product_url}}" target="_blank" rel="noopener noreferrer" class="clickable clickable-secondary">
+                <div class="product-actions">
+                    <a href="{{product_url}}" target="_blank" rel="noopener noreferrer" class="clickable clickable-secondary full-width">
                         Ver en {{supermarket_name}}
                     </a>
+                    <button id="compareBtn" class="clickable clickable-tool bordered">
+                        <i class="bi bi-calculator-fill"></i>
+                    </button>
                 </div>
             </div>
             {{/product}}
-        </div>
-        
-        <div class="compare-button">
-            <button id="compareBtn" class="clickable clickable-secondary">
-                <span>Comparar producto</span>
-                <i class="bi bi-arrow-left-right"></i>
-            </button>
         </div>
         
         <div id="compareContainer"></div>
