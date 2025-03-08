@@ -51,6 +51,16 @@ public class ShoppingList {
         this.numberOfProducts++;
     }
 
+    public void removeProduct(Product product) {
+        for (Product p : this.products) {
+            if (p.getProductId() == product.getProductId()) {
+                this.products.remove(p);
+                break;
+            }
+        }
+        this.numberOfProducts--;
+    }
+
     // Getters and Setters ---------------------------------------------------->>
     public long getId() {
         return id;

@@ -67,9 +67,9 @@ public class WebSecurityConfig {
                         .requestMatchers("/settings").hasAnyRole(UserType.USER.name())
                         .requestMatchers("/api/profile/avatar").authenticated()
                         .requestMatchers("/delete-account").hasAnyRole(UserType.USER.name())
-                        .requestMatchers("/shoppingList/**").hasAnyRole(UserType.USER.name(), UserType.ADMIN.name())
+                        .requestMatchers("/shoppingList/**").authenticated()
                         .requestMatchers("/update-account-data").authenticated()
-
+                        
                         // Admin
                         .requestMatchers("/admin/**").hasRole(UserType.ADMIN.name())
                         .requestMatchers(HttpMethod.POST, "/api/post/**").hasRole(UserType.ADMIN.name())

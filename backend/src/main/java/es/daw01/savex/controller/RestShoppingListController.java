@@ -16,6 +16,8 @@ import es.daw01.savex.model.ShoppingList;
 import es.daw01.savex.model.User;
 import es.daw01.savex.service.ApiService;
 import es.daw01.savex.service.ShoppingListService;
+
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -80,6 +82,42 @@ public class RestShoppingListController {
 
             // Return the shopping list
             return ResponseEntity.ok(Map.of("message", "Producto añadido correctamente"));
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().build();
+        }
+    }
+
+    @DeleteMapping("/user-lists/{id}/product/{productId}")
+    public ResponseEntity<Map<String,Object>> removeProductFromList(@PathVariable Long id, @PathVariable String productId) {
+
+        System.out.println(id);
+        System.out.println(productId);
+        System.out.println("---------------------------------");
+
+        ProductDTO productDTO = apiService.fetchProduct(productId);
+
+        // Get the authenticated user
+        User user = controllerUtils.getAuthenticatedUser();
+
+        // Get the shopping list
+        Optional<ShoppingList> op = shoppingListService.findById(id);
+
+        if (op.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        ShoppingList list = op.get();
+
+        // Check if the shopping list belongs to the user
+        if (!list.getUser().equals(user)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        try {
+            // Remove the product from the shopping list
+            shoppingListService.removeProductFromList(list, productDTO);
+
+            // Return the shopping list
+            return ResponseEntity.ok(Map.of("message", "Producto eliminado correctamente"));
         } catch (Exception e) {
             return ResponseEntity.badRequest().build();
         }

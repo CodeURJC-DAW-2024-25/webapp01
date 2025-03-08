@@ -139,4 +139,18 @@ public class ShoppingListService {
         return shoppingListDTOs;
     }
 
+    /**
+     * Remove a product from a shopping list
+     * 
+     * @param shoppingList The shopping list to remove the product
+     * @param product      The product to remove
+     */
+    public void removeProductFromList(ShoppingList shoppingList, ProductDTO productDTO) {
+
+        Product product = productService.createProductFromDTO(productDTO);
+
+        shoppingList.removeProduct(product);
+        shoppingListRepository.save(shoppingList);
+    }
+
 }
