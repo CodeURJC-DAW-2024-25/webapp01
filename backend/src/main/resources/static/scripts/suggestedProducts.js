@@ -1,11 +1,12 @@
 import { fetchData } from "./services/fetchService.js"
 import { createHTMLProduct } from "./services/uiService.js"
 
-const $grid = document.querySelector('[data-product-category]')
-const category = $grid.dataset.productCategory
+const $grid = document.querySelector('[data-product-name]')
+// regex substring
+const keywords = $grid.dataset.productKeywords.match(/\[([^\]]+)\]/)[1].split(',')
 
 const fetchSuggestedProducts = async () => {
-    const res = await fetchData(`/products?search=${category}&limit=4&page=0`, "GET", {
+    const res = await fetchData(`/products?keywords=${keywords}&limit=4&page=0`, "GET", {
         cacheData: false
     })
     

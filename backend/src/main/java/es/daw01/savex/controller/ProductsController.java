@@ -47,7 +47,7 @@ public class ProductsController {
         for (String market : supermarkets) {
             try {
                 ResponseEntity<Map<String, Object>> response = apiService.fetchProducts(
-                    searchInput, market, null, null, LIMIT_COMPARE_REQUEST, 0 // Request up to 5 products to compare
+                    searchInput, market, null, null, null, LIMIT_COMPARE_REQUEST, 0 // Request up to 5 products to compare
                 );
 
                 List<?> data = (List<?>) response.getBody().get("data");

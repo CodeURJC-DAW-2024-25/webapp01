@@ -8,11 +8,13 @@ public class ProductDTO {
     private String product_id;
     private String product_url;
     private String display_name;
+    private String normalized_name;
     private String product_type;
     private List<String> product_categories;
     private PriceDTO price;
     private String thumbnail;
     private String brand;
+    private List<String> keywords;
     // Getters and Setters ---------------------------------------------------->>
     public String get_id() {
         return _id;
@@ -73,5 +75,17 @@ public class ProductDTO {
     }
     public void setBrand(String brand) {
         this.brand = brand;
+    }
+    public String getNormalized_name() {
+        return normalized_name;
+    }
+    public void setNormalized_name(String normalized_name) {
+        this.normalized_name = normalized_name;
+    }
+    public List<String> getKeywords() {
+        return keywords;
+    }
+    public void setKeywords(List<String> keywords) {
+        this.keywords = keywords;
     }
 }
