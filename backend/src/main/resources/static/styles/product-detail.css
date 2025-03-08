@@ -46,6 +46,7 @@
         font-weight: 700;
         line-height: 1.2;
         text-align: left;
+        text-transform: capitalize;
     }
 
     .product-brand {
@@ -53,6 +54,7 @@
         font-weight: 600;
         color: var(--accent-color);
         margin-top: 0.25rem;
+        text-transform: capitalize;
     }
 
     .product-price {
@@ -70,6 +72,7 @@
         margin-left: 0.5rem;
         font-size: 0.875rem;
         color: var(--accent-color);
+        text-transform: capitalize;
     }
 
     .separator {
@@ -98,8 +101,6 @@
     align-items: flex-start;
     justify-content: flex-start;
 }
-
-
 
 .section-title {
     width: 100%;
