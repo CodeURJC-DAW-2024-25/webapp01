@@ -1,13 +1,13 @@
 <li class="product-item">
     <div class="product-info">
-        <h3 class="product-name">{{product.name}}</h3>
+        <h3 class="product-name">{{display_name}}</h3>
         <div class="product-meta">
-            <span class="product-brand">{{product.brand}}</span>
-            <span class="product-price">{{product.price.total}}&euro;</span>
+            <span class="product-brand">{{brand}}</span>
+            <span class="product-price">{{price.total}}&euro;</span>
         </div>
     </div>
     <div class="product-actions">
-        <a class="clickable clickable-tool bordered" href="#">
+        <a class="clickable clickable-tool bordered" href="{{product_url}}" target="_blank">
             <i class="bi bi-box-arrow-up-right"></i>
         </a>
         <a class="clickable clickable-tool bordered danger" href="#">
