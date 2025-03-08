@@ -7,12 +7,12 @@ const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
  * Fetch data from the server
  *
  * @param {string} endpoint
- * @param {string} method
+ * @param {"GET" | "POST" | "PUT" | "DELETE"} method
  * @param {object} params
  * @param {boolean} [params.useBaseUrl]
  * @param {boolean} [params.cacheData]
  * @param {"JSON" | "TEXT"} [params.reponseType]
- * @param {"JSON" | "FORM_DATA"} [params.requestType]
+ * @param {"JSON" | "OTHER"} [params.requestType]
  * @param {object} [params.body]
  * @returns {Promise<any>}
 */
