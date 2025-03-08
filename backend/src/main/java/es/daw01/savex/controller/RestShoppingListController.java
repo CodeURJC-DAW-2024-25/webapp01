@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RestController;
 import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.DTOs.ShoppingListDTO;
 import es.daw01.savex.components.ControllerUtils;
-import es.daw01.savex.model.Product;
 import es.daw01.savex.model.ShoppingList;
 import es.daw01.savex.model.User;
 import es.daw01.savex.service.ApiService;
@@ -20,7 +19,6 @@ import es.daw01.savex.service.ShoppingListService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController 
