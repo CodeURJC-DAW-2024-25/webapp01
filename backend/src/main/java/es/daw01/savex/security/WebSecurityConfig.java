@@ -3,6 +3,7 @@ package es.daw01.savex.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -71,6 +72,8 @@ public class WebSecurityConfig {
 
                         // Admin
                         .requestMatchers("/admin/**").hasRole(UserType.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/post/**").hasRole(UserType.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/post/**").hasRole(UserType.ADMIN.name())
 
                         .anyRequest().authenticated()
 

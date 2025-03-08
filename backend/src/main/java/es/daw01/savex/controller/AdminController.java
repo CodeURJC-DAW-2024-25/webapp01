@@ -69,16 +69,6 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @DeleteMapping("/post/{id}")
-    public String deletePost(Model model, @PathVariable long id) {
-        // Delete comments
-        commentService.deleteByPostId(id);
-        // Delete post
-        postService.deleteById(id);
-
-        return "redirect:/admin";
-    }
-
     @GetMapping("/template/users")
     public String getUsersTemplateString(Model model, @RequestParam(defaultValue = "5") int max) {
         List<UserDTO> users = userService.getUsersDTO(userService.findAllByRole(UserType.USER));
