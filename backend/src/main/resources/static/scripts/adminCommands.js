@@ -1,3 +1,5 @@
+import { fetchData } from './services/fetchService.js';
+
 // CSRF token and header for secure requests
 const CSRF_TOKEN = document.querySelector('meta[name="_csrf"]').content;
 const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
@@ -25,15 +27,11 @@ const setPostsEvents = () => {
             const uid = e.target.getAttribute('data-post-id');
 
             if (confirmDelete) {
-                fetch(`/admin/post/${uid}`, {
-                    method: 'DELETE',
-                    headers: {
-                        [CSRF_HEADER]: CSRF_TOKEN
-                    }
-                })
-                    .then(() => {
-                        window.location.reload();
-                    });
+                const endpoint = `/post/${uid}`;
+                fetchData(endpoint, "DELETE", { cacheData: false })
+                .then(() => {
+                    window.location.reload();
+                });
             }
         });
     });

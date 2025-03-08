@@ -20,7 +20,7 @@ async function loadComments() {
     loading = true;
 
     const endpoint = `/posts/${POST_ID}/comments?page=${currentPage}&size=${COMMENTS_SIZE}`;
-    const data = await fetchData(endpoint, "GET");
+    const data = await fetchData(endpoint, "GET", { cacheData: false });
 
     data.comments.forEach(comment => {
         $commentsContainer.insertAdjacentHTML("beforeend", createHTMLComment(comment));

@@ -13,7 +13,7 @@ input.addEventListener('change', async () => {
 
     try {
         await fetchData('/profile/avatar', 'POST', {
-            requestType: 'FORM_DATA',
+            requestType: 'OTHER',
             cacheData: false,
             body: formData
         });
