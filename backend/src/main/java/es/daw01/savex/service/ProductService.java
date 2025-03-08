@@ -21,6 +21,17 @@ public class ProductService {
     @Autowired
     private ProductRepository productRepository;
 
+    
+    /**
+     * Find a product by its id
+     * 
+     * @param id The id of the product
+     * @return The product if found or an empty optional
+    */
+    public Optional<Product> findById(long id) {
+        return productRepository.findById(id);
+    }
+
     /**
      * Find the best match for a product based on the target name and brand
      * 
@@ -63,25 +74,25 @@ public class ProductService {
     }
     
     public ProductDTO mapToProductDTO(Map<String, Object> map) {
-    ProductDTO p = new ProductDTO();
-    p.setDisplay_name(map.get("display_name") != null ? (String) map.get("display_name") : (String) map.get("name"));
-    p.setSupermarket_name((String) map.get("supermarket_name"));
+        ProductDTO p = new ProductDTO();
+        p.setDisplay_name(map.get("display_name") != null ? (String) map.get("display_name") : (String) map.get("name"));
+        p.setSupermarket_name((String) map.get("supermarket_name"));
 
-    PriceDTO priceDTO = new PriceDTO();
-    if (map.get("price") instanceof Map) {
-        Map<String, Object> priceMap = (Map<String, Object>) map.get("price");
-        Double totalPrice = priceMap.get("total") instanceof Number
-            ? ((Number) priceMap.get("total")).doubleValue()
-            : 0.0;
+        PriceDTO priceDTO = new PriceDTO();
+        if (map.get("price") instanceof Map) {
+            Map<String, Object> priceMap = (Map<String, Object>) map.get("price");
+            Double totalPrice = priceMap.get("total") instanceof Number
+                ? ((Number) priceMap.get("total")).doubleValue()
+                : 0.0;
 
-        priceDTO.setTotal(totalPrice);
-    } else {
-        priceDTO.setTotal(0.0);
-    }
+            priceDTO.setTotal(totalPrice);
+        } else {
+            priceDTO.setTotal(0.0);
+        }
 
-    p.setPrice(priceDTO);
-    return p;
-}
+        p.setPrice(priceDTO);
+        return p;
+    }   
 
     public Product createProductFromDTO(ProductDTO productDTO) {
         return new Product(
@@ -100,12 +111,29 @@ public class ProductService {
         );
     }
 
-    public Optional<Product> findBySupermarketAndProductId(SupermarketType supermarketType, String productId) {
-        return productRepository.findBySupermarketAndProductId(supermarketType, productId);
-    }
+    /**
+     * Find a product by its product DTO
+     * 
+     * @param productDTO The product DTO
+     * @return The product if found or an empty optional
+    */
+    public Optional<Product> findByProductDTO(ProductDTO productDTO) {
+        SupermarketType supermarketType;
+        String supermarketName = productDTO.getSupermarket_name();
+        String productId = productDTO.getProduct_id();
 
+        supermarketType = SupermarketType.fromString(supermarketName);
+        
+        return findBySupermarketAndProductId(supermarketType, productId);
+    }
+    
     public void save(Product product) {
         productRepository.save(product);
     }
 
+    // Private methods -------------------------------------------------------->>
+    
+    private Optional<Product> findBySupermarketAndProductId(SupermarketType supermarketType, String productId) {
+        return productRepository.findBySupermarketAndProductId(supermarketType, productId);
+    }
 }

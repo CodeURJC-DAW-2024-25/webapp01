@@ -11,12 +11,10 @@ buttons.forEach(button => {
 async function deleteProduct(){
     const id = this.getAttribute('data-product-id');
 
-    console.log(id);
-    
     try {
         await fetchData( `/user-lists/${ListId}/product/${id}`, 'DELETE', {cacheData: false});
+        window.location.reload();
     }catch(error){
         console.error(error);
     }
-
 }

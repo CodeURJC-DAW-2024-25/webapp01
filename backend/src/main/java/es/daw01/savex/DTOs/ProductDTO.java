@@ -23,8 +23,7 @@ public class ProductDTO {
     }
 
     public ProductDTO(Product product){
-        
-        this._id = product.getProductId(); //TODO fix method getId() in Product
+        this._id = String.format("%s", product.getId());
         this.supermarket_name = product.getSupermarket().getName();
         this.product_id = product.getProductId();
         this.product_url = product.getProductUrl();

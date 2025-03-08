@@ -15,7 +15,7 @@ closeButton && closeButton.addEventListener('click', closeModal);
 async function openModal() {
     const res = await fetchData(`/user-lists`, 'GET', { cacheData: false });
     const data = res.data
-    console.log(res);
+    
     if (data.length === 0) {
         listsContainer.innerHTML = '<p>No hay listas disponibles</p>';
     }

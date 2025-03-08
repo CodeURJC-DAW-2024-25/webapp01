@@ -88,13 +88,7 @@ public class RestShoppingListController {
     }
 
     @DeleteMapping("/user-lists/{id}/product/{productId}")
-    public ResponseEntity<Map<String,Object>> removeProductFromList(@PathVariable Long id, @PathVariable String productId) {
-
-        System.out.println(id);
-        System.out.println(productId);
-        System.out.println("---------------------------------");
-
-        ProductDTO productDTO = apiService.fetchProduct(productId);
+    public ResponseEntity<Map<String,Object>> removeProductFromList(@PathVariable Long id, @PathVariable Long productId) {
 
         // Get the authenticated user
         User user = controllerUtils.getAuthenticatedUser();
@@ -105,6 +99,7 @@ public class RestShoppingListController {
         if (op.isEmpty()) {
             return ResponseEntity.notFound().build();
         }
+
         ShoppingList list = op.get();
 
         // Check if the shopping list belongs to the user
@@ -114,7 +109,7 @@ public class RestShoppingListController {
 
         try {
             // Remove the product from the shopping list
-            shoppingListService.removeProductFromList(list, productDTO);
+            shoppingListService.removeProductFromList(list, productId);
 
             // Return the shopping list
             return ResponseEntity.ok(Map.of("message", "Producto eliminado correctamente"));
