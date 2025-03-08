@@ -25,13 +25,14 @@ public class RestProductsController {
     public ResponseEntity<Map<String, Object>> getProducts(
         @RequestParam(required = false) String search,
         @RequestParam(required = false) String supermarket,
+        @RequestParam(required = false) String keywords,
         @RequestParam(required = false) Double minPrice,
         @RequestParam(required = false) Double maxPrice,
         @RequestParam(required = false) Integer limit,
         @RequestParam(required = false) Integer page
     ) {
         return apiService.fetchProducts(
-            search, supermarket, minPrice, maxPrice, limit, page
+            search, supermarket, keywords, minPrice, maxPrice, limit, page
         );
     }
 }

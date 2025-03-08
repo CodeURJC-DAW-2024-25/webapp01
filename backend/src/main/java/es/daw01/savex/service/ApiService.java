@@ -38,7 +38,7 @@ public void loadAllProductsIntoCache() {
         List<ProductDTO> allProducts = new ArrayList<>();
         int page = 0;
         while (true) {
-            ResponseEntity<Map<String, Object>> response = fetchProducts(null, supermarket, null, null, 1000, page);
+            ResponseEntity<Map<String, Object>> response = fetchProducts(null, supermarket, null, null, null, 1000, page);
             List<?> data = (List<?>) response.getBody().get("data");
             if (data == null || data.isEmpty()) break;
 
@@ -58,6 +58,7 @@ public void loadAllProductsIntoCache() {
     public ResponseEntity<Map<String, Object>> fetchProducts(  
         String searchInput,
         String supermarket,
+        String keywords,
         Double minPrice,
         Double maxPrice,
         Integer limit, 
@@ -73,6 +74,7 @@ public void loadAllProductsIntoCache() {
 
         if (supermarket != null) apiUrl = apiUrl.concat(String.format("supermarket=%s&", supermarket));
         if (searchInput != null) apiUrl = apiUrl.concat(String.format("search=%s&", searchInput));
+        if (keywords != null) apiUrl = apiUrl.concat(String.format("keywords=%s&", keywords));
         if (minPrice != null) apiUrl = apiUrl.concat(String.format("min_price=%s&", minPrice));
         if (maxPrice != null) apiUrl = apiUrl.concat(String.format("max_price=%s&", maxPrice));
         if (limit != null) apiUrl = apiUrl.concat(String.format("limit=%s&", limit));
