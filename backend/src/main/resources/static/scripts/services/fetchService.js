@@ -7,24 +7,27 @@ const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
  * Fetch data from the server
  *
  * @param {string} endpoint
- * @param {string} method
+ * @param {"GET" | "POST" | "PUT" | "DELETE"} method
  * @param {object} params
- * @param {boolean} params.useBaseUrl
- * @param {boolean} params.cacheData
- * @param {"JSON" | "TEXT"} params.reponseType
- * @param {object} params.body
+ * @param {boolean} [params.useBaseUrl]
+ * @param {boolean} [params.cacheData]
+ * @param {"JSON" | "TEXT"} [params.reponseType]
+ * @param {"JSON" | "OTHER"} [params.requestType]
+ * @param {object} [params.body]
  * @returns {Promise<any>}
 */
-export async function fetchData(endpoint, method, params = {
-    useBaseUrl: true,
-    cacheData: true,
-    reponseType: "JSON",
-    body: null
-}) {
-    const BASE_URL = params.useBaseUrl ? "/api" : "";
-    const url = `${BASE_URL}${endpoint}`;
+export async function fetchData(endpoint, method, params = {}) {
+    const {
+        useBaseUrl = true,
+        cacheData = true,
+        reponseType = "JSON",
+        requestType = "JSON",
+        body = null
+    } = params;
 
-    const { body, cacheData, reponseType } = params;
+    const BASE_URL = useBaseUrl ? "/api" : "";
+    const enctype = requestType === "JSON" ? "application/json" : "";
+    const url = `${BASE_URL}${endpoint}`;
 
     // Check if the data is in the cache
     if (cacheData) {
@@ -32,16 +35,18 @@ export async function fetchData(endpoint, method, params = {
         if (cache) return cache;
     }
 
-    const options = {
-        method: method || "GET",
-        headers: {
-            "Content-Type": "application/json",
-            [CSRF_HEADER]: CSRF_TOKEN
-        }
-    };
+    // Set headers
+    const headers = {};
+    if (enctype) headers["Content-Type"] = enctype;
+    headers[CSRF_HEADER] = CSRF_TOKEN;
 
-    if (body) options.body = JSON.stringify(body);
+    // Set options
+    const options = {};
+    if (body) options.body = body;
+    options["method"] = method || "GET";
+    options["headers"] = headers;
 
+    // Fetch the data
     const response = await fetch(url, options);
 
     let result;

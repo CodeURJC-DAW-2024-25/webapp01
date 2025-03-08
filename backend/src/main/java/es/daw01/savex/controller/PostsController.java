@@ -161,31 +161,6 @@ public class PostsController {
         return "redirect:/posts/" + newPost.getId();
     }
 
-    @PostMapping("/delete-post/{id}")
-    public String removePost(Model model, @PathVariable long id) {
-        try {
-            User user = controllerUtils.getAuthenticatedUser();
-
-            Optional<Post> postOptional = postService.findById(id);
-            if (postOptional.isEmpty()) {
-                return "redirect:/posts?error=not_found";
-            }
-
-            Post post = postOptional.get();
-
-            // Verify if the user is the author of the post or an administrator
-            if (post.getAuthor().equals(user.getUsername()) || user.getRole() == UserType.ADMIN) {
-                postService.deletePost(id);
-                return "redirect:/";
-            } else {
-                return "redirect:/posts?error=forbidden";
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return "redirect:/posts?error=server_error";
-        }
-    }
-
     @GetMapping("/editPost/{id}")
     public String editPost(Model model, @PathVariable long id) {
         Optional<Post> postOptional = postService.findById(id);

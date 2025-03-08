@@ -34,3 +34,30 @@ export function createHTMLProduct(product) {
     </div>
     `;
 }
+
+export function createHTMLPost(post) {
+    return `
+    <a class="post extended" href="/posts/${post.id}">
+        <i class="bi bi-box-arrow-up-right icon"></i>
+        <div class="post-top">
+            <h2 class="post-title">${post.title}</h2>
+            <p class="post-description">Descubre cómo puedes ahorrar dinero en tus compras de supermercado con SaveX.</p>
+            <div class="post-metadata">
+                <div class="tags-container">
+                    ${post.tags.map(tag => `<span class="tag">${tag}</span>`).join('')}
+                </div>
+            </div>
+        </div>
+        <div class="post-bottom">
+            <div class="time-container">
+                <span class="date">${post.date}</span>
+                <span class="separator">•</span>
+                <span class="read-time">${post.readingTime}</span>
+            </div>
+            <div class="img-container">
+                <img src="/api/posts/${post.id}/banner" alt="${post.title}">
+            </div>
+        </div>
+    </a>
+    `;
+}

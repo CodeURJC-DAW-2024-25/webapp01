@@ -14,6 +14,7 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,9 +77,10 @@ public class RestPostsController {
 
     @GetMapping("/posts/{id}/comments")
     public ResponseEntity<Map<String, Object>> getComments(
-            @PathVariable Long id,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "1") int size) {
+        @PathVariable Long id,
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "1") int size
+    ) {
         // Retrieve post and return 404 if it does not exist
         Optional<Post> op = postService.findById(id);
         if (op.isEmpty())
@@ -109,5 +111,21 @@ public class RestPostsController {
                 PageRequest.of(page, size));
 
         return ResponseEntity.ok(response);
+    }
+
+    @DeleteMapping("/post/{id}")
+    public ResponseEntity<Map<String, Object>> deletePost(@PathVariable long id) {
+        try {
+            commentService.deleteByPostId(id);
+            postService.deleteById(id);
+        } catch (Exception e) {
+            return ResponseEntity.badRequest().body(
+                Map.of("message", "Error al eliminar el post")
+            );
+        }
+
+        return ResponseEntity.ok().body(
+            Map.of("message", "Post eliminado correctamente")
+        );
     }
 }
