@@ -2,6 +2,8 @@ package es.daw01.savex.DTOs;
 
 import java.util.List;
 
+import es.daw01.savex.model.Product;
+
 public class ProductDTO {
     private String _id;
     private String supermarket_name;
@@ -15,6 +17,27 @@ public class ProductDTO {
     private String thumbnail;
     private String brand;
     private List<String> keywords;
+
+    // Constructors ----------------------------------------------------------->>
+    public ProductDTO() {
+    }
+
+    public ProductDTO(Product product){
+        this._id = product.getProductId();
+        this.supermarket_name = product.getSupermarket().getName();
+        this.product_id = product.getProductId();
+        this.product_url = product.getProductUrl();
+        this.display_name = product.getName();
+        this.product_type = product.getProductType();
+        this.product_categories = product.getProductCategories();
+        this.price = new PriceDTO(product.getPriceTotal(), product.getPricePerReferenceUnit(), product.getReferenceUnits(), product.getReferenceUnitName());
+        this.thumbnail = product.getThumbnail();
+        this.brand = product.getBrand();
+        this.normalized_name = product.getNormalizedName();
+        this.keywords = product.getKeywords();
+    }
+
+
     // Getters and Setters ---------------------------------------------------->>
     public String get_id() {
         return _id;

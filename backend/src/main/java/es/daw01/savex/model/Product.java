@@ -48,6 +48,9 @@ public class Product {
     @Column(nullable = false)
     private String referenceUnitName;
 
+    @Column(nullable = true)
+    private String brand;
+
     // Constructors ----------------------------------------------------------->>
     public Product() { /* Used by Spring Data JPA */ }
 
@@ -62,7 +65,8 @@ public class Product {
         double priceTotal,
         double pricePerReferenceUnit,
         double referenceUnits,
-        String referenceUnitName
+        String referenceUnitName,
+        String brand
     ) {
         this.name = name;
         this.productId = productId;
@@ -75,6 +79,7 @@ public class Product {
         this.pricePerReferenceUnit = pricePerReferenceUnit;
         this.referenceUnits = referenceUnits;
         this.referenceUnitName = referenceUnitName;
+        this.brand = brand;
     }
 
 
@@ -175,4 +180,13 @@ public class Product {
     public void setReferenceUnitName(String referenceUnitName) {
         this.referenceUnitName = referenceUnitName;
     }
+
+    public String getBrand() {
+        return brand;
+    }
+
+    public void setBrand(String brand) {
+        this.brand = brand;
+    }
+
 }

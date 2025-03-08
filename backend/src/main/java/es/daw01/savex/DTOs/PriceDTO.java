@@ -6,6 +6,17 @@ public class PriceDTO {
     private double reference_units;
     private String reference_unit_name;
 
+    // Constructors ----------------------------------------------------------->>
+    public PriceDTO() {
+    }
+
+    public PriceDTO(double total, double per_reference_unit, double reference_units, String reference_unit_name) {
+        this.total = total;
+        this.per_reference_unit = per_reference_unit;
+        this.reference_units = reference_units;
+        this.reference_unit_name = reference_unit_name;
+    }
+
     // Getters and Setters ---------------------------------------------------->>
     public double getTotal() {
         return total;  
