@@ -1,5 +1,9 @@
 package es.daw01.savex.DTOs;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import es.daw01.savex.model.Product;
 import es.daw01.savex.model.ShoppingList;
 
 public class ShoppingListDTO {
@@ -7,6 +11,7 @@ public class ShoppingListDTO {
     private String name;
     private String description;
     private int numberOfProducts;
+    private List<ProductDTO> products;
     
 
     public ShoppingListDTO(Long id, String name, String description) {
@@ -23,6 +28,10 @@ public class ShoppingListDTO {
         this.name = shoppingList.getName();
         this.description = shoppingList.getDescription();
         this.numberOfProducts = shoppingList.getNumberOfProducts();
+        this.products =  new ArrayList<ProductDTO>();
+        for (Product product : shoppingList.getProducts()) {
+            this.products.add(new ProductDTO(product));
+        }
     }
     
     // Getters and Setters ---------------------------------------------------->>

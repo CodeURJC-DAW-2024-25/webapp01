@@ -95,7 +95,8 @@ public class ProductService {
             productDTO.getPrice().getTotal(),
             productDTO.getPrice().getPer_reference_unit(),
             productDTO.getPrice().getReference_units(),
-            productDTO.getPrice().getReference_unit_name()
+            productDTO.getPrice().getReference_unit_name(),
+            productDTO.getBrand()
         );
     }
 
