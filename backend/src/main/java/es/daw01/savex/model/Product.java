@@ -51,6 +51,12 @@ public class Product {
     @Column(nullable = true)
     private String brand;
 
+    @Column(nullable = true)
+    private String normalizedName;
+
+    @ElementCollection
+    private List<String> keywords;
+
     // Constructors ----------------------------------------------------------->>
     public Product() { /* Used by Spring Data JPA */ }
 
@@ -189,4 +195,19 @@ public class Product {
         this.brand = brand;
     }
 
+    public String getNormalizedName() {
+        return normalizedName;
+    }
+
+    public void setNormalizedName(String normalizedName) {
+        this.normalizedName = normalizedName;
+    }
+
+    public List<String> getKeywords() {
+        return keywords;
+    }
+
+    public void setKeywords(List<String> keywords) {
+        this.keywords = keywords;
+    }
 }
