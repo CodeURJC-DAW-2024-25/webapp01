@@ -29,6 +29,8 @@ section{
     width: 100%;
     border-radius: 5px;
     background-color: var(--semi-bg-color);
+    overflow-x: scroll;
+    margin-bottom: 20px;
 
     & > table.table {
 
@@ -71,4 +73,15 @@ section{
 
 .load-more-btn td{
     padding: 10px 0;
+}
+
+
+@media (max-width: 768px) {
+    .graphics_wrap{
+        flex-direction: column;
+    }
+
+    .action-container {
+        flex-direction: column;
+    }
 }
