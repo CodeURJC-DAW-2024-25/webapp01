@@ -29,6 +29,15 @@ section{
     width: 100%;
     border-radius: 5px;
     background-color: var(--semi-bg-color);
+    overflow-x: scroll;
+    margin-bottom: 20px;
+
+    /* Hide scrollbar */
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none;  /* IE 10+ */
+    ::-webkit-scrollbar {
+        display: none;  /* Safari and Chrome */
+    }
 
     & > table.table {
 
@@ -71,4 +80,15 @@ section{
 
 .load-more-btn td{
     padding: 10px 0;
+}
+
+
+@media (max-width: 768px) {
+    .graphics_wrap{
+        flex-direction: column;
+    }
+
+    .action-container {
+        flex-direction: column;
+    }
 }
