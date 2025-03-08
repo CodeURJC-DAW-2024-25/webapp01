@@ -1,6 +1,4 @@
-
-const CSRF_TOKEN = document.querySelector('meta[name="_csrf"]').content;
-const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
+import { fetchData } from './services/fetchService.js';
 
 const input = document.getElementById('avatar-input');
 const submitButton = document.getElementById('submit-button');
@@ -14,13 +12,11 @@ input.addEventListener('change', async () => {
     formData.enctype = 'multipart/form-data';
 
     try {
-        await fetch('/api/profile/avatar', {
-            method: 'POST',
-            headers: {
-                [CSRF_HEADER]: CSRF_TOKEN
-            },
+        await fetchData('/profile/avatar', 'POST', {
+            requestType: 'FORM_DATA',
+            cacheData: false,
             body: formData
-        })
+        });
     
         avatarImages.forEach(avatar => {
             avatar.src = URL.createObjectURL(file);
