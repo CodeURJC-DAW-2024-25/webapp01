@@ -144,10 +144,12 @@ public class DatabaseLoader {
         for (Resource resource : resources) {
             String markdown = null;
             Map<String, List<String>> yamlFrontMatter = null;
+            String markdownContent = null;
     
             try {
                 markdown = resource.getContentAsString(Charset.defaultCharset());
                 yamlFrontMatter = markdownService.extractYamlFrontMatter(markdown);
+                markdownContent = markdownService.extractMarkdownContent(markdown);
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -160,7 +162,7 @@ public class DatabaseLoader {
             // Save the post if the markdown content is not empty
             if (markdown != null && !markdown.isEmpty()) {
                 postRepository.save(new Post(
-                    markdown,
+                    markdownContent,
                     yamlFrontMatter
                 ));
             }
