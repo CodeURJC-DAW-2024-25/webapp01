@@ -10,7 +10,7 @@
 - [X] Create navigation map between screens
 - [ ] Check all links
 - [ ] Fix related products
-- [ ] Modify markdown parser
+- [X] Modify markdown parser
 - [ ] Refactor `ShoppingListController` and extract the logic to a service
 
 ## If there is time

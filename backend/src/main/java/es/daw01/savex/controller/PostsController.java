@@ -169,7 +169,7 @@ public class PostsController {
         controllerUtils.addUserDataToModel(model);
         model.addAttribute("title", "SaveX - Editar post");
         model.addAttribute("post", post);
-        return "create-Post";
+        return "create-post";
     }
 
     @PostMapping("/editPost/{id}")

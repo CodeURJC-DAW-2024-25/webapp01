@@ -63,4 +63,17 @@ public class MarkdownService {
         
         return yamlFrontMatter;
     }
+
+    /**
+     * Extracts the markdown content from a markdown input
+     * @param markdown Markdown input to extract from
+     * @return Markdown content
+    */
+    public String extractMarkdownContent(String markdown) {
+        String[] sections = markdown.split("---");
+        if (sections.length > 1) {
+            return sections[2].trim();
+        }
+        return markdown;
+    }
 }
