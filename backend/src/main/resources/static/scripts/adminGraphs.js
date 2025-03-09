@@ -7,7 +7,7 @@ const data1 = {
     data: {
         labels: ['Mercadona', 'El Corte inglés', 'Carrefour', 'Lidl', 'Dia', 'Consum', 'BM'],
         datasets: [{
-            label: '# de productos',
+            label: 'nº de productos',
             //   total: 59825
             data: [0, 0, 0, 0, 0, 0, 0, 0, 0],
             borderWidth: 1
@@ -22,7 +22,7 @@ const data1 = {
         plugins: {
             title: {
                 display: true,
-                text: '# de productos por supermercado'
+                text: 'nº de productos por supermercado'
             }
         }
     }
