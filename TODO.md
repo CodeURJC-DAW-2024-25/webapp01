@@ -9,9 +9,9 @@
 - [X] Take screenshots of the screens
 - [X] Create navigation map between screens
 - [ ] Check all links
-- [ ] Fix related products
+- [X] Fix related products
 - [X] Modify markdown parser
-- [ ] Refactor `ShoppingListController` and extract the logic to a service
+- [X] Refactor `ShoppingListController` and extract the logic to a service
 
 ## If there is time
 - [ ] Fix styles
