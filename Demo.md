@@ -12,6 +12,7 @@
 ### 🏠 Página Principal (`/`)  
 - Explicar la organización de la página (búsqueda de productos, posts, etc.).  
 - Destacar el diseño y usabilidad.  
+- Uso del camel Case.
 
 ### 👥 Tipos de Usuarios  
 - **Usuario anónimo:** Puede navegar sin registrarse.  
@@ -30,15 +31,15 @@
 3. Inicia sesión con el usuario recién creado.  
 
 ### 🚪 Inicio de Sesión y Permisos  
-1. Intenta acceder a funciones restringidas sin estar autenticado (debe mostrar un error).  
+1. Intenta acceder a funciones restringidas sin estar autenticado (debe mostrar un error).  (pagina no exisitente) 
 2. Inicia sesión y muestra las nuevas opciones disponibles.  
 
 ---
 
 ## 4️⃣ Funcionalidades Principales  
 ### 🔎 Búsqueda y Comparación de Productos  
-1. Busca un producto en la barra de búsqueda.  
-2. Filtra por supermercado, precio y categoría.  
+1. Busca un producto en la barra de búsqueda. --> Producto: leche entera
+2. Filtra por supermercado, precio y categoría.
 3. Muestra la comparación de precios entre distintos supermercados.  
 
 ### 🛍️ Creación y Gestión de Listas de Compras  
@@ -51,6 +52,7 @@
 1. Visualiza un post en la plataforma.  
 2. Agrega un comentario al post.  
 3. Edita o borra un comentario como usuario autenticado.  
+4. Demostración de como un usuario no puede eliminar los comentarios de otros. 
 
 ---
 
@@ -66,7 +68,7 @@
 
 ## 6️⃣ AJAX y Dinamismo  
 ### 🔄 Carga Dinámica con AJAX  
-1. Explica cómo se muestran los resultados de búsqueda sin recargar la página.  
+1. Explica cómo se muestran los resultados de búsqueda sin recargar la página. (Enseñar 10 de máximo) 
 2. Agrega un producto a la lista de compras y muestra que la lista se actualiza en tiempo real.  
 
 ### ❌ Páginas de Error Personalizadas  
@@ -78,8 +80,9 @@
 ## 7️⃣ Funcionalidad del Administrador  
 ### 🎛️ Acceso al Panel de Control  
 1. Inicia sesión como Administrador.  
-2. Muestra cómo los administradores pueden gestionar usuarios, productos y publicaciones.  
-3. Modifica un producto y muestra que el cambio se refleja en la búsqueda.  
+2. Muestra como funcionana las gráficas.
+3. Muestra cómo los administradores pueden gestionar usuarios, productos y publicaciones.  
+4. Modifica un producto y muestra que el cambio se refleja en la búsqueda.  
 
 ### 📝 Creación de Posts  
 1. Accede a la sección de creación de posts.  
