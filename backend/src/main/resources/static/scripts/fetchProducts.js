@@ -1,5 +1,7 @@
 import { fetchData } from "./services/fetchService.js";
 import { createHTMLProduct } from "./services/uiService.js";
+import { keywordsDistance } from "./utils/comparationAlgorithm.js";
+import levensteinDistance from "./utils/levensteinAlgorithm.js";
 
 const $productsContainer = document.querySelector(".products-container");
 const $previousButton = document.querySelector("#previous-button");
@@ -11,7 +13,7 @@ const $minPriceInput = document.querySelector("#minPrice");
 const $maxPriceInput = document.querySelector("#maxPrice");
 const $supermarketRadios = document.querySelectorAll("input[name='supermarket']")
 
-const PRODUCTS_SIZE = 10;
+const PRODUCTS_SIZE = 500;
 
 let currentPage = 0;
 let loading = false;
@@ -79,7 +81,17 @@ async function loadProducts(page = 0) {
     $previousButton.disabled = currentPage === 0;
     $nextButton.disabled = isEnd;
 
-    const productsHTML = data.data.map(createHTMLProduct).join("");
+    const productsScore = {}
+    data.data.forEach(product => {
+        // const nameScore = 1 - levensteinDistance(searchQuery, product.normalized_name) / searchQuery.length
+        const kwScore = searchQuery.trim().split(" ").map(kw => {
+            return product.keywords.map(k => k.split(" ")).flat().some(pkw => levensteinDistance(kw, pkw) < 3)
+        }).filter(Boolean).length
+        const score =  kwScore
+        productsScore[`${product.product_id}@${product.supermarket_name}`] = score;
+    });
+    const productsSorted = data.data.sort((b, a) => productsScore[`${a.product_id}@${a.supermarket_name}`] - productsScore[`${b.product_id}@${b.supermarket_name}`]);
+    const productsHTML = productsSorted.map(createHTMLProduct).join("");
     $productsContainer.innerHTML = productsHTML;
     $pageNumber.textContent = `Page ${currentPage + 1} of ${totalPages}`;
 
