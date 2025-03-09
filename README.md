@@ -196,7 +196,7 @@ This schema provides an overview of how different entities interact within the s
 
 ## 🗺️ Navigation Flow Diagram
 
-!(docs/Navigation_Flow_Diagram.png)
+![Navigation Flow Diagram](docs/Navigation_Flow_Diagram.png)
 
 The following diagram represents the navigation flow and user interactions within our application. It provides a visual overview of the different pages and their accessibility based on user roles:
 
