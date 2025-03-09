@@ -39,7 +39,7 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         // Authentication provider
-        http.authenticationProvider(authenticationProvider());
+        http.authenticationProvider(authenticationProvider()); 
 
         http
                 .authorizeHttpRequests(authorize -> authorize
@@ -57,7 +57,7 @@ public class WebSecurityConfig {
                         .requestMatchers("/products/**").permitAll()
                         .requestMatchers("/search").permitAll()
                         .requestMatchers("/compare").permitAll()
-                        .requestMatchers("/get-compare-table/**").permitAll()
+                        .requestMatchers("/get-compare-table/**").permitAll() 
                         // Private routes
                         .requestMatchers("/admin").hasAnyRole(UserType.ADMIN.name())
                         .requestMatchers("/createPost").hasAnyRole(UserType.ADMIN.name())
