@@ -84,6 +84,10 @@ section {
                 background-color: var(--grey-color);
                 color: var(--text-color);
             }
+
+            &[data-post-id] {
+                cursor: pointer;
+            }
         }
 
 
