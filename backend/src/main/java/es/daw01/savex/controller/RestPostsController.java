@@ -77,10 +77,9 @@ public class RestPostsController {
 
     @GetMapping("/posts/{id}/comments")
     public ResponseEntity<Map<String, Object>> getComments(
-        @PathVariable Long id,
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "1") int size
-    ) {
+            @PathVariable Long id,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "1") int size) {
         // Retrieve post and return 404 if it does not exist
         Optional<Post> op = postService.findById(id);
         if (op.isEmpty())
@@ -120,12 +119,10 @@ public class RestPostsController {
             postService.deleteById(id);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(
-                Map.of("message", "Error al eliminar el post")
-            );
+                    Map.of("message", "Error al eliminar el post"));
         }
 
         return ResponseEntity.ok().body(
-            Map.of("message", "Post eliminado correctamente")
-        );
+                Map.of("message", "Post eliminado correctamente"));
     }
 }

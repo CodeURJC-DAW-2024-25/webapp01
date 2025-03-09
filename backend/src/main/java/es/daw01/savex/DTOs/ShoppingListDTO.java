@@ -12,7 +12,6 @@ public class ShoppingListDTO {
     private String description;
     private int numberOfProducts;
     private List<ProductDTO> products;
-    
 
     public ShoppingListDTO(Long id, String name, String description) {
         this.id = id;
@@ -28,12 +27,12 @@ public class ShoppingListDTO {
         this.name = shoppingList.getName();
         this.description = shoppingList.getDescription();
         this.numberOfProducts = shoppingList.getNumberOfProducts();
-        this.products =  new ArrayList<ProductDTO>();
+        this.products = new ArrayList<ProductDTO>();
         for (Product product : shoppingList.getProducts()) {
             this.products.add(new ProductDTO(product));
         }
     }
-    
+
     // Getters and Setters ---------------------------------------------------->>
 
     public Long getId() {

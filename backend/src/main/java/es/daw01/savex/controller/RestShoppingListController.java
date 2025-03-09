@@ -22,12 +22,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
-
-@RestController 
+@RestController
 @RequestMapping("/api")
 public class RestShoppingListController {
-    
-    @Autowired 
+
+    @Autowired
     private ShoppingListService shoppingListService;
 
     @Autowired
@@ -50,13 +49,11 @@ public class RestShoppingListController {
 
         // Return the shopping lists
         return ResponseEntity.ok(
-            Map.of("data", listsDTO)
-        );
+                Map.of("data", listsDTO));
     }
 
     @PostMapping("/user-lists/{id}/product/{productId}")
-    public ResponseEntity<Map<String,Object>> addProductToList(@PathVariable Long id, @PathVariable String productId) {
-
+    public ResponseEntity<Map<String, Object>> addProductToList(@PathVariable Long id, @PathVariable String productId) {
 
         ProductDTO productDTO = apiService.fetchProduct(productId);
 
@@ -88,7 +85,8 @@ public class RestShoppingListController {
     }
 
     @DeleteMapping("/user-lists/{id}/product/{productId}")
-    public ResponseEntity<Map<String,Object>> removeProductFromList(@PathVariable Long id, @PathVariable Long productId) {
+    public ResponseEntity<Map<String, Object>> removeProductFromList(@PathVariable Long id,
+            @PathVariable Long productId) {
 
         // Get the authenticated user
         User user = controllerUtils.getAuthenticatedUser();

@@ -13,7 +13,7 @@
     width: var(--size);
     height: var(--size);
     padding: 4px;
-    border-radius:8px;
+    border-radius: 8px;
     background-color: var(--primary-color);
 
     img {
@@ -41,7 +41,7 @@
     width: 100%;
 }
 
-.warning{
+.warning {
     width: 100%;
     display: flex;
     gap: 10px;

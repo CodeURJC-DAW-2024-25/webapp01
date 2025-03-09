@@ -23,7 +23,7 @@
             justify-content: center;
             text-align: center;
         }
-    
+
         .hero-image {
             max-width: 200px;
             width: 100%;
@@ -31,12 +31,15 @@
             justify-content: center;
             align-items: center;
             height: auto;
-    
+
             img {
                 width: 100%;
                 height: auto;
             }
         }
     }
-    &.about{margin-top: 80px;}
+
+    &.about {
+        margin-top: 80px;
+    }
 }

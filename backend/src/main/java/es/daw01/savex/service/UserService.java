@@ -39,7 +39,7 @@ public class UserService {
     public Iterable<User> findAll() {
         return userRepository.findAll();
     }
-    
+
     public List<User> findAllByRole(UserType role) {
         return userRepository.findAllByRole(role);
     }
@@ -132,7 +132,8 @@ public class UserService {
             errors.put("email", String.format("El email %s ya existe", userDTO.getEmail()));
 
         // Check if there are errors
-        if (!errors.isEmpty()) return;
+        if (!errors.isEmpty())
+            return;
 
         user.setEmail(userDTO.getEmail().isBlank() ? user.getEmail() : userDTO.getEmail());
         user.setUsername(userDTO.getUsername().isBlank() ? user.getUsername() : userDTO.getUsername());
@@ -141,7 +142,8 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void checkPassword(User user, String password, String newPassword, String ConfirmPassword, Map<String, String> errors) {
+    public void checkPassword(User user, String password, String newPassword, String ConfirmPassword,
+            Map<String, String> errors) {
 
         //Check if the fields are empty
         if (password.isBlank() || newPassword.isBlank() || ConfirmPassword.isBlank()) {
@@ -149,7 +151,7 @@ public class UserService {
         }
 
         //Check if the password is correct
-        if (!checkPasswordMatches(password,user.getHashedPassword())) {
+        if (!checkPasswordMatches(password, user.getHashedPassword())) {
             errors.put("password", "La contraseña actual no coincide");
         }
 
@@ -167,14 +169,16 @@ public class UserService {
         if (newPassword.length() < 8 || newPassword.length() > 50) {
             errors.put("newPassword", "La nueva contraseña debe tener entre 8 y 50 caracteres");
         } else if (!newPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$")) {
-            errors.put("newPassword", "La nueva contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número");
+            errors.put("newPassword",
+                    "La nueva contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número");
         }
 
-        if(!errors.isEmpty()) return;
-        
+        if (!errors.isEmpty())
+            return;
+
         // Update the password
         user.setHashedPassword(hashPassword(newPassword));
-        userRepository.save(user);   
+        userRepository.save(user);
     }
 
     public List<UserDTO> getUsersDTO(Iterable<User> users) {
@@ -216,7 +220,6 @@ public class UserService {
     private String hashPassword(String password) {
         return passwordEncoder.encode(password);
     }
-
 
     /**
      * Checks if a raw password matches an encoded password

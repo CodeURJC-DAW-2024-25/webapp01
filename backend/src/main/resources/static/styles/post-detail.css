@@ -19,13 +19,13 @@
         display: flex;
         flex-direction: column;
         gap: 16px;
-    
+
         .post-title {
             color: var(--primary-color);
             text-align: start;
         }
     }
-    
+
     .post-header-right {
         margin-top: 16px;
         width: 100%;
@@ -255,7 +255,7 @@
         color: var(--text-color);
         resize: none;
         field-sizing: content;
-        
+
         font-size: 16px;
         transition: all 0.2s ease;
 
@@ -268,20 +268,20 @@
 .post-header {
     flex-direction: column;
     gap: 16px;
-    
+
     .post-header-left {
         width: 100%;
         max-width: 100%;
     }
-    
+
     .post-header-right {
         width: 100%;
         max-width: 100%;
-        
+
         flex-direction: row;
         justify-content: flex-start;
         align-items: center;
-        
+
         .separator {
             color: var(--text-color);
         }

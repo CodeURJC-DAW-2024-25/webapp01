@@ -16,8 +16,8 @@ import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "users", uniqueConstraints = {
-    @jakarta.persistence.UniqueConstraint(columnNames = "email"),
-    @jakarta.persistence.UniqueConstraint(columnNames = "username")
+        @jakarta.persistence.UniqueConstraint(columnNames = "email"),
+        @jakarta.persistence.UniqueConstraint(columnNames = "username")
 })
 public class User {
 
@@ -48,16 +48,16 @@ public class User {
 
     // Constructors ----------------------------------------------------------->>
 
-    protected User() { /* Used by Spring Data JPA */ }
+    protected User() {
+        /* Used by Spring Data JPA */ }
 
     public User(
-        String email,
-        String username,
-        String name,
-        String hashedPassword,
-        Blob avatar,
-        UserType role
-    ) {
+            String email,
+            String username,
+            String name,
+            String hashedPassword,
+            Blob avatar,
+            UserType role) {
         this.email = email;
         this.username = username;
         this.name = name;
@@ -70,14 +70,19 @@ public class User {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) return true;
-        if (!(obj instanceof User)) return false;
+        if (this == obj)
+            return true;
+        if (!(obj instanceof User))
+            return false;
 
         User user = (User) obj;
-        if (user.id == this.id) return true;
-        if (user.username.equals(this.username)) return true;
-        if (user.email.equals(this.email)) return true;
-        
+        if (user.id == this.id)
+            return true;
+        if (user.username.equals(this.username))
+            return true;
+        if (user.email.equals(this.email))
+            return true;
+
         return false;
     }
 

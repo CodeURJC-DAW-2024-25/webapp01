@@ -25,6 +25,7 @@
     from {
         transform: translateX(-50%) translateY(-100%);
     }
+
     to {
         transform: translateX(-50%) translateY(0);
     }
@@ -42,7 +43,7 @@
     background-color: var(--grey-color);
     color: var(--primary-color);
 
-    .close-button{
+    .close-button {
         cursor: pointer;
         border: none;
         background-color: transparent;
@@ -58,9 +59,8 @@
 .popup-message {
     width: 100%;
     padding: 10px;
-    padding-bottom:25px ;
+    padding-bottom: 25px;
     background-color: var(--semi-bg-color);
     color: var(--text-color);
     border-radius: 0 0 5px 5px;
 }
-

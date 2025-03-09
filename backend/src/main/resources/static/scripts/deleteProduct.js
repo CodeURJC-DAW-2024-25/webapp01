@@ -8,13 +8,13 @@ buttons.forEach(button => {
     button.addEventListener('click', deleteProduct);
 });
 
-async function deleteProduct(){
+async function deleteProduct() {
     const id = this.getAttribute('data-product-id');
 
     try {
-        await fetchData( `/user-lists/${ListId}/product/${id}`, 'DELETE', {cacheData: false});
+        await fetchData(`/user-lists/${ListId}/product/${id}`, 'DELETE', { cacheData: false });
         window.location.reload();
-    }catch(error){
+    } catch (error) {
         console.error(error);
     }
 }

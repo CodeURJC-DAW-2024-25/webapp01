@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 
 import es.daw01.savex.DTOs.ProductDTO;
 
-
 @Service
 public class ComparisonService {
     // Weights for each comparison factor
@@ -51,10 +50,9 @@ public class ComparisonService {
             double brandSimilarity = compareBrands(targetBrand, candidate.getBrand());
             double quantitySimilarity = compareQuantities(targetQuantity, candidateQuantity);
 
-            double weightedScore = 
-                (nameSimilarity * NAME_WEIGHT) +
-                (brandSimilarity * BRAND_WEIGHT) +
-                (quantitySimilarity * QUANTITY_WEIGHT);
+            double weightedScore = (nameSimilarity * NAME_WEIGHT) +
+                    (brandSimilarity * BRAND_WEIGHT) +
+                    (quantitySimilarity * QUANTITY_WEIGHT);
 
             if (weightedScore > bestScore) {
                 bestScore = weightedScore;
@@ -80,7 +78,8 @@ public class ComparisonService {
      * @return A score between 0.0 and 1.0 (0.0 = no match, 1.0 = exact match)
     */
     private double compareBrands(String targetBrand, String candidateBrand) {
-        if (targetBrand == null || candidateBrand == null) return 0.5;
+        if (targetBrand == null || candidateBrand == null)
+            return 0.5;
         return targetBrand.equalsIgnoreCase(candidateBrand) ? 1.0 : 0.0;
     }
 
@@ -92,9 +91,10 @@ public class ComparisonService {
      * @return A score between 0.0 and 1.0 (0.0 = no match, 1.0 = exact match)
     */
     private double compareQuantities(Optional<Double> targetQuantity, Optional<Double> candidateQuantity) {
-        if (targetQuantity.isEmpty() || candidateQuantity.isEmpty()) return 0.5;
-        double ratio = Math.min(targetQuantity.get(), candidateQuantity.get()) / 
-                       Math.max(targetQuantity.get(), candidateQuantity.get());
+        if (targetQuantity.isEmpty() || candidateQuantity.isEmpty())
+            return 0.5;
+        double ratio = Math.min(targetQuantity.get(), candidateQuantity.get()) /
+                Math.max(targetQuantity.get(), candidateQuantity.get());
         return ratio;
     }
 
@@ -128,14 +128,15 @@ public class ComparisonService {
      * @return Normalized text
     */
     private String normalizeText(String text) {
-        if (text == null) return "";
+        if (text == null)
+            return "";
 
         // Normalize text to remove accents and special characters
         String normalized = Normalizer.normalize(text, Normalizer.Form.NFD)
                 .replaceAll("\\p{M}", "")
                 .replaceAll("[^a-zA-Z0-9 ]", "")
                 .toLowerCase().trim();
-        
+
         return normalized.replaceAll("\\s+", " ");
     }
 
@@ -148,7 +149,8 @@ public class ComparisonService {
     */
     private double calculateSimilarity(String text1, String text2) {
         int maxLen = Math.max(text1.length(), text2.length());
-        if (maxLen == 0) return 1.0;
+        if (maxLen == 0)
+            return 1.0;
 
         int distance = LevenshteinDistance.getDefaultInstance().apply(text1, text2);
         return 1.0 - ((double) distance / maxLen);

@@ -1,4 +1,3 @@
-
 .shopping-lists-container {
     width: 100%;
     min-height: 50vh;
@@ -30,15 +29,17 @@ h1.list-title {
         overflow: hidden;
         transition: all 0.3s ease;
         cursor: pointer;
-        
+
         &.add-new {
             display: flex;
             justify-content: center;
             align-items: center;
             color: var(--text-color);
             font-size: 1.5rem;
-    
-            a, a:visited, a:active {
+
+            a,
+            a:visited,
+            a:active {
                 display: flex;
                 flex-direction: column;
                 justify-content: center;
@@ -47,11 +48,11 @@ h1.list-title {
                 color: var(--text-color);
             }
         }
-    
+
         &:hover {
             border: 1px solid var(--grey-color);
         }
-    
+
         .list-card-header {
             width: 100%;
             display: flex;
@@ -59,13 +60,13 @@ h1.list-title {
             align-items: center;
             background-color: var(--accent-color);
             padding: 15px;
-    
+
             .list-card-title {
                 font-size: 1.2rem;
                 margin-bottom: 0;
                 color: #fff;
             }
-    
+
             .list-card-items {
                 background-color: #fff;
                 color: #333;
@@ -75,10 +76,10 @@ h1.list-title {
                 opacity: 0.8;
             }
         }
-    
+
         .list-card-body {
             padding: 15px;
-        
+
             .list-card-description {
                 margin-bottom: 10px;
                 font-size: 0.9rem;

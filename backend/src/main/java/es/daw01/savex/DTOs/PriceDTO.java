@@ -19,26 +19,33 @@ public class PriceDTO {
 
     // Getters and Setters ---------------------------------------------------->>
     public double getTotal() {
-        return total;  
+        return total;
     }
+
     public void setTotal(double total) {
         this.total = total;
     }
+
     public double getPer_reference_unit() {
         return per_reference_unit;
     }
+
     public void setPer_reference_unit(double per_reference_unit) {
         this.per_reference_unit = per_reference_unit;
     }
+
     public double getReference_units() {
         return reference_units;
     }
+
     public void setReference_units(double reference_units) {
         this.reference_units = reference_units;
     }
+
     public String getReference_unit_name() {
         return reference_unit_name;
     }
+
     public void setReference_unit_name(String reference_unit_name) {
         this.reference_unit_name = reference_unit_name;
     }

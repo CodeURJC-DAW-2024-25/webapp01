@@ -129,13 +129,13 @@ public class CommentService {
         List<CommentDTO> commentsDTO = new ArrayList<>();
 
         // Parse every comment to a DTO format 
-        for (Comment comment : comments) { 
+        for (Comment comment : comments) {
             commentsDTO.add(new CommentDTO(comment, user));
         }
 
         return commentsDTO;
     }
- 
+
     public Map<String, Object> retrieveCommentsFromPost(Post post, User user, Pageable pageable) {
         Map<String, Object> response = new HashMap<>();
 
@@ -146,14 +146,14 @@ public class CommentService {
         List<CommentDTO> commentDTOs = this.getCommentsDTO(commentPage.getContent(), user);
 
         // Generate response map
-        response.put("comments", commentDTOs); 
+        response.put("comments", commentDTOs);
         response.put("currentPage", commentPage.getNumber());
         response.put("totalItems", commentPage.getTotalElements());
         response.put("totalPages", commentPage.getTotalPages());
         response.put("isLastPage", commentPage.isLast());
 
         return response;
-    } 
+    }
 
     /**
      * Delete all comments by a given author
@@ -163,7 +163,6 @@ public class CommentService {
     public void deleteByAuthorId(Long authorId) {
         commentRepository.deleteByAuthorId(authorId);
     }
-
 
     /**
      * Delete all comments from a post

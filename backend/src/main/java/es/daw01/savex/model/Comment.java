@@ -14,27 +14,28 @@ import jakarta.persistence.ManyToOne;
 
 @Entity
 public class Comment {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    
+
     @ManyToOne
     private User author;
-    
+
     @ManyToOne
     private Post post;
-    
+
     @Column(nullable = false)
     @CreatedDate
     private LocalDateTime createdAt;
-    
+
     private String formatedDate;
     private String content;
 
     // Constructors ----------------------------------------------------------->>
 
-    protected Comment() { /* Used by Spring Data JPA */ }
+    protected Comment() {
+        /* Used by Spring Data JPA */ }
 
     public Comment(User author, Post post, String content) {
         this.author = author;
@@ -62,7 +63,8 @@ public class Comment {
      * Remove this comment from the post it belongs to
     */
     public void removeFromPost() {
-        if (this.post == null) return;
+        if (this.post == null)
+            return;
 
         this.post.removeComment(this);
         this.post = null;
@@ -72,7 +74,8 @@ public class Comment {
      * Remove this comment from the author it belongs to
     */
     public void removeFromAuthor() {
-        if (this.author == null) return;
+        if (this.author == null)
+            return;
 
         this.author.removeComment(this);
         this.author = null;
@@ -127,5 +130,5 @@ public class Comment {
     public void setContent(String content) {
         this.content = content;
     }
-    
+
 }

@@ -178,7 +178,7 @@ table {
 
     tr {
 
-        &[data-product-url]{
+        &[data-product-url] {
             cursor: pointer;
         }
 

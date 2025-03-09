@@ -15,7 +15,7 @@ closeButton && closeButton.addEventListener('click', closeModal);
 async function openModal() {
     const res = await fetchData(`/user-lists`, 'GET', { cacheData: false });
     const data = res.data
-    
+
     if (data.length === 0) {
         listsContainer.innerHTML = '<p>No hay listas disponibles</p>';
     }
@@ -53,7 +53,7 @@ function createHTMLList(list) {
 async function addProductToList(listId) {
     // Get the product id from the data attribute
     const productId = document.querySelector('[data-product-id]').getAttribute('data-product-id');
-    
+
     // Send the request to the server
     try {
         await fetchData(`/user-lists/${listId}/product/${productId}`, 'POST');

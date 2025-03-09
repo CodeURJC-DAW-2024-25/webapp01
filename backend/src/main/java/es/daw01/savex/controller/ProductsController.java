@@ -20,19 +20,19 @@ import es.daw01.savex.service.ApiService;
 import es.daw01.savex.service.ProductService;
 
 @Controller
-public class ProductsController { 
+public class ProductsController {
 
     @Autowired
     private ControllerUtils controllerUtils;
 
     @Autowired
-    private ProductService productService; 
+    private ProductService productService;
 
-    @Autowired 
-    private ApiService apiService;  
+    @Autowired
+    private ApiService apiService;
 
     private static final int LIMIT_COMPARE_REQUEST = 5000;
- 
+
     // Constructor or bean configuration (you can create it as @Component or initialize it manually)
     public ProductsController() {
         this.productService = new ProductService();
@@ -47,18 +47,18 @@ public class ProductsController {
         for (String market : supermarkets) {
             try {
                 ResponseEntity<Map<String, Object>> response = apiService.fetchProducts(
-                    searchInput, market, null, null, null, LIMIT_COMPARE_REQUEST, 0 // Request up to 5 products to compare
+                        searchInput, market, null, null, null, LIMIT_COMPARE_REQUEST, 0 // Request up to 5 products to compare
                 );
 
                 List<?> data = (List<?>) response.getBody().get("data");
                 if (data != null && !data.isEmpty()) {
                     List<ProductDTO> candidates = data.stream()
-                    .map(item -> productService.mapToProductDTO((Map<String, Object>) item))
-                    .toList();
-                      
+                            .map(item -> productService.mapToProductDTO((Map<String, Object>) item))
+                            .toList();
+
                     // Compare products using the new service
                     Optional<ProductDTO> bestMatch = productService.findBestMatch(searchInput, null, candidates);
-                 
+
                     bestMatch.ifPresent(product -> comparisonMap.put(market, product));
                 }
             } catch (Exception ex) {
@@ -123,24 +123,24 @@ public class ProductsController {
         return "compare-table";
     }
 
-    @GetMapping("/search")     
-    public String searchProducts(  
-        @RequestParam(required = false) String searchInput,
-        @RequestParam(required = false) String supermarket,
-        @RequestParam(required = false) Double minPrice,
-        @RequestParam(required = false) Double maxPrice,
-        @RequestParam(required = false) String productType,
-        @RequestParam(required = false) Integer page,
+    @GetMapping("/search")
+    public String searchProducts(
+            @RequestParam(required = false) String searchInput,
+            @RequestParam(required = false) String supermarket,
+            @RequestParam(required = false) Double minPrice,
+            @RequestParam(required = false) Double maxPrice,
+            @RequestParam(required = false) String productType,
+            @RequestParam(required = false) Integer page,
         Model model        
     ) {
-        controllerUtils.addUserDataToModel(model); 
+        controllerUtils.addUserDataToModel(model);
         model.addAttribute("searchQuery", searchInput != null ? searchInput : "");
         model.addAttribute("supermarket", supermarket != null ? supermarket : "");
         model.addAttribute("minPrice", minPrice != null ? minPrice : "");
         model.addAttribute("maxPrice", maxPrice != null ? maxPrice : "");
         model.addAttribute("productType", productType != null ? productType : "");
         model.addAttribute("page", page != null ? page : 0);
-        
+
         // Parse available supermarkets
         List<Map<String, Object>> supermarkets = productService.getAvailableSupermarkets(supermarket);
 
@@ -156,15 +156,15 @@ public class ProductsController {
         return "products";
     }
 
-    @GetMapping("/products/{id}") 
+    @GetMapping("/products/{id}")
     public String getProduct(
-        @PathVariable String id, 
-        @RequestParam(required = false) String searchInput,
+            @PathVariable String id,
+            @RequestParam(required = false) String searchInput,
         Model model
     ) {
-        
+
         ProductDTO product = apiService.fetchProduct(id);
-       
+
         controllerUtils.addUserDataToModel(model);
         model.addAttribute("product", product);
         model.addAttribute("searchQuery", searchInput != null ? searchInput : "");

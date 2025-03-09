@@ -29,9 +29,9 @@ const setPostsEvents = () => {
             if (confirmDelete) {
                 const endpoint = `/post/${uid}`;
                 fetchData(endpoint, "DELETE", { cacheData: false })
-                .then(() => {
-                    window.location.reload();
-                });
+                    .then(() => {
+                        window.location.reload();
+                    });
             }
         });
     });

@@ -87,6 +87,4 @@ public class ShoppingListController {
         return "redirect:/profile";
     }
 
-    
-
 }
