@@ -244,6 +244,7 @@ Here are some screenshots of the SaveX platform to give you a visual overview of
 ![Create New Post](docs/Create_new_post.png)
 
 ---
+
 ## 🗺️ Navigation Flow Diagram
 
 ![Navigation Flow Diagram](docs/Navigation_Flow_Diagram.png)
@@ -259,6 +260,24 @@ The diagram illustrates the relationships between key components such as authent
 ---
 
 ## ✋ Participation
+
+### Victor Arroyo Madera
+- Developed the product search and filtering functionality, allowing users to search for products based on multiple criteria.
+- Implemented advanced filters, enabling users to refine their searches by supermarket, category, and price range.
+- Created a responsive and dynamic front-end search interface with real-time filtering for a seamless user experience.
+- Integrated the product price comparison algorithm into the search system to display the most cost-effective options.
+- Optimized query performance by implementing database indexing on key product attributes, improving search efficiency.
+- Assisted in the development of the comment system for posts, ensuring users can engage with content effectively.
+- Contributed to writing project documentation, detailing system functionalities and user guidelines.
+
+#### Commits:
+| # | Commit Message | File |
+|---|------------------|----------------------|
+| 1º | Implement product search feature | `ProductSearchService.java` |
+| 2º | Add advanced filtering options | `SearchFilterUtils.java` |
+| 3º | Optimize database indexing for search queries | `ProductRepository.java` |
+| 4º | Integrate product price comparison in search | `PriceComparisonService.java` |
+| 5º | Assist in developing post comments system | `CommentController.java` |
 
 ---
 
