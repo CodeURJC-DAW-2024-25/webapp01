@@ -1,6 +1,5 @@
 import { fetchData } from "./services/fetchService.js";
 import { createHTMLProduct } from "./services/uiService.js";
-import { keywordsDistance } from "./utils/comparationAlgorithm.js";
 import levensteinDistance from "./utils/levensteinAlgorithm.js";
 
 const $productsContainer = document.querySelector(".products-container");
@@ -71,7 +70,7 @@ async function loadProducts(page = 0) {
     if (minPrice) endpoint += `&minPrice=${encodeURIComponent(minPrice)}`;
     if (maxPrice) endpoint += `&maxPrice=${encodeURIComponent(maxPrice)}`;
     
-    const data = await fetchData(endpoint, "GET");
+    const data = await fetchData(endpoint, "GET", { cacheData: false });
 
     currentPage = data.current_page;
     totalPages = data.total_pages < 1 ? 1 : data.total_pages + 1;
