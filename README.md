@@ -193,8 +193,18 @@ This schema provides an overview of how different entities interact within the s
     
     In this case, the algorithm would correctly choose "Coca-Cola 1.5L" as the best match.
     
-  
-    
+
+## 🗺️ Navigation Flow Diagram
+
+!(docs/Navigation_Flow_Diagram.png)
+
+The following diagram represents the navigation flow and user interactions within our application. It provides a visual overview of the different pages and their accessibility based on user roles:
+
+- **Green (All users)**: Pages accessible to both guests and registered users.
+- **Blue (Registered users)**: Features that require user authentication.
+- **Red (Admin)**: Sections restricted to administrators for content management and analytics.
+
+The diagram illustrates the relationships between key components such as authentication, product browsing, user profile management, and administrative controls. This structure ensures a seamless user experience while maintaining proper role-based access control.
 
 ---
 
