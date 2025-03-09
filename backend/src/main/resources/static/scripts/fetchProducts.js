@@ -68,8 +68,8 @@ async function loadProducts(page = 0) {
     if (supermarket) endpoint += `&supermarket=${encodeURIComponent(supermarket)}`;
     if (minPrice) endpoint += `&minPrice=${encodeURIComponent(minPrice)}`;
     if (maxPrice) endpoint += `&maxPrice=${encodeURIComponent(maxPrice)}`;
-
-    const data = await fetchData(endpoint, "GET", { cacheData: false });
+    
+    const data = await fetchData(endpoint, "GET");
 
     currentPage = data.current_page;
     totalPages = data.total_pages < 1 ? 1 : data.total_pages + 1;

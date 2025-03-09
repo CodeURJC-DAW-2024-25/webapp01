@@ -27,20 +27,21 @@ document.addEventListener("DOMContentLoaded", function () {
         fetchData(`/products?keywords=${keywordsUnparsed}&limit=1000&page=0`, "GET", {
             cacheData: false
         })
-            .then(res => {
-                let products = res.data
-                const mainProduct = { productName, keywords, brand, }
-                const bestBySupermarket = comparationAlgorithm(mainProduct, products)
+        .then(res => {
+            let products = res.data
+            const mainProduct = { productName, keywords, brand, }
+            const bestBySupermarket = comparationAlgorithm(mainProduct, products)
 
-                fetch("/get-compare-table?products=" + Object.values(bestBySupermarket).map(p => `${p.supermarket_name}@${p.display_name}@${p.price.total}@${p.product_url}`).join("_"))
-                    .then(response => response.text())
-                    .then(html => {
-                        compareContainer.innerHTML = html
-                        highlightBestAndWorstPrices()
-                        // Add link to product
-                        document.querySelectorAll("[data-product-url]").forEach(a => a.addEventListener("click", () => window.open(a.dataset.productUrl, "_blank")))
-                    })
-            })
+            fetch("/get-compare-table?products=" + Object.values(bestBySupermarket).map(p => `${p.supermarket_name}@${p.display_name}@${p.price.total}@${p.product_url}`).join("_"))
+                .then(response => response.text())
+                .then(html => {
+                    compareContainer.innerHTML = html
+                    compareBtn.innerHTML = "<i class='bi bi-check-lg'></i>"
+                    highlightBestAndWorstPrices()
+                    // Add link to product
+                    document.querySelectorAll("[data-product-url]").forEach(a => a.addEventListener("click", () => window.open(a.dataset.productUrl, "_blank")))
+                })
+        })
 
     })
 })

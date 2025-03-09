@@ -1,12 +1,12 @@
-<tbody data-post-card>
+<tbody>
     {{#posts}}
-        <tr>
+        <tr data-post-id="{{id}}">
             <td>{{title}}</td>
             <td>{{author}}</td>
             <td>{{nComments}}</td>
             <td>{{date}}</td>
             <td class="text-end">
-                <button class="btn btn-danger" data-admin-command="post-delete" data-post-id="{{id}}">Eliminar</button>
+                <button class="btn btn-danger" data-admin-command="post-delete">Eliminar</button>
             </td>
         </tr>
     {{/posts}}
