@@ -178,6 +178,10 @@ table {
 
     tr {
 
+        &[data-product-url]{
+            cursor: pointer;
+        }
+
         th,
         td {
             padding: 12px 16px;
@@ -186,6 +190,7 @@ table {
             font-weight: 500;
             vertical-align: middle;
             text-align: left;
+            text-transform: capitalize;
         }
 
         th {
@@ -196,6 +201,10 @@ table {
 
         &:last-child td {
             border-bottom: none;
+        }
+
+        &:hover {
+            background-color: #8881;
         }
     }
 
