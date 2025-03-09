@@ -89,6 +89,40 @@ public class ProductsController {
         return "compare-table";
     }
 
+
+    @GetMapping("/get-compare-table")
+    public String getCompareTable(@RequestParam(required = false) String products, Model model) {
+
+        controllerUtils.addUserDataToModel(model);
+        List<Map<String, Object>> comparisons = new ArrayList<>();
+
+        if (products != null) {
+            String[] productIds = products.split("_");
+            for (String productId : productIds) {
+                String[] idSplit = productId.split("@");
+                String supermarket_name = idSplit[0];
+                String display_name = idSplit[1];
+                String price = idSplit[2];
+                String url = idSplit[3];
+                // String product_id = idSplit[4];
+
+                Map<String, Object> entry = new HashMap<>();
+
+                entry.put("product_name", display_name);
+                // entry.put("product_id", product_id);
+                entry.put("product_url", url);
+                entry.put("price", price);
+                entry.put("supermarket", supermarket_name);
+
+                comparisons.add(entry);
+            }
+        }
+
+        model.addAttribute("comparisons", comparisons);
+
+        return "compare-table";
+    }
+
     @GetMapping("/search")     
     public String searchProducts(  
         @RequestParam(required = false) String searchInput,

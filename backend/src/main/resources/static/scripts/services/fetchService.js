@@ -58,7 +58,7 @@ export async function fetchData(endpoint, method, params = {}) {
     }
 
     // Save the data in the cache
-    setCache(url, result);
+    if (cacheData) setCache(url, result);
 
     return result;
 }

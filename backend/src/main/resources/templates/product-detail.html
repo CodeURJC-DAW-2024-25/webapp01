@@ -53,7 +53,7 @@
                 <hr class="separator">
 
                 <div class="product-details-card">
-                    <h3 class="section-title">Product Details</h3>
+                    <h3 class="section-title">Detalles del Producto</h3>
                     <dl class="details-list">
                         <div class="details-row">
                             <dt>Type</dt>
@@ -67,7 +67,7 @@
                 </div>
 
                 <div class="product-categories">
-                    <h3 class="section-title">Categories</h3>
+                    <h3 class="section-title">Categorías</h3>
                     <div class="categories-list">
                         {{#product_categories}}
                         <span class="badge badge-secondary">{{.}}</span>
@@ -92,7 +92,7 @@
 
         <div class="related-products">
             <h2 class="section-title">Productos Relacionados</h2>
-            <div class="grid-layout products-container" data-product-name="{{product.normalized_name}}" data-product-keywords="{{product.keywords}}">
+            <div class="grid-layout products-container" data-product-name="{{product.normalized_name}}" data-product-keywords="{{product.keywords}}" data-product-brand="{{product.brand}}">
                 <!-- FETCHED IN BACKGROUND -->
             </div>
         </div>
@@ -102,7 +102,7 @@
     {{> components/add-product}}
     <script src="/scripts/themeToggle.js" type="module"></script>
     <script src="/scripts/suggestedProducts.js" type="module"></script>
-    <script src="/scripts/details.js" defer></script>
+    <script src="/scripts/details.js" type="module" defer></script>
     <script type="module" src="/scripts/fetchLists.js" type="module"></script>
 </body>
 
