@@ -18,19 +18,19 @@ public class PostDTO {
     private int nComments;
 
     // Constructors ----------------------------------------------------------->>
-    public PostDTO() { }
+    public PostDTO() {
+    }
 
     public PostDTO(
-        long id,
-        String title,
-        String description, 
-        List<CommentDTO> comments,
-        String author,
-        String date,
-        String readingTime,
-        VisibilityType visibility,
-        List<String> tags
-    ) {
+            long id,
+            String title,
+            String description,
+            List<CommentDTO> comments,
+            String author,
+            String date,
+            String readingTime,
+            VisibilityType visibility,
+            List<String> tags) {
         this.id = id;
         this.title = title;
         this.description = description;

@@ -81,12 +81,12 @@ public class ShoppingListService {
      */
     public void addProductToList(ShoppingList shoppingList, ProductDTO productDTO) {
         Optional<Product> op = productService.findByProductDTO(productDTO);
-        
+
         Product product = null;
         if (op.isEmpty()) {
             product = productService.createProductFromDTO(productDTO);
             productService.save(product);
-        }else{
+        } else {
             product = op.get();
         }
 
@@ -111,7 +111,7 @@ public class ShoppingListService {
      * @return The list of shopping list DTOs
      */
     public List<ShoppingListDTO> parseToDTOs(List<ShoppingList> shoppingLists) {
-        
+
         ArrayList<ShoppingListDTO> shoppingListDTOs = new ArrayList<>();
 
         for (ShoppingList shoppingList : shoppingLists) {

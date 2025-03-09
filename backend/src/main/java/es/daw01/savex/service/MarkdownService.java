@@ -12,15 +12,14 @@ import java.util.Map;
 
 import org.springframework.stereotype.Service;
 
-
 @Service
 public class MarkdownService {
     private MutableDataSet options = new MutableDataSet()
-        .set(HtmlRenderer.SOFT_BREAK, "<br />\n");
+            .set(HtmlRenderer.SOFT_BREAK, "<br />\n");
 
     private final Parser parser = Parser.builder(options)
-        .extensions(List.of(YamlFrontMatterExtension.create()))
-        .build();
+            .extensions(List.of(YamlFrontMatterExtension.create()))
+            .build();
 
     private final HtmlRenderer renderer = HtmlRenderer.builder(options).build();
 
@@ -41,13 +40,13 @@ public class MarkdownService {
     */
     public Map<String, List<String>> extractYamlFrontMatter(String markdown) {
         Map<String, List<String>> yamlFrontMatter = new HashMap<>();
-        
+
         // Split the markdown content into sections
         String[] sections = markdown.split("---");
 
         if (sections.length > 1) {
             String yamlSection = sections[1].trim();
-            
+
             // Split the YAML section into lines
             String[] lines = yamlSection.split("\n");
             for (String line : lines) {
@@ -60,7 +59,7 @@ public class MarkdownService {
                 }
             }
         }
-        
+
         return yamlFrontMatter;
     }
 

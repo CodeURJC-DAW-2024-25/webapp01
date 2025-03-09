@@ -82,7 +82,6 @@ public class AdminController {
 
         return "admin/admin-user-card";
     }
-    
 
     @GetMapping("/template/posts")
     public String getPostsTemplateString(Model model, @RequestParam(defaultValue = "5") int max) {

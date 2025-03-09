@@ -60,7 +60,7 @@ async function loadProducts(page = 0) {
     if (loading) return;
     if (page < 0) return;
 
-    loading = true; 
+    loading = true;
 
     // Format the URL with the search query and filters
     const { supermarket, minPrice, maxPrice } = window.filterOptions || {};
@@ -68,7 +68,7 @@ async function loadProducts(page = 0) {
     if (supermarket) endpoint += `&supermarket=${encodeURIComponent(supermarket)}`;
     if (minPrice) endpoint += `&minPrice=${encodeURIComponent(minPrice)}`;
     if (maxPrice) endpoint += `&maxPrice=${encodeURIComponent(maxPrice)}`;
-    
+
     const data = await fetchData(endpoint, "GET", { cacheData: false });
 
     currentPage = data.current_page;
@@ -78,7 +78,7 @@ async function loadProducts(page = 0) {
     // Update disabled state of buttons
     $previousButton.disabled = currentPage === 0;
     $nextButton.disabled = isEnd;
-    
+
     const productsHTML = data.data.map(createHTMLProduct).join("");
     $productsContainer.innerHTML = productsHTML;
     $pageNumber.textContent = `Page ${currentPage + 1} of ${totalPages}`;

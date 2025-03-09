@@ -6,7 +6,8 @@ import java.time.format.DateTimeFormatter;
 public class DateUtils {
     public static final String DATE_FORMAT = "dd-MM-yyyy HH:mm";
 
-    private DateUtils() { /* Prevent instantiation */ }
+    private DateUtils() {
+        /* Prevent instantiation */ }
 
     /**
      * Get the current date and time

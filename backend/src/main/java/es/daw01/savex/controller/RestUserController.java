@@ -24,8 +24,7 @@ import es.daw01.savex.service.UserService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
-@RestController 
+@RestController
 @RequestMapping("/api")
 public class RestUserController {
 
@@ -40,12 +39,12 @@ public class RestUserController {
     @GetMapping("/profile/{id}/avatar")
     public ResponseEntity<Object> getProfilePic(@PathVariable long id) throws SQLException {
         Blob avatar = null;
-        
+
         User user = userService.findById(id);
 
         // If the user does not exist or the avatar is null, return default avatar
-        
-        if ( user == null || user.getAvatar() == null) {
+
+        if (user == null || user.getAvatar() == null) {
             Resource img = new ClassPathResource(DEFAULT_AVATAR_PATH);
             try {
                 avatar = BlobProxy.generateProxy(img.getInputStream(), img.contentLength());
@@ -55,9 +54,9 @@ public class RestUserController {
             }
 
             return ResponseEntity.ok()
-                .contentLength(avatar.length())
-                .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-                .body(new InputStreamResource(avatar.getBinaryStream()));
+                    .contentLength(avatar.length())
+                    .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+                    .body(new InputStreamResource(avatar.getBinaryStream()));
         }
 
         // Get the user avatar if it exists and return it
@@ -65,14 +64,13 @@ public class RestUserController {
         Resource resource = new InputStreamResource(avatar.getBinaryStream());
 
         return ResponseEntity.ok()
-            .contentLength(avatar.length())
-            .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-            .body(resource);
+                .contentLength(avatar.length())
+                .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
+                .body(resource);
     }
 
-
     @PostMapping("/profile/avatar")
-    public ResponseEntity<Map<String,Object>> uploadAvatar(@RequestParam MultipartFile avatar) {
+    public ResponseEntity<Map<String, Object>> uploadAvatar(@RequestParam MultipartFile avatar) {
         User user = controllerUtils.getAuthenticatedUser();
 
         try {
@@ -80,11 +78,9 @@ public class RestUserController {
         } catch (Exception e) {
             e.printStackTrace();
             return ResponseEntity.badRequest().body(
-                Map.of("message", e.getMessage())
-            );
+                    Map.of("message", e.getMessage()));
         }
         return ResponseEntity.ok().body(
-            Map.of("message", "Avatar updated successfully")
-        );
+                Map.of("message", "Avatar updated successfully"));
     }
 }

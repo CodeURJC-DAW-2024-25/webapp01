@@ -165,7 +165,7 @@ public class PostsController {
     public String editPost(Model model, @PathVariable long id) {
         Optional<Post> postOptional = postService.findById(id);
         Post post = postOptional.get();
-        
+
         controllerUtils.addUserDataToModel(model);
         model.addAttribute("title", "SaveX - Editar post");
         model.addAttribute("post", post);
@@ -174,15 +174,14 @@ public class PostsController {
 
     @PostMapping("/editPost/{id}")
     public String editPost(
-        @PathVariable long id,
-        @RequestParam String title,
-        @RequestParam String description,
-        @RequestParam String content,
-        @RequestParam String author,
-        @RequestParam String tags,
-        @RequestParam String visibility,
-        @RequestParam MultipartFile banner
-    ) {
+            @PathVariable long id,
+            @RequestParam String title,
+            @RequestParam String description,
+            @RequestParam String content,
+            @RequestParam String author,
+            @RequestParam String tags,
+            @RequestParam String visibility,
+            @RequestParam MultipartFile banner) {
         Optional<Post> postOptional = postService.findById(id);
         if (postOptional.isEmpty()) {
             return "redirect:/posts?error=not_found";

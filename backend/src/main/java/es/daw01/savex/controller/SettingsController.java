@@ -18,14 +18,12 @@ import es.daw01.savex.model.User;
 import es.daw01.savex.service.UserService;
 import jakarta.validation.Valid;
 
-
-
 @Controller
 public class SettingsController {
 
     @Autowired
     private ControllerUtils controllerUtils;
-    
+
     @Autowired
     private UserService userService;
 
@@ -36,11 +34,10 @@ public class SettingsController {
 
     @PostMapping("/update-account-data")
     public String postUpdateAccountInfo(
-        @Valid @ModelAttribute("user") UserDTO userDTO, 
-        BindingResult bindingResult, 
-        Model model,
-        RedirectAttributes redirectAttributes
-    ) {
+            @Valid @ModelAttribute("user") UserDTO userDTO,
+            BindingResult bindingResult,
+            Model model,
+            RedirectAttributes redirectAttributes) {
         // Retrieve the authenticated user
         User currentUser = controllerUtils.getAuthenticatedUser();
         String currentUsername = currentUser.getUsername();
@@ -83,26 +80,29 @@ public class SettingsController {
                 model.addAttribute("errors", errors);
                 return renderSettingsPage(model);
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             return renderSettingsPage(model);
         }
 
         // Redirect
         redirectAttributes.addFlashAttribute("popupTitle", "Cambios guardados");
         redirectAttributes.addFlashAttribute("popupContent", "Usuario actualizado correctamente");
-        if (userDTO.getUsername().equals(currentUsername)) return "redirect:/settings?success=true";
-        else return "/logout";
+        if (userDTO.getUsername().equals(currentUsername))
+            return "redirect:/settings?success=true";
+        else
+            return "/logout";
     }
 
     @PostMapping("/change-password")
-    public String postChangePassword(String password, String newPassword, String confirmPassword, Model model, RedirectAttributes redirectAttributes) {
-        
+    public String postChangePassword(String password, String newPassword, String confirmPassword, Model model,
+            RedirectAttributes redirectAttributes) {
+
         User user = controllerUtils.getAuthenticatedUser();
         Map<String, String> errors = new HashMap<>();
 
         // Check if the password is correct
         userService.checkPassword(user, password, newPassword, confirmPassword, errors);
-        
+
         if (!errors.isEmpty()) {
             model.addAttribute("errors", errors);
             return renderSettingsPage(model);
@@ -112,7 +112,6 @@ public class SettingsController {
         redirectAttributes.addFlashAttribute("popupContent", "Contraseña cambiada correctamente");
         return "redirect:/settings?success=true";
     }
-    
 
     @PostMapping("/delete-account")
     public String postDeleteAccount(Model model) {
@@ -122,7 +121,6 @@ public class SettingsController {
         return "/logout";
     }
 
-
     // Private Methods ------------------------------------------------------------>>
 
     private String renderSettingsPage(Model model) {
@@ -131,7 +129,7 @@ public class SettingsController {
 
         // Add user data to the model
         controllerUtils.addUserDataToModel(model);
-        model.addAttribute("email",user.getEmail());
+        model.addAttribute("email", user.getEmail());
         model.addAttribute("title", "SaveX - ".concat(model.getAttribute("name").toString()));
 
         return "settings";

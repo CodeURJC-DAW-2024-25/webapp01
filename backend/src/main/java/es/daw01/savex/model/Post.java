@@ -85,16 +85,15 @@ public class Post {
     }
 
     public Post(
-        String title,
-        String description,
-        String content,
-        String author,
-        String date,
-        String readingTime,
-        VisibilityType visibility,
-        List<String> tags,
-        Blob banner
-    ) {
+            String title,
+            String description,
+            String content,
+            String author,
+            String date,
+            String readingTime,
+            VisibilityType visibility,
+            List<String> tags,
+            Blob banner) {
         this.createdAt = LocalDateTime.now();
         this.title = title;
         this.description = description;
@@ -173,10 +172,10 @@ public class Post {
         int words = this.content.split(" ").length;
         int minutes = words / 200;
 
-        if (minutes < 1) minutes = 1;
+        if (minutes < 1)
+            minutes = 1;
         return String.format("%d min", minutes);
     }
-
 
     // Getters and setters ---------------------------------------------------->>
 

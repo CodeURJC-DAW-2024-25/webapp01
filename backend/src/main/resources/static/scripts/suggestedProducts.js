@@ -10,14 +10,14 @@ const fetchSuggestedProducts = async () => {
     const res = await fetchData(`/products?keywords=${keywords}&limit=10&page=0`, "GET", {
         cacheData: false
     })
-    
+
     let products = res.data
     products = products.filter(product => product.normalized_name !== $grid.dataset.productName)
-    const prodScore = {} 
+    const prodScore = {}
     products.forEach(product => prodScore[`${product.product_id}@${product.supermarket_name}`] = levensteinDistance($grid.dataset.productName, product.normalized_name))
     products.sort((a, b) => prodScore[`${a.product_id}@${a.supermarket_name}`] - prodScore[`${b.product_id}@${b.supermarket_name}`])
     products = products.slice(0, 4)
-    
+
     const productsHTML = []
 
     for (const product of products) {

@@ -6,7 +6,6 @@ import es.daw01.savex.model.Comment;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
 
-
 public class CommentDTO {
     private Long id;
     private AuthorDTO author;
@@ -16,34 +15,36 @@ public class CommentDTO {
 
     // Constructors ----------------------------------------------------------->>
 
-    public CommentDTO() { }
+    public CommentDTO() {
+    }
 
     public CommentDTO(Comment rawComment, User user) {
         this.id = rawComment.getId();
         this.author = new AuthorDTO(rawComment.getAuthor());
         this.content = rawComment.getContent();
         this.formatedDate = rawComment.getFormatedDate();
-        
+
         if (user != null) {
             this.canDelete = rawComment.isAuthor(user) || user.getRole() == UserType.ADMIN;
-        } else this.canDelete = false;
+        } else
+            this.canDelete = false;
     }
 
     // Inner classes ---------------------------------------------------------->>
     private class AuthorDTO {
         private long id;
         private String username;
-        
+
         public AuthorDTO(User author) {
             this.username = (author != null)
-                ? author.getUsername()
-                : "Anonymous";
-            
+                    ? author.getUsername()
+                    : "Anonymous";
+
             this.id = (author != null)
-                ? author.getId()
-                : -1;
+                    ? author.getId()
+                    : -1;
         }
-        
+
         @JsonProperty("username")
         public String getUsername() {
             return username;

@@ -58,22 +58,22 @@ public class Product {
     private List<String> keywords;
 
     // Constructors ----------------------------------------------------------->>
-    public Product() { /* Used by Spring Data JPA */ }
+    public Product() {
+        /* Used by Spring Data JPA */ }
 
     public Product(
-        String name,
-        String productId,
-        String productUrl,
-        SupermarketType supermarket,
-        String productType,
-        String thumbnail,
-        List<String> productCategories,
-        double priceTotal,
-        double pricePerReferenceUnit,
-        double referenceUnits,
-        String referenceUnitName,
-        String brand
-    ) {
+            String name,
+            String productId,
+            String productUrl,
+            SupermarketType supermarket,
+            String productType,
+            String thumbnail,
+            List<String> productCategories,
+            double priceTotal,
+            double pricePerReferenceUnit,
+            double referenceUnits,
+            String referenceUnitName,
+            String brand) {
         this.name = name;
         this.productId = productId;
         this.productUrl = productUrl;
@@ -101,7 +101,6 @@ public class Product {
         Product product = (Product) obj;
         return this.productId.equals(product.getProductId()) && this.supermarket.equals(product.getSupermarket());
     }
-
 
     // Getters and Setters ---------------------------------------------------->>
 

@@ -3,7 +3,6 @@ package es.daw01.savex.controller;
 import java.util.HashMap;
 import java.util.Map;
 
-
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +18,6 @@ import es.daw01.savex.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-
 @Controller
 public class AuthController {
 
@@ -30,7 +28,7 @@ public class AuthController {
     private UserService userService;
 
     @GetMapping("/login")
-    public String getLoginPage(@RequestParam(required = false) boolean error,  Model model) {
+    public String getLoginPage(@RequestParam(required = false) boolean error, Model model) {
         // Add user data to the model
         controllerUtils.addUserDataToModel(model);
         if (error) {
@@ -40,7 +38,7 @@ public class AuthController {
         model.addAttribute("title", "SaveX - Iniciar sesión");
         return "login";
     }
-    
+
     @GetMapping("/register")
     public String getRegisterPage(Model model) {
         // Add user data to the model
@@ -57,14 +55,14 @@ public class AuthController {
 
     @PostMapping("/register")
     public String postRegisterPage(
-        @Valid @ModelAttribute UserDTO userDTO, 
-        BindingResult bindingResult, 
-        Model model) {
+            @Valid @ModelAttribute UserDTO userDTO,
+            BindingResult bindingResult,
+            Model model) {
 
         Map<String, String> errors = new HashMap<>();
-        
+
         if (bindingResult.getFieldError("username") != null) {
-            errors.put("username", bindingResult.getFieldError("username").getDefaultMessage());    
+            errors.put("username", bindingResult.getFieldError("username").getDefaultMessage());
         }
         if (bindingResult.getFieldError("email") != null) {
             errors.put("email", bindingResult.getFieldError("email").getDefaultMessage());
@@ -86,7 +84,7 @@ public class AuthController {
         try {
             userService.registerNewUser(userDTO);
 
-        } catch(Exception e) {
+        } catch (Exception e) {
             return "redirect:/register?error=exists";
         }
 

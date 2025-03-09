@@ -17,11 +17,11 @@ input.addEventListener('change', async () => {
             cacheData: false,
             body: formData
         });
-    
+
         avatarImages.forEach(avatar => {
             avatar.src = URL.createObjectURL(file);
         });
-        
+
     } catch (err) {
         console.error(err);
     }
