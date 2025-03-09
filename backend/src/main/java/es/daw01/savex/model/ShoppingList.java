@@ -46,9 +46,30 @@ public class ShoppingList {
         this.products = products;
     }
 
+    /**
+     * Add a product to the shopping list
+     * 
+     * @param product The product to add
+    */
     public void addProduct(Product product) {
         this.products.add(product);
         this.numberOfProducts++;
+    }
+
+    /**
+     * Remove a product from the shopping list
+     * 
+     * @param product The product to remove
+    */
+    public void removeProduct(Product product) {
+        for (Product p : this.products) {
+            if (p.equals(product)) {
+                this.products.remove(p);
+                break;
+            }
+        }
+
+        this.numberOfProducts--;
     }
 
     // Getters and Setters ---------------------------------------------------->>

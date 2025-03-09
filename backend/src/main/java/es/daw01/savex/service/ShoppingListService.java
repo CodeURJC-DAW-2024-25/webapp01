@@ -11,7 +11,6 @@ import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.DTOs.ShoppingListDTO;
 import es.daw01.savex.model.Product;
 import es.daw01.savex.model.ShoppingList;
-import es.daw01.savex.model.SupermarketType;
 import es.daw01.savex.model.User;
 import es.daw01.savex.repository.ShoppingListRepository;
 
@@ -81,13 +80,7 @@ public class ShoppingListService {
      * @param product      The product to add
      */
     public void addProductToList(ShoppingList shoppingList, ProductDTO productDTO) {
-        SupermarketType supermarketType;
-        String supermarketName = productDTO.getSupermarket_name();
-        String productId = productDTO.getProduct_id();
-
-        supermarketType = SupermarketType.fromString(supermarketName);
-        
-        Optional<Product> op = productService.findBySupermarketAndProductId(supermarketType, productId);
+        Optional<Product> op = productService.findByProductDTO(productDTO);
         
         Product product = null;
         if (op.isEmpty()) {
@@ -98,17 +91,6 @@ public class ShoppingListService {
         }
 
         shoppingList.addProduct(product);
-        shoppingListRepository.save(shoppingList);
-    }
-
-    /**
-     * Remove a product from a shopping list
-     * 
-     * @param shoppingList The shopping list to remove the product
-     * @param product      The product to remove
-     */
-    public void removeProductById(ShoppingList shoppingList, Long productId) {
-        shoppingList.getProducts().removeIf(product -> product.getId() == productId);
         shoppingListRepository.save(shoppingList);
     }
 
@@ -137,6 +119,26 @@ public class ShoppingListService {
         }
 
         return shoppingListDTOs;
+    }
+
+    /**
+     * Remove a product from a shopping list
+     * 
+     * @param shoppingList The shopping list to remove the product
+     * @param product      The product to remove
+     */
+    public void removeProductFromList(ShoppingList shoppingList, Long productId) {
+        Optional<Product> op = productService.findById(productId);
+
+        // If the product does not exist, throw an exception
+        if (op.isEmpty()) {
+            throw new IllegalArgumentException("Product does not exist");
+        }
+
+        Product product = op.get();
+
+        shoppingList.removeProduct(product);
+        shoppingListRepository.save(shoppingList);
     }
 
 }

@@ -193,8 +193,91 @@ This schema provides an overview of how different entities interact within the s
     
     In this case, the algorithm would correctly choose "Coca-Cola 1.5L" as the best match.
     
-  
-    
+---
+
+## 📸 Screenshots
+
+Here are some screenshots of the SaveX platform to give you a visual overview of its features and user interface:
+
+### Home Page
+   SaveX's home page provides an intuitive interface where users can quickly access the main features of the platform, including product search, price comparison, and shopping list management (for registered users).
+![Home Page](docs/Main_page.png)
+
+### Post Page
+   Lists available blog posts about saving money and shopping tips. Users can browse and read various articles.
+![Post Page](docs/Post_page.png)
+
+### Post Details
+   Displays a full blog post with a comments section where users can interact by leaving feedback. 
+![Post Details](docs/Post_details_page.png)
+
+### Login/Register Page
+   A dual-section screen allowing users to either sign in with their credentials or create a new account.
+![Login/Register Page](docs/Login_register_page.jpg)
+
+### Product Search Page
+   A search interface where users can look up products, filter results by supermarket, and set price ranges to find the best deals.
+![Product Search Page](docs/Login_register_page.jpg)
+
+### Product Details 
+   Provides detailed information about a selected product, including price comparisons from different supermarkets and related product recommendations.
+![Product Details](docs/Product_details_page.png)
+
+### Show List Page
+   Shows a specific shopping list, including its description and added products. Users can add or remove products from the list.
+![Show List Page](docs/Show_lista_page.png)
+
+### Profile Page
+   Displays the user’s profile with their name, username, and account creation date. Users can manage their lists and access account settings.
+![Profile Page](docs/Profile_page.png)
+
+### Settings Page
+   Users can update their profile information, such as name, email, and username. They can also change their password or delete their account.
+![Settings Page](docs/Settings_page.png)
+
+### Dashboard Page (Admin)
+   An admin panel displaying app statistics, user management options, and a control panel for posts, allowing admins to delete users or content.
+![Dashboard Page](docs/Dashboard_page.png)
+
+### Create New Post (Admin)
+   A form where users (likely admins) can create new blog posts by entering details such as title, category, visibility, and content.
+![Create New Post](docs/Create_new_post.png)
+
+---
+
+## 🗺️ Navigation Flow Diagram
+
+![Navigation Flow Diagram](docs/Navigation_Flow_Diagram.png)
+
+The following diagram represents the navigation flow and user interactions within our application. It provides a visual overview of the different pages and their accessibility based on user roles:
+
+- **Green (All users)**: Pages accessible to both guests and registered users.
+- **Blue (Registered users)**: Features that require user authentication.
+- **Red (Admin)**: Sections restricted to administrators for content management and analytics.
+
+The diagram illustrates the relationships between key components such as authentication, product browsing, user profile management, and administrative controls. This structure ensures a seamless user experience while maintaining proper role-based access control.
+
+---
+
+## ✋ Participation
+
+### Victor Arroyo Madera
+- Developed the product search and filtering functionality, allowing users to search for products based on multiple criteria.
+- Implemented advanced filters, enabling users to refine their searches by supermarket, category, and price range.
+- Created a responsive and dynamic front-end search interface with real-time filtering for a seamless user experience.
+- Integrated the product price comparison algorithm into the search system to display the most cost-effective options.
+- Optimized query performance by implementing database indexing on key product attributes, improving search efficiency.
+- Assisted in the development of the comment system for posts, ensuring users can engage with content effectively.
+- Contributed to writing project documentation, detailing system functionalities and user guidelines.
+
+#### Commits:
+| # | Commit Message | File |
+|---|------------------|----------------------|
+| 1º | Implement product search feature | `ProductSearchService.java` |
+| 2º | Add advanced filtering options | `SearchFilterUtils.java` |
+| 3º | Optimize database indexing for search queries | `ProductRepository.java` |
+| 4º | Integrate product price comparison in search | `PriceComparisonService.java` |
+| 5º | Assist in developing post comments system | `CommentController.java` |
 
 ---
 

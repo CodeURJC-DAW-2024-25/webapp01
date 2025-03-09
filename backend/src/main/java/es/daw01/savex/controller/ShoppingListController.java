@@ -43,11 +43,18 @@ public class ShoppingListController {
 
     @GetMapping("/{id}")
     public String getShoppingList(@PathVariable Long id, Model model) {
+
+        User user = controllerUtils.getAuthenticatedUser();
+
         Optional<ShoppingList> op = shoppingListService.findById(id);
         if (op.isEmpty())
             return "redirect:/";
 
         ShoppingList shoppingList = op.get();
+
+        // Check if the user is the owner of the shopping list
+        if (!shoppingList.getUser().equals(user))
+            return "redirect:/";
 
         ShoppingListDTO shoppingListDTO = shoppingListService.parseToDTO(shoppingList);
 
@@ -79,5 +86,7 @@ public class ShoppingListController {
         shoppingListService.deleteById(id);
         return "redirect:/profile";
     }
+
+    
 
 }
