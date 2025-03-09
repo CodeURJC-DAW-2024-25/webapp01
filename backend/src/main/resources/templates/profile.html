@@ -52,7 +52,7 @@
             </div>
         </div>
 
-        <!-- Sección de listas -->
+        {{^isAdmin}}
         <div class="lists-section">
             <div class="lists-header">
                 <h3>Tus listas</h3>
@@ -78,6 +78,8 @@
                 {{/shoppingLists}}
             </div>
         </div>
+        {{/isAdmin}}
+
         {{> components/footer}}
     </div>
     {{> components/modal}}
