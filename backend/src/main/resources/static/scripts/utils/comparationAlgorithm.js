@@ -35,7 +35,7 @@ export default function comparationAlgorithm(mainProduct, candidateProducts) {
     return bestBySupermarket
 }
 
-function keywordsDistance(k1, k2) {
+export function keywordsDistance(k1, k2) {
     let missing = 0
     for (const keyword of k1) {
         if (!k2.join(",").includes(keyword)) {

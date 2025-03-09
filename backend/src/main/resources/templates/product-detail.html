@@ -40,7 +40,9 @@
 
                 <div class="product-price">
                     <span class="price-main">{{price.total}}&euro;</span>
+                    {{#price.reference_unit_name}}
                     <span class="price-unit">{{price.per_reference_unit}}&euro;/{{price.reference_unit_name}}</span>
+                    {{/price.reference_unit_name}}
                 </div>
 
                 {{#isAuthenticated}}
