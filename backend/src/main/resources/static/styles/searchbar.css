@@ -1,4 +1,3 @@
-
 form.search-bar {
     height: 100%;
     width: 100%;
@@ -7,7 +6,7 @@ form.search-bar {
     align-items: center;
     justify-content: center;
     gap: 8px;
-    
+
     input {
         width: 500px;
         max-width: 100%;

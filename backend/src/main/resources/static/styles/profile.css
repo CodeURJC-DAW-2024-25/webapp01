@@ -61,7 +61,7 @@
             .name-badge {
                 margin: 0;
             }
-    
+
             .username {
                 color: var(--blue-color);
                 margin: 0;
@@ -185,11 +185,13 @@
         }
     }
 
-    .name-badge, .user-stats, .user-actions, .username {
+    .name-badge,
+    .user-stats,
+    .user-actions,
+    .username {
         text-align: center;
         align-items: center;
         justify-content: center;
         flex-direction: column;
     }
 }
-

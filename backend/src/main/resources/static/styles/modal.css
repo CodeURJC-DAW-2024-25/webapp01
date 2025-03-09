@@ -1,8 +1,8 @@
-.modal-container{
-    display: none; 
+.modal-container {
+    display: none;
     flex-direction: column;
     position: fixed;
-    z-index: 1000; 
+    z-index: 1000;
     left: 0;
     top: 0;
     width: 100%;
@@ -27,7 +27,7 @@
     background-color: var(--grey-color);
     color: var(--primary-color);
 
-    .close-button{
+    .close-button {
         cursor: pointer;
         border: none;
         background-color: transparent;
@@ -41,14 +41,14 @@
 }
 
 .modal-message {
-    
+
     display: flex;
     flex-direction: column;
     width: 100%;
     align-items: center;
     max-width: 600px;
     padding: 20px;
-    padding-bottom:25px ;
+    padding-bottom: 25px;
     background-color: var(--semi-bg-color);
     color: var(--text-color);
     border-radius: 0 0 5px 5px;
@@ -69,6 +69,7 @@
     background-color: var(--semi-bg-color);
 
 }
+
 .checked {
     color: var(--accent-color);
 }

@@ -37,7 +37,8 @@
     --grey-bg-color: #c7c6c6;
 }
 
-.dark, .dark * {
+.dark,
+.dark * {
 
     --grey-color: #27272a;
     --white-color: #000;
@@ -79,12 +80,12 @@ body {
     justify-content: flex-start;
     gap: 200px;
 
-    &.no-gap{
-        gap:80px;
+    &.no-gap {
+        gap: 80px;
     }
 
-    &.small-gap{
-        gap:40px;
+    &.small-gap {
+        gap: 40px;
     }
 
     &.small-padding {
@@ -100,7 +101,10 @@ body {
 a {
     text-decoration: none;
 
-    &:hover, &:active, &:focus, &:visited {
+    &:hover,
+    &:active,
+    &:focus,
+    &:visited {
         text-decoration: none;
     }
 }

@@ -1,4 +1,4 @@
-.graphics_wrap{
+.graphics_wrap {
     display: flex;
     justify-content: center;
     margin-top: 20px;
@@ -12,15 +12,15 @@
     }
 }
 
-section{
+section {
     width: 100%;
     padding: 20px;
     border-radius: 10px;
     background-color: var(--semi-bg-color);
-    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
-.text-end{
+.text-end {
     text-align: end;
 }
 
@@ -32,7 +32,8 @@ section{
     margin-bottom: 10px;
 }
 
-.admin-users, .admin-posts{
+.admin-users,
+.admin-posts {
     width: 100%;
     border-radius: 5px;
     background-color: var(--semi-bg-color);
@@ -40,15 +41,19 @@ section{
     margin-bottom: 20px;
 
     /* Hide scrollbar */
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none;  /* IE 10+ */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+
+    /* IE 10+ */
     ::-webkit-scrollbar {
-        display: none;  /* Safari and Chrome */
+        display: none;
+        /* Safari and Chrome */
     }
 
-    & > table.table {
+    &>table.table {
 
-        thead > tr > th {
+        thead>tr>th {
             border: none;
             border-style: hidden;
 
@@ -66,7 +71,7 @@ section{
             }
         }
 
-        tbody > tr {
+        tbody>tr {
             border: none;
             border-style: hidden;
 
@@ -81,17 +86,17 @@ section{
             }
         }
 
-        
+
     }
 }
 
-.load-more-btn td{
+.load-more-btn td {
     padding: 10px 0;
 }
 
 
 @media (max-width: 768px) {
-    .graphics_wrap{
+    .graphics_wrap {
         flex-direction: column;
     }
 
