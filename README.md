@@ -308,24 +308,23 @@ The diagram illustrates the relationships between key components such as authent
 
 ## ✋ Participation
 
-### Victor Arroyo Madera
-- Developed the product search and filtering functionality, allowing users to search for products based on multiple criteria.
-- Implemented advanced filters, enabling users to refine their searches by supermarket, category, and price range.
-- Created a responsive and dynamic front-end search interface with real-time filtering for a seamless user experience.
-- Integrated the product price comparison algorithm into the search system to display the most cost-effective options.
-- Optimized query performance by implementing database indexing on key product attributes, improving search efficiency.
-- Assisted in the development of the comment system for posts, ensuring users can engage with content effectively.
-- Contributed to writing project documentation, detailing system functionalities and user guidelines.
+### Victor Arroyo Madera  
+- Developed the product search and filtering functionality, allowing users to search for products based on multiple criteria.  
+- Implemented advanced filters, enabling users to refine their searches by supermarket, category, and price range.  
+- Created a responsive and dynamic search interface with real-time filtering for a seamless user experience.  
+- Integrated the price comparison algorithm into the search system to display the most cost-effective options.  
+- Optimized query performance by implementing database indexing on key product attributes, improving search efficiency.  
+- Refactored product comparison logic to enhance accuracy and improve null handling.  
+- Contributed to project documentation, detailing system functionalities and user guidelines.  
 
-#### Commits
-
-| #  | Commit Message                                | File                          |
-|----|-----------------------------------------------|-------------------------------|
-| 1º | Implement product search feature              | `ProductSearchService.java`   |
-| 2º | Add advanced filtering options                | `SearchFilterUtils.java`      |
-| 3º | Optimize database indexing for search queries | `ProductRepository.java`      |
-| 4º | Integrate product price comparison in search  | `PriceComparisonService.java` |
-| 5º | Assist in developing post comments system     | `CommentController.java`      |
+#### Commits:  
+| # | Commit Message | File(s) |  
+|---|------------------|----------------------|  
+| 1º | **Implemented dynamic product matching algorithm with static threshold** | `ProductMatchingAlgorithm.java` |  
+| 2º | **Enhanced product comparison table with improved styling and sorting functionality** | `ProductComparisonTable.js` |  
+| 3º | **Refactored product DTO mapping in ProductService and removed redundant conversion methods** | `ProductService.java` |  
+| 4º | **Implemented comparison table in the product detail page** | `ProductDetailPage.js` |  
+| 5º | **Optimized query indexing to improve search performance** | `ProductRepository.java` |  
 
 ### Diego Sánchez Rincón
 - Developed the post management system, allowing administrators to create, edit, and delete blog posts.
