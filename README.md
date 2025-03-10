@@ -56,12 +56,20 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 
 4. **Build the project with Maven**
 ```bash
-mvn clean install
+# Linux
+./mvnw clean install
+
+# Windows
+.\mvnw.cmd clean install
 ```
 
 5. **Run the application**
 ```bash
-mvn spring-boot:run
+# Linux
+./mvnw spring-boot:run
+
+# Windows
+.\mvnw.cmd spring-boot:run
 ```
 
 **🌐 Access the application**
