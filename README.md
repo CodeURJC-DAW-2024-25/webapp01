@@ -192,7 +192,7 @@ This schema provides an overview of how different entities interact within the s
 
 ## 🛠️ Additional Technology
 
-- **APIs**: We will use a supermarket API to get the products and their details (prices, descriptions, etc).
+- **API**: We will use a supermarket API to get the products and their details (prices, descriptions, etc).
 
 ---
 
