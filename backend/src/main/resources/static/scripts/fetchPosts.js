@@ -8,12 +8,11 @@ const POSTS_SIZE = 4;
 
 let currentPage = 0;
 let loading = false;
-let isEnd = false;
 
 loadMoreButton.addEventListener('click', loadPosts);
 
 async function loadPosts() {
-    if (loading || isEnd) return;
+    if (loading) return;
     loading = true;
 
     // Fetch posts from the server

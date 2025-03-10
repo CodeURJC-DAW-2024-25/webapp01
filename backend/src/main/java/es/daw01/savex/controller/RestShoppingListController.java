@@ -1,16 +1,16 @@
 package es.daw01.savex.controller;
 
-import java.util.List;
 import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.daw01.savex.DTOs.ProductDTO;
-import es.daw01.savex.DTOs.ShoppingListDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.ShoppingList;
 import es.daw01.savex.model.User;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/user-lists")
 public class RestShoppingListController {
 
     @Autowired
@@ -35,24 +35,24 @@ public class RestShoppingListController {
     @Autowired
     private ApiService apiService;
 
-    @GetMapping("/user-lists")
-    public ResponseEntity<Map<String, Object>> getUserLists() {
-
+    @GetMapping({ "", "/" })
+    public ResponseEntity<Map<String, Object>> getUserLists(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "4") int size
+    ) {
         // Get the authenticated user
         User user = controllerUtils.getAuthenticatedUser();
 
-        // Get the shopping lists of the user
-        List<ShoppingList> lists = shoppingListService.findAllByUser(user);
+        // Retrieve the shopping lists paginated
+        Map<String, Object> response = shoppingListService.retrieveUserLists(
+            user,
+            PageRequest.of(page, size)
+        );
 
-        // Parse the shopping lists to DTOs
-        List<ShoppingListDTO> listsDTO = shoppingListService.parseToDTOs(lists);
-
-        // Return the shopping lists
-        return ResponseEntity.ok(
-                Map.of("data", listsDTO));
+        return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/user-lists/{id}/product/{productId}")
+    @PostMapping("/{id}/product/{productId}")
     public ResponseEntity<Map<String, Object>> addProductToList(@PathVariable Long id, @PathVariable String productId) {
 
         ProductDTO productDTO = apiService.fetchProduct(productId);
@@ -84,7 +84,7 @@ public class RestShoppingListController {
         }
     }
 
-    @DeleteMapping("/user-lists/{id}/product/{productId}")
+    @DeleteMapping("/{id}/product/{productId}")
     public ResponseEntity<Map<String, Object>> removeProductFromList(@PathVariable Long id,
             @PathVariable Long productId) {
 

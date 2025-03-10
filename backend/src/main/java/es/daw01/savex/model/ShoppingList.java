@@ -1,6 +1,9 @@
 package es.daw01.savex.model;
 
+import java.time.LocalDateTime;
 import java.util.List;
+
+import org.springframework.data.annotation.CreatedDate;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -34,9 +37,14 @@ public class ShoppingList {
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Product> products;
 
+    @Column(nullable = false)
+    @CreatedDate
+    private LocalDateTime createdAt;
+
     // Constructors ----------------------------------------------------------->>
     public ShoppingList() {
-        /* Used by Spring Data JPA */ }
+        this.createdAt = LocalDateTime.now();
+    }
 
     public ShoppingList(String name, String description, User user, List<Product> products) {
         this.name = name;
@@ -44,6 +52,7 @@ public class ShoppingList {
         this.numberOfProducts = products != null ? products.size() : 0;
         this.user = user;
         this.products = products;
+        this.createdAt = LocalDateTime.now();
     }
 
     /**

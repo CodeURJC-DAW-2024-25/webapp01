@@ -60,3 +60,14 @@ export function createHTMLPost(post) {
     </a>
     `;
 }
+
+export function createHTMLList(list) {
+    return `
+    <div class="modal-display-list">
+        <label for="listName">${list.name}</label>
+        <button data-list-id="${list.id}" class="clickable clickable-tool bordered">
+            <i class="bi bi-plus-lg"></i>
+        </button>
+    </div>
+    `
+}

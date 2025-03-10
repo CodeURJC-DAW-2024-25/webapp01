@@ -52,6 +52,13 @@
     background-color: var(--semi-bg-color);
     color: var(--text-color);
     border-radius: 0 0 5px 5px;
+
+    .shopping-lists-container {
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 

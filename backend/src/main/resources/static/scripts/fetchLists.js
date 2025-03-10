@@ -1,53 +1,35 @@
 import { fetchData } from "./services/fetchService.js";
+import { createHTMLList } from "./services/uiService.js";
 
-const CSRF_TOKEN = document.querySelector('meta[name="_csrf"]').content;
-const CSRF_HEADER = document.querySelector('meta[name="_csrf_header"]').content;
+export async function fetchLists(listsContainer, loadMoreButton, currentPage = 0, loading = false) {
+    const LISTS_SIZE = 4;
 
-const listsContainer = document.querySelector('.modal-message');
-const button = document.getElementById('addToListBtn')
+    // Prevent multiple requests
+    if (loading) return;
+    loading = true;
 
-const closeButton = document.getElementsByClassName('close-button')[0];
+    // Fetch lists from the server
+    const endpoint = `/user-lists?page=${currentPage}&size=${LISTS_SIZE}`;
+    const res = await fetchData(endpoint, 'GET', { cacheData: false });
+    console.log(res);
 
-// Check if the button exists
-button && button.addEventListener('click', openModal);
-closeButton && closeButton.addEventListener('click', closeModal);
+    // Insert lists to the DOM
+    res.data.forEach(list => {
+        listsContainer?.insertAdjacentHTML('beforeend', createHTMLList(list));
 
-async function openModal() {
-    const res = await fetchData(`/user-lists`, 'GET', { cacheData: false });
-    const data = res.data
+        // Add event listener to the add to list button
+        const addButton = document.querySelector(`button[data-list-id="${list.id}"]`);
+        addButton.addEventListener('click', () => addProductToList(list.id));
+    });
 
-    if (data.length === 0) {
-        listsContainer.innerHTML = '<p>No hay listas disponibles</p>';
+    // Update the current page and loading status
+    currentPage++;
+    loading = false;
+
+    // Check if there are more lists to load
+    if (res.isLastPage) {
+        loadMoreButton?.remove();
     }
-    else {
-        listsContainer.innerHTML = '';
-        data.forEach(list => {
-            const content = createHTMLList(list);
-            listsContainer.insertAdjacentHTML('beforeend', content);
-            document.querySelector(`button[data-list-id="${list.id}"]`).addEventListener('click', () => addProductToList(list.id));
-        });
-    }
-
-
-    document.getElementById('modal').style.display = 'flex';
-    document.querySelector('body').style.overflow = 'hidden';
-}
-
-function closeModal() {
-    document.getElementById('modal').style.display = 'none';
-    document.querySelector('body').style.overflow = 'scroll';
-}
-
-
-function createHTMLList(list) {
-    return `
-        <div class="modal-display-list">
-            <label for="listName">${list.name}</label>
-            <button data-list-id="${list.id}" class="clickable clickable-tool bordered">
-                <i class="bi bi-plus-lg"></i>
-            </button>
-        </div>
-    `
 }
 
 async function addProductToList(listId) {

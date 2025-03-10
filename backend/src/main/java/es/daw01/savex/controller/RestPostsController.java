@@ -103,8 +103,9 @@ public class RestPostsController {
 
     @GetMapping("/posts")
     public ResponseEntity<Map<String, Object>> getPosts(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "5") int size
+    ) {
         // Retrieve posts paginated
         Map<String, Object> response = postService.retrievePosts(
                 PageRequest.of(page, size));
