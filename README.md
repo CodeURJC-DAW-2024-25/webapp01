@@ -308,24 +308,24 @@ The diagram illustrates the relationships between key components such as authent
 
 ## ✋ Participation
 
-### Victor Arroyo Madera
-- Developed the product search and filtering functionality, allowing users to search for products based on multiple criteria.
-- Implemented advanced filters, enabling users to refine their searches by supermarket, category, and price range.
-- Created a responsive and dynamic front-end search interface with real-time filtering for a seamless user experience.
-- Integrated the product price comparison algorithm into the search system to display the most cost-effective options.
-- Optimized query performance by implementing database indexing on key product attributes, improving search efficiency.
-- Assisted in the development of the comment system for posts, ensuring users can engage with content effectively.
-- Contributed to writing project documentation, detailing system functionalities and user guidelines.
+### Victor Arroyo Madera  
+- Developed the product search and filtering functionality, allowing users to search for products based on multiple criteria.  
+- Implemented advanced filters, enabling users to refine their searches by supermarket, category, and price range.  
+- Created a responsive and dynamic search interface with real-time filtering for a seamless user experience.  
+- Integrated the price comparison algorithm into the search system to display the most cost-effective options.  
+- Optimized query performance by implementing database indexing on key product attributes, improving search efficiency.  
+- Refactored product comparison logic to enhance accuracy and improve null handling.  
+- Contributed to project documentation, detailing system functionalities and user guidelines.  
 
-#### Commits
+#### Commits:  
+| # | Commit Message | File(s) |  
+|---|------------------|----------------------|  
+| 1º | **feat: implement dynamic product matching algorithm with static threshold** | `ProductMatchingAlgorithm.java` |  
+| 2º | **feat: enhance product comparison table with improved styling and sorting functionality** | `ProductComparisonTable.js` |  
+| 3º | **refactor: refactor product DTO mapping to ProductService and remove redundant conversion method** | `ProductService.java` |  
+| 4º | **feat: add comparison table feature and related styles to product detail page** | `ProductDetailPage.js` |  
+| 5º | **feat: add price comparison algorithm details to README and clean up unused import in ProductsController** | `ProductRepository.java` |  
 
-| #  | Commit Message                                | File                          |
-|----|-----------------------------------------------|-------------------------------|
-| 1º | Implement product search feature              | `ProductSearchService.java`   |
-| 2º | Add advanced filtering options                | `SearchFilterUtils.java`      |
-| 3º | Optimize database indexing for search queries | `ProductRepository.java`      |
-| 4º | Integrate product price comparison in search  | `PriceComparisonService.java` |
-| 5º | Assist in developing post comments system     | `CommentController.java`      |
 
 ### Diego Sánchez Rincón
 - Developed the post management system, allowing administrators to create, edit, and delete blog posts.
@@ -371,6 +371,30 @@ The diagram illustrates the relationships between key components such as authent
 | 3º | a399562: "feat: suggested products"                                              | `suggestedProducts.js`        |
 | 4º | e0d47f8: posts page                                                              | `post-page.css`               |
 | 5º | b11735b: "temp: admin controller"                                                | `adminGraphs.js`              |
+
+### Daniel Santos López
+
+- Developed shopping list management features, allowing users to create, edit, and delete lists.
+- Implemented the product addition and removal functionality for shopping lists, enabling users to manage their items.
+- Implemented modals for dynamic list creation and dynamic product addition to list.  
+- Styled the profile page and settings page for a consistent and intuitive user interface.
+- Implemented popups for user feedback and error messages to enhance the user experience.
+- Developed the settings page for users to manage their profile information, change passwords, and delete accounts.
+- Started implementing avatar upload functionality for user profiles.
+- Added validation and error handling to the user registration and login forms to ensure data integrity.
+- Implmented functionality to save post banner image
+  
+#### Commits
+
+
+| #  | Commit Message                                                                   | File                          |
+|----|----------------------------------------------------------------------------------|-------------------------------|
+| 1º | [Feat: add functionality to add products to user shopping lists](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a82167b9da77a8143a338e10d452245a38078df0)  | `RestShoppingListController.java`     |
+| 2º | [Feat: Add validation to user registration and enhance error handling in AuthController](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/31e6646e9b078231f67172c304ab2169dc8878c2)  | `AuthController.java`             |
+| 3º | [Feat: implemented functionality to change user password with validations](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/46934c4313ce00c01b78011202c0791b4e65a241)    | `SettingsController.java`        |
+| 4º | [Feat: Implement error handling on the login page with an informational popup](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b7c99685582431a51b59e4db1163ce7b14f714f6)   | `AuthController.java` |
+| 5º | [Feat: Implement avatar upload and retrieval functionality in user profile](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/692e38cb735211884a484f55f920f1c425783592)                 | `RestUserController.java`               |
+
 
 ---
 

@@ -100,22 +100,12 @@ public class DatabaseLoader {
 
         userRepository.save(
                 new User(
-                    "a@gmail.com",
-                    "a",
-                    "a",
-                    passwordEncoder.encode("a"),
+                    "userDefault1@gmail.com",
+                    "userDefault1",
+                    "userDefault1",
+                    passwordEncoder.encode("userPassword"),
                     null,
                     UserType.ADMIN
-                )
-            );
-        userRepository.save(
-                new User(
-                    "b@gmail.com",
-                    "b",
-                    "b",
-                    passwordEncoder.encode("b"),
-                    null,
-                    UserType.USER
                 )
             );
 
