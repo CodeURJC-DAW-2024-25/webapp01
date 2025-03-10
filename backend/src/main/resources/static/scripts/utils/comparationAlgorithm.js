@@ -14,7 +14,7 @@ export default function comparationAlgorithm(mainProduct, candidateProducts) {
         let keywordsScore = keywordsDistance(mainProduct.keywords, product.keywords) / mainProduct.keywords.length
 
         // Calculate final score with weights
-        productsScore[pid] = keywordsScore ** 4 + nameScore + brandScore
+        productsScore[pid] = keywordsScore + nameScore + brandScore
         if (keywordsScore > .8 || nameScore > .8 || brandScore > .8) productsScore[pid] = Infinity
     }
 
