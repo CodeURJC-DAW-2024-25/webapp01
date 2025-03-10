@@ -64,7 +64,7 @@ mvn clean install
 mvn spring-boot:run
 ```
 
-** 🌐 Access the application**
+**🌐 Access the application**
 Open your web browser and navigate to `https://localhost:8443` to access the SaveX platform.
 
 ---
@@ -264,7 +264,7 @@ Here are some screenshots of the SaveX platform to give you a visual overview of
 
 ### Product Search Page
    A search interface where users can look up products, filter results by supermarket, and set price ranges to find the best deals.
-![Product Search Page](docs/assets/Login_register_page.jpg)
+![Product Search Page](docs/assets/Search_product_page.png)
 
 ### Product Details 
    Provides detailed information about a selected product, including price comparisons from different supermarkets and related product recommendations.
@@ -366,3 +366,5 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 ```
+
+---
