@@ -405,13 +405,13 @@ The diagram illustrates the relationships between key components such as authent
 
 #### Commits
 
-| #  | Commit Message                                                                   | File                          |
-|----|----------------------------------------------------------------------------------|-------------------------------|
-| 1º |feat: add post editing functionality and improve create post form with dynamic data                               | `PostController.java`     |
-| 2º | feat: add delete functionality for shopping lists                                  | `ShoppingListController.java`        |
-| 3º | add shoppingList to profile                                           | `ShoppingListController.java`        |
-| 4º | create post                                                          | `PostController.java`               |
-| 5º | modify admin page                                               | `admin.html`              |
+| #   | Commit Message                                                                                                                                                                          | File(s)                       |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| 1º  | [feat: add post editing functionality and improve create post form with dynamic data](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/12591602dc594ffc4e200eb85645138adb4197fc) | `PostController.java`         |
+| 2º  | [feat: add delete functionality for shopping lists](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/1e5c1d66ffc3767d33f1acc945fd1ff2bb2d26ba)                                   | `ShoppingListController.java` |
+| 3º  | [add shoppingList to profile](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b42fd5a48afc1c7900601da7dc5f46bc598ee2e9)                                                         | `ShoppingListController.java` |
+| 4º  | [create post](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/1ee42e5f7d7707a41e6d0717980a9f648848ea82)                                                                         | `PostController.java`         |
+| 5º  | [modify admin page](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/2aed99e040d5306430295832bc4fbe46c23111c7)                                                                   | `admin.html`                  |
 
 ---
 
