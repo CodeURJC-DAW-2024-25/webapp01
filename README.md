@@ -20,7 +20,7 @@ SaveX is a platform that allows users to compare the prices of products between 
 
 To get started with SaveX, follow these steps:
 
-### 🛠️ Prerequisitesvictorrosalejo
+### 🛠️ Prerequisites
 
 | Technology | Version | Description                                                   |
 |------------|---------|---------------------------------------------------------------|
