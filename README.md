@@ -395,6 +395,23 @@ The diagram illustrates the relationships between key components such as authent
 | 4º | [Feat: Implement error handling on the login page with an informational popup](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b7c99685582431a51b59e4db1163ce7b14f714f6)   | `AuthController.java` |
 | 5º | [Feat: Implement avatar upload and retrieval functionality in user profile](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/692e38cb735211884a484f55f920f1c425783592)                 | `RestUserController.java`               |
 
+### Elena Tordesillas Fernández
+- Developed the admin command implementation, allowing administrators to manage system settings efficiently.
+- Implemented post creation functionality, enabling users to publish content seamlessly.
+- Developed post editing functionality, allowing users to modify their posts easily.
+- Developed the user command implementation, providing users with intuitive controls for managing their data.
+- Implemented the ability to create product lists, allowing users to organize and track their preferred items.
+- Developed the delete product list feature, ensuring users can remove unnecessary lists effortlessly.
+
+#### Commits
+
+| #  | Commit Message                                                                   | File                          |
+|----|----------------------------------------------------------------------------------|-------------------------------|
+| 1º |feat: add post editing functionality and improve create post form with dynamic data                               | `PostController.java`     |
+| 2º | feat: add delete functionality for shopping lists                                  | `ShoppingListController.java`        |
+| 3º | add shoppingList to profile                                           | `ShoppingListController.java`        |
+| 4º | create post                                                          | `PostController.java`               |
+| 5º | modify admin page                                               | `admin.html`              |
 
 ---
 
