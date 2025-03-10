@@ -20,4 +20,4 @@
 - [ ] Fix encapsulations
 - [ ] About us page
 - [ ] Add a loader
-- [ ] Fix admin responsive
+- [X] Fix admin responsive
