@@ -16,9 +16,6 @@ import java.util.stream.Collectors;
 public class ProductService {
 
     @Autowired
-    private ComparisonService comparisonService;
-
-    @Autowired
     private ProductRepository productRepository;
 
     
@@ -30,18 +27,6 @@ public class ProductService {
     */
     public Optional<Product> findById(long id) {
         return productRepository.findById(id);
-    }
-
-    /**
-     * Find the best match for a product based on the target name and brand
-     * 
-     * @param targetName The target name
-     * @param targetBrand The target brand
-     * @param candidates The list of candidates
-     * @return The best match
-    */
-    public Optional<ProductDTO> findBestMatch(String targetName, String targetBrand, List<ProductDTO> candidates) {
-        return comparisonService.findBestMatch(targetName, targetBrand, candidates);
     }
 
     /**

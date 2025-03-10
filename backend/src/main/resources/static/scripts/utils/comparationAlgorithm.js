@@ -26,12 +26,9 @@ export default function comparationAlgorithm(mainProduct, candidateProducts) {
         const score = productsScore[`${product.product_id}@${product.supermarket_name}`]
         if (!bestBySupermarket[product.supermarket_name] && score < Infinity) {
             bestBySupermarket[product.supermarket_name] = product
-            console.log(`New best product for ${product.supermarket_name}: ${product.normalized_name}`)
-            console.log(` - ProductScore: ${score}, keywords: ${product.keywords}`)
         }
     })
 
-    console.log("Products:", candidateProducts, bestBySupermarket);
     return bestBySupermarket
 }
 

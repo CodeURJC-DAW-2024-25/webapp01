@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.service.ApiService;
-import es.daw01.savex.service.ComparisonService;
 import es.daw01.savex.service.ProductService;
 
 @Controller
@@ -30,29 +29,9 @@ public class ProductsController {
     @Autowired 
     private ApiService apiService; 
     
-    @Autowired
-    private ComparisonService comparisonService;
-
-    private static final int LIMIT_COMPARE_REQUEST = 5000;
- 
     // Constructor or bean configuration (you can create it as @Component or initialize it manually)
     public ProductsController() {
         this.productService = new ProductService();
-    }
-
-    // Endpoint to compare products across supermarkets
-    @GetMapping("/compare")
-    public String compareProducts(@RequestParam(required = false) String searchInput, Model model) {
-        controllerUtils.addUserDataToModel(model);
-
-        List<String> supermarkets = productService.getSupermarkets();
-        List<Map<String, Object>> comparisons = comparisonService.compareProductsAcrossSupermarkets(searchInput, supermarkets, productService, LIMIT_COMPARE_REQUEST);
-
-        model.addAttribute("comparisons", comparisons);
-        model.addAttribute("supermarkets", supermarkets);
-        model.addAttribute("searchQuery", searchInput != null ? searchInput : "");
-
-        return "compare-table";
     }
 
     // Endpoint to get the comparison table for specific products

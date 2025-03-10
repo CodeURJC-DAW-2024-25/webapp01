@@ -11,7 +11,6 @@ export async function fetchLists(listsContainer, loadMoreButton, currentPage = 0
     // Fetch lists from the server
     const endpoint = `/user-lists?page=${currentPage}&size=${LISTS_SIZE}`;
     const res = await fetchData(endpoint, 'GET', { cacheData: false });
-    console.log(res);
 
     // Insert lists to the DOM
     res.data.forEach(list => {
