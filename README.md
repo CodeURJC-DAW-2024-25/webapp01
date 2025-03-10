@@ -151,15 +151,15 @@ This schema provides an overview of how different entities interact within the s
 
 ## 🔒 User Permissions
 
-| Permission                                       | Anonymous User | Registered User | Admin User |
-| ------------------------------------------------ | -------------- | --------------- | -----------|
+| Permission                                       | Anonymous User | Registered User | Admin User  |
+| ------------------------------------------------ | -------------- | --------------- | ----------- |
 | Can view homepage                                | ✅             | ✅              | ✅         |
 | Can view products                                | ✅             | ✅              | ✅         |
 | Can view product details                         | ✅             | ✅              | ✅         |
 | Can search for products                          | ✅             | ✅              | ✅         |
 | Can compare products                             | ✅             | ✅              | ✅         |
 | Can view posts and comments                      | ✅             | ✅              | ✅         |
-| Can create / edit / delete own profile           | ❌             | ✅              | ✅         |
+| Can create / edit / delete own profile           | ❌             | ✅              | ❌         |
 | Can create / edit / delete shopping lists        | ❌             | ✅              | ✅         |
 | Can create / edit / delete comments              | ❌             | ✅              | ✅         |
 | Can manage other users' accounts                 | ❌             | ❌              | ✅         |
@@ -172,22 +172,19 @@ This schema provides an overview of how different entities interact within the s
 
 - Users will be able to upload images to set a profile picture.
 - Products will have images provided by the supermarkets API.
-- Shopping lists will have a default image. Users will be able to upload images to set a custom image.
 - Posts will have a banner image.
 
 ---
 
 ## 📊 Graphics
 
-- We will use various charts and graphs to visualize the price comparisons between different supermarkets.
-- The platform will provide visual insights into the most cost-effective supermarkets for a given shopping list.
+- Admin dashboard will have some graphs to visualize users activity and supermarkets statistics
 
 ---
 
 ## 🛠️ Additional Technology
 
 - **APIs**: We will use a supermarket API to get the products and their details (prices, descriptions, etc).
-- **PDF Generation** (Optional): Implement a feature to generate a PDF with the shopping list from the user.
 
 ---
 
@@ -322,6 +319,7 @@ This diagram provides an overview of the application's structure, showing how di
 | 4º | [feat: add comparison table feature and related styles to product detail page](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a147d94790cd23ec7ac1559bcb12975a74956b7c)                              | `ProductDetailPage.js`            |  
 | 5º | [feat: add price comparison algorithm details to README and clean up unused import in ProductsController](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/ecb588d4a644f14e5a4f223e0428a8e140a0a44a)   | `ProductRepository.java`          |  
 
+---
 
 ### Diego Sánchez Rincón
 - Developed the post management system, allowing administrators to create, edit, and delete blog posts.
@@ -344,6 +342,8 @@ This diagram provides an overview of the application's structure, showing how di
 | 3º | [Feat: Add Markdown rendering for post content and improve post detail styling](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b1c044ef414ebf05bfa415f0df3aea2db59e2a9e)    | `MarkdownService.java`        |
 | 4º | [Refactor: Simplify product search logic and add REST API for product retrieval](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/9af21b67d5d57c3719fc01eefd3a8f559f38751c)   | `RestProductsController.java` |
 | 5º | [Feat: Implement load more functionality for posts with AJAX](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/f11117d03b020a4760ea32f113bea088e6fa5b7b)                      | `fetchPosts.js`               |
+
+---
 
 ### Jaime José Portillo Pérez
 
@@ -368,6 +368,8 @@ This diagram provides an overview of the application's structure, showing how di
 | 4º | [posts page](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/e0d47f80fc6d64d4c631e108c7f0e4d6b7d178df)                                                           | `post-page.css`               |
 | 5º | [temp: admin controller](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b11735b7d993995ff68252c1aa9c22788b12283e)                                               | `adminGraphs.js`              |
 
+---
+
 ### Daniel Santos López
 
 - Developed shopping list management features, allowing users to create, edit, and delete lists.
@@ -382,7 +384,6 @@ This diagram provides an overview of the application's structure, showing how di
   
 #### Commits
 
-
 | #  | Commit Message                                                                                                                                                                              | File(s)                                 |  
 |----|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|  
 | 1º | [Feat: add functionality to add products to user shopping lists](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a82167b9da77a8143a338e10d452245a38078df0)                          | `RestShoppingListController.java`       |
@@ -390,6 +391,8 @@ This diagram provides an overview of the application's structure, showing how di
 | 3º | [Feat: implemented functionality to change user password with validations](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/46934c4313ce00c01b78011202c0791b4e65a241)                | `SettingsController.java`               |
 | 4º | [Feat: Implement error handling on the login page with an informational popup](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b7c99685582431a51b59e4db1163ce7b14f714f6)            | `AuthController.java`                   |
 | 5º | [Feat: Implement avatar upload and retrieval functionality in user profile](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/692e38cb735211884a484f55f920f1c425783592)               | `RestUserController.java`               |
+
+---
 
 ### Elena Tordesillas Fernández
 - Developed the admin command implementation, allowing administrators to manage system settings efficiently.
