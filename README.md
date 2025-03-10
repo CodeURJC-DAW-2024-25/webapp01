@@ -16,6 +16,59 @@ SaveX is a platform that allows users to compare the prices of products between 
 
 ---
 
+## 🚀 Getting Started
+
+To get started with SaveX, follow these steps:
+
+### 🛠️ Prerequisitesvictorrosalejo
+
+| Technology | Version | Description                                                   |
+|------------|---------|---------------------------------------------------------------|
+| Java       | 21      | Programming language used for backend development.            |
+| Spring Boot| 3.4.2   | Framework for building Java-based enterprise applications.    |
+| MySQL      | 8.0.33  | Relational database management system for data storage.       |
+| Maven      | 3.8.3+  | Build automation tool used for managing project dependencies. |
+
+### 🏗️ Installation and Set Up
+
+1.  **Clone the repository**
+```bash
+git clone https://github.com/CodeURJC-DAW-2024-25/webapp01.git SaveX --branch main --depth 1
+cd ./SaveX/backend
+```
+
+2. **Install MySQL**
+Download and install MySQL from the official website: [MySQL Downloads](https://dev.mysql.com/downloads/).
+Once installed, create a new database named `savexdb`.
+
+3. **Set up the application properties**
+Open the `src/main/resources/application.properties` file and configure the database connection settings by replacing the placeholders with your MySQL configuration:
+```properties
+spring.datasource.url=jdbc:mysql://localhost:3306/savexdb
+spring.datasource.username=root
+spring.datasource.password={{your_password}}
+spring.datasource.driver-class-name=com.mysql.cj.jdbc.Driver
+
+spring.jpa.hibernate.ddl-auto={{create-drop|update}}
+spring.jpa.show-sql=true
+spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
+```
+
+4. **Build the project with Maven**
+```bash
+mvn clean install
+```
+
+5. **Run the application**
+```bash
+mvn spring-boot:run
+```
+
+** 🌐 Access the application**
+Open your web browser and navigate to `https://localhost:8443` to access the SaveX platform.
+
+---
+
 ## 📦 Entities
 
 ### 👤 User
