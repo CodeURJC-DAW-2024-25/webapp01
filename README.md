@@ -414,7 +414,6 @@ This diagram provides an overview of the application's structure, showing how di
 - Implemented post creation functionality, enabling users to publish content seamlessly.
 - Developed post editing functionality, allowing users to modify their posts easily.
 - Developed the user command implementation, providing users with intuitive controls for managing their data.
-- Implemented the ability to create product lists, allowing users to organize and track their preferred items.
 - Developed the delete product list feature, ensuring users can remove unnecessary lists effortlessly.
 
 #### Commits
