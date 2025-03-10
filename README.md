@@ -349,6 +349,29 @@ The diagram illustrates the relationships between key components such as authent
 | 4º | Refactor: Simplify product search logic and add REST API for product retrieval   | `RestProductsController.java` |
 | 5º | Feat: Implement load more functionality for posts with AJAX                      | `fetchPosts.js`               |
 
+### Jaime José Portillo Pérez
+
+- Developed the searchbar algorithm
+- Developed the suggested/related products algorithm
+- Developed price caparator algorithm 
+- Implemented admin dashboard
+- Implemented admin commands
+  - List all users
+  - Delete user
+  - List all posts
+  - Delete post
+- Implemented products and activity graphs
+
+#### Commits
+
+| #  | Commit Message                                                                   | File                          |
+|----|----------------------------------------------------------------------------------|-------------------------------|
+| 1º | d5dc344: "feat: Comparation of products algorithm"                               | `ProductsController.java`     |
+| 2º | 29e9a13: "feat: async admin lists all users"                                     | `AdminController.java`        |
+| 3º | a399562: "feat: suggested products"                                              | `suggestedProducts.js`        |
+| 4º | e0d47f8: posts page                                                              | `post-page.css`               |
+| 5º | b11735b: "temp: admin controller"                                                | `adminGraphs.js`              |
+
 ---
 
 ## 📄 License
