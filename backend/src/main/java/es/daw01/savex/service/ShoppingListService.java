@@ -1,11 +1,16 @@
 package es.daw01.savex.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
 
 import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.DTOs.ShoppingListDTO;
@@ -71,6 +76,32 @@ public class ShoppingListService {
         ShoppingList shoppingList = new ShoppingList(name, description, user, null);
         shoppingListRepository.save(shoppingList);
         return shoppingList;
+    }
+
+    /**
+     * Get the shopping lists of a user
+     * 
+     * @param user     The user to get the shopping lists
+     * @param pageable The pageable object
+     * @return The list of shopping lists
+     */
+    public Map<String, Object> retrieveUserLists(User user, Pageable pageable) {
+        Map<String, Object> response = new HashMap<>();
+
+        // Retrieve shopping lists paginated
+        Page<ShoppingList> listsPage = shoppingListRepository.findAllByUserOrderByCreatedAtDesc(user, pageable);
+
+        // Parse shopping lists to DTOs
+        List<ShoppingListDTO> listsDTO = this.parseToDTOs(listsPage.getContent());
+
+        // Generate response map
+        response.put("data", listsDTO);
+        response.put("currentPage", listsPage.getNumber());
+        response.put("totalItems", listsPage.getTotalElements());
+        response.put("totalPages", listsPage.getTotalPages());
+        response.put("isLastPage", listsPage.isLast());
+
+        return response;
     }
 
     /**
