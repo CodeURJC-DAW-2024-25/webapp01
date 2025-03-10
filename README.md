@@ -318,13 +318,13 @@ The diagram illustrates the relationships between key components such as authent
 - Contributed to project documentation, detailing system functionalities and user guidelines.  
 
 #### Commits:  
-| # | Commit Message | File(s) |  
-|---|------------------|----------------------|  
-| 1º | **feat: implement dynamic product matching algorithm with static threshold** | `ProductMatchingAlgorithm.java` |  
-| 2º | **feat: enhance product comparison table with improved styling and sorting functionality** | `ProductComparisonTable.js` |  
-| 3º | **refactor: refactor product DTO mapping to ProductService and remove redundant conversion method** | `ProductService.java` |  
-| 4º | **feat: add comparison table feature and related styles to product detail page** | `ProductDetailPage.js` |  
-| 5º | **feat: add price comparison algorithm details to README and clean up unused import in ProductsController** | `ProductRepository.java` |  
+| #  | Commit Message                                                                                                                                                                                                | File(s)                           |  
+|----|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|  
+| 1º | [feat: implement dynamic product matching algorithm with static threshold](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/6ff1e60f259b01d06e215fa1fdab9c30c45c24b2)                                  | `ProductMatchingAlgorithm.java`   |  
+| 2º | [feat: enhance product comparison table with improved styling and sorting functionality](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/9af399b368d948de34cb2288968e4a49264df261)                    | `ProductComparisonTable.js`       |  
+| 3º | [refactor: refactor product DTO mapping to ProductService and remove redundant conversion method](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/4ef8dd4efb9cd207c4a94cf982db6aa2fbb3d8df)           | `ProductService.java`             |  
+| 4º | [feat: add comparison table feature and related styles to product detail page](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a147d94790cd23ec7ac1559bcb12975a74956b7c)                              | `ProductDetailPage.js`            |  
+| 5º | [feat: add price comparison algorithm details to README and clean up unused import in ProductsController](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/ecb588d4a644f14e5a4f223e0428a8e140a0a44a)   | `ProductRepository.java`          |  
 
 
 ### Diego Sánchez Rincón
@@ -341,13 +341,13 @@ The diagram illustrates the relationships between key components such as authent
 
 #### Commits
 
-| #  | Commit Message                                                                   | File                          |
-|----|----------------------------------------------------------------------------------|-------------------------------|
-| 1º | Feat: Enhance product search functionality with pagination and filtering options | `ProductsController.java`     |
-| 2º | feat: implement caching and data fetching services for improved product loading  | `fetchService.js`             |
-| 3º | Feat: Add Markdown rendering for post content and improve post detail styling    | `MarkdownService.java`        |
-| 4º | Refactor: Simplify product search logic and add REST API for product retrieval   | `RestProductsController.java` |
-| 5º | Feat: Implement load more functionality for posts with AJAX                      | `fetchPosts.js`               |
+| #  | Commit Message                                                                                                                                                                       | File(s)                       |  
+|----|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------|  
+| 1º | [Feat: Enhance product search functionality with pagination and filtering options](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/39b45a556165f8f0bc64bfafbc1554c6d2c29bd9) | `ProductsController.java`     |
+| 2º | [feat: implement caching and data fetching services for improved product loading](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/2d4938816e715d7459ae460243f97677f49e37dd)  | `fetchService.js`             |
+| 3º | [Feat: Add Markdown rendering for post content and improve post detail styling](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b1c044ef414ebf05bfa415f0df3aea2db59e2a9e)    | `MarkdownService.java`        |
+| 4º | [Refactor: Simplify product search logic and add REST API for product retrieval](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/9af21b67d5d57c3719fc01eefd3a8f559f38751c)   | `RestProductsController.java` |
+| 5º | [Feat: Implement load more functionality for posts with AJAX](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/f11117d03b020a4760ea32f113bea088e6fa5b7b)                      | `fetchPosts.js`               |
 
 ### Jaime José Portillo Pérez
 
@@ -364,13 +364,13 @@ The diagram illustrates the relationships between key components such as authent
 
 #### Commits
 
-| #  | Commit Message                                                                   | File                          |
-|----|----------------------------------------------------------------------------------|-------------------------------|
-| 1º | d5dc344: "feat: Comparation of products algorithm"                               | `ProductsController.java`     |
-| 2º | 29e9a13: "feat: async admin lists all users"                                     | `AdminController.java`        |
-| 3º | a399562: "feat: suggested products"                                              | `suggestedProducts.js`        |
-| 4º | e0d47f8: posts page                                                              | `post-page.css`               |
-| 5º | b11735b: "temp: admin controller"                                                | `adminGraphs.js`              |
+| #  | Commit Message                                                                                                                                                           | File(s)                       |  
+|----|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------|  
+| 1º | [feat: Comparation of products algorithm](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/d5dc344e1a5c87f4f257b2ac339fb010e24cfccb)                              | `ProductsController.java`     |
+| 2º | [feat: async admin lists all users](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/29e9a135678693d7e119d0c0d89b82d77def7e23)                                    | `AdminController.java`        |
+| 3º | [feat: suggested products](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a39956230e80f7e279362d97b53aacc0b0f00e3e)                                             | `suggestedProducts.js`        |
+| 4º | [posts page](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/e0d47f80fc6d64d4c631e108c7f0e4d6b7d178df)                                                           | `post-page.css`               |
+| 5º | [temp: admin controller](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b11735b7d993995ff68252c1aa9c22788b12283e)                                               | `adminGraphs.js`              |
 
 ### Daniel Santos López
 
@@ -387,13 +387,13 @@ The diagram illustrates the relationships between key components such as authent
 #### Commits
 
 
-| #  | Commit Message                                                                   | File                          |
-|----|----------------------------------------------------------------------------------|-------------------------------|
-| 1º | [Feat: add functionality to add products to user shopping lists](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a82167b9da77a8143a338e10d452245a38078df0)  | `RestShoppingListController.java`     |
-| 2º | [Feat: Add validation to user registration and enhance error handling in AuthController](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/31e6646e9b078231f67172c304ab2169dc8878c2)  | `AuthController.java`             |
-| 3º | [Feat: implemented functionality to change user password with validations](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/46934c4313ce00c01b78011202c0791b4e65a241)    | `SettingsController.java`        |
-| 4º | [Feat: Implement error handling on the login page with an informational popup](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b7c99685582431a51b59e4db1163ce7b14f714f6)   | `AuthController.java` |
-| 5º | [Feat: Implement avatar upload and retrieval functionality in user profile](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/692e38cb735211884a484f55f920f1c425783592)                 | `RestUserController.java`               |
+| #  | Commit Message                                                                                                                                                                              | File(s)                                 |  
+|----|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|  
+| 1º | [Feat: add functionality to add products to user shopping lists](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a82167b9da77a8143a338e10d452245a38078df0)                          | `RestShoppingListController.java`       |
+| 2º | [Feat: Add validation to user registration and enhance error handling in AuthController](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/31e6646e9b078231f67172c304ab2169dc8878c2)  | `AuthController.java`                   |
+| 3º | [Feat: implemented functionality to change user password with validations](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/46934c4313ce00c01b78011202c0791b4e65a241)                | `SettingsController.java`               |
+| 4º | [Feat: Implement error handling on the login page with an informational popup](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b7c99685582431a51b59e4db1163ce7b14f714f6)            | `AuthController.java`                   |
+| 5º | [Feat: Implement avatar upload and retrieval functionality in user profile](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/692e38cb735211884a484f55f920f1c425783592)               | `RestUserController.java`               |
 
 
 ---
