@@ -13,20 +13,14 @@ const setPostsEvents = () => {
         post.addEventListener('click', (e) => {
             location.href = `/posts/${postId}`;
         });
-    });
 
-    // Delete post buttons
-    const $deletePostButtons = [...document.querySelectorAll('[data-admin-command="post-delete"]')];
-    $deletePostButtons.forEach($deletePostButton => {
-        $deletePostButton.addEventListener('click', (e) => {
+        post.querySelector('[data-admin-command="post-delete"]')?.addEventListener('click', (e) => {
             e.stopPropagation();
-            e.preventDefault();
+            console.log('click');
 
             const confirmDelete = confirm('¿Estás seguro de que deseas eliminar este post?');
-            const uid = e.target.getAttribute('data-post-id');
-
             if (confirmDelete) {
-                const endpoint = `/post/${uid}`;
+                const endpoint = `/post/${postId}`;
                 fetchData(endpoint, "DELETE", { cacheData: false })
                     .then(() => {
                         window.location.reload();
