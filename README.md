@@ -25,7 +25,7 @@ To get started with SaveX, follow these steps:
 | Technology | Version | Description                                                   |
 |------------|---------|---------------------------------------------------------------|
 | Java       | 21      | Programming language used for backend development.            |
-| Spring Boot| 3.4.2   | Framework for building Java-based enterprise applications.    |
+| Spring Boot| 3.4.3   | Framework for building Java-based enterprise applications.    |
 | MySQL      | 8.0.33  | Relational database management system for data storage.       |
 | Maven      | 3.8.3+  | Build automation tool used for managing project dependencies. |
 
