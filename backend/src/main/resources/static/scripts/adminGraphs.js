@@ -69,11 +69,9 @@ const fetchProducts = async () => {
     await Promise.all(supermarkets.map(async supermarket => {
         const res = await fetch(`/api/products?supermarket=${supermarket}`);
         const data = await res.json();
-        console.log(`Total items in ${supermarket}: ${data.total_items}`);
         total_items[supermarket] = data.total_items;
     }))
 
-    console.log(total_items);
     data1.data.datasets[0].data = supermarkets.map(supermarket => total_items[supermarket]);
     chart1.update();
 }

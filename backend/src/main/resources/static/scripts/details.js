@@ -15,10 +15,6 @@ document.addEventListener("DOMContentLoaded", function () {
         e.preventDefault()
 
         const productName = document.getElementById("productTitle")?.textContent.trim()
-        const searchQuery = productName || localStorage.getItem("originalSearchQuery") || ""
-
-        const url = `/compare?searchInput=${encodeURIComponent(searchQuery)}`
-        console.log("Fetching comparison from URL:", url)
 
         compareContainer.innerHTML = "<p>Cargando resultados...</p>"
         compareContainer.style.display = "block"
@@ -32,17 +28,23 @@ document.addEventListener("DOMContentLoaded", function () {
             const mainProduct = { productName, keywords, brand, }
             const bestBySupermarket = comparationAlgorithm(mainProduct, products)
 
-            fetch("/get-compare-table?products=" + Object.values(bestBySupermarket).map(p => `${p.supermarket_name}@${p.display_name}@${p.price.total}@${p.product_url}`).join("_"))
-                .then(response => response.text())
-                .then(html => {
-                    compareContainer.innerHTML = html
-                    compareBtn.innerHTML = "<i class='bi bi-check-lg'></i>"
-                    highlightBestAndWorstPrices()
-                    // Add link to product
-                    document.querySelectorAll("[data-product-url]").forEach(a => a.addEventListener("click", () => window.open(a.dataset.productUrl, "_blank")))
-                })
+            if (Object.keys(bestBySupermarket).length === 0) {
+                compareContainer.innerHTML = "<p>Lo sentimos, no se encontraron productos similares.</p>"
+                compareBtn.innerHTML = "<i class='bi bi-x-lg'></i>"
+            } else {
+                const encodedProducts = Object.values(bestBySupermarket).map(p => `${p.supermarket_name}@${p.display_name}@${p.price.total}@${p.product_url}`).join("_")
+                fetch("/get-compare-table?products=" + encodedProducts)
+                    .then(response => response.text())
+                    .then(html => { 
+                        compareContainer.innerHTML = html
+                        compareBtn.innerHTML = "<i class='bi bi-check-lg'></i>"
+                        highlightBestAndWorstPrices()
+                        
+                        // Add link to product
+                        document.querySelectorAll("[data-product-url]").forEach(a => a.addEventListener("click", () => window.open(a.dataset.productUrl, "_blank")))
+                    })
+            }
         })
-
     })
 })
 
