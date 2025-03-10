@@ -306,6 +306,20 @@ The diagram illustrates the relationships between key components such as authent
 
 ---
 
+## 📐 Class Diagram and Templates
+
+This diagram provides an overview of the application's structure, showing how different classes interact with each other and with the templates. It helps to understand the system architecture and facilitates code maintenance and evolution.
+
+![Class Diagram](docs/assets/Diagrama_de_flujo.png)
+
+- **Green**: @Controller
+- **Red**: @Service
+- **Blue**: @Repository
+- **Yellow**: Domain entities
+- **Purple**: Templates
+
+---
+
 ## ✋ Participation
 
 ### Victor Arroyo Madera  
