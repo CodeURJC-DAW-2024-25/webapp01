@@ -320,11 +320,12 @@ The diagram illustrates the relationships between key components such as authent
 #### Commits:  
 | # | Commit Message | File(s) |  
 |---|------------------|----------------------|  
-| 1º | **Implemented dynamic product matching algorithm with static threshold** | `ProductMatchingAlgorithm.java` |  
-| 2º | **Enhanced product comparison table with improved styling and sorting functionality** | `ProductComparisonTable.js` |  
-| 3º | **Refactored product DTO mapping in ProductService and removed redundant conversion methods** | `ProductService.java` |  
-| 4º | **Implemented comparison table in the product detail page** | `ProductDetailPage.js` |  
-| 5º | **Optimized query indexing to improve search performance** | `ProductRepository.java` |  
+| 1º | **feat: implement dynamic product matching algorithm with static threshold** | `ProductMatchingAlgorithm.java` |  
+| 2º | **feat: enhance product comparison table with improved styling and sorting functionality** | `ProductComparisonTable.js` |  
+| 3º | **refactor: refactor product DTO mapping to ProductService and remove redundant conversion method** | `ProductService.java` |  
+| 4º | **feat: add comparison table feature and related styles to product detail page** | `ProductDetailPage.js` |  
+| 5º | **feat: add price comparison algorithm details to README and clean up unused import in ProductsController** | `ProductRepository.java` |  
+
 
 ### Diego Sánchez Rincón
 - Developed the post management system, allowing administrators to create, edit, and delete blog posts.
