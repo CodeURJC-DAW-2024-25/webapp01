@@ -40,6 +40,67 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Posts",
+			"item": [
+				{
+					"name": "Posts paginated",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{apiBaseURL}}/api/v1/posts?size=2&page=2",
+							"host": [
+								"{{apiBaseURL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"posts"
+							],
+							"query": [
+								{
+									"key": "size",
+									"value": "2"
+								},
+								{
+									"key": "page",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Post banner",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{apiBaseURL}}/api/v1/posts/2/banner"
+					},
+					"response": []
+				},
+				{
+					"name": "Post content",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{apiBaseURL}}/api/v1/posts/1/content"
+					},
+					"response": []
+				},
+				{
+					"name": "Post",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{apiBaseURL}}/api/v1/posts/1"
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"event": [
