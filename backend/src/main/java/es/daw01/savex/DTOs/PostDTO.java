@@ -9,32 +9,29 @@ public class PostDTO {
     private long id;
     private String title;
     private String description;
-    private List<CommentDTO> comments;
     private String author;
     private String date;
     private String readingTime;
     private VisibilityType visibility;
     private List<String> tags;
-    private int nComments;
 
     // Constructors ----------------------------------------------------------->>
     public PostDTO() {
     }
 
     public PostDTO(
-            long id,
-            String title,
-            String description,
-            List<CommentDTO> comments,
-            String author,
-            String date,
-            String readingTime,
-            VisibilityType visibility,
-            List<String> tags) {
+        long id,
+        String title,
+        String description,
+        String author,
+        String date,
+        String readingTime,
+        VisibilityType visibility,
+        List<String> tags
+    ) {
         this.id = id;
         this.title = title;
         this.description = description;
-        this.comments = comments;
         this.author = author;
         this.date = date;
         this.readingTime = readingTime;
@@ -51,7 +48,6 @@ public class PostDTO {
         this.readingTime = post.getReadingTime();
         this.visibility = post.getVisibility();
         this.tags = post.getTags();
-        this.nComments = post.getComments().size();
     }
 
     // Getters and setters ---------------------------------------------------->>
@@ -77,14 +73,6 @@ public class PostDTO {
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public List<CommentDTO> getComments() {
-        return comments;
-    }
-
-    public void setComments(List<CommentDTO> comments) {
-        this.comments = comments;
     }
 
     public String getAuthor() {
@@ -125,13 +113,5 @@ public class PostDTO {
 
     public void setTags(List<String> tags) {
         this.tags = tags;
-    }
-
-    public int getnComments() {
-        return nComments;
-    }
-
-    public void setnComments(int nComments) {
-        this.nComments = nComments;
     }
 }

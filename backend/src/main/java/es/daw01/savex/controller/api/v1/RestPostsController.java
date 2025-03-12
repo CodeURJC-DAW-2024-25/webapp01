@@ -28,7 +28,7 @@ import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.PostService;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/posts")
 public class RestPostsController {
 
     @Autowired
@@ -40,7 +40,7 @@ public class RestPostsController {
     @Autowired
     private ControllerUtils controllerUtils;
 
-    @GetMapping("/posts")
+    @GetMapping({ "", "/" })
     public ResponseEntity<PaginatedDTO<PostDTO>> getPosts(
         @PageableDefault(page = 0, size = 5) Pageable pageable
     ) {
@@ -48,7 +48,13 @@ public class RestPostsController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/posts/{id}/banner")
+    @GetMapping("/{id}")
+    public ResponseEntity<PostDTO> getPost(@PathVariable long id) {
+        PostDTO post = postService.getPost(id);
+        return ResponseEntity.ok(post);
+    }
+
+    @GetMapping("/{id}/banner")
     public ResponseEntity<Object> getPostBanner(@PathVariable long id) throws SQLException, IOException {
         Resource banner = postService.getPostBanner(id);
 

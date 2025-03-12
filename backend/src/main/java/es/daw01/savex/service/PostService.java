@@ -15,6 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.PostDTO;
+import es.daw01.savex.DTOs.posts.PostMapper;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.repository.PostRepository;
@@ -26,6 +27,9 @@ public class PostService {
 
     @Autowired
     private PostRepository postRepository;
+
+    @Autowired
+    private PostMapper postMapper;
 
     /**
      * Retrieves the banner image of a post
@@ -41,6 +45,16 @@ public class PostService {
         }
 
         return ImageUtils.blobToResource(post.getBanner());
+    }
+
+    /**
+     * Retrieves a post by its id
+     * 
+     * @param id The id of the post
+     * @return The post with the given id
+     */
+    public PostDTO getPost(long id) {
+        return postMapper.toDTO(postRepository.findById(id).orElseThrow());
     }
 
     /**
