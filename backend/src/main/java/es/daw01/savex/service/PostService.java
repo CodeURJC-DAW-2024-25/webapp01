@@ -26,6 +26,9 @@ import es.daw01.savex.utils.ImageUtils;
 public class PostService {
 
     @Autowired
+    private MarkdownService markdownService;
+
+    @Autowired
     private PostRepository postRepository;
 
     @Autowired
@@ -45,6 +48,17 @@ public class PostService {
         }
 
         return ImageUtils.blobToResource(post.getBanner());
+    }
+
+    /**
+     * Retrieves the content of a post parsed to HTML
+     * 
+     * @param id The id of the post
+     * @return The content of the post
+     */
+    public String getPostContent(long id) {
+        Post post = postRepository.findById(id).orElseThrow();
+        return markdownService.renderMarkdown(post.getContent());
     }
 
     /**

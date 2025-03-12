@@ -63,6 +63,12 @@ public class RestPostsController {
             .body(banner);
     }
 
+    @GetMapping("/{id}/content")
+    public ResponseEntity<String> getPostContent(@PathVariable long id) {
+        String content = postService.getPostContent(id);
+        return ResponseEntity.ok(content);
+    }
+
     @GetMapping("/posts/{id}/comments")
     public ResponseEntity<Map<String, Object>> getComments(
             @PathVariable Long id,
