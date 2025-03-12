@@ -1,4 +1,4 @@
-package es.daw01.savex.controller;
+package es.daw01.savex.controller.api.v1;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
