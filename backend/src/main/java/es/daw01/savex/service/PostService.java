@@ -2,9 +2,7 @@ package es.daw01.savex.service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -15,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.PostDTO;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.VisibilityType;
@@ -120,11 +119,9 @@ public class PostService {
      * Finds all posts in the database, ordered by creation date
      * 
      * @param pageable The page to return
-     * @return A map with the response data
+     * @return A paginated DTO of posts
      */
-    public Map<String, Object> retrievePosts(Pageable pageable) {
-        Map<String, Object> response = new HashMap<>();
-
+    public PaginatedDTO<PostDTO> retrievePosts(Pageable pageable) {
         // Retrieve posts paginated
         Page<Post> postPage = this.findByVisibilityOrderByCreatedAtDesc(VisibilityType.PUBLIC, pageable);
 
@@ -132,13 +129,13 @@ public class PostService {
         List<PostDTO> postDTOList = this.getPostsDTO(postPage.getContent());
 
         // Generate response map
-        response.put("posts", postDTOList);
-        response.put("currentPage", postPage.getNumber());
-        response.put("totalItems", postPage.getTotalElements());
-        response.put("totalPages", postPage.getTotalPages());
-        response.put("isLastPage", postPage.isLast());
-
-        return response;
+        return new PaginatedDTO<PostDTO>(
+            postDTOList,
+            postPage.getNumber(),
+            postPage.getTotalPages(),
+            postPage.getTotalElements(),
+            postPage.isLast()
+        );
     }
 
     /**

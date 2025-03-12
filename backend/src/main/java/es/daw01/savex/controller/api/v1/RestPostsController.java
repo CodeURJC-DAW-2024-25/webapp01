@@ -8,6 +8,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -17,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.daw01.savex.DTOs.PaginatedDTO;
+import es.daw01.savex.DTOs.PostDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.User;
@@ -37,14 +41,10 @@ public class RestPostsController {
     private ControllerUtils controllerUtils;
 
     @GetMapping("/posts")
-    public ResponseEntity<Map<String, Object>> getPosts(
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "5") int size
+    public ResponseEntity<PaginatedDTO<PostDTO>> getPosts(
+        @PageableDefault(page = 0, size = 5) Pageable pageable
     ) {
-        // Retrieve posts paginated
-        Map<String, Object> response = postService.retrievePosts(
-                PageRequest.of(page, size));
-
+        PaginatedDTO<PostDTO> response = postService.retrievePosts(pageable);
         return ResponseEntity.ok(response);
     }
 
