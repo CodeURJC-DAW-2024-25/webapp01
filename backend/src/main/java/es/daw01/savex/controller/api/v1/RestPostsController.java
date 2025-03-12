@@ -1,15 +1,11 @@
 package es.daw01.savex.controller.api.v1;
 
 import java.io.IOException;
-import java.sql.Blob;
 import java.sql.SQLException;
 import java.util.Map;
 import java.util.Optional;
 
-import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
-import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
@@ -28,10 +24,8 @@ import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.PostService;
 
 @RestController
-@RequestMapping("/api")
+@RequestMapping("/api/v1")
 public class RestPostsController {
-
-    private final static String TEMPLATE_IMAGE_PATH = "static/assets/template_image.png";
 
     @Autowired
     private CommentService commentService;
@@ -42,37 +36,25 @@ public class RestPostsController {
     @Autowired
     private ControllerUtils controllerUtils;
 
+    @GetMapping("/posts")
+    public ResponseEntity<Map<String, Object>> getPosts(
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "5") int size
+    ) {
+        // Retrieve posts paginated
+        Map<String, Object> response = postService.retrievePosts(
+                PageRequest.of(page, size));
+
+        return ResponseEntity.ok(response);
+    }
+
     @GetMapping("/posts/{id}/banner")
-    public ResponseEntity<Object> getPostBanner(@PathVariable long id) throws SQLException {
-        Blob banner = null;
-
-        Optional<Post> op = postService.findById(id);
-
-        // If the post does not exist or the banner is null, return a 404
-        if (!op.isPresent() || op.get().getBanner() == null) {
-            Resource img = new ClassPathResource(TEMPLATE_IMAGE_PATH);
-            try {
-                banner = BlobProxy.generateProxy(img.getInputStream(), img.contentLength());
-            } catch (IOException e) {
-                e.printStackTrace();
-                return ResponseEntity.notFound().build();
-            }
-
-            return ResponseEntity.ok()
-                    .contentLength(banner.length())
-                    .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-                    .body(new InputStreamResource(banner.getBinaryStream()));
-        }
-
-        // Get the post banner if it exists and return it
-        Post post = op.get();
-        banner = post.getBanner();
-        Resource resource = new InputStreamResource(banner.getBinaryStream());
+    public ResponseEntity<Object> getPostBanner(@PathVariable long id) throws SQLException, IOException {
+        Resource banner = postService.getPostBanner(id);
 
         return ResponseEntity.ok()
-                .contentLength(banner.length())
-                .header(HttpHeaders.CONTENT_TYPE, "image/jpeg")
-                .body(resource);
+            .header(HttpHeaders.CONTENT_TYPE, "image/png")
+            .body(banner);
     }
 
     @GetMapping("/posts/{id}/comments")
@@ -101,17 +83,6 @@ public class RestPostsController {
         return ResponseEntity.ok(response);
     }
 
-    @GetMapping("/posts")
-    public ResponseEntity<Map<String, Object>> getPosts(
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "5") int size
-    ) {
-        // Retrieve posts paginated
-        Map<String, Object> response = postService.retrievePosts(
-                PageRequest.of(page, size));
-
-        return ResponseEntity.ok(response);
-    }
 
     @DeleteMapping("/post/{id}")
     public ResponseEntity<Map<String, Object>> deletePost(@PathVariable long id) {

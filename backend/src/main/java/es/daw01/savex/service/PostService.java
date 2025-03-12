@@ -1,12 +1,15 @@
 package es.daw01.savex.service;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -17,12 +20,29 @@ import es.daw01.savex.model.Post;
 import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.repository.PostRepository;
 import es.daw01.savex.utils.DateUtils;
+import es.daw01.savex.utils.ImageUtils;
 
 @Service
 public class PostService {
 
     @Autowired
     private PostRepository postRepository;
+
+    /**
+     * Retrieves the banner image of a post
+     * 
+     * @param id The id of the post
+     * @return The banner image of the post or null if it doesn't exist
+     */
+    public Resource getPostBanner(long id) throws SQLException {
+        Post post = postRepository.findById(id).orElseThrow();
+
+        if (post.getBanner() == null) {
+            throw new NoSuchElementException("Post doesn't have a banner");
+        }
+
+        return ImageUtils.blobToResource(post.getBanner());
+    }
 
     /**
      * Saves a post in the database
