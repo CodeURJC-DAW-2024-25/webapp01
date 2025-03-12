@@ -91,7 +91,7 @@ public class WebSecurityConfig {
 	}
 
     @Bean
-    @Order(1)
+    @Order(2)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         // Authentication provider
