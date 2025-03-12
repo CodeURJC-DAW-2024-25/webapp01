@@ -23,16 +23,16 @@ public class RestLoginController {
 
 	@PostMapping("/login")
 	public ResponseEntity<AuthResponse> login(
-			@RequestBody LoginRequest loginRequest,
-			HttpServletResponse response) {
-		
+		@RequestBody LoginRequest loginRequest,
+		HttpServletResponse response
+	) {
 		return userService.login(response, loginRequest);
 	}
 
 	@PostMapping("/refresh")
 	public ResponseEntity<AuthResponse> refreshToken(
-			@CookieValue(name = "RefreshToken", required = false) String refreshToken, HttpServletResponse response) {
-
+		@CookieValue(name = "RefreshToken", required = false) String refreshToken, HttpServletResponse response
+	) {
 		return userService.refresh(response, refreshToken);
 	}
 
