@@ -1,5 +1,6 @@
 package es.daw01.savex.controller;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Optional;
 
@@ -7,8 +8,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import es.daw01.savex.DTOs.posts.CreatePostRequest;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Comment;
 import es.daw01.savex.model.Post;
@@ -174,21 +177,20 @@ public class PostsController {
 
     @PostMapping("/editPost/{id}")
     public String editPost(
-            @PathVariable long id,
-            @RequestParam String title,
-            @RequestParam String description,
-            @RequestParam String content,
-            @RequestParam String author,
-            @RequestParam String tags,
-            @RequestParam String visibility,
-            @RequestParam MultipartFile banner) {
+        @PathVariable long id,
+        @ModelAttribute CreatePostRequest createPostRequest,
+        @RequestParam MultipartFile banner
+    ) {
         Optional<Post> postOptional = postService.findById(id);
         if (postOptional.isEmpty()) {
             return "redirect:/posts?error=not_found";
         }
 
-        Post post = postOptional.get();
-        postService.updatePost(post, title, description, content, author, tags, visibility, banner);
+        try {
+            postService.updatePost(id, createPostRequest, banner);
+        } catch (IOException e) {
+            return "redirect:/posts";
+        }
 
         return "redirect:/posts/" + id;
     }
