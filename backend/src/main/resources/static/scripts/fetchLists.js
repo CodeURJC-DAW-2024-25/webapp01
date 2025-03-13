@@ -9,7 +9,7 @@ export async function fetchLists(listsContainer, loadMoreButton, currentPage = 0
     loading = true;
 
     // Fetch lists from the server
-    const endpoint = `/user-lists?page=${currentPage}&size=${LISTS_SIZE}`;
+    const endpoint = `/lists?page=${currentPage}&size=${LISTS_SIZE}`;
     const res = await fetchData(endpoint, 'GET', { cacheData: false });
 
     // Insert lists to the DOM
@@ -37,7 +37,7 @@ async function addProductToList(listId) {
 
     // Send the request to the server
     try {
-        await fetchData(`/user-lists/${listId}/product/${productId}`, 'POST');
+        await fetchData(`/lists/${listId}/product/${productId}`, 'POST');
 
         // If the response is successful, update the UI
         document.querySelector(`button[data-list-id="${listId}"]`).innerHTML = '<i class="bi bi-check-lg checked"></i>';

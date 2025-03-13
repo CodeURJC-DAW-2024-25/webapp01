@@ -129,6 +129,19 @@
 								"url": "{{apiBaseURL}}/api/v1/posts/1"
 							},
 							"response": []
+						},
+						{
+							"name": "Post",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": "{{apiBaseURL}}/api/v1/posts/2"
+							},
+							"response": []
 						}
 					]
 				},
@@ -165,6 +178,39 @@
 										}
 									]
 								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "User avatar",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{apiBaseURL}}/api/v1/users/1/avatar"
+							},
+							"response": []
+						},
+						{
+							"name": "User avatar",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/A:/Diego/1. Main/2.png"
+										}
+									]
+								},
+								"url": "{{apiBaseURL}}/api/v1/users/1/avatar"
 							},
 							"response": []
 						}
