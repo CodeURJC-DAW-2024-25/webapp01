@@ -29,18 +29,38 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		this.userDetailsService = userDetailsService;
 		this.jwtTokenProvider = jwtTokenProvider;
 	}
-
+	
 	@Override
 	protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
-      throws ServletException, IOException {
-
+		throws ServletException, IOException {
+			
 		try {
-			var claims = jwtTokenProvider.validateToken(request, true);
+			String token = null;
+			try {
+				token = jwtTokenProvider.tokenStringFromHeaders(request);
+			} catch (IllegalArgumentException ex) {
+				log.warn("No token found in Authorization header, trying cookies...");
+			}
+
+			if (token == null) {
+				try {
+					token = jwtTokenProvider.tokenStringFromCookies(request);
+				} catch (IllegalArgumentException ex) {
+					log.warn("No token found in cookies either.");
+				}
+			}
+
+			if (token == null) {
+				filterChain.doFilter(request, response);
+				return;
+			}
+
+			var claims = jwtTokenProvider.validateToken(token);
 			var userDetails = userDetailsService.loadUserByUsername(claims.getSubject());
 
 			UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
 						userDetails, null, userDetails.getAuthorities());
-				
+
 			authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 			SecurityContextHolder.getContext().setAuthentication(authentication);
 		} catch (Exception ex) {
@@ -48,6 +68,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
 		}
 
 		filterChain.doFilter(request, response);
-	}	
+	}
+
 
 }

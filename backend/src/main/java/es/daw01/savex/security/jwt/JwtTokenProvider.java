@@ -32,24 +32,27 @@ public class JwtTokenProvider {
 		return bearerToken.substring(7);
 	}
 
-	private String tokenStringFromCookies(HttpServletRequest request) {
+	String tokenStringFromCookies(HttpServletRequest request) {
 		var cookies = request.getCookies();
 		if (cookies == null) {
-			throw new IllegalArgumentException("No cookies found in request");
+		
+			return null; // Devolver null en lugar de lanzar una excepción
 		}
-
+	
 		for (Cookie cookie : cookies) {
 			if (TokenType.ACCESS.cookieName.equals(cookie.getName())) {
 				String accessToken = cookie.getValue();
 				if (accessToken == null) {
-					throw new IllegalArgumentException("Cookie %s has null value".formatted(TokenType.ACCESS.cookieName));
+				
+					return null;
 				}
-
 				return accessToken;
 			}
 		}
-		throw new IllegalArgumentException("No access token cookie found in request");
+	
+		return null;
 	}
+	
 
 	public Claims validateToken(HttpServletRequest req, boolean fromCookie){
 		var token = fromCookie?
