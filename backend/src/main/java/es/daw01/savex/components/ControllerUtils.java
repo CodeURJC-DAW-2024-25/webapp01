@@ -81,4 +81,14 @@ public class ControllerUtils {
 
         return null;
     }
+
+    /**
+     * Check if the authenticated user is an admin
+     * 
+     * @return True if the user is an admin, false otherwise
+    */ 
+    public boolean isAuthenticatedUserAdmin() {
+        User user = this.getAuthenticatedUser();
+        return user != null && user.isAdmin();
+    }
 }
