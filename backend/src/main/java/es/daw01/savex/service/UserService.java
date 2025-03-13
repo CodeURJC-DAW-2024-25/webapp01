@@ -1,7 +1,6 @@
 package es.daw01.savex.service;
 
 import java.io.IOException;
-import java.io.InputStream;
 import java.net.URI;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -18,7 +17,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.daw01.savex.DTOs.UserDTO;
-import es.daw01.savex.model.Post;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
 import es.daw01.savex.repository.UserRepository;
