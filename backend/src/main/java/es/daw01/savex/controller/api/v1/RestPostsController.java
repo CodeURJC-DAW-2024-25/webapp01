@@ -12,13 +12,18 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.PostDTO;
 import es.daw01.savex.DTOs.comments.SimpleCommentDTO;
+import es.daw01.savex.DTOs.posts.CreatePostRequest;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.service.CommentService;
@@ -80,6 +85,19 @@ public class RestPostsController {
         return ResponseEntity.ok(response);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<PostDTO> updatePost(
+        @PathVariable long id,
+        @ModelAttribute CreatePostRequest createPostRequest,
+        @RequestParam(required = false) MultipartFile banner
+    ) {
+        try {
+            PostDTO post = postService.updatePost(id, createPostRequest, banner);
+            return ResponseEntity.ok(post);
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
 
     @DeleteMapping("/post/{id}")
     public ResponseEntity<Map<String, Object>> deletePost(@PathVariable long id) {

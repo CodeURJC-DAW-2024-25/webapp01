@@ -1,5 +1,6 @@
 package es.daw01.savex.service;
 
+import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,6 +16,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.PostDTO;
+import es.daw01.savex.DTOs.posts.CreatePostRequest;
 import es.daw01.savex.DTOs.posts.PostMapper;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.VisibilityType;
@@ -207,14 +209,30 @@ public class PostService {
         postRepository.deleteById(id);
     }
 
-    public void updatePost(Post post, String title, String description, String content, String author, String tags,
-            String visibility, MultipartFile banner) {
-        post.setTitle(title);
-        post.setDescription(description);
-        post.setContent(content);
-        post.setAuthor(author);
-        // post.setTags(tags);
-        post.setVisibility(VisibilityType.valueOf(visibility));
-        save(post, banner);
+    /**
+     * Updates a post from a given request
+     *
+     * @param id The id of the post to update
+     * @param postRequest The request with the new post data
+     * @param banner The new banner image of the post
+     * @return The updated post
+     */
+    public PostDTO updatePost(Long id, CreatePostRequest postRequest, MultipartFile banner) throws IOException {
+        Post toUpdatePost = postRepository.findById(id).orElseThrow();
+        
+        Optional.ofNullable(postRequest.title()).ifPresent(toUpdatePost::setTitle);
+        Optional.ofNullable(postRequest.description()).ifPresent(toUpdatePost::setDescription);
+        Optional.ofNullable(postRequest.content()).ifPresent(toUpdatePost::setContent);
+        Optional.ofNullable(postRequest.author()).ifPresent(toUpdatePost::setAuthor);
+        Optional.ofNullable(postRequest.date()).ifPresent(toUpdatePost::setDate);
+        Optional.ofNullable(postRequest.readingTime()).ifPresent(toUpdatePost::setReadingTime);
+        Optional.ofNullable(postRequest.tags()).ifPresent(toUpdatePost::setTags);
+        Optional.ofNullable(postRequest.visibility()).ifPresent(toUpdatePost::setVisibility);
+
+        if (banner != null) {
+            toUpdatePost.saveImage(banner);
+        }
+
+        return postMapper.toDTO(postRepository.save(toUpdatePost));
     }
 }
