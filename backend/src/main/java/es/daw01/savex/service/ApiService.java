@@ -1,14 +1,18 @@
 package es.daw01.savex.service;
 
 import org.springframework.web.client.RestTemplate;
+import org.springframework.web.util.UriComponentsBuilder;
 
+import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.PriceDTO;
 import es.daw01.savex.DTOs.ProductDTO;
+import es.daw01.savex.DTOs.products.SearchProductRequest;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
@@ -19,6 +23,8 @@ import org.springframework.stereotype.Service;
 public class ApiService {
     private final String API_BASE_URL = "https://market-pricings-server.vercel.app/api/v2";
     private final RestTemplate restTemplate = new RestTemplate();
+
+    private final int DEFAULT_SIZE = 10;
 
     /**
      * Fetches products from the API
@@ -33,70 +39,32 @@ public class ApiService {
         return productCache.getOrDefault(supermarket, List.of());
     }
 
-    public void loadAllProductsIntoCache() {
-        for (String supermarket : List.of("mercadona", "dia", "elcorteingles", "consum", "bm")) {
-            List<ProductDTO> allProducts = new ArrayList<>();
-            int page = 0;
-            while (true) {
-                ResponseEntity<Map<String, Object>> response = fetchProducts(null, supermarket, null, null, null, 1000,
-                        page);
-                List<?> data = (List<?>) response.getBody().get("data");
-                if (data == null || data.isEmpty())
-                    break;
+public ResponseEntity<PaginatedDTO<ProductDTO>> fetchProducts(SearchProductRequest request) {
+    // Default values
+    int page = Optional.ofNullable(request.page()).orElse(0);
+    int limit = Optional.ofNullable(request.limit()).orElse(DEFAULT_SIZE);
 
-                List<ProductDTO> products = data.stream()
-                        .map(this::convertToProductDTO)
-                        .toList();
+    // Safe URL construction
+    String apiUrl = API_BASE_URL + "/query";
+    
+    UriComponentsBuilder builder = UriComponentsBuilder.fromUriString(apiUrl)
+            .queryParamIfPresent("supermarket", Optional.ofNullable(request.supermarket()))
+            .queryParamIfPresent("search", Optional.ofNullable(request.search()))
+            .queryParamIfPresent("keywords", Optional.ofNullable(request.keywords()))
+            .queryParamIfPresent("min_price", Optional.ofNullable(request.minPrice()))
+            .queryParamIfPresent("max_price", Optional.ofNullable(request.maxPrice()))
+            .queryParam("limit", limit)
+            .queryParam("page", page); 
 
-                allProducts.addAll(products);
-                page++;
-            }
-            productCache.put(supermarket, allProducts);
+    String finalUrl = builder.toUriString(); // URL final correctamente construida
 
-        }
-    }
-
-    public ResponseEntity<Map<String, Object>> fetchProducts(
-            String searchInput,
-            String supermarket,
-            String keywords,
-            Double minPrice,
-            Double maxPrice,
-            Integer limit,
-            Integer page) {
-        // Set default values
-        if (page == null)
-            page = 0;
-        if (limit == null)
-            limit = 2000;
-
-        // Format the API URL
-        String apiUrl = String.format("%s/query?", API_BASE_URL);
-
-        if (supermarket != null)
-            apiUrl = apiUrl.concat(String.format("supermarket=%s&", supermarket));
-        if (searchInput != null)
-            apiUrl = apiUrl.concat(String.format("search=%s&", searchInput));
-        if (keywords != null)
-            apiUrl = apiUrl.concat(String.format("keywords=%s&", keywords));
-        if (minPrice != null)
-            apiUrl = apiUrl.concat(String.format("min_price=%s&", minPrice));
-        if (maxPrice != null)
-            apiUrl = apiUrl.concat(String.format("max_price=%s&", maxPrice));
-        if (limit != null)
-            apiUrl = apiUrl.concat(String.format("limit=%s&", limit));
-        if (page != null)
-            apiUrl = apiUrl.concat(String.format("page=%s&", page));
-
-        ResponseEntity<Map<String, Object>> response = restTemplate.exchange(
-                apiUrl,
-                HttpMethod.GET,
-                null,
-                new ParameterizedTypeReference<Map<String, Object>>() {
-                });
-
-        return response;
-    }
+    return restTemplate.exchange(
+            finalUrl,
+            HttpMethod.GET,
+            null,
+            new ParameterizedTypeReference<PaginatedDTO<ProductDTO>>() {}
+        );
+}
 
     /**
      * Fetches a product from the API
