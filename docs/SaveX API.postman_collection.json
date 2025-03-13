@@ -42,63 +42,133 @@
 			]
 		},
 		{
-			"name": "Posts",
+			"name": "v1",
 			"item": [
 				{
-					"name": "Posts paginated",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": {
-							"raw": "{{apiBaseURL}}/api/v1/posts?size=2&page=2",
-							"host": [
-								"{{apiBaseURL}}"
-							],
-							"path": [
-								"api",
-								"v1",
-								"posts"
-							],
-							"query": [
-								{
-									"key": "size",
-									"value": "2"
-								},
-								{
-									"key": "page",
-									"value": "2"
+					"name": "Posts",
+					"item": [
+						{
+							"name": "Posts paginated",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts?size=2&page=2",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "2"
+										},
+										{
+											"key": "page",
+											"value": "2"
+										}
+									]
 								}
-							]
+							},
+							"response": []
+						},
+						{
+							"name": "Post comments paginated",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/1/comments?size=5",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"1",
+										"comments"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post banner",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{apiBaseURL}}/api/v1/posts/2/banner"
+							},
+							"response": []
+						},
+						{
+							"name": "Post content",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{apiBaseURL}}/api/v1/posts/1/content"
+							},
+							"response": []
+						},
+						{
+							"name": "Post",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{apiBaseURL}}/api/v1/posts/1"
+							},
+							"response": []
 						}
-					},
-					"response": []
+					]
 				},
 				{
-					"name": "Post banner",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "{{apiBaseURL}}/api/v1/posts/2/banner"
-					},
-					"response": []
-				},
-				{
-					"name": "Post content",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "{{apiBaseURL}}/api/v1/posts/1/content"
-					},
-					"response": []
-				},
-				{
-					"name": "Post",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": "{{apiBaseURL}}/api/v1/posts/1"
-					},
-					"response": []
+					"name": "Products",
+					"item": [
+						{
+							"name": "Products API",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/products?search=leche&limit=24&page=1",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "leche"
+										},
+										{
+											"key": "limit",
+											"value": "24"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		}
