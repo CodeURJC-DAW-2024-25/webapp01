@@ -162,6 +162,7 @@ public class PostService {
             postPage.getNumber(),
             postPage.getTotalPages(),
             postPage.getTotalElements(),
+            postPage.getSize(),
             postPage.isLast()
         );
     }

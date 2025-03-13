@@ -31,7 +31,7 @@ public class CommentDTO {
     }
 
     // Inner classes ---------------------------------------------------------->>
-    private class AuthorDTO {
+    public class AuthorDTO {
         private long id;
         private String username;
 
