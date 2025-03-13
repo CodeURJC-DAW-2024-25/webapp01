@@ -8,8 +8,6 @@ import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.DTOs.products.SearchProductRequest;
 import es.daw01.savex.service.ApiService;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -24,8 +22,11 @@ public class RestProductsController {
 
 
     @GetMapping("/products")
-    public ResponseEntity<PaginatedDTO<ProductDTO>> getProducts(@ModelAttribute SearchProductRequest searchProductRequest)  {      
-        return apiService.fetchProducts(searchProductRequest);
+    public ResponseEntity<PaginatedDTO<ProductDTO>> getProducts(
+        @ModelAttribute SearchProductRequest searchProductRequest
+    )  {
+        PaginatedDTO<ProductDTO> products = apiService.fetchProducts(searchProductRequest);
+        return ResponseEntity.ok(products);
     }
 
 }
