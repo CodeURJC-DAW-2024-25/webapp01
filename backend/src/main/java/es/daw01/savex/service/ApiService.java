@@ -83,28 +83,4 @@ public ResponseEntity<PaginatedDTO<ProductDTO>> fetchProducts(SearchProductReque
         return product;
     }
 
-    private ProductDTO convertToProductDTO(Object data) {
-        Map<String, Object> map = (Map<String, Object>) data;
-        ProductDTO p = new ProductDTO();
-        p.setDisplay_name(
-                map.get("display_name") != null ? (String) map.get("display_name") : (String) map.get("name"));
-        p.setSupermarket_name((String) map.get("supermarket_name"));
-
-        // Process the price correctly (expecting a nested object)
-        PriceDTO priceDTO = new PriceDTO();
-        if (map.get("price") instanceof Map) {
-            Map<String, Object> priceMap = (Map<String, Object>) map.get("price");
-            Double totalPrice = priceMap.get("total") instanceof Number
-                    ? ((Number) priceMap.get("total")).doubleValue()
-                    : 0.0;
-
-            priceDTO.setTotal(totalPrice);
-        } else {
-            // Just in case, if "price" is not a map (malformed API), treat it as 0
-            priceDTO.setTotal(0.0);
-        }
-
-        p.setPrice(priceDTO);
-        return p;
-    }
 }

@@ -41,6 +41,7 @@ public class CommentService {
             comments.getNumber(),
             comments.getTotalPages(),
             comments.getTotalElements(),
+            comments.getSize(),
             comments.isLast()
         );
     }
