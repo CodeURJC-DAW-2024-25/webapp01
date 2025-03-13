@@ -12,6 +12,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import es.daw01.savex.DTOs.CommentDTO;
+import es.daw01.savex.DTOs.PaginatedDTO;
+import es.daw01.savex.DTOs.comments.CommentMapper;
 import es.daw01.savex.model.Comment;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.User;
@@ -22,6 +24,25 @@ public class CommentService {
 
     @Autowired
     private CommentRepository commentRepository;
+
+    @Autowired
+    private CommentMapper commentMapper;
+
+    public PaginatedDTO<CommentDTO> retrieveComments(long postId, Pageable pageable) {
+        // Retrieve comments paginated
+        Page<Comment> comments = commentRepository.findByPostIdOrderByCreatedAtDesc(postId, pageable);
+
+        // Create comment DTO list
+        List<CommentDTO> commentDTOs = commentMapper.toDTO(comments.getContent());
+            
+        return new PaginatedDTO<>(
+            commentDTOs,
+            comments.getNumber(),
+            comments.getTotalElements(),
+            comments.getTotalPages(),
+            comments.isLast()
+        );
+    }
 
     /**
      * Save a comment in the database

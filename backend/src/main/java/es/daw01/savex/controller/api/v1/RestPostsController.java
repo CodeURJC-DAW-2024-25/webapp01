@@ -3,11 +3,9 @@ package es.daw01.savex.controller.api.v1;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.Map;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
@@ -16,14 +14,14 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.daw01.savex.DTOs.CommentDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.PostDTO;
 import es.daw01.savex.components.ControllerUtils;
-import es.daw01.savex.model.Post;
 import es.daw01.savex.model.User;
+import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.PostService;
 
@@ -69,29 +67,17 @@ public class RestPostsController {
         return ResponseEntity.ok(content);
     }
 
-    @GetMapping("/posts/{id}/comments")
-    public ResponseEntity<Map<String, Object>> getComments(
-            @PathVariable Long id,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "1") int size) {
-        // Retrieve post and return 404 if it does not exist
-        Optional<Post> op = postService.findById(id);
-        if (op.isEmpty())
-            return ResponseEntity.notFound().build();
+    @GetMapping("/{id}/comments")
+    public ResponseEntity<PaginatedDTO<CommentDTO>> getComments(
+        @PathVariable Long id,
+        @PageableDefault(page = 0, size = 5) Pageable pageable
+    ) {
+        PostDTO post = postService.getPost(id);
+        if (post.getVisibility().equals(VisibilityType.PRIVATE) & !controllerUtils.isAuthenticatedUserAdmin()) {
+            return ResponseEntity.badRequest().body(null);
+        }
 
-        Post post = op.get();
-        User currentUser = controllerUtils.getAuthenticatedUser();
-
-        // If the post is private return 403
-        if (!post.isPublic())
-            return ResponseEntity.status(403).build();
-
-        // Retrieve comments of the post paginated
-        Map<String, Object> response = commentService.retrieveCommentsFromPost(
-                post,
-                currentUser,
-                PageRequest.of(page, size));
-
+        PaginatedDTO<CommentDTO> response = commentService.retrieveComments(id, pageable);
         return ResponseEntity.ok(response);
     }
 
