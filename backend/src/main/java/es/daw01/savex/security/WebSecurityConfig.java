@@ -72,6 +72,9 @@ public class WebSecurityConfig {
                     .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/auth/logout").permitAll()
                     .requestMatchers(HttpMethod.POST, "/api/auth/refresh").permitAll()
+
+                    .requestMatchers(HttpMethod.GET, "/api/v1/users/**").permitAll()
+                    .requestMatchers(HttpMethod.POST, "/api/v1/users/**").authenticated()
                     
                     .requestMatchers(HttpMethod.GET, "/api/v1/products").permitAll()
                     .requestMatchers(HttpMethod.GET, "/api/v1/posts/**").permitAll()

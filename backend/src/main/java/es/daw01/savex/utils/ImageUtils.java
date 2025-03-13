@@ -7,6 +7,7 @@ import java.sql.SQLException;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.core.io.InputStreamResource;
 import org.springframework.core.io.Resource;
+import org.springframework.web.multipart.MultipartFile;
 
 public class ImageUtils {
 
@@ -15,13 +16,13 @@ public class ImageUtils {
     }
 
     /**
-     * Convert a Resource object to a Blob object
+     * Convert a MultipartFile object to a Blob object
      *
-     * @param resource The Resource object to convert
+     * @param multipartfile The MultipartFile object to convert
      * @return The Blob object
      */
-    public static Blob resourceToBlob(Resource resource) throws IOException {
-        return BlobProxy.generateProxy(resource.getInputStream(), resource.contentLength());
+    public static Blob multipartFileToBlob(MultipartFile multipartfile) throws IOException {
+        return BlobProxy.generateProxy(multipartfile.getInputStream(), multipartfile.getSize());
     }
 
     /**
