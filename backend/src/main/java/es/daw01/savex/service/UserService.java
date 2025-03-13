@@ -1,9 +1,13 @@
 package es.daw01.savex.service;
 
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.URI;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.hibernate.engine.jdbc.BlobProxy;
@@ -11,15 +15,18 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.core.io.Resource;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.core.Authentication;
 
 import es.daw01.savex.DTOs.UserDTO;
+import es.daw01.savex.model.Post;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
 import es.daw01.savex.repository.UserRepository;
+import es.daw01.savex.utils.ImageUtils;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -33,7 +40,24 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+
+
     // Public Methods --------------------------------------------------------->>
+
+    public void createPostImage(long id, URI location, MultipartFile avatar) throws IOException {
+        
+        User user = userRepository.findById(id).orElseThrow();
+        user.setAvatar(ImageUtils.multipartFileToBlob(avatar));
+        userRepository.save(user);
+	}
+
+    public Resource getUserAvatar(long id) throws SQLException {
+        User user = userRepository.findById(id).orElseThrow();
+        if (user.getAvatar() == null) {
+            throw new NoSuchElementException("User doesn't have an avatar");
+        }
+        return ImageUtils.blobToResource(user.getAvatar());
+    }
 
     /**
      * Finds all users in the database
