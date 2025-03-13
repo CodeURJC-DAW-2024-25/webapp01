@@ -16,11 +16,10 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import es.daw01.savex.DTOs.CommentDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.PostDTO;
+import es.daw01.savex.DTOs.comments.SimpleCommentDTO;
 import es.daw01.savex.components.ControllerUtils;
-import es.daw01.savex.model.User;
 import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.PostService;
@@ -68,7 +67,7 @@ public class RestPostsController {
     }
 
     @GetMapping("/{id}/comments")
-    public ResponseEntity<PaginatedDTO<CommentDTO>> getComments(
+    public ResponseEntity<PaginatedDTO<SimpleCommentDTO>> getComments(
         @PathVariable Long id,
         @PageableDefault(page = 0, size = 5) Pageable pageable
     ) {
@@ -77,7 +76,7 @@ public class RestPostsController {
             return ResponseEntity.badRequest().body(null);
         }
 
-        PaginatedDTO<CommentDTO> response = commentService.retrieveComments(id, pageable);
+        PaginatedDTO<SimpleCommentDTO> response = commentService.retrieveComments(id, pageable);
         return ResponseEntity.ok(response);
     }
 
