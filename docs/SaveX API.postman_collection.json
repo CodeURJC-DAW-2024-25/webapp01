@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "fa4bd1bd-b419-4fb6-a2c7-a787dcfdf658",
+		"_postman_id": "e1f8a89a-c8dd-4f16-84ed-e653b8fea298",
 		"name": "SaveX API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "42545265"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42989742"
 	},
 	"item": [
 		{
@@ -23,7 +23,17 @@
 								}
 							}
 						},
-						"url": "{{apiBaseURL}}/api/auth/login"
+						"url": {
+							"raw": "{{apiBaseURL}}/api/auth/login",
+							"host": [
+								"{{apiBaseURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
 					},
 					"response": []
 				},
@@ -35,7 +45,17 @@
 						},
 						"method": "POST",
 						"header": [],
-						"url": "{{apiBaseURL}}/api/auth/logout"
+						"url": {
+							"raw": "{{apiBaseURL}}/api/auth/logout",
+							"host": [
+								"{{apiBaseURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
 					},
 					"response": []
 				}
@@ -108,7 +128,19 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "{{apiBaseURL}}/api/v1/posts/2/banner"
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/2/banner",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"2",
+										"banner"
+									]
+								}
 							},
 							"response": []
 						},
@@ -117,7 +149,19 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "{{apiBaseURL}}/api/v1/posts/1/content"
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/1/content",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"1",
+										"content"
+									]
+								}
 							},
 							"response": []
 						},
@@ -126,7 +170,18 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "{{apiBaseURL}}/api/v1/posts/1"
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/1",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"1"
+									]
+								}
 							},
 							"response": []
 						},
@@ -139,7 +194,18 @@
 									"mode": "formdata",
 									"formdata": []
 								},
-								"url": "{{apiBaseURL}}/api/v1/posts/2"
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/2",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"2"
+									]
+								}
 							},
 							"response": []
 						}
@@ -191,7 +257,19 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "{{apiBaseURL}}/api/v1/users/1/avatar"
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/1/avatar",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"1",
+										"avatar"
+									]
+								}
 							},
 							"response": []
 						},
@@ -210,7 +288,32 @@
 										}
 									]
 								},
-								"url": "{{apiBaseURL}}/api/v1/users/1/avatar"
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/1/avatar",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"1",
+										"avatar"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ShoppingList",
+					"item": [
+						{
+							"name": "UserList (log request)",
+							"request": {
+								"method": "GET",
+								"header": []
 							},
 							"response": []
 						}

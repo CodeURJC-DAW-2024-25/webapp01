@@ -5,10 +5,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -44,8 +41,8 @@ public class RestShoppingListController {
     @Autowired 
     private UserService userService;
 
-        @GetMapping({ "", "/" })
-        public ResponseEntity<Map<String, Object>> getUserLists(
+    @GetMapping({ "", "/" })
+    public ResponseEntity<Map<String, Object>> getUserLists(
                 @RequestParam(defaultValue = "0") int page,
                 @RequestParam(defaultValue = "4") int size) {
         
@@ -59,7 +56,7 @@ public class RestShoppingListController {
 
             return ResponseEntity.ok(response);
         }
-
+    
     @PostMapping("/{id}/product/{productId}")
     public ResponseEntity<Map<String, Object>> addProductToList(@PathVariable Long id, @PathVariable String productId) {
 
