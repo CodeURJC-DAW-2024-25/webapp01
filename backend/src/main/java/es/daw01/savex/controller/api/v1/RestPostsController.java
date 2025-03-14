@@ -2,7 +2,6 @@ package es.daw01.savex.controller.api.v1;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -99,17 +98,10 @@ public class RestPostsController {
         }
     }
 
-    @DeleteMapping("/post/{id}")
-    public ResponseEntity<Map<String, Object>> deletePost(@PathVariable long id) {
-        try {
-            commentService.deleteByPostId(id);
-            postService.deleteById(id);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(
-                    Map.of("message", "Error al eliminar el post"));
-        }
-
-        return ResponseEntity.ok().body(
-                Map.of("message", "Post eliminado correctamente"));
+    @DeleteMapping("/{id}")
+    public ResponseEntity<PostDTO> deletePost(@PathVariable long id) {
+        commentService.deleteByPostId(id);
+        PostDTO post = postService.deleteById(id);
+        return ResponseEntity.ok(post);
     }
 }

@@ -205,8 +205,16 @@ public class PostService {
         return post;
     }
 
-    public void deleteById(long id) {
+    /**
+     * Deletes a post by its id
+     * 
+     * @param id The id of the post to delete
+     * @return The deleted post
+     */
+    public PostDTO deleteById(long id) {
+        PostDTO post = getPost(id);
         postRepository.deleteById(id);
+        return post;
     }
 
     /**
