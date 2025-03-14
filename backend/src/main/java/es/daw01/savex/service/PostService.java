@@ -227,20 +227,25 @@ public class PostService {
      */
     public PostDTO updatePost(Long id, CreatePostRequest postRequest, MultipartFile banner) throws IOException {
         Post toUpdatePost = postRepository.findById(id).orElseThrow();
-        
-        Optional.ofNullable(postRequest.title()).ifPresent(toUpdatePost::setTitle);
-        Optional.ofNullable(postRequest.description()).ifPresent(toUpdatePost::setDescription);
-        Optional.ofNullable(postRequest.content()).ifPresent(toUpdatePost::setContent);
-        Optional.ofNullable(postRequest.author()).ifPresent(toUpdatePost::setAuthor);
-        Optional.ofNullable(postRequest.date()).ifPresent(toUpdatePost::setDate);
-        Optional.ofNullable(postRequest.readingTime()).ifPresent(toUpdatePost::setReadingTime);
-        Optional.ofNullable(postRequest.tags()).ifPresent(toUpdatePost::setTags);
-        Optional.ofNullable(postRequest.visibility()).ifPresent(toUpdatePost::setVisibility);
+        Post reqPost = postMapper.toDomain(postRequest);
 
-        if (banner != null) {
-            toUpdatePost.saveImage(banner);
-        }
+        toUpdatePost.updatePost(reqPost);
+        if (banner != null) toUpdatePost.saveImage(banner);
 
         return postMapper.toDTO(postRepository.save(toUpdatePost));
+    }
+
+    /**
+     * Creates a post from a given request
+     *
+     * @param postRequest The request with the new post data
+     * @param banner The banner image of the post
+     * @return The created post
+    */
+    public PostDTO createPost(CreatePostRequest postRequest, MultipartFile banner) throws IOException {
+        Post post = new Post();
+        postMapper.createPostFromRequest(postRequest, post);
+        if (banner != null) post.saveImage(banner);
+        return postMapper.toDTO(postRepository.save(post));
     }
 }

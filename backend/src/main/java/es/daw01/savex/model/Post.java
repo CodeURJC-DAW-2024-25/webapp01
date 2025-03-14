@@ -172,9 +172,29 @@ public class Post {
         int words = this.content.split(" ").length;
         int minutes = words / 200;
 
-        if (minutes < 1)
-            minutes = 1;
-        return String.format("%d min", minutes);
+        if (minutes < 1) minutes = 1;
+        
+        String time = String.format("%d min", minutes);
+        
+        this.readingTime = time;
+        return time;
+    }
+
+    /**
+     * Update the post with the new post data
+     * 
+     * @param post the new post data to update the post with
+     */
+    public void updatePost(Post post) {
+        this.title = post.getTitle() != null ? post.getTitle() : this.title;
+        this.description = post.getDescription() != null ? post.getDescription() : this.description;
+        this.content = post.getContent() != null ? post.getContent() : this.content;
+        this.author = post.getAuthor() != null ? post.getAuthor() : this.author;
+        this.date = post.getDate() != null ? post.getDate() : this.date;
+        this.readingTime = post.getReadingTime() != null ? post.getReadingTime() : this.readingTime;
+        this.visibility = post.getVisibility() != null ? post.getVisibility() : this.visibility;
+        this.tags = post.getTags() != null ? post.getTags() : this.tags;
+        this.banner = post.getBanner() != null ? post.getBanner() : this.banner;
     }
 
     // Getters and setters ---------------------------------------------------->>

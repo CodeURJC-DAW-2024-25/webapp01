@@ -10,7 +10,6 @@ public record CreatePostRequest(
     String content,
     String author,
     String date,
-    String readingTime,
     List<String> tags,
     VisibilityType visibility
 ) {}
