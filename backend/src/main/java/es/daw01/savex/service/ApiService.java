@@ -1,24 +1,21 @@
 package es.daw01.savex.service;
 
-import org.springframework.web.client.RestTemplate;
+import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.DTOs.products.SearchProductRequest;
 
-import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
 import org.springframework.stereotype.Service;
 
 @Service
 public class ApiService {
     private final String API_BASE_URL = "https://market-pricings-server.vercel.app/api/v2";
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestClient restClient = RestClient.create();
     private final int DEFAULT_SIZE = 10;
 
     public PaginatedDTO<ProductDTO> fetchProducts(SearchProductRequest request) {
@@ -40,28 +37,10 @@ public class ApiService {
 
         String finalUrl = builder.toUriString();
 
-        Map<String, Object> response = restTemplate.exchange(
-            finalUrl,
-            HttpMethod.GET,
-            null,
-            new ParameterizedTypeReference<Map<String, Object>>() {}
-        ).getBody();
-
-        // TODO: Ask why does the API takes too much time to respond when non custom types are used like SearchProductResponse
-        List<ProductDTO> products = (List<ProductDTO>) response.get("data");
-        int totalItems = (int) response.get("total_items");
-        int currentPage = (int) response.get("current_page");
-        int totalPages = (int) response.get("total_pages");
-        int itemsPerPage = (int) response.get("items_per_page");
-        boolean isLastPage = (boolean) response.get("is_last_page");
-
-        return new PaginatedDTO<ProductDTO>(
-            products,
-            totalItems,
-            currentPage,
-            totalPages,
-            itemsPerPage,
-            isLastPage
+        return restClient.get()
+            .uri(finalUrl)
+            .retrieve()
+            .body(new ParameterizedTypeReference<PaginatedDTO<ProductDTO>>() {}
         );
     }
 
@@ -77,7 +56,10 @@ public class ApiService {
         String apiUrl = String.format("%s/product/%s", API_BASE_URL, productId);
 
         // Make the API request
-        ProductDTO product = restTemplate.getForObject(apiUrl, ProductDTO.class);
+        ProductDTO product = restClient.get()
+            .uri(apiUrl)
+            .retrieve()
+            .body(ProductDTO.class);
 
         return product;
     }
