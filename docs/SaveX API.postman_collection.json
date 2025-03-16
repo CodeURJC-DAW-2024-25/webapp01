@@ -77,7 +77,7 @@
 							"response": []
 						},
 						{
-							"name": "Post comments paginated",
+							"name": "Post comments",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -217,6 +217,28 @@
 							"response": []
 						},
 						{
+							"name": "Post comments",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "content",
+											"value": "New comment",
+											"type": "text"
+										}
+									]
+								},
+								"url": "https://localhost:8443/api/v1/posts/2/comments"
+							},
+							"response": []
+						},
+						{
 							"name": "Post",
 							"request": {
 								"method": "PATCH",
@@ -226,6 +248,15 @@
 									"formdata": []
 								},
 								"url": "{{apiBaseURL}}/api/v1/posts/2"
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{apiBaseURL}}/api/v1/posts/4/comments/18"
 							},
 							"response": []
 						}
