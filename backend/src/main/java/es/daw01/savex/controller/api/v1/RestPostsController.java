@@ -23,10 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.PostDTO;
-import es.daw01.savex.DTOs.comments.SimpleCommentDTO;
 import es.daw01.savex.DTOs.posts.CreatePostRequest;
-import es.daw01.savex.components.ControllerUtils;
-import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.PostService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,9 +38,6 @@ public class RestPostsController {
 
     @Autowired
     private PostService postService;
-
-    @Autowired
-    private ControllerUtils controllerUtils;
 
     @GetMapping({ "", "/" })
     public ResponseEntity<PaginatedDTO<PostDTO>> getPosts(
@@ -78,11 +72,10 @@ public class RestPostsController {
     @PatchMapping("/{id}")
     public ResponseEntity<PostDTO> updatePost(
         @PathVariable long id,
-        @ModelAttribute CreatePostRequest createPostRequest,
-        @RequestParam(required = false) MultipartFile banner
+        @ModelAttribute CreatePostRequest createPostRequest
     ) {
         try {
-            PostDTO post = postService.updatePost(id, createPostRequest, banner);
+            PostDTO post = postService.updatePost(id, createPostRequest);
             return ResponseEntity.ok(post);
         } catch (IOException e) {
             return ResponseEntity.badRequest().body(null);
@@ -105,23 +98,29 @@ public class RestPostsController {
             .body(banner);
     }
 
+    @PostMapping("/{id}/banner")
+    public ResponseEntity<PostDTO> updatePostBanner(
+        @PathVariable long id,
+        @RequestParam MultipartFile banner
+    ) {
+        try {
+            PostDTO post = postService.updatePostBanner(id, banner);
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
+            return ResponseEntity.created(location).body(post);
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @DeleteMapping("/{id}/banner")
+    public ResponseEntity<PostDTO> deletePostBanner(@PathVariable long id) {
+        PostDTO post = postService.deletePostBanner(id);
+        return ResponseEntity.ok(post);
+    }
+
     @GetMapping("/{id}/content")
     public ResponseEntity<String> getPostContent(@PathVariable long id) {
         String content = postService.getPostContent(id);
         return ResponseEntity.ok(content);
-    }
-
-    @GetMapping("/{id}/comments")
-    public ResponseEntity<PaginatedDTO<SimpleCommentDTO>> getComments(
-        @PathVariable Long id,
-        @PageableDefault(page = 0, size = 5) Pageable pageable
-    ) {
-        PostDTO post = postService.getPost(id);
-        if (post.getVisibility().equals(VisibilityType.PRIVATE) & !controllerUtils.isAuthenticatedUserAdmin()) {
-            return ResponseEntity.badRequest().body(null);
-        }
-
-        PaginatedDTO<SimpleCommentDTO> response = commentService.retrieveComments(id, pageable);
-        return ResponseEntity.ok(response);
     }
 }

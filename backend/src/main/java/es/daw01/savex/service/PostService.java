@@ -222,9 +222,12 @@ public class PostService {
      *
      * @param id The id of the post to update
      * @param postRequest The request with the new post data
-     * @param banner The new banner image of the post
      * @return The updated post
      */
+    public PostDTO updatePost(Long id, CreatePostRequest postRequest) throws IOException {
+        return updatePost(id, postRequest, null);
+    }
+
     public PostDTO updatePost(Long id, CreatePostRequest postRequest, MultipartFile banner) throws IOException {
         Post toUpdatePost = postRepository.findById(id).orElseThrow();
         Post reqPost = postMapper.toDomain(postRequest);
@@ -246,6 +249,31 @@ public class PostService {
         Post post = new Post();
         postMapper.createPostFromRequest(postRequest, post);
         if (banner != null) post.saveImage(banner);
+        return postMapper.toDTO(postRepository.save(post));
+    }
+
+    /**
+     * Updates the banner of a post
+     *
+     * @param id The id of the post to update
+     * @param banner The new banner image
+     * @return The updated post
+     */
+    public PostDTO updatePostBanner(long id, MultipartFile banner) throws IOException {
+        Post post = postRepository.findById(id).orElseThrow();
+        post.saveImage(banner);
+        return postMapper.toDTO(postRepository.save(post));
+    }
+
+    /**
+     * Deletes the banner of a post
+     * 
+     * @param id The id of the post to delete the banner from
+     * @return The updated post
+     */
+    public PostDTO deletePostBanner(long id) {
+        Post post = postRepository.findById(id).orElseThrow();
+        post.removeBanner();
         return postMapper.toDTO(postRepository.save(post));
     }
 }

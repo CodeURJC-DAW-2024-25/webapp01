@@ -181,6 +181,13 @@ public class Post {
     }
 
     /**
+     * Remove the banner from the post
+     */
+    public void removeBanner() {
+        this.banner = null;
+    }
+
+    /**
      * Update the post with the new post data
      * 
      * @param post the new post data to update the post with

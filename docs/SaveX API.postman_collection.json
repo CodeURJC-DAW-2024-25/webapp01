@@ -140,6 +140,15 @@
 							"response": []
 						},
 						{
+							"name": "Post banner",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "https://localhost:8443/api/v1/posts/2/banner"
+							},
+							"response": []
+						},
+						{
 							"name": "Post",
 							"request": {
 								"method": "POST",
@@ -185,6 +194,25 @@
 									]
 								},
 								"url": "{{apiBaseURL}}/api/v1/posts"
+							},
+							"response": []
+						},
+						{
+							"name": "Post banner",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "banner",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": "{{apiBaseURL}}/api/v1/posts/2/banner"
 							},
 							"response": []
 						},
