@@ -83,6 +83,7 @@ public class WebSecurityConfig {
                     .requestMatchers(HttpMethod.POST, "/api/v1/posts/**").hasAnyRole(UserType.ADMIN.name())
                     .requestMatchers(HttpMethod.PATCH, "/api/v1/posts/**").hasAnyRole(UserType.ADMIN.name())
                     .requestMatchers(HttpMethod.DELETE, "/api/v1/posts/**").hasAnyRole(UserType.ADMIN.name())
+                    .requestMatchers(HttpMethod.POST, "/api/v1/posts/**/comments").authenticated()
                     
                     .requestMatchers(HttpMethod.GET, "/api/v1/lists**").hasAnyRole("USER") 
                     

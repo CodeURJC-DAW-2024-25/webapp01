@@ -107,12 +107,12 @@ public class Comment {
         this.post = post;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.createdAt = date;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getFormatedDate() {

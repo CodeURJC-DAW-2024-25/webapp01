@@ -28,6 +28,11 @@ public class DateUtils {
         return date.format(formatter);
     }
 
+    /**
+     * Format a LocalDateTime object to a string with the format "dd-MM-yyyy"
+     * @param date LocalDateTime object to format
+     * @return String with the formatted date
+    */
     public static String formatDate(LocalDateTime date) {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT_DATE);
         return date.format(formatter);
