@@ -6,11 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.daw01.savex.DTOs.PaginatedDTO;
@@ -64,5 +66,20 @@ public class RestCommentsController {
             .path("/{id}").buildAndExpand(comment.id()).toUri();
             
         return ResponseEntity.created(location).body(comment);
+    }
+
+    @DeleteMapping("/{commentId}")
+    public ResponseEntity<SimpleCommentDTO> deleteComment(
+        @PathVariable Long id,
+        @PathVariable Long commentId
+    ) {
+        // TODO: Ask why is it not working
+        User author = controllerUtils.getAuthenticatedUser();
+        try {
+            SimpleCommentDTO comment = commentService.deleteComment(id, commentId, author);
+            return ResponseEntity.ok().body(comment);
+        } catch (ResponseStatusException e) {
+            return ResponseEntity.status(e.getStatusCode()).body(null);
+        }
     }
 }

@@ -7,7 +7,9 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import es.daw01.savex.DTOs.CommentDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
@@ -61,6 +63,26 @@ public class CommentService {
         Post post = postService.findById(postId).orElseThrow();
         Comment comment = commentMapper.toDomain(request, author, post);
         return commentMapper.toDTOSimple(commentRepository.save(comment));
+    }
+
+    /**
+     * Delete a comment from the database
+     * @param postId Post id
+     * @param commentId Comment id
+     * @param author Comment author
+     * @return Comment deleted
+    */
+    public SimpleCommentDTO deleteComment(long postId, long commentId, User author) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow();
+        if (comment.isAuthor(author)) {
+            System.out.println("Deleting comment: " + commentId);
+            System.out.println("Comment author: " + comment.getAuthor().getId());
+            System.out.println("User: " + author.getId());
+            commentRepository.delete(comment);
+            return commentMapper.toDTOSimple(comment);
+        } else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are not the author of this comment");
+        }
     }
 
     /**

@@ -56,7 +56,7 @@ public class Comment {
      * @return True if the user is the author of this comment, false otherwise
     */
     public boolean isAuthor(User user) {
-        return this.author.equals(user);
+        return this.author.equals(user) || user.isAdmin();
     }
 
     /**

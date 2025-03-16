@@ -35,15 +35,13 @@ public class JwtTokenProvider {
 	String tokenStringFromCookies(HttpServletRequest request) {
 		var cookies = request.getCookies();
 		if (cookies == null) {
-		
-			return null; // Devolver null en lugar de lanzar una excepción
+			return null;
 		}
 	
 		for (Cookie cookie : cookies) {
 			if (TokenType.ACCESS.cookieName.equals(cookie.getName())) {
 				String accessToken = cookie.getValue();
 				if (accessToken == null) {
-				
 					return null;
 				}
 				return accessToken;
