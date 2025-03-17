@@ -1,6 +1,5 @@
 package es.daw01.savex.controller.api.v1;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.ResponseEntity;
@@ -8,12 +7,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.daw01.savex.DTOs.lists.CreateListRequest;
 import es.daw01.savex.service.ShoppingListService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/v1/lists")
@@ -43,4 +44,15 @@ public class RestShoppingListController {
         return shoppingListService.removeProductFromList(id, productId);
     }
 
+    @PostMapping({ "", "/" })
+    public ResponseEntity<Object> newList(
+            @RequestBody CreateListRequest request) {
+        return shoppingListService.createShoppingList(request);
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> removeList(
+            @PathVariable Long id) {
+        return shoppingListService.deleteById(id);
+    }
 }
