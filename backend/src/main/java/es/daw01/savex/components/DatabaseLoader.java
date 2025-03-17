@@ -1,19 +1,18 @@
 package es.daw01.savex.components;
 
+import java.io.IOException;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import java.util.Random;
 import java.util.Collections;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
+import org.springframework.core.io.support.PathMatchingResourcePatternResolver;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -51,9 +50,14 @@ public class DatabaseLoader {
     @PostConstruct
     @Transactional
     private void init() {
-        this.initUsers();
-        this.initPosts();
-        this.initComments();
+        try {
+            this.initUsers();
+            this.initPosts();
+            this.initComments();
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new RuntimeException("Error loading default data into the database.");
+        }
     }
 
     /**
@@ -104,20 +108,11 @@ public class DatabaseLoader {
     /**
      * Load default posts into the database
     */
-    private void initPosts() {
+    private void initPosts() throws IOException {
+        PathMatchingResourcePatternResolver resolver = new PathMatchingResourcePatternResolver();
+        Resource[] resources = new Resource[0];
 
-        Resource postsDir = new ClassPathResource("posts");
-
-        // Get all markdown files in the posts directory
-        List<Resource> resources = new ArrayList<>();
-        try {
-            resources = Stream.of(postsDir.getFile().listFiles())
-                .filter(file -> file.getName().endsWith(".md"))
-                .map(file -> new ClassPathResource("posts/" + file.getName()))
-                .collect(Collectors.toList());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        resources = resolver.getResources("classpath:/posts/*.md");
 
         // Load default posts by reading the markdown files
         for (Resource resource : resources) {
