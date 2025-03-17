@@ -44,12 +44,35 @@ public class UserService {
 
     // Public Methods --------------------------------------------------------->>
 
-    public void createPostImage(long id, URI location, MultipartFile avatar) throws IOException {
+    public void deleteUserAvatar(long id) {
+        User user = userRepository.findById(id).orElseThrow();
+        if (user.getAvatar() == null) {
+            throw new NoSuchElementException("User doesn't have an avatar");
+        }
+        user.setAvatar(null);
+        userRepository.save(user);
+    }
+
+    public void createUserAvatar(long id, URI location, MultipartFile avatar) throws IOException {
         
         User user = userRepository.findById(id).orElseThrow();
+        
+        if (user.getAvatar() != null) {
+            throw new EntityExistsException("User already has an avatar");
+        }
         user.setAvatar(ImageUtils.multipartFileToBlob(avatar));
         userRepository.save(user);
 	}
+
+    public void modifyUserAvatar(long id, URI location, MultipartFile avatar) throws IOException {
+
+        User user = userRepository.findById(id).orElseThrow();
+        if (user.getAvatar() == null) {
+            throw new NoSuchElementException("User doesn't have an avatar");
+        }
+        user.setAvatar(ImageUtils.multipartFileToBlob(avatar));
+        userRepository.save(user);
+    }
 
     public Resource getUserAvatar(long id) throws SQLException {
         User user = userRepository.findById(id).orElseThrow();
