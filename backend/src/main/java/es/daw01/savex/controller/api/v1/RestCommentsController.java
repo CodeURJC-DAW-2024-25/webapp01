@@ -68,6 +68,16 @@ public class RestCommentsController {
         return ResponseEntity.created(location).body(comment);
     }
 
+
+    @GetMapping("/{commentId}")
+    public ResponseEntity<SimpleCommentDTO> getComment(
+        @PathVariable Long id,
+        @PathVariable Long commentId
+    ) {
+        SimpleCommentDTO comment = commentService.getComment(id, commentId);
+        return ResponseEntity.ok().body(comment);
+    }
+
     @DeleteMapping("/{commentId}")
     public ResponseEntity<SimpleCommentDTO> deleteComment(
         @PathVariable Long id,
@@ -75,10 +85,12 @@ public class RestCommentsController {
     ) {
         // TODO: Ask why is it not working
         User author = controllerUtils.getAuthenticatedUser();
+        System.out.println(author.getUsername() + "------------------------------------------------");
         try {
             SimpleCommentDTO comment = commentService.deleteComment(id, commentId, author);
             return ResponseEntity.ok().body(comment);
         } catch (ResponseStatusException e) {
+            System.out.println("ERROR WHILE DELETING COMMENT: " + e.getMessage());
             return ResponseEntity.status(e.getStatusCode()).body(null);
         }
     }
