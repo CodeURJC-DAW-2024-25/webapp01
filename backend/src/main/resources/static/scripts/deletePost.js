@@ -16,7 +16,7 @@ async function deletePost() {
 
     // Send a DELETE request to the server to delete the post
     try {
-        const endpoint = `/post/${POST_ID}`;
+        const endpoint = `/posts/${POST_ID}`;
         await fetchData(endpoint, "DELETE", { cacheData: false });
 
         // Redirect to the admin page
