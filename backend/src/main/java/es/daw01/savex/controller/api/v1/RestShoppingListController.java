@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.daw01.savex.DTOs.ProductDTO;
+import es.daw01.savex.DTOs.lists.listResponse;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.ShoppingList;
 import es.daw01.savex.model.User;
@@ -58,22 +59,13 @@ public class RestShoppingListController {
         }
     
     @PostMapping("/{id}/product/{productId}")
-    public ResponseEntity<Map<String, Object>> addProductToList(@PathVariable Long id, @PathVariable String productId) {
-        shoppingListService.addProductToList(id, productId);
-        try {  // Return the shopping list
-          return ResponseEntity.ok(Map.of("message", "Product added successfully"));
-      } catch (Exception e) {
-          return ResponseEntity.badRequest().build();
+    public ResponseEntity<Object> addProductToList(@PathVariable Long id, @PathVariable String productId) {
+        return shoppingListService.addProductToList(id, productId);
       }
 
         
 
         
-
-       
-
-    }
-
     @DeleteMapping("/{id}/product/{productId}")
     public ResponseEntity<Map<String, Object>> removeProductFromList(@PathVariable Long id,
             @PathVariable Long productId) {

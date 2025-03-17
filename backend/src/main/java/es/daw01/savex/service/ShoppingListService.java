@@ -13,7 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-
+import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.DTOs.ShoppingListDTO;
 import es.daw01.savex.DTOs.lists.listResponse;
@@ -121,7 +121,7 @@ public class ShoppingListService {
      * @param shoppingList The shopping list to add the product
      * @param product      The product to add
      */
-    public ResponseEntity<listResponse<ProductDTO>> addProductToList(Long listId, String productId) {
+    public ResponseEntity<Object> addProductToList(Long listId, String productId) {
         ProductDTO productDTO = apiService.fetchProduct(productId);
 
         // Get the authenticated user
@@ -129,19 +129,16 @@ public class ShoppingListService {
 
         // Get the shopping list
         Optional<ShoppingList> opList = findById(listId);
-
-        if (opList.isEmpty()) {
-            return ResponseEntity.notFound().build();
+       if (opList.isEmpty()) {
+            return  ApiResponseDTO.error("Shopping list not found");
         }
+
         ShoppingList list = opList.get();
 
-        // Check if the shopping list belongs to the user
-        if (!list.getUser().equals(user)) {
-            return ResponseEntity.badRequest().build();
-        }
+      
 
         // Check if the product already exists
-        Optional<Product> op = productService.findById(Long.parseLong(productId));
+        Optional<Product> op = productService.findByProductDTO(productDTO);
         Product product;
         if (op.isEmpty()) {
             product = productService.createProductFromDTO(productDTO);
@@ -159,7 +156,7 @@ public class ShoppingListService {
             .collect(Collectors.toList());
         listResponse<ProductDTO> response = new listResponse<>(list.getId(), user.getUsername(), productList);
 
-        return ResponseEntity.ok(response);
+        return ApiResponseDTO.ok(response);
     }
 
     /**
