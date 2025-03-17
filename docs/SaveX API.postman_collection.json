@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "fa4bd1bd-b419-4fb6-a2c7-a787dcfdf658",
+		"_postman_id": "a96c25a5-6fb4-4ae2-b45f-87b1486917f0",
 		"name": "SaveX API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "42545265"
+		"_exporter_id": "37129679"
 	},
 	"item": [
 		{
@@ -271,7 +271,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/products?search=leche&limit=24&page=1",
+									"raw": "{{apiBaseURL}}/api/v1/products?search=leche&limit=24&page=1&supermarket=mercadona",
 									"host": [
 										"{{apiBaseURL}}"
 									],
@@ -292,9 +292,22 @@
 										{
 											"key": "page",
 											"value": "1"
+										},
+										{
+											"key": "supermarket",
+											"value": "mercadona"
 										}
 									]
 								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product by Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{apiBaseURL}}/api/v1/products/10533@mercadona"
 							},
 							"response": []
 						}

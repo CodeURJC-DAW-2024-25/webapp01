@@ -75,9 +75,6 @@ public class CommentService {
     public SimpleCommentDTO deleteComment(long postId, long commentId, User author) {
         Comment comment = commentRepository.findById(commentId).orElseThrow();
         if (comment.isAuthor(author)) {
-            System.out.println("Deleting comment: " + commentId);
-            System.out.println("Comment author: " + comment.getAuthor().getId());
-            System.out.println("User: " + author.getId());
             commentRepository.delete(comment);
             return commentMapper.toDTOSimple(comment);
         } else {
