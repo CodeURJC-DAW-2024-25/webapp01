@@ -9,6 +9,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -38,6 +39,8 @@ public class ShoppingListService {
     @Autowired
     private ControllerUtils controllerUtils;
 
+    @Autowired
+    private UserService userService;
 
     /**
      * Find a shopping list by id
@@ -96,7 +99,9 @@ public class ShoppingListService {
      * @param pageable The pageable object
      * @return The list of shopping lists
      */
-    public Map<String, Object> retrieveUserLists(User user, Pageable pageable) {
+    public ResponseEntity<Object> retrieveUserLists(Pageable pageable) {
+        User user = userService.getAuthenticatedUser(); // The user is already authenticated
+
         Map<String, Object> response = new HashMap<>();
 
         // Retrieve shopping lists paginated
@@ -105,14 +110,17 @@ public class ShoppingListService {
         // Parse shopping lists to DTOs
         List<ShoppingListDTO> listsDTO = this.parseToDTOs(listsPage.getContent());
 
+        if (listsDTO.isEmpty()) {
+            return ApiResponseDTO.ok("No shopping lists found");
+        }
         // Generate response map
-        response.put("data", listsDTO);
+        response.put("data", listsDTO.isEmpty() ? null : listsDTO);
         response.put("currentPage", listsPage.getNumber());
         response.put("totalItems", listsPage.getTotalElements());
         response.put("totalPages", listsPage.getTotalPages());
         response.put("isLastPage", listsPage.isLast());
 
-        return response;
+        return ApiResponseDTO.ok(response);
     }
 
     /**
@@ -129,13 +137,11 @@ public class ShoppingListService {
 
         // Get the shopping list
         Optional<ShoppingList> opList = findById(listId);
-       if (opList.isEmpty()) {
-            return  ApiResponseDTO.error("Shopping list not found");
+        if (opList.isEmpty()) {
+            return ApiResponseDTO.error("Shopping list not found");
         }
 
         ShoppingList list = opList.get();
-
-      
 
         // Check if the product already exists
         Optional<Product> op = productService.findByProductDTO(productDTO);
@@ -152,8 +158,8 @@ public class ShoppingListService {
 
         // Create response
         List<ProductDTO> productList = list.getProducts().stream()
-            .map(ProductDTO::new)
-            .collect(Collectors.toList());
+                .map(ProductDTO::new)
+                .collect(Collectors.toList());
         listResponse<ProductDTO> response = new listResponse<>(list.getId(), user.getUsername(), productList);
 
         return ApiResponseDTO.ok(response);
@@ -192,18 +198,38 @@ public class ShoppingListService {
      * @param shoppingList The shopping list to remove the product
      * @param product      The product to remove
      */
-    public void removeProductFromList(ShoppingList shoppingList, Long productId) {
-        Optional<Product> op = productService.findById(productId);
+    public ResponseEntity<Object> removeProductFromList(Long id, String productId) {
 
-        // If the product does not exist, throw an exception
-        if (op.isEmpty()) {
-            throw new IllegalArgumentException("Product does not exist");
+        ProductDTO productDTO = apiService.fetchProduct(productId);
+        // Get the authenticated user
+        User user = controllerUtils.getAuthenticatedUser();
+
+        // Get the shopping list
+        Optional<ShoppingList> op1 = findById(id);
+
+        if (op1.isEmpty()) {
+            return ApiResponseDTO.error("Shopping list not found");
         }
 
-        Product product = op.get();
+        ShoppingList list = op1.get();
 
-        shoppingList.removeProduct(product);
-        shoppingListRepository.save(shoppingList);
+        // Check if the shopping list belongs to the user
+        if (!list.getUser().equals(user)) {
+            return ApiResponseDTO.error("Shopping list does not belong to the user");
+        }
+
+        Optional<Product> op2 = productService.findByProductDTO(productDTO);
+
+        // If the product does not exist, throw an exception
+        if (op2.isEmpty()) {
+            return ApiResponseDTO.error("Product not found");
+        }
+
+        Product product = op2.get();
+
+        list.removeProduct(product);
+        shoppingListRepository.save(list);
+        return ApiResponseDTO.ok("Product removed from list");
     }
 
 }

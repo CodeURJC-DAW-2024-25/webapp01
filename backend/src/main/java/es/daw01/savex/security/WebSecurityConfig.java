@@ -89,6 +89,7 @@ public class WebSecurityConfig {
                     
                     .requestMatchers(HttpMethod.GET, "/api/v1/lists**").authenticated()
                     .requestMatchers(HttpMethod.POST, "/api/v1/lists/*/product/**").authenticated()
+                    .requestMatchers(HttpMethod.DELETE, "/api/v1/lists/*/product/**").authenticated()
 
 					.anyRequest().authenticated()
 			);
