@@ -10,6 +10,14 @@ services:
       SPRING_DATASOURCE_USERNAME: savex_user
       SPRING_DATASOURCE_PASSWORD: root
       SPRING_SERVER_PORT: 8443
+    develop:
+      watch:
+        - path: ./src
+          target: /app/src
+          action: sync
+        - path: ./pom.xml
+          target: /app/pom.xml
+          action: sync
     ports:
       - "8443:8443"
     depends_on:
