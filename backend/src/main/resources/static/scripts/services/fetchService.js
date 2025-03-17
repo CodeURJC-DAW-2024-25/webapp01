@@ -25,7 +25,7 @@ export async function fetchData(endpoint, method, params = {}) {
         body = null
     } = params;
 
-    const BASE_URL = useBaseUrl ? "/api" : "";
+    const BASE_URL = useBaseUrl ? "/api/v1" : "";
     const enctype = requestType === "JSON" ? "application/json" : "";
     const url = `${BASE_URL}${endpoint}`;
 

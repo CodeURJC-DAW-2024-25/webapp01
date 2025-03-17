@@ -4,7 +4,7 @@ export function createHTMLProduct(product) {
     const searchQueryParam = encodeURIComponent(localStorage.getItem("originalSearchQuery") || searchQuery);
     return `
     <div class="product-card">
-        <a href="/products/${product._id}?searchInput=${searchQueryParam}" class="product-link">
+        <a href="/products/${product.product_id}?searchInput=${searchQueryParam}" class="product-link">
             <div class="product-image-container">
                 <div class="supermarket-badge">${product.supermarket_name}</div>
                 <div class="product-image">
@@ -54,7 +54,11 @@ export function createHTMLPost(post) {
                 <span class="read-time">${post.readingTime}</span>
             </div>
             <div class="img-container">
-                <img src="/api/posts/${post.id}/banner" alt="${post.title}">
+                <img
+                    src="/api/v1/posts/${post.id}/banner"
+                    onerror="this.src='/assets/template_image.png'"
+                    alt="${post.title}"
+                >
             </div>
         </div>
     </a>

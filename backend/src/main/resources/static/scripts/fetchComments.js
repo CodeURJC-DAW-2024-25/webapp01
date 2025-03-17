@@ -20,16 +20,16 @@ async function loadComments() {
     loading = true;
 
     const endpoint = `/posts/${POST_ID}/comments?page=${currentPage}&size=${COMMENTS_SIZE}`;
-    const data = await fetchData(endpoint, "GET", { cacheData: false });
+    const response = await fetchData(endpoint, "GET", { cacheData: false });
 
-    data.comments.forEach(comment => {
+    response.data.forEach(comment => {
         $commentsContainer.insertAdjacentHTML("beforeend", createHTMLComment(comment));
     });
 
     currentPage++;
     loading = false;
 
-    if (data.isLastPage) $loadMoreButton.remove();
+    if (response.is_last_page) $loadMoreButton.remove();
     loading = false;
 }
 
@@ -38,8 +38,11 @@ function createHTMLComment(comment) {
     <div class="comment">
         <div class="comment-header">
             <div class="left">
-                <img class="user-avatar" src="/api/profile/${comment.author.id}/avatar" alt="User">
-                <span class="comment-author">@${comment.author.username}</span>
+                <img class="user-avatar"
+                src="/api/v1/users/${comment.authorId}/avatar"
+                onerror="this.src='/assets/defaultAvatar.jpg'"
+                alt="User">
+                <span class="comment-author">@${comment.author}</span>
             </div>
             <div class="right">
                 ${comment.canDelete ? `
