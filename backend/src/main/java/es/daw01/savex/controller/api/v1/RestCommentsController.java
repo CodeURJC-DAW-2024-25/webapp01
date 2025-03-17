@@ -88,7 +88,6 @@ public class RestCommentsController {
             SimpleCommentDTO comment = commentService.deleteComment(id, commentId, author);
             return ResponseEntity.ok().body(comment);
         } catch (ResponseStatusException e) {
-            System.out.println("ERROR WHILE DELETING COMMENT: " + e.getMessage());
             return ResponseEntity.status(e.getStatusCode()).body(null);
         }
     }
