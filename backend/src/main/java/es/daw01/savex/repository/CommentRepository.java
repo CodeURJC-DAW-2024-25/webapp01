@@ -14,6 +14,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     public Iterable<Comment> findByPost(Post post);
     public Page<Comment> findByPostOrderByCreatedAtDesc(Post post, Pageable pageable);
     public Page<Comment> findByPostIdOrderByCreatedAtDesc(long post_id, Pageable pageable);
+    public Comment findByPostIdAndId(long post_id, long id);
 
     @Modifying
     @Transactional

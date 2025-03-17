@@ -53,6 +53,17 @@ public class CommentService {
     }
 
     /**
+     * Get a comment from the database
+     * @param postId Post id
+     * @param commentId Comment id
+     * @return Comment found
+    */
+    public SimpleCommentDTO getComment(long postId, long commentId) {
+        Comment comment = commentRepository.findByPostIdAndId(postId, commentId);
+        return commentMapper.toDTOSimple(comment);
+    }
+
+    /**
      * Create a comment in the database
      * @param postId Post id
      * @param request Comment request
