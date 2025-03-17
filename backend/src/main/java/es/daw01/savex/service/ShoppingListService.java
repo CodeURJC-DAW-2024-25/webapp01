@@ -9,7 +9,6 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -17,6 +16,7 @@ import org.springframework.stereotype.Service;
 import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.DTOs.ShoppingListDTO;
+import es.daw01.savex.DTOs.lists.CreateListRequest;
 import es.daw01.savex.DTOs.lists.listResponse;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Product;
@@ -66,10 +66,10 @@ public class ShoppingListService {
      * 
      * @param id The id of the shopping list
      */
-    public void deleteById(long id) {
+    public ResponseEntity<Object> deleteById(long id) {
         shoppingListRepository.deleteById(id);
+        return ApiResponseDTO.ok("Shopping list deleted successfully");
     }
-
     /**
      * Find all shopping lists by user
      * 
@@ -86,10 +86,13 @@ public class ShoppingListService {
      * @param description The description of the shopping list
      * @param user        The user of the shopping list
      */
-    public ShoppingList createShoppingList(String name, String description, User user) {
-        ShoppingList shoppingList = new ShoppingList(name, description, user, null);
+    public ResponseEntity<Object> createShoppingList(CreateListRequest request) {
+        String listName = request.getListName();
+        String listDescription = request.getListDescription();
+        User user = controllerUtils.getAuthenticatedUser();
+        ShoppingList shoppingList = new ShoppingList(listName, listDescription, user, null);
         shoppingListRepository.save(shoppingList);
-        return shoppingList;
+        return ApiResponseDTO.ok("Shopping list created successfully");
     }
 
     /**
