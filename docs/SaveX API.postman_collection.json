@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "0e68fe1b-b4b8-4d75-9ee2-385ca3590480",
+		"_postman_id": "704fd8e4-45fd-47ee-93ae-f9ce795d2656",
 		"name": "SaveX API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "43057522"
+		"_exporter_id": "37129679"
 	},
 	"item": [
 		{
@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"userDefault1\",\r\n    \"password\": \"pass1\"\r\n}",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -77,6 +77,24 @@
 							"response": []
 						},
 						{
+							"name": "Post content",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{apiBaseURL}}/api/v1/posts/1/content"
+							},
+							"response": []
+						},
+						{
+							"name": "Post banner",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{apiBaseURL}}/api/v1/posts/2/banner"
+							},
+							"response": []
+						},
+						{
 							"name": "Post comments",
 							"request": {
 								"method": "GET",
@@ -104,20 +122,11 @@
 							"response": []
 						},
 						{
-							"name": "Post banner",
+							"name": "Post comment",
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "{{apiBaseURL}}/api/v1/posts/2/banner"
-							},
-							"response": []
-						},
-						{
-							"name": "Post content",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": "{{apiBaseURL}}/api/v1/posts/1/content"
+								"url": "{{apiBaseURL}}/api/v1/posts/1/comments/1"
 							},
 							"response": []
 						},
@@ -145,6 +154,15 @@
 								"method": "DELETE",
 								"header": [],
 								"url": "https://localhost:8443/api/v1/posts/2/banner"
+							},
+							"response": []
+						},
+						{
+							"name": "Post comment",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{apiBaseURL}}/api/v1/posts/1/comments/1"
 							},
 							"response": []
 						},
@@ -217,7 +235,7 @@
 							"response": []
 						},
 						{
-							"name": "Post comments",
+							"name": "Post comment",
 							"request": {
 								"auth": {
 									"type": "noauth"
@@ -248,15 +266,6 @@
 									"formdata": []
 								},
 								"url": "{{apiBaseURL}}/api/v1/posts/2"
-							},
-							"response": []
-						},
-						{
-							"name": "New Request",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": "{{apiBaseURL}}/api/v1/posts/4/comments/18"
 							},
 							"response": []
 						}
