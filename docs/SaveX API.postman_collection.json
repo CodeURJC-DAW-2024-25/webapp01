@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "a96c25a5-6fb4-4ae2-b45f-87b1486917f0",
+		"_postman_id": "0e68fe1b-b4b8-4d75-9ee2-385ca3590480",
 		"name": "SaveX API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "37129679"
+		"_exporter_id": "43057522"
 	},
 	"item": [
 		{
@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"raw": "{\r\n    \"username\": \"userDefault1\",\r\n    \"password\": \"pass1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -336,7 +336,26 @@
 										{
 											"key": "avatar",
 											"type": "file",
-											"src": "/A:/Diego/1. Main/2.png"
+											"src": "/Users/dani/Downloads/view-3d-cool-modern-bird_23-2150946639.avif"
+										}
+									]
+								},
+								"url": "{{apiBaseURL}}/api/v1/users/1/avatar"
+							},
+							"response": []
+						},
+						{
+							"name": "User avatar",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/Users/dani/Downloads/coolpfp.jpg"
 										}
 									]
 								},
