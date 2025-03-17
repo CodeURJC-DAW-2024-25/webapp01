@@ -16,7 +16,7 @@ SaveX is a platform that allows users to compare the prices of products between 
 
 ---
 
-## 🚀 Getting Started
+## 🚀 Getting Started without Docker
 
 To get started with SaveX, follow these steps:
 
@@ -70,6 +70,40 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 
 # Windows
 .\mvnw.cmd spring-boot:run
+```
+
+**🌐 Access the application**
+Open your web browser and navigate to `https://localhost:8443` to access the SaveX platform.
+
+---
+
+## 🐳 Getting Started with Docker
+
+To get started with SaveX using Docker, follow these steps:
+
+### 🛠️ Prerequisites
+
+| Technology     | Version | Description                                                                 |
+|----------------|---------|-----------------------------------------------------------------------------|
+| Docker         | 20.10.8 | Containerization platform for building, shipping, and running applications. |
+| Docker Compose | 1.29.2  | Tool for defining and running multi-container Docker applications.          |
+
+### 🏗️ Installation and Set Up
+
+1.  **Clone the repository**
+```bash
+git clone https://github.com/CodeURJC-DAW-2024-25/webapp01.git SaveX --branch main --depth 1
+cd ./SaveX/backend
+```
+
+2. **Build the Docker image**
+```bash
+docker build -t savex .
+```
+
+3. **Run the Docker container**
+```bash
+docker compose up
 ```
 
 **🌐 Access the application**
