@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 
-import es.daw01.savex.DTOs.ShoppingListDTO;
+import es.daw01.savex.DTOs.lists.CreateListRequest;
+import es.daw01.savex.DTOs.lists.ShoppingListDTO;
+import es.daw01.savex.DTOs.lists.SimpleShoppingListDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.ShoppingList;
 import es.daw01.savex.model.User;
@@ -15,8 +17,8 @@ import es.daw01.savex.service.ShoppingListService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @Controller
 @RequestMapping("/shoppingList")
@@ -67,18 +69,15 @@ public class ShoppingListController {
     }
 
     @PostMapping("/create")
-    public String postMethodName(@RequestParam String name, @RequestParam String description) {
+    public String postMethodName(@RequestBody CreateListRequest request) {
         User user = controllerUtils.getAuthenticatedUser();
 
         // Add the shopping list to the user
-        ShoppingList newShoppingList = shoppingListService.createShoppingList(
-                name,
-                description,
-                user);
+        SimpleShoppingListDTO newShoppingList = shoppingListService.createShoppingList(request, user);
 
         if (newShoppingList == null)
             return "redirect:/profile";
-        return String.format("redirect:/shoppingList/%d", newShoppingList.getId());
+        return String.format("redirect:/shoppingList/%d", newShoppingList.id());
     }
 
     @PostMapping("/{id}/delete")

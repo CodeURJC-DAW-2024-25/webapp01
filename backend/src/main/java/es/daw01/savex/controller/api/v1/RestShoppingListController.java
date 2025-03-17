@@ -7,7 +7,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.lists.CreateListRequest;
+import es.daw01.savex.DTOs.lists.SimpleShoppingListDTO;
+import es.daw01.savex.components.ControllerUtils;
+import es.daw01.savex.model.User;
 import es.daw01.savex.service.ShoppingListService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -23,11 +27,24 @@ public class RestShoppingListController {
     @Autowired
     private ShoppingListService shoppingListService;
 
+    @Autowired
+    private ControllerUtils controllerUtils;
+
     @GetMapping({ "", "/" })
     public ResponseEntity<Object> getUserLists(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "4") int size) {
+        @RequestParam(defaultValue = "0") int page,
+        @RequestParam(defaultValue = "4") int size
+    ) {
         return shoppingListService.retrieveUserLists(PageRequest.of(page, size));
+    }
+
+    @PostMapping({ "", "/" })
+    public ResponseEntity<Object> newList(
+        @RequestBody CreateListRequest request
+    ) {
+        User user = controllerUtils.getAuthenticatedUser();
+        SimpleShoppingListDTO list = shoppingListService.createShoppingList(request, user);
+        return ApiResponseDTO.ok(list);
     }
 
     @PostMapping("/{id}/product/{productId}")
@@ -42,12 +59,6 @@ public class RestShoppingListController {
             @PathVariable Long id,
             @PathVariable String productId) {
         return shoppingListService.removeProductFromList(id, productId);
-    }
-
-    @PostMapping({ "", "/" })
-    public ResponseEntity<Object> newList(
-            @RequestBody CreateListRequest request) {
-        return shoppingListService.createShoppingList(request);
     }
 
     @DeleteMapping("/{id}")

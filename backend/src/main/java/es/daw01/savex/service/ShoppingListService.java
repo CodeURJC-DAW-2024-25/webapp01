@@ -15,9 +15,11 @@ import org.springframework.stereotype.Service;
 
 import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.ProductDTO;
-import es.daw01.savex.DTOs.ShoppingListDTO;
 import es.daw01.savex.DTOs.lists.CreateListRequest;
-import es.daw01.savex.DTOs.lists.listResponse;
+import es.daw01.savex.DTOs.lists.ShoppingListDTO;
+import es.daw01.savex.DTOs.lists.ShoppingListMapper;
+import es.daw01.savex.DTOs.lists.SimpleShoppingListDTO;
+import es.daw01.savex.DTOs.lists.ListResponse;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Product;
 import es.daw01.savex.model.ShoppingList;
@@ -29,6 +31,9 @@ public class ShoppingListService {
 
     @Autowired
     private ShoppingListRepository shoppingListRepository;
+
+    @Autowired
+    private ShoppingListMapper shoppingListMapper;
 
     @Autowired
     private ProductService productService;
@@ -86,13 +91,12 @@ public class ShoppingListService {
      * @param description The description of the shopping list
      * @param user        The user of the shopping list
      */
-    public ResponseEntity<Object> createShoppingList(CreateListRequest request) {
-        String listName = request.getListName();
-        String listDescription = request.getListDescription();
-        User user = controllerUtils.getAuthenticatedUser();
+    public SimpleShoppingListDTO createShoppingList(CreateListRequest request, User user) {
+        String listName = request.name();
+        String listDescription = request.description();
+
         ShoppingList shoppingList = new ShoppingList(listName, listDescription, user, null);
-        shoppingListRepository.save(shoppingList);
-        return ApiResponseDTO.ok("Shopping list created successfully");
+        return shoppingListMapper.toSimpleDTO(shoppingListRepository.save(shoppingList));
     }
 
     /**
@@ -163,7 +167,7 @@ public class ShoppingListService {
         List<ProductDTO> productList = list.getProducts().stream()
                 .map(ProductDTO::new)
                 .collect(Collectors.toList());
-        listResponse<ProductDTO> response = new listResponse<>(list.getId(), user.getUsername(), productList);
+        ListResponse<ProductDTO> response = new ListResponse<>(list.getId(), user.getUsername(), productList);
 
         return ApiResponseDTO.ok(response);
     }

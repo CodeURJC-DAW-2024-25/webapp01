@@ -1,8 +1,9 @@
-package es.daw01.savex.DTOs;
+package es.daw01.savex.DTOs.lists;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.model.Product;
 import es.daw01.savex.model.ShoppingList;
 
