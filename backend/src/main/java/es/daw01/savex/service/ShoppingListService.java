@@ -5,15 +5,19 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 
 import es.daw01.savex.DTOs.ProductDTO;
 import es.daw01.savex.DTOs.ShoppingListDTO;
+import es.daw01.savex.DTOs.lists.listResponse;
+import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Product;
 import es.daw01.savex.model.ShoppingList;
 import es.daw01.savex.model.User;
@@ -27,6 +31,13 @@ public class ShoppingListService {
 
     @Autowired
     private ProductService productService;
+
+    @Autowired
+    private ApiService apiService;
+
+    @Autowired
+    private ControllerUtils controllerUtils;
+
 
     /**
      * Find a shopping list by id
@@ -110,10 +121,28 @@ public class ShoppingListService {
      * @param shoppingList The shopping list to add the product
      * @param product      The product to add
      */
-    public void addProductToList(ShoppingList shoppingList, ProductDTO productDTO) {
-        Optional<Product> op = productService.findByProductDTO(productDTO);
+    public ResponseEntity<listResponse<ProductDTO>> addProductToList(Long listId, String productId) {
+        ProductDTO productDTO = apiService.fetchProduct(productId);
 
-        Product product = null;
+        // Get the authenticated user
+        User user = controllerUtils.getAuthenticatedUser();
+
+        // Get the shopping list
+        Optional<ShoppingList> opList = findById(listId);
+
+        if (opList.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+        ShoppingList list = opList.get();
+
+        // Check if the shopping list belongs to the user
+        if (!list.getUser().equals(user)) {
+            return ResponseEntity.badRequest().build();
+        }
+
+        // Check if the product already exists
+        Optional<Product> op = productService.findById(Long.parseLong(productId));
+        Product product;
         if (op.isEmpty()) {
             product = productService.createProductFromDTO(productDTO);
             productService.save(product);
@@ -121,8 +150,16 @@ public class ShoppingListService {
             product = op.get();
         }
 
-        shoppingList.addProduct(product);
-        shoppingListRepository.save(shoppingList);
+        list.addProduct(product);
+        shoppingListRepository.save(list);
+
+        // Create response
+        List<ProductDTO> productList = list.getProducts().stream()
+            .map(ProductDTO::new)
+            .collect(Collectors.toList());
+        listResponse<ProductDTO> response = new listResponse<>(list.getId(), user.getUsername(), productList);
+
+        return ResponseEntity.ok(response);
     }
 
     /**
