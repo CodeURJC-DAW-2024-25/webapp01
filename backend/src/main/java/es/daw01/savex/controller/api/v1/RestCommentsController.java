@@ -83,14 +83,11 @@ public class RestCommentsController {
         @PathVariable Long id,
         @PathVariable Long commentId
     ) {
-        // TODO: Ask why is it not working
         User author = controllerUtils.getAuthenticatedUser();
-        System.out.println(author.getUsername() + "------------------------------------------------");
         try {
             SimpleCommentDTO comment = commentService.deleteComment(id, commentId, author);
             return ResponseEntity.ok().body(comment);
         } catch (ResponseStatusException e) {
-            System.out.println("ERROR WHILE DELETING COMMENT: " + e.getMessage());
             return ResponseEntity.status(e.getStatusCode()).body(null);
         }
     }

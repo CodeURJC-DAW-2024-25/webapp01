@@ -43,7 +43,11 @@
                 </div>
             </header>
             <div class="post-image">
-                <img src="/api/posts/{{post.id}}/banner" alt="Ahorra dinero">
+                <img
+                    src="/api/v1/posts/{{post.id}}/banner"
+                    onerror="this.src='/assets/template_image.png'"
+                    alt="{{post.title}}"
+                >
             </div>
             <hr>
             <div class="post-content">
@@ -59,7 +63,7 @@
             <button id="load-more-button" class="clickable clickable-primary">Cargar más</button>
             <hr class="margin-v big">
             {{#isAuthenticated}}
-            <form class="comment-form" action="/posts/{{post.id}}/addComment" method="post">
+            <form class="comment-form" action="/posts/{{post.id}}/comments" method="post">
                 <h4>Deja un comentario</h4>
                 <textarea class="comment-input" name="comment" placeholder="Escribe un comentario..."></textarea>
                 <button type="submit" class="clickable clickable-primary">Comentar</button>

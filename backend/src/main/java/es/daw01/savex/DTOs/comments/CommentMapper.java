@@ -16,6 +16,7 @@ import es.daw01.savex.utils.DateUtils;
 @Mapper(componentModel = "spring")
 public interface CommentMapper {
     @Mapping(target = "author", source = "author.username")
+    @Mapping(target = "authorId", source = "author.id")
     SimpleCommentDTO toDTOSimple(Comment comment);
     List<SimpleCommentDTO> toDTOSimple(Collection<Comment> comments);
 
