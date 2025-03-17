@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "704fd8e4-45fd-47ee-93ae-f9ce795d2656",
+		"_postman_id": "4d5fcc4e-7186-4f1e-8c72-cf7981b08270",
 		"name": "SaveX API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "37129679"
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "42989742"
 	},
 	"item": [
 		{
@@ -16,14 +16,24 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+							"raw": "{\r\n    \"username\": \"userDefault1\",\r\n    \"password\": \"pass1\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "{{apiBaseURL}}/api/auth/login"
+						"url": {
+							"raw": "{{apiBaseURL}}/api/auth/login",
+							"host": [
+								"{{apiBaseURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
 					},
 					"response": []
 				},
@@ -35,7 +45,17 @@
 						},
 						"method": "POST",
 						"header": [],
-						"url": "{{apiBaseURL}}/api/auth/logout"
+						"url": {
+							"raw": "{{apiBaseURL}}/api/auth/logout",
+							"host": [
+								"{{apiBaseURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
 					},
 					"response": []
 				}
@@ -77,24 +97,6 @@
 							"response": []
 						},
 						{
-							"name": "Post content",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": "{{apiBaseURL}}/api/v1/posts/1/content"
-							},
-							"response": []
-						},
-						{
-							"name": "Post banner",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": "{{apiBaseURL}}/api/v1/posts/2/banner"
-							},
-							"response": []
-						},
-						{
 							"name": "Post comments",
 							"request": {
 								"method": "GET",
@@ -122,11 +124,44 @@
 							"response": []
 						},
 						{
-							"name": "Post comment",
+							"name": "Post banner",
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "{{apiBaseURL}}/api/v1/posts/1/comments/1"
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/2/banner",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"2",
+										"banner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post content",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/1/content",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"1",
+										"content"
+									]
+								}
 							},
 							"response": []
 						},
@@ -135,7 +170,18 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "{{apiBaseURL}}/api/v1/posts/1"
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/1",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"1"
+									]
+								}
 							},
 							"response": []
 						},
@@ -144,7 +190,18 @@
 							"request": {
 								"method": "DELETE",
 								"header": [],
-								"url": "{{apiBaseURL}}/api/v1/posts/1"
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/1",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"1"
+									]
+								}
 							},
 							"response": []
 						},
@@ -153,16 +210,21 @@
 							"request": {
 								"method": "DELETE",
 								"header": [],
-								"url": "https://localhost:8443/api/v1/posts/2/banner"
-							},
-							"response": []
-						},
-						{
-							"name": "Post comment",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": "{{apiBaseURL}}/api/v1/posts/1/comments/1"
+								"url": {
+									"raw": "https://localhost:8443/api/v1/posts/2/banner",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"2",
+										"banner"
+									]
+								}
 							},
 							"response": []
 						},
@@ -211,7 +273,17 @@
 										}
 									]
 								},
-								"url": "{{apiBaseURL}}/api/v1/posts"
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts"
+									]
+								}
 							},
 							"response": []
 						},
@@ -230,12 +302,24 @@
 										}
 									]
 								},
-								"url": "{{apiBaseURL}}/api/v1/posts/2/banner"
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/2/banner",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"2",
+										"banner"
+									]
+								}
 							},
 							"response": []
 						},
 						{
-							"name": "Post comment",
+							"name": "Post comments",
 							"request": {
 								"auth": {
 									"type": "noauth"
@@ -252,7 +336,21 @@
 										}
 									]
 								},
-								"url": "https://localhost:8443/api/v1/posts/2/comments"
+								"url": {
+									"raw": "https://localhost:8443/api/v1/posts/2/comments",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"2",
+										"comments"
+									]
+								}
 							},
 							"response": []
 						},
@@ -265,7 +363,40 @@
 									"mode": "formdata",
 									"formdata": []
 								},
-								"url": "{{apiBaseURL}}/api/v1/posts/2"
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/2",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/4/comments/18",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"4",
+										"comments",
+										"18"
+									]
+								}
 							},
 							"response": []
 						}
@@ -316,7 +447,18 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "{{apiBaseURL}}/api/v1/products/10533@mercadona"
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/products/10533@mercadona",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"10533@mercadona"
+									]
+								}
 							},
 							"response": []
 						}
@@ -330,7 +472,19 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": "{{apiBaseURL}}/api/v1/users/1/avatar"
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/1/avatar",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"1",
+										"avatar"
+									]
+								}
 							},
 							"response": []
 						},
@@ -349,7 +503,19 @@
 										}
 									]
 								},
-								"url": "{{apiBaseURL}}/api/v1/users/1/avatar"
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/1/avatar",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"1",
+										"avatar"
+									]
+								}
 							},
 							"response": []
 						},
@@ -368,7 +534,84 @@
 										}
 									]
 								},
-								"url": "{{apiBaseURL}}/api/v1/users/1/avatar"
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/1/avatar",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"1",
+										"avatar"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ShoppingList",
+					"item": [
+						{
+							"name": "ShowLists",
+							"request": {
+								"method": "GET",
+								"header": []
+							},
+							"response": []
+						},
+						{
+							"name": "AddProductList",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/lists/2/product/10533@mercadona",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"lists",
+										"2",
+										"product",
+										"10533@mercadona"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteProductList",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/lists/1/product/10533@mercadona",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"lists",
+										"1",
+										"product",
+										"10533@mercadona"
+									]
+								}
 							},
 							"response": []
 						}
