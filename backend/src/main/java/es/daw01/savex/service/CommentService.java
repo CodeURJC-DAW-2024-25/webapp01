@@ -1,19 +1,20 @@
 package es.daw01.savex.service;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import es.daw01.savex.DTOs.CommentDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.comments.CommentMapper;
+import es.daw01.savex.DTOs.comments.CreateCommentRequest;
 import es.daw01.savex.DTOs.comments.SimpleCommentDTO;
 import es.daw01.savex.model.Comment;
 import es.daw01.savex.model.Post;
@@ -27,13 +28,18 @@ public class CommentService {
     private CommentRepository commentRepository;
 
     @Autowired
+    private PostService postService;
+
+    @Autowired
     private CommentMapper commentMapper;
 
+    /**
+     * Get all comments from the database paginated
+     * @param pageable Pageable object to paginate the results
+     * @return Page of comments
+     */
     public PaginatedDTO<SimpleCommentDTO> retrieveComments(long postId, Pageable pageable) {
-        // Retrieve comments paginated
         Page<Comment> comments = commentRepository.findByPostIdOrderByCreatedAtDesc(postId, pageable);
-
-        // Create comment DTO list
         List<SimpleCommentDTO> commentDTOs = commentMapper.toDTOSimple(comments.getContent());
             
         return new PaginatedDTO<>(
@@ -44,6 +50,36 @@ public class CommentService {
             comments.getSize(),
             comments.isLast()
         );
+    }
+
+    /**
+     * Create a comment in the database
+     * @param postId Post id
+     * @param request Comment request
+     * @param author Comment author
+     * @return Comment created
+    */
+    public SimpleCommentDTO createComment(long postId, CreateCommentRequest request, User author) {
+        Post post = postService.findById(postId).orElseThrow();
+        Comment comment = commentMapper.toDomain(request, author, post);
+        return commentMapper.toDTOSimple(commentRepository.save(comment));
+    }
+
+    /**
+     * Delete a comment from the database
+     * @param postId Post id
+     * @param commentId Comment id
+     * @param author Comment author
+     * @return Comment deleted
+    */
+    public SimpleCommentDTO deleteComment(long postId, long commentId, User author) {
+        Comment comment = commentRepository.findById(commentId).orElseThrow();
+        if (comment.isAuthor(author)) {
+            commentRepository.delete(comment);
+            return commentMapper.toDTOSimple(comment);
+        } else {
+            throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are not the author of this comment");
+        }
     }
 
     /**
@@ -157,25 +193,6 @@ public class CommentService {
         }
 
         return commentsDTO;
-    }
-
-    public Map<String, Object> retrieveCommentsFromPost(Post post, User user, Pageable pageable) {
-        Map<String, Object> response = new HashMap<>();
-
-        // Retrieve comments of the post paginated
-        Page<Comment> commentPage = this.findByPostOrderByCreatedAtDesc(post, pageable);
-
-        // Create comment DTO list
-        List<CommentDTO> commentDTOs = this.getCommentsDTO(commentPage.getContent(), user);
-
-        // Generate response map
-        response.put("comments", commentDTOs);
-        response.put("currentPage", commentPage.getNumber());
-        response.put("totalItems", commentPage.getTotalElements());
-        response.put("totalPages", commentPage.getTotalPages());
-        response.put("isLastPage", commentPage.isLast());
-
-        return response;
     }
 
     /**

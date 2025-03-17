@@ -12,16 +12,17 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 
 @RestController
-@RequestMapping("/api/v1")
+@RequestMapping("/api/v1/products")
 public class RestProductsController {
 
     @Autowired
     private ApiService apiService;
 
 
-    @GetMapping("/products")
+    @GetMapping({"/", ""})
     public ResponseEntity<PaginatedDTO<ProductDTO>> getProducts(
         @ModelAttribute SearchProductRequest searchProductRequest
     )  {
@@ -29,4 +30,9 @@ public class RestProductsController {
         return ResponseEntity.ok(products);
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable String id) {
+        ProductDTO product = apiService.fetchProduct(id);
+        return ResponseEntity.ok(product);
+    }
 }

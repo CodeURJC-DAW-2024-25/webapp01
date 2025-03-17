@@ -56,7 +56,7 @@ public class Comment {
      * @return True if the user is the author of this comment, false otherwise
     */
     public boolean isAuthor(User user) {
-        return this.author.equals(user);
+        return this.author.equals(user) || user.isAdmin();
     }
 
     /**
@@ -107,12 +107,12 @@ public class Comment {
         this.post = post;
     }
 
-    public LocalDateTime getDate() {
+    public LocalDateTime getCreatedAt() {
         return createdAt;
     }
 
-    public void setDate(LocalDateTime date) {
-        this.createdAt = date;
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
     }
 
     public String getFormatedDate() {

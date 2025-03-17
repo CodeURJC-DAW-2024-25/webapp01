@@ -1,8 +1,8 @@
 package es.daw01.savex.controller.api.v1;
 
 import java.io.IOException;
+import java.net.URI;
 import java.sql.SQLException;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -19,15 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.PostDTO;
-import es.daw01.savex.DTOs.comments.SimpleCommentDTO;
 import es.daw01.savex.DTOs.posts.CreatePostRequest;
-import es.daw01.savex.components.ControllerUtils;
-import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.PostService;
+import org.springframework.web.bind.annotation.PostMapping;
+
 
 @RestController
 @RequestMapping("/api/v1/posts")
@@ -39,15 +39,28 @@ public class RestPostsController {
     @Autowired
     private PostService postService;
 
-    @Autowired
-    private ControllerUtils controllerUtils;
-
     @GetMapping({ "", "/" })
     public ResponseEntity<PaginatedDTO<PostDTO>> getPosts(
         @PageableDefault(page = 0, size = 5) Pageable pageable
     ) {
         PaginatedDTO<PostDTO> response = postService.retrievePosts(pageable);
         return ResponseEntity.ok(response);
+    }
+    
+    @PostMapping({ "", "/" })
+    public ResponseEntity<PostDTO> createPost(
+        @ModelAttribute CreatePostRequest createPostRequest,
+        @RequestParam(required = false) MultipartFile banner
+    ) {
+        try {
+            PostDTO post = postService.createPost(createPostRequest, banner);
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest()
+                .path("/{id}").buildAndExpand(post.getId()).toUri();
+
+            return ResponseEntity.created(location).body(post);
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
     }
 
     @GetMapping("/{id}")
@@ -56,6 +69,26 @@ public class RestPostsController {
         return ResponseEntity.ok(post);
     }
 
+    @PatchMapping("/{id}")
+    public ResponseEntity<PostDTO> updatePost(
+        @PathVariable long id,
+        @ModelAttribute CreatePostRequest createPostRequest
+    ) {
+        try {
+            PostDTO post = postService.updatePost(id, createPostRequest);
+            return ResponseEntity.ok(post);
+        } catch (IOException e) {
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<PostDTO> deletePost(@PathVariable long id) {
+        commentService.deleteByPostId(id);
+        PostDTO post = postService.deleteById(id);
+        return ResponseEntity.ok(post);
+    }
+    
     @GetMapping("/{id}/banner")
     public ResponseEntity<Object> getPostBanner(@PathVariable long id) throws SQLException, IOException {
         Resource banner = postService.getPostBanner(id);
@@ -65,51 +98,29 @@ public class RestPostsController {
             .body(banner);
     }
 
-    @GetMapping("/{id}/content")
-    public ResponseEntity<String> getPostContent(@PathVariable long id) {
-        String content = postService.getPostContent(id);
-        return ResponseEntity.ok(content);
-    }
-
-    @GetMapping("/{id}/comments")
-    public ResponseEntity<PaginatedDTO<SimpleCommentDTO>> getComments(
-        @PathVariable Long id,
-        @PageableDefault(page = 0, size = 5) Pageable pageable
-    ) {
-        PostDTO post = postService.getPost(id);
-        if (post.getVisibility().equals(VisibilityType.PRIVATE) & !controllerUtils.isAuthenticatedUserAdmin()) {
-            return ResponseEntity.badRequest().body(null);
-        }
-
-        PaginatedDTO<SimpleCommentDTO> response = commentService.retrieveComments(id, pageable);
-        return ResponseEntity.ok(response);
-    }
-
-    @PatchMapping("/{id}")
-    public ResponseEntity<PostDTO> updatePost(
+    @PostMapping("/{id}/banner")
+    public ResponseEntity<PostDTO> updatePostBanner(
         @PathVariable long id,
-        @ModelAttribute CreatePostRequest createPostRequest,
-        @RequestParam(required = false) MultipartFile banner
+        @RequestParam MultipartFile banner
     ) {
         try {
-            PostDTO post = postService.updatePost(id, createPostRequest, banner);
-            return ResponseEntity.ok(post);
+            PostDTO post = postService.updatePostBanner(id, banner);
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
+            return ResponseEntity.created(location).body(post);
         } catch (IOException e) {
             return ResponseEntity.badRequest().body(null);
         }
     }
 
-    @DeleteMapping("/post/{id}")
-    public ResponseEntity<Map<String, Object>> deletePost(@PathVariable long id) {
-        try {
-            commentService.deleteByPostId(id);
-            postService.deleteById(id);
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().body(
-                    Map.of("message", "Error al eliminar el post"));
-        }
+    @DeleteMapping("/{id}/banner")
+    public ResponseEntity<PostDTO> deletePostBanner(@PathVariable long id) {
+        PostDTO post = postService.deletePostBanner(id);
+        return ResponseEntity.ok(post);
+    }
 
-        return ResponseEntity.ok().body(
-                Map.of("message", "Post eliminado correctamente"));
+    @GetMapping("/{id}/content")
+    public ResponseEntity<String> getPostContent(@PathVariable long id) {
+        String content = postService.getPostContent(id);
+        return ResponseEntity.ok(content);
     }
 }

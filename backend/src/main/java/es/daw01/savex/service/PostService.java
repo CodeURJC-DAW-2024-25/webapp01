@@ -3,7 +3,9 @@ package es.daw01.savex.service;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -106,6 +108,28 @@ public class PostService {
         return postRepository.findAll();
     }
 
+    
+    /**
+     * Finds all posts in the database
+     * 
+     * @return A list of all posts in the database
+     */
+    public Map<String, Object> findAll(Pageable pageable) {
+        Map<String, Object> response = new HashMap<>();
+        Page<Post> posts = postRepository.findAll(pageable);
+
+        List<PostDTO> postsDTO = this.getPostsDTO(posts.getContent());
+
+        response.put("posts", postsDTO);
+        response.put("currentPage", posts.getNumber());
+        response.put("totalItems", posts.getTotalElements());
+        response.put("totalPages", posts.getTotalPages());
+
+        return response;
+    }
+
+
+
     /**
      * Finds a post by its id
      * 
@@ -205,8 +229,16 @@ public class PostService {
         return post;
     }
 
-    public void deleteById(long id) {
+    /**
+     * Deletes a post by its id
+     * 
+     * @param id The id of the post to delete
+     * @return The deleted post
+     */
+    public PostDTO deleteById(long id) {
+        PostDTO post = getPost(id);
         postRepository.deleteById(id);
+        return post;
     }
 
     /**
@@ -214,25 +246,58 @@ public class PostService {
      *
      * @param id The id of the post to update
      * @param postRequest The request with the new post data
-     * @param banner The new banner image of the post
      * @return The updated post
      */
+    public PostDTO updatePost(Long id, CreatePostRequest postRequest) throws IOException {
+        return updatePost(id, postRequest, null);
+    }
+
     public PostDTO updatePost(Long id, CreatePostRequest postRequest, MultipartFile banner) throws IOException {
         Post toUpdatePost = postRepository.findById(id).orElseThrow();
-        
-        Optional.ofNullable(postRequest.title()).ifPresent(toUpdatePost::setTitle);
-        Optional.ofNullable(postRequest.description()).ifPresent(toUpdatePost::setDescription);
-        Optional.ofNullable(postRequest.content()).ifPresent(toUpdatePost::setContent);
-        Optional.ofNullable(postRequest.author()).ifPresent(toUpdatePost::setAuthor);
-        Optional.ofNullable(postRequest.date()).ifPresent(toUpdatePost::setDate);
-        Optional.ofNullable(postRequest.readingTime()).ifPresent(toUpdatePost::setReadingTime);
-        Optional.ofNullable(postRequest.tags()).ifPresent(toUpdatePost::setTags);
-        Optional.ofNullable(postRequest.visibility()).ifPresent(toUpdatePost::setVisibility);
+        Post reqPost = postMapper.toDomain(postRequest);
 
-        if (banner != null) {
-            toUpdatePost.saveImage(banner);
-        }
+        toUpdatePost.updatePost(reqPost);
+        if (banner != null) toUpdatePost.saveImage(banner);
 
         return postMapper.toDTO(postRepository.save(toUpdatePost));
+    }
+
+    /**
+     * Creates a post from a given request
+     *
+     * @param postRequest The request with the new post data
+     * @param banner The banner image of the post
+     * @return The created post
+    */
+    public PostDTO createPost(CreatePostRequest postRequest, MultipartFile banner) throws IOException {
+        Post post = new Post();
+        postMapper.createPostFromRequest(postRequest, post);
+        if (banner != null) post.saveImage(banner);
+        return postMapper.toDTO(postRepository.save(post));
+    }
+
+    /**
+     * Updates the banner of a post
+     *
+     * @param id The id of the post to update
+     * @param banner The new banner image
+     * @return The updated post
+     */
+    public PostDTO updatePostBanner(long id, MultipartFile banner) throws IOException {
+        Post post = postRepository.findById(id).orElseThrow();
+        post.saveImage(banner);
+        return postMapper.toDTO(postRepository.save(post));
+    }
+
+    /**
+     * Deletes the banner of a post
+     * 
+     * @param id The id of the post to delete the banner from
+     * @return The updated post
+     */
+    public PostDTO deletePostBanner(long id) {
+        Post post = postRepository.findById(id).orElseThrow();
+        post.removeBanner();
+        return postMapper.toDTO(postRepository.save(post));
     }
 }
