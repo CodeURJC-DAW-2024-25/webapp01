@@ -59,34 +59,19 @@ public class RestShoppingListController {
     
     @PostMapping("/{id}/product/{productId}")
     public ResponseEntity<Map<String, Object>> addProductToList(@PathVariable Long id, @PathVariable String productId) {
+        shoppingListService.addProductToList(id, productId);
+        try {  // Return the shopping list
+          return ResponseEntity.ok(Map.of("message", "Product added successfully"));
+      } catch (Exception e) {
+          return ResponseEntity.badRequest().build();
+      }
 
-        ProductDTO productDTO = apiService.fetchProduct(productId);
+        
 
-        // Get the authenticated user
-        User user = controllerUtils.getAuthenticatedUser();
+        
 
-        // Get the shopping list
-        Optional<ShoppingList> op = shoppingListService.findById(id);
+       
 
-        if (op.isEmpty()) {
-            return ResponseEntity.notFound().build();
-        }
-        ShoppingList list = op.get();
-
-        // Check if the shopping list belongs to the user
-        if (!list.getUser().equals(user)) {
-            return ResponseEntity.badRequest().build();
-        }
-
-        try {
-            // Add the product to the shopping list
-            shoppingListService.addProductToList(list, productDTO);
-
-            // Return the shopping list
-            return ResponseEntity.ok(Map.of("message", "Product added successfully"));
-        } catch (Exception e) {
-            return ResponseEntity.badRequest().build();
-        }
     }
 
     @DeleteMapping("/{id}/product/{productId}")

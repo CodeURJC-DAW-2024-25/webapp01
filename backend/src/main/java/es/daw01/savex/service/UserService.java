@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -14,6 +15,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -65,9 +68,34 @@ public class UserService {
         return userRepository.findAll();
     }
 
+    /**
+     * Finds all users in the database
+     * 
+     * @return A list of all users
+     */
+    public Page<User> findAll(Pageable pageable) {
+        return userRepository.findAll(pageable);
+    }
+
     public List<User> findAllByRole(UserType role) {
         return userRepository.findAllByRole(role);
     }
+    
+    public Map<String, Object> findAllByRole(UserType role, Pageable pageable) {
+        Map<String, Object> response = new HashMap<>();
+        Page<User> users = userRepository.findAllByRole(role, pageable);
+
+        List<UserDTO> usersDTO = this.getUsersDTO(users.getContent());
+
+        response.put("users", usersDTO);
+        response.put("currentPage", users.getNumber());
+        response.put("totalItems", users.getTotalElements());
+        response.put("totalPages", users.getTotalPages());
+
+        return response;
+    }
+    
+
 
     /**
      * Deletes a user from the database
