@@ -59,7 +59,7 @@ public class CommentService {
      * @return Comment found
     */
     public SimpleCommentDTO getComment(long postId, long commentId) {
-        Comment comment = commentRepository.findByPostIdAndId(postId, commentId);
+        Comment comment = commentRepository.findByPostIdAndId(postId, commentId).orElseThrow();
         return commentMapper.toDTOSimple(comment);
     }
 
@@ -86,6 +86,8 @@ public class CommentService {
     public SimpleCommentDTO deleteComment(long postId, long commentId, User author) {
         Comment comment = commentRepository.findById(commentId).orElseThrow();
         if (comment.isAuthor(author)) {
+            comment.removeFromPost();
+            comment.removeFromAuthor();
             commentRepository.delete(comment);
             return commentMapper.toDTOSimple(comment);
         } else {

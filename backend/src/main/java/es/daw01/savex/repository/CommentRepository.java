@@ -1,5 +1,7 @@
 package es.daw01.savex.repository;
 
+import java.util.Optional;
+
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -14,7 +16,7 @@ public interface CommentRepository extends JpaRepository<Comment, Long> {
     public Iterable<Comment> findByPost(Post post);
     public Page<Comment> findByPostOrderByCreatedAtDesc(Post post, Pageable pageable);
     public Page<Comment> findByPostIdOrderByCreatedAtDesc(long post_id, Pageable pageable);
-    public Comment findByPostIdAndId(long post_id, long id);
+    public Optional<Comment> findByPostIdAndId(long post_id, long id);
 
     @Modifying
     @Transactional
