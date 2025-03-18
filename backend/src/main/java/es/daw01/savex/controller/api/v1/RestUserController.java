@@ -1,6 +1,5 @@
 package es.daw01.savex.controller.api.v1;
 
-import java.beans.Transient;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
@@ -11,7 +10,8 @@ import jakarta.persistence.EntityExistsException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
@@ -21,6 +21,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.daw01.savex.DTOs.ApiResponseDTO;
+import es.daw01.savex.DTOs.PaginatedDTO;
+import es.daw01.savex.DTOs.users.PublicUserDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
@@ -46,23 +48,20 @@ public class RestUserController {
     private CommentService commentService;
 
     @Autowired
-    private ControllerUtils controllerUtils; //TODO check if this is needed
+    private ControllerUtils controllerUtils;
 
     @GetMapping({ "", "/" })
-    public ResponseEntity<Object> getUsers(@RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "5") int size) {
-        try {
-            // Get all users
-            Map<String, Object> response = userService.findAllByRoleNoPasswd(
-                    UserType.USER,
-                    PageRequest.of(page, size));
+    public ResponseEntity<PaginatedDTO<PublicUserDTO>> getUsers(
+        @PageableDefault(page = 0, size = 10) Pageable pageable
+    ) {
+        // Get all users
+        PaginatedDTO<PublicUserDTO> response = userService.findAllByRoleNoPasswd(
+            UserType.USER,
+            pageable
+        );
 
-            // Return the users list
-            return ApiResponseDTO.ok(response);
-        } catch (Exception e) {
-            // Return error message
-            return ApiResponseDTO.error("Error getting users");
-        }
+        // Return the users list
+        return ResponseEntity.ok(response);
     }
 
     @GetMapping("/{id}/avatar")

@@ -22,7 +22,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.core.Authentication;
 
+import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.UserDTO;
+import es.daw01.savex.DTOs.users.PublicUserDTO;
+import es.daw01.savex.DTOs.users.UserMapper;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
 import es.daw01.savex.repository.CommentRepository;
@@ -41,6 +44,9 @@ public class UserService {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private UserMapper userMapper;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
@@ -110,6 +116,7 @@ public class UserService {
         return userRepository.findAllByRole(role);
     }
     
+    // TODO: Change the return type to PaginatedDTO<UserDTO>
     public Map<String, Object> findAllByRole(UserType role, Pageable pageable) {
         Map<String, Object> response = new HashMap<>();
         Page<User> users = userRepository.findAllByRole(role, pageable);
@@ -124,23 +131,26 @@ public class UserService {
         return response;
     }
 
-    public Map<String, Object> findAllByRoleNoPasswd(UserType role, Pageable pageable) {
-        Map<String, Object> response = new HashMap<>();
-        Page<User> users = userRepository.findAllByRole(role, pageable);
+    /**
+     * Finds all users in the database filtered by role
+     * 
+     * @param role The role to filter by
+     * @param pageable The pagination information
+     * @return A paginated list of public user DTOs
+     */
+    public PaginatedDTO<PublicUserDTO> findAllByRoleNoPasswd(UserType role, Pageable pageable) {
+        Page<User> usersPage = userRepository.findAllByRole(role, pageable);
+        List<PublicUserDTO> publicUsers = userMapper.toPublicUserDTOs(usersPage.getContent());
 
-        // Remove the password from the users
-        for (User user : users) {
-            user.setHashedPassword(null);
-        }
-
-        List<UserDTO> usersDTO = this.getUsersDTO(users.getContent());
-
-        response.put("users", usersDTO);
-        response.put("currentPage", users.getNumber());
-        response.put("totalItems", users.getTotalElements());
-        response.put("totalPages", users.getTotalPages());
-
-        return response;
+        return new PaginatedDTO<PublicUserDTO>(
+            publicUsers,
+            usersPage.getNumber(),
+            usersPage.getTotalPages(),
+            usersPage.getTotalElements(),
+            usersPage.getSize(),
+            usersPage.isLast()
+        );
+            
     }
     
 
