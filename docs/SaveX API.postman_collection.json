@@ -399,6 +399,38 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Comment",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "content",
+											"value": "Update comment",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/2/comments/1",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"2",
+										"comments",
+										"1"
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},

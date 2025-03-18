@@ -32,16 +32,14 @@ public class RestShoppingListController {
 
     @GetMapping({ "", "/" })
     public ResponseEntity<Object> getUserLists(
-        @RequestParam(defaultValue = "0") int page,
-        @RequestParam(defaultValue = "4") int size
-    ) {
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "4") int size) {
         return shoppingListService.retrieveUserLists(PageRequest.of(page, size));
     }
 
     @PostMapping({ "", "/" })
     public ResponseEntity<Object> newList(
-        @RequestBody CreateListRequest request
-    ) {
+            @RequestBody CreateListRequest request) {
         User user = controllerUtils.getAuthenticatedUser();
         SimpleShoppingListDTO list = shoppingListService.createShoppingList(request, user);
         return ApiResponseDTO.ok(list);
@@ -66,4 +64,5 @@ public class RestShoppingListController {
             @PathVariable Long id) {
         return shoppingListService.deleteById(id);
     }
+
 }

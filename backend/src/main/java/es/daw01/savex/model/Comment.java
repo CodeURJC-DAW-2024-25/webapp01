@@ -52,16 +52,17 @@ public class Comment {
 
     /**
      * Check if the given user is the author of this comment
+     * 
      * @param user User to check
      * @return True if the user is the author of this comment, false otherwise
-    */
+     */
     public boolean isAuthor(User user) {
         return this.author.equals(user) || user.isAdmin();
     }
 
     /**
      * Remove this comment from the post it belongs to
-    */
+     */
     public void removeFromPost() {
         if (this.post == null)
             return;
@@ -72,13 +73,23 @@ public class Comment {
 
     /**
      * Remove this comment from the author it belongs to
-    */
+     */
     public void removeFromAuthor() {
         if (this.author == null)
             return;
 
         this.author.removeComment(this);
         this.author = null;
+    }
+
+    /**
+     * 
+     * Update comment with the new comment data
+     */
+
+    public void updateComment(Comment comment) {
+        this.content = comment.getContent();
+        this.author = comment.getAuthor();
     }
 
     // Getters and setters ---------------------------------------------------->>

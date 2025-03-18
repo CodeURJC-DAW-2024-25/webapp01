@@ -28,7 +28,7 @@ public class WebSecurityConfig {
     private RepositoryUserDetailsService userDetailsService;
 
     @Autowired
-	private JwtRequestFilter jwtRequestFilter;
+    private JwtRequestFilter jwtRequestFilter;
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -36,13 +36,12 @@ public class WebSecurityConfig {
     }
 
     @Bean
-	public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
-		return authConfig.getAuthenticationManager();
-	}
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
+        return authConfig.getAuthenticationManager();
+    }
 
     @Autowired
-	private UnauthorizedHandlerJwt unauthorizedHandlerJwt;
-
+    private UnauthorizedHandlerJwt unauthorizedHandlerJwt;
 
     @Bean
     public DaoAuthenticationProvider authenticationProvider() {
@@ -55,47 +54,47 @@ public class WebSecurityConfig {
     }
 
     @Bean
-	@Order(1)
-	public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
-		
-		http.authenticationProvider(authenticationProvider());
-		
-		http
-			.securityMatcher("/api/**")
-			.exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
-		
-		http
-			.authorizeHttpRequests(authorize -> authorize
-                    // PRIVATE ENDPOINTS
-                    //add more endpoints here
-					// PUBLIC ENDPOINTS
-                    .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/auth/logout").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/auth/refresh").permitAll()
+    @Order(1)
+    public SecurityFilterChain apiFilterChain(HttpSecurity http) throws Exception {
 
-                    .requestMatchers(HttpMethod.GET, "/api/v1/users/**").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/v1/users/**").authenticated()
-                    .requestMatchers(HttpMethod.PUT, "/api/v1/users/**").authenticated()
-                    .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasAnyRole(UserType.USER.name())
-                    
-                    .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll()
+        http.authenticationProvider(authenticationProvider());
 
-                    .requestMatchers(HttpMethod.POST, "/api/v1/posts/*/comments/**").authenticated()
-                    .requestMatchers(HttpMethod.DELETE, "/api/v1/posts/*/comments/**").authenticated()
-                    .requestMatchers(HttpMethod.GET, "/api/v1/posts/**").permitAll()
-                    .requestMatchers(HttpMethod.POST, "/api/v1/posts/**").hasAnyRole(UserType.ADMIN.name())
-                    .requestMatchers(HttpMethod.PATCH, "/api/v1/posts/**").hasAnyRole(UserType.ADMIN.name())
-                    .requestMatchers(HttpMethod.DELETE, "/api/v1/posts/**").hasAnyRole(UserType.ADMIN.name())
-                    
-                    .requestMatchers(HttpMethod.GET, "/api/v1/lists**").authenticated()
-                    .requestMatchers(HttpMethod.POST, "/api/v1/lists/*/product/**").authenticated()
-                    .requestMatchers(HttpMethod.DELETE, "/api/v1/lists/*/product/**").authenticated()
-                    .requestMatchers(HttpMethod.POST, "/api/v1/lists/**").authenticated()
-                    .requestMatchers(HttpMethod.DELETE, "/api/v1/lists/**").authenticated()
+        http
+                .securityMatcher("/api/**")
+                .exceptionHandling(handling -> handling.authenticationEntryPoint(unauthorizedHandlerJwt));
 
-					.anyRequest().authenticated()
-			);
-		
+        http
+                .authorizeHttpRequests(authorize -> authorize
+                        // PRIVATE ENDPOINTS
+                        // add more endpoints here
+                        // PUBLIC ENDPOINTS
+                        .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/logout").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/auth/refresh").permitAll()
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/users/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/users/**").authenticated()
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/users/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasAnyRole(UserType.USER.name())
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll()
+
+                        .requestMatchers(HttpMethod.POST, "/api/v1/posts/*/comments/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/posts/*/comments/**").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/api/v1/posts/*/comments/**").authenticated()
+                        .requestMatchers(HttpMethod.GET, "/api/v1/posts/**").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/posts/**").hasAnyRole(UserType.ADMIN.name())
+                        .requestMatchers(HttpMethod.PATCH, "/api/v1/posts/**").hasAnyRole(UserType.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/posts/**").hasAnyRole(UserType.ADMIN.name())
+
+                        .requestMatchers(HttpMethod.GET, "/api/v1/lists**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/lists/*/product/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/lists/*/product/**").authenticated()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/lists/**").authenticated()
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/lists/**").authenticated()
+
+                        .anyRequest().authenticated());
+
         // Disable Form login Authentication
         http.formLogin(formLogin -> formLogin.disable());
 
@@ -108,64 +107,64 @@ public class WebSecurityConfig {
         // Stateless session
         http.sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-		// Add JWT Token filter
-		http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        // Add JWT Token filter
+        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
 
-		return http.build();
-	}
+        return http.build();
+    }
 
     @Bean
     @Order(1)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         // Authentication provider
-        http.authenticationProvider(authenticationProvider()); 
+        http.authenticationProvider(authenticationProvider());
 
         http
-            .authorizeHttpRequests(authorize -> authorize
-                    // Public routes
-                    .requestMatchers("/styles/**", "/scripts/**", "/assets/**", "/favicon.**").permitAll()
-                    .requestMatchers("/").permitAll()
-                    .requestMatchers("/login").permitAll()
-                    .requestMatchers("/register").permitAll()
-                    .requestMatchers("/about").permitAll()
-                    .requestMatchers("/posts").permitAll()
-                    .requestMatchers("/posts/**").permitAll()
-                    .requestMatchers("/error").permitAll()
-                    .requestMatchers("/products").permitAll()
-                    .requestMatchers("/products/**").permitAll()
-                    .requestMatchers("/search").permitAll()
-                    .requestMatchers("/compare").permitAll()
-                    .requestMatchers("/get-compare-table/**").permitAll() 
-                    // Private routes
-                    .requestMatchers("/admin").hasAnyRole(UserType.ADMIN.name())
-                    .requestMatchers("/createPost").hasAnyRole(UserType.ADMIN.name())
-                    .requestMatchers("/editPost/**").hasAnyRole(UserType.ADMIN.name())
-                    .requestMatchers("/delete-post/**").hasAnyRole(UserType.ADMIN.name())
-                    .requestMatchers("/profile").authenticated()
-                    .requestMatchers("/settings").hasAnyRole(UserType.USER.name())
-                    .requestMatchers("/api/profile/avatar").authenticated()
-                    .requestMatchers("/delete-account").hasAnyRole(UserType.USER.name())
-                    .requestMatchers("/shoppingList/**").authenticated()
-                    .requestMatchers("/update-account-data").authenticated()
-                    
-                    // Admin
-                    .requestMatchers("/admin/**").hasRole(UserType.ADMIN.name())
-                    .requestMatchers(HttpMethod.POST, "/api/post/**").hasRole(UserType.ADMIN.name())
-                    .requestMatchers(HttpMethod.DELETE, "/api/post/**").hasRole(UserType.ADMIN.name())
+                .authorizeHttpRequests(authorize -> authorize
+                        // Public routes
+                        .requestMatchers("/styles/**", "/scripts/**", "/assets/**", "/favicon.**").permitAll()
+                        .requestMatchers("/").permitAll()
+                        .requestMatchers("/login").permitAll()
+                        .requestMatchers("/register").permitAll()
+                        .requestMatchers("/about").permitAll()
+                        .requestMatchers("/posts").permitAll()
+                        .requestMatchers("/posts/**").permitAll()
+                        .requestMatchers("/error").permitAll()
+                        .requestMatchers("/products").permitAll()
+                        .requestMatchers("/products/**").permitAll()
+                        .requestMatchers("/search").permitAll()
+                        .requestMatchers("/compare").permitAll()
+                        .requestMatchers("/get-compare-table/**").permitAll()
+                        // Private routes
+                        .requestMatchers("/admin").hasAnyRole(UserType.ADMIN.name())
+                        .requestMatchers("/createPost").hasAnyRole(UserType.ADMIN.name())
+                        .requestMatchers("/editPost/**").hasAnyRole(UserType.ADMIN.name())
+                        .requestMatchers("/delete-post/**").hasAnyRole(UserType.ADMIN.name())
+                        .requestMatchers("/profile").authenticated()
+                        .requestMatchers("/settings").hasAnyRole(UserType.USER.name())
+                        .requestMatchers("/api/profile/avatar").authenticated()
+                        .requestMatchers("/delete-account").hasAnyRole(UserType.USER.name())
+                        .requestMatchers("/shoppingList/**").authenticated()
+                        .requestMatchers("/update-account-data").authenticated()
 
-                    .anyRequest().authenticated()
+                        // Admin
+                        .requestMatchers("/admin/**").hasRole(UserType.ADMIN.name())
+                        .requestMatchers(HttpMethod.POST, "/api/post/**").hasRole(UserType.ADMIN.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/post/**").hasRole(UserType.ADMIN.name())
 
-            )
-            .formLogin(form -> form
-                    .loginPage("/login")
-                    .failureUrl("/login?error=true")
-                    .defaultSuccessUrl("/", true)
-                    .permitAll())
-            .logout(logout -> logout
-                    .logoutUrl("/logout")
-                    .logoutSuccessUrl("/")
-                    .permitAll());
+                        .anyRequest().authenticated()
+
+                )
+                .formLogin(form -> form
+                        .loginPage("/login")
+                        .failureUrl("/login?error=true")
+                        .defaultSuccessUrl("/", true)
+                        .permitAll())
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/")
+                        .permitAll());
 
         return http.build();
     }
