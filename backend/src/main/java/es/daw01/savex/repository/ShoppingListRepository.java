@@ -12,4 +12,5 @@ import es.daw01.savex.model.User;
 public interface ShoppingListRepository extends JpaRepository<ShoppingList, Long> {
     List<ShoppingList> findAllByUser(User user);
     Page<ShoppingList> findAllByUserOrderByCreatedAtDesc(User user, Pageable pageable);
+    void deleteAllByUserId(long userId);
 }

@@ -2,6 +2,7 @@ package es.daw01.savex.service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,8 @@ import es.daw01.savex.model.Comment;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.User;
 import es.daw01.savex.repository.CommentRepository;
+import es.daw01.savex.repository.UserRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class CommentService {
@@ -32,6 +35,9 @@ public class CommentService {
 
     @Autowired
     private CommentMapper commentMapper;
+
+    @Autowired
+    private UserRepository userRepository;
 
     /**
      * Get all comments from the database paginated
@@ -118,16 +124,18 @@ public class CommentService {
      * Delete a comment from the database
      * @param id Comment id to be deleted
     */
-    public void deleteById(Long id) {
-        Optional<Comment> op = commentRepository.findById(id);
+    @Transactional
+    public void deleteById(long id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new NoSuchElementException("User not found"));
 
-        // If the comment exists, delete it
-        if (op.isPresent()) {
-            Comment comment = op.get();
-            comment.removeFromPost();
-            comment.removeFromAuthor();
-            commentRepository.delete(comment);
+        // Clear comments if necessary
+        if (user.getComments() != null && !user.getComments().isEmpty()) {
+            user.getComments().clear();
+            userRepository.save(user); // Save the user after clearing comments
         }
+
+        // Delete the user
+        userRepository.delete(user);
     }
 
     /**

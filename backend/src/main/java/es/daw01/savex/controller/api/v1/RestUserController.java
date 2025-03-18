@@ -24,6 +24,7 @@ import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
+import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.UserService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -42,6 +43,9 @@ public class RestUserController {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private CommentService commentService;
 
     @Autowired
     private ControllerUtils controllerUtils; //TODO check if this is needed
@@ -120,18 +124,28 @@ public class RestUserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable long id) {
-        User user = controllerUtils.getAuthenticatedUser();
-        if (user.getId() != id && !(user.getRole() == UserType.ADMIN)) {
-            return ResponseEntity.status(403).build();
-        }
-
         try{
-            userService.deleteById(id);
-        }catch(NoSuchElementException e) {
-            return ResponseEntity.status(404).build();
-        }
+            // Get the authenticated user
+            User authenticatedUser = controllerUtils.getAuthenticatedUser();
 
-        return ResponseEntity.ok().build();
+            // Prevent admin from deleting himself
+            if (authenticatedUser.getId() == id) {
+                return ApiResponseDTO.error("You cannot delete yourself");
+            }
+
+            // Before deleting the user, we must delete all the comments and posts associated with him
+            // Delete comments
+            commentService.deleteByAuthorId(id);
+            // Delete user
+            userService.deleteById(id);
+
+            // Return success message
+            return ApiResponseDTO.ok("User deleted successfully");
+        }
+        catch (Exception e){
+            // Return error message
+            return ApiResponseDTO.error("Error deleting user");
+        }
     }
 
 }

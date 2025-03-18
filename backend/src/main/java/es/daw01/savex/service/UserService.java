@@ -26,6 +26,7 @@ import es.daw01.savex.DTOs.UserDTO;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
 import es.daw01.savex.repository.CommentRepository;
+import es.daw01.savex.repository.ShoppingListRepository;
 import es.daw01.savex.repository.UserRepository;
 import es.daw01.savex.utils.ImageUtils;
 import jakarta.persistence.EntityExistsException;
@@ -44,12 +45,15 @@ public class UserService {
     @Autowired
     private PasswordEncoder passwordEncoder;
 
+    @Autowired
+    private ShoppingListRepository shoppingListRepository;
+
     // Public Methods --------------------------------------------------------->>
 
     public void deleteUserAvatar(long id) {
         User user = userRepository.findById(id).orElseThrow();
         if (user.getAvatar() == null) {
-            throw new NoSuchElementException("User doesn't have an avatar");
+            return;
         }
         user.setAvatar(null);
         userRepository.save(user);
@@ -133,6 +137,7 @@ public class UserService {
         if (userOptional.isPresent()) {
             User user = userOptional.get();
             commentRepository.deleteByAuthorId(id);
+            shoppingListRepository.deleteAllByUserId(id);
             userRepository.delete(user);
         } else {
             throw new EntityNotFoundException("User not found with id: " + id);
