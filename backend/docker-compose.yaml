@@ -19,7 +19,7 @@ services:
           target: /app/pom.xml
           action: sync
     ports:
-      - "8443:8443"
+      - "443:8443"
     depends_on:
       mysql:
         condition: service_healthy
