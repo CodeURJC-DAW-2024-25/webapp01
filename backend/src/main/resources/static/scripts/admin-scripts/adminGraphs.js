@@ -67,7 +67,7 @@ const total_items = {};
 
 const fetchProducts = async () => {
     await Promise.all(supermarkets.map(async supermarket => {
-        const res = await fetch(`/api/products?supermarket=${supermarket}`);
+        const res = await fetch(`/api/v1/products?supermarket=${supermarket}`);
         const data = await res.json();
         total_items[supermarket] = data.total_items;
     }))

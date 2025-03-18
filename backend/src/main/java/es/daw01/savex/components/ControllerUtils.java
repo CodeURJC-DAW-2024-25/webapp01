@@ -32,6 +32,8 @@ public class ControllerUtils {
             !(auth instanceof AnonymousAuthenticationToken) &
             this.userService.findByUsername(auth.getName()).isPresent()
         ) {
+            System.out.println(auth.getName());
+            System.out.println(this.userService.findByUsername(auth.getName()).get());
             model.addAttribute("isAuthenticated", true);
 
             // Retrieve user data

@@ -40,7 +40,7 @@
                             <span>Ajustes</span>
                         </a>
                         {{/isAdmin}}
-                        <form action="/logout" method="post" class="logout-form inline">
+                        <form action="/logout" method="post" class="logout-form inline" id="logout-form">
                             <input type="hidden" name="_csrf" value="{{token}}" />
                             <button type="submit" class="clickable clickable-secondary danger">
                                 <i class="bi bi-box-arrow-right icon"></i>
@@ -83,8 +83,9 @@
         {{> components/footer}}
     </div>
     {{> components/modal}}
-    <script src="scripts/modal.js"></script>
-    <script src="scripts/themeToggle.js"></script>
+    <script src="/scripts/modal.js" type="module"></script>
+    <script src="/scripts/themeToggle.js" type="module"></script>
+    <script src="/scripts/auth.js" type="module"></script>
 </body>
 
 </html>
