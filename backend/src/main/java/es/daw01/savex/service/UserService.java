@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -115,21 +114,6 @@ public class UserService {
     public List<User> findAllByRole(UserType role) {
         return userRepository.findAllByRole(role);
     }
-    
-    // TODO: Change the return type to PaginatedDTO<UserDTO>
-    public Map<String, Object> findAllByRole(UserType role, Pageable pageable) {
-        Map<String, Object> response = new HashMap<>();
-        Page<User> users = userRepository.findAllByRole(role, pageable);
-
-        List<UserDTO> usersDTO = this.getUsersDTO(users.getContent());
-
-        response.put("users", usersDTO);
-        response.put("currentPage", users.getNumber());
-        response.put("totalItems", users.getTotalElements());
-        response.put("totalPages", users.getTotalPages());
-
-        return response;
-    }
 
     /**
      * Finds all users in the database filtered by role
@@ -150,10 +134,7 @@ public class UserService {
             usersPage.getSize(),
             usersPage.isLast()
         );
-            
     }
-    
-
 
     /**
      * Deletes a user from the database
