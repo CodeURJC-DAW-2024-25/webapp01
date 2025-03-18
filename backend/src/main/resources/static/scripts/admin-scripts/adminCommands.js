@@ -22,7 +22,7 @@ const setPostsEvents = () => {
 
             const confirmDelete = confirm('¿Estás seguro de que deseas eliminar este post?')
             if (confirmDelete) {
-                const endpoint = `/post/${postId}`
+                const endpoint = `/posts/${postId}`
                 fetchData(endpoint, "DELETE", { cacheData: false })
                 .then(() => {
                     pagePosts = 0
@@ -46,7 +46,7 @@ const setUsersEvents = () => {
             const uid = e.target.getAttribute('data-user-id')
 
             if (confirmDelete) {
-                fetch(`/api/admin/user/${uid}`, {
+                fetch(`/api/v1/users/${uid}`, {
                     method: 'DELETE',
                     headers: {
                         [CSRF_HEADER]: CSRF_TOKEN
@@ -68,7 +68,7 @@ let pageUsers = 0
 let usersByPage = {}
 const fetchUsersTable = async (incLimit=true) => {
     if (incLimit) pageUsers += 1
-    const res = await fetch(`/api/admin/users?page=${pageUsers}&size=5`)
+    const res = await fetch(`/api/v1/users?page=${pageUsers}&size=5`)
     const resJson = await res.json()
     const data = resJson.data
 
@@ -84,14 +84,14 @@ let pagePosts = 0
 let postsByPage = {}
 const fetchPostsTable = async (incLimit=true) => {
     if (incLimit) pagePosts += 1
-    const res = await fetch(`/api/admin/posts?page=${pagePosts}&size=5`)
+    const res = await fetch(`/api/v1/posts?page=${pagePosts}&size=5`)
     const resJson = await res.json()
     const data = resJson.data
 
-    postsByPage[pagePosts] = data.posts
+    postsByPage[pagePosts] = data
     const totalPosts = Object.values(postsByPage).flat()
 
-    document.querySelector('[data-replace="admin-posts"]').outerHTML = getPostsTBodyTemplate(totalPosts, data.totalItems, data.currentPage >= data.totalPages-1)
+    document.querySelector('[data-replace="admin-posts"]').outerHTML = getPostsTBodyTemplate(totalPosts, resJson.total_items, resJson.current_page >= resJson.total_pages-1)
     setPostButtonListener()
     setPostsEvents()
 }
