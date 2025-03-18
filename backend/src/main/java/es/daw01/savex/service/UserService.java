@@ -25,6 +25,7 @@ import org.springframework.security.core.Authentication;
 import es.daw01.savex.DTOs.UserDTO;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
+import es.daw01.savex.repository.CommentRepository;
 import es.daw01.savex.repository.UserRepository;
 import es.daw01.savex.utils.ImageUtils;
 import jakarta.persistence.EntityExistsException;
@@ -35,12 +36,13 @@ import jakarta.transaction.Transactional;
 public class UserService {
 
     @Autowired
+    private CommentRepository commentRepository;
+
+    @Autowired
     private UserRepository userRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
-
-
 
     // Public Methods --------------------------------------------------------->>
 
@@ -130,6 +132,7 @@ public class UserService {
         Optional<User> userOptional = userRepository.findById(id);
         if (userOptional.isPresent()) {
             User user = userOptional.get();
+            commentRepository.deleteByAuthorId(id);
             userRepository.delete(user);
         } else {
             throw new EntityNotFoundException("User not found with id: " + id);
