@@ -123,6 +123,25 @@ public class UserService {
 
         return response;
     }
+
+    public Map<String, Object> findAllByRoleNoPasswd(UserType role, Pageable pageable) {
+        Map<String, Object> response = new HashMap<>();
+        Page<User> users = userRepository.findAllByRole(role, pageable);
+
+        // Remove the password from the users
+        for (User user : users) {
+            user.setHashedPassword(null);
+        }
+
+        List<UserDTO> usersDTO = this.getUsersDTO(users.getContent());
+
+        response.put("users", usersDTO);
+        response.put("currentPage", users.getNumber());
+        response.put("totalItems", users.getTotalElements());
+        response.put("totalPages", users.getTotalPages());
+
+        return response;
+    }
     
 
 

@@ -139,7 +139,6 @@ public class WebSecurityConfig {
                     .requestMatchers("/compare").permitAll()
                     .requestMatchers("/get-compare-table/**").permitAll() 
                     // Private routes
-                    .requestMatchers("/admin").hasAnyRole(UserType.ADMIN.name())
                     .requestMatchers("/createPost").hasAnyRole(UserType.ADMIN.name())
                     .requestMatchers("/editPost/**").hasAnyRole(UserType.ADMIN.name())
                     .requestMatchers("/delete-post/**").hasAnyRole(UserType.ADMIN.name())
@@ -151,10 +150,10 @@ public class WebSecurityConfig {
                     .requestMatchers("/update-account-data").authenticated()
                     
                     // Admin
+                    .requestMatchers("/admin").hasRole(UserType.ADMIN.name())
                     .requestMatchers("/admin/**").hasRole(UserType.ADMIN.name())
-                    .requestMatchers(HttpMethod.POST, "/api/post/**").hasRole(UserType.ADMIN.name())
-                    .requestMatchers(HttpMethod.DELETE, "/api/post/**").hasRole(UserType.ADMIN.name())
 
+                    // Other routes
                     .anyRequest().authenticated()
 
             )

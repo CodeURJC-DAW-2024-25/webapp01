@@ -35,11 +35,9 @@ import org.springframework.web.bind.annotation.PutMapping;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
-
 @RestController
 @RequestMapping("/api/v1/users")
 public class RestUserController {
-
 
     @Autowired
     private UserService userService;
@@ -50,21 +48,20 @@ public class RestUserController {
     @Autowired
     private ControllerUtils controllerUtils; //TODO check if this is needed
 
-    @GetMapping({"", "/"})
-    public ResponseEntity<Object> getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
-        try{
+    @GetMapping({ "", "/" })
+    public ResponseEntity<Object> getUsers(@RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "5") int size) {
+        try {
             // Get all users
-            Map<String, Object> response = userService.findAllByRole(
-                UserType.USER,
-                PageRequest.of(page, size)
-            );
+            Map<String, Object> response = userService.findAllByRoleNoPasswd(
+                    UserType.USER,
+                    PageRequest.of(page, size));
 
             // Return the users list
             return ApiResponseDTO.ok(response);
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             // Return error message
-            return ApiResponseDTO.error("Error getting users");    
+            return ApiResponseDTO.error("Error getting users");
         }
     }
 
@@ -72,21 +69,22 @@ public class RestUserController {
     public ResponseEntity<Object> getProfilePic(@PathVariable long id) throws SQLException, IOException {
         Resource avatar = userService.getUserAvatar(id);
         return ResponseEntity.ok()
-        .header(HttpHeaders.CONTENT_TYPE, "image/png")
-        .body(avatar);
+                .header(HttpHeaders.CONTENT_TYPE, "image/png")
+                .body(avatar);
     }
 
     @PostMapping("/{id}/avatar")
-    public ResponseEntity<Map<String, Object>> uploadAvatar(
-        @PathVariable long id, @RequestParam MultipartFile avatar) throws IOException {
+    public ResponseEntity<Map<String, Object>> uploadAvatar( @PathVariable long id, @RequestParam MultipartFile avatar) throws IOException {
         User user = controllerUtils.getAuthenticatedUser();
         if (user.getId() != id) {
             return ResponseEntity.status(403).build();
         }
+
         URI location = fromCurrentRequest().build().toUri();
-        try{
-        userService.createUserAvatar(id, location, avatar);
-        }catch(EntityExistsException e) {
+        
+        try {
+            userService.createUserAvatar(id, location, avatar);
+        } catch (EntityExistsException e) {
             return ResponseEntity.status(409).build();
         }
         return ResponseEntity.created(location).build();
@@ -94,15 +92,15 @@ public class RestUserController {
 
     @PutMapping("/{id}/avatar")
     public ResponseEntity<Map<String, Object>> modifyAvatar(
-        @PathVariable long id, @RequestParam MultipartFile avatar) throws IOException {
+            @PathVariable long id, @RequestParam MultipartFile avatar) throws IOException {
         User user = controllerUtils.getAuthenticatedUser();
         if (user.getId() != id) {
             return ResponseEntity.status(403).build();
         }
         URI location = fromCurrentRequest().build().toUri();
-        try{
+        try {
             userService.modifyUserAvatar(id, location, avatar);
-        }catch(NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             return ResponseEntity.status(404).build();
         }
         return ResponseEntity.ok().build();
@@ -114,9 +112,9 @@ public class RestUserController {
         if (user.getId() != id) {
             return ResponseEntity.status(403).build();
         }
-        try{
+        try {
             userService.deleteUserAvatar(id);
-        }catch(NoSuchElementException e) {
+        } catch (NoSuchElementException e) {
             return ResponseEntity.status(404).build();
         }
         return ResponseEntity.ok().build();
@@ -124,7 +122,7 @@ public class RestUserController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable long id) {
-        try{
+        try {
             // Get the authenticated user
             User authenticatedUser = controllerUtils.getAuthenticatedUser();
 
@@ -141,8 +139,7 @@ public class RestUserController {
 
             // Return success message
             return ApiResponseDTO.ok("User deleted successfully");
-        }
-        catch (Exception e){
+        } catch (Exception e) {
             // Return error message
             return ApiResponseDTO.error("Error deleting user");
         }
