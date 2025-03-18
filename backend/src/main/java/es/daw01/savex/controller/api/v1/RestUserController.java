@@ -1,5 +1,6 @@
 package es.daw01.savex.controller.api.v1;
 
+import java.beans.Transient;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
@@ -10,6 +11,7 @@ import jakarta.persistence.EntityExistsException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 
@@ -18,8 +20,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.User;
+import es.daw01.savex.model.UserType;
+import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.UserService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +45,28 @@ public class RestUserController {
     private UserService userService;
 
     @Autowired
+    private CommentService commentService;
+
+    @Autowired
     private ControllerUtils controllerUtils; //TODO check if this is needed
+
+    @GetMapping({"", "/"})
+    public ResponseEntity<Object> getUsers(@RequestParam(defaultValue = "0") int page, @RequestParam(defaultValue = "5") int size) {
+        try{
+            // Get all users
+            Map<String, Object> response = userService.findAllByRole(
+                UserType.USER,
+                PageRequest.of(page, size)
+            );
+
+            // Return the users list
+            return ApiResponseDTO.ok(response);
+        }
+        catch (Exception e){
+            // Return error message
+            return ApiResponseDTO.error("Error getting users");    
+        }
+    }
 
     @GetMapping("/{id}/avatar")
     public ResponseEntity<Object> getProfilePic(@PathVariable long id) throws SQLException, IOException {
@@ -94,6 +120,32 @@ public class RestUserController {
             return ResponseEntity.status(404).build();
         }
         return ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Object> deleteUser(@PathVariable long id) {
+        try{
+            // Get the authenticated user
+            User authenticatedUser = controllerUtils.getAuthenticatedUser();
+
+            // Prevent admin from deleting himself
+            if (authenticatedUser.getId() == id) {
+                return ApiResponseDTO.error("You cannot delete yourself");
+            }
+
+            // Before deleting the user, we must delete all the comments and posts associated with him
+            // Delete comments
+            commentService.deleteByAuthorId(id);
+            // Delete user
+            userService.deleteById(id);
+
+            // Return success message
+            return ApiResponseDTO.ok("User deleted successfully");
+        }
+        catch (Exception e){
+            // Return error message
+            return ApiResponseDTO.error("Error deleting user");
+        }
     }
 
 }
