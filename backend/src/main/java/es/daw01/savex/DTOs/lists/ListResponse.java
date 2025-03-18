@@ -6,5 +6,4 @@ public record ListResponse<T> (
     long id,
     String user,
     List<T> data
-    )
-{}
+) {}
