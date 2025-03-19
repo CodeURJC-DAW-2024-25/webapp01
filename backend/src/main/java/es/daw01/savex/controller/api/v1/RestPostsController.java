@@ -86,8 +86,9 @@ public class RestPostsController {
     public ResponseEntity<Object> deletePost(@PathVariable long id) {
         try{
             commentService.deleteByPostId(id);
-            postService.deleteById(id);
-            return ApiResponseDTO.ok(204);
+            PostDTO post = postService.deleteById(id);
+
+            return ApiResponseDTO.ok(post);
         } catch (Exception e) {
             return ApiResponseDTO.error("Failed to delete post");
         }
@@ -116,8 +117,8 @@ public class RestPostsController {
     @DeleteMapping("/{id}/banner")
     public ResponseEntity<Object> deletePostBanner(@PathVariable long id) {
         try {
-            postService.deletePostBanner(id);
-            return ApiResponseDTO.ok(204);
+            PostDTO post = postService.deletePostBanner(id);
+            return ApiResponseDTO.ok(post);
         } catch (Exception e) {
             return ApiResponseDTO.error("Failed to delete post banner");
         }

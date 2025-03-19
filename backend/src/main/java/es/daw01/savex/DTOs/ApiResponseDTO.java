@@ -35,12 +35,14 @@ public class ApiResponseDTO<T> {
     private T data;
     private ApiError error;
     private HttpHeaders headers;
+    private String a = "holi :)";
 
     // ====================[ Default Constructors ]====================
 
     public ApiResponseDTO() {
         this.data = null;
         this.error = null;
+        this.a = "holi :)";
     }
 
     // ====================[ Data constructors ]====================
@@ -65,7 +67,7 @@ public class ApiResponseDTO<T> {
     // ====================[ Methods ]====================
 
     public static ResponseEntity<Object> ok() {
-        return ResponseEntity.ok(new ApiResponseDTO<Object>(null));
+        return ResponseEntity.ok(new ApiResponseDTO<Object>());
     }
 
     public static ResponseEntity<Object> ok(Object data) {
@@ -73,7 +75,7 @@ public class ApiResponseDTO<T> {
     }
 
     public static ResponseEntity<Object> ok(int code) {
-        return ResponseEntity.status(code).body(new ApiResponseDTO<Object>(null));
+        return ApiResponseDTO.ok(null, code);
     }
 
     public static ResponseEntity<Object> ok(Resource data) {
@@ -83,6 +85,9 @@ public class ApiResponseDTO<T> {
     }
 
     public static ResponseEntity<Object> ok(Object data, int code) {
+        if (data == null) {
+            return ResponseEntity.status(code).body(new ApiResponseDTO<Object>());
+        }
         return ResponseEntity.status(code).body(new ApiResponseDTO<Object>(data));
     }
 
@@ -139,6 +144,10 @@ public class ApiResponseDTO<T> {
         return headers;
     }
 
+    public String getA() {
+        return a;
+    }
+
     // ====================[ Setters ]====================
 
     public void setData(T data) {
@@ -151,5 +160,9 @@ public class ApiResponseDTO<T> {
 
     public void setHeaders(HttpHeaders headers) {
         this.headers = headers;
+    }
+
+    public void setA(String a) {
+        this.a = a;
     }
 }
