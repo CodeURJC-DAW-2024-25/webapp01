@@ -15,9 +15,9 @@ import org.springframework.web.server.ResponseStatusException;
 
 import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
-import es.daw01.savex.DTOs.PostDTO;
 import es.daw01.savex.DTOs.comments.CreateCommentRequest;
 import es.daw01.savex.DTOs.comments.SimpleCommentDTO;
+import es.daw01.savex.DTOs.posts.PostDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.VisibilityType;
@@ -43,7 +43,7 @@ public class RestCommentsController {
             @PathVariable Long id,
             @PageableDefault(page = 0, size = 5) Pageable pageable) {
         PostDTO post = postService.getPost(id);
-        if (post.getVisibility().equals(VisibilityType.PRIVATE) & !controllerUtils.isAuthenticatedUserAdmin()) {
+        if (post.visibility().equals(VisibilityType.PRIVATE) & !controllerUtils.isAuthenticatedUserAdmin()) {
             return ApiResponseDTO.error("Post is private", 403);
         }
 

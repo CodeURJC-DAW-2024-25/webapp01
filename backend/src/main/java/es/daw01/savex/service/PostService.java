@@ -17,8 +17,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import es.daw01.savex.DTOs.PaginatedDTO;
-import es.daw01.savex.DTOs.PostDTO;
 import es.daw01.savex.DTOs.posts.CreatePostRequest;
+import es.daw01.savex.DTOs.posts.PostDTO;
 import es.daw01.savex.DTOs.posts.PostMapper;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.VisibilityType;
@@ -163,7 +163,7 @@ public class PostService {
 
         // Parse each post to a post DTO
         for (Post post : posts) {
-            postDTOList.add(new PostDTO(post));
+            postDTOList.add(postMapper.toDTO(post));
         }
 
         return postDTOList;

@@ -8,7 +8,6 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
 
-import es.daw01.savex.DTOs.PostDTO;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.utils.DateUtils;
 

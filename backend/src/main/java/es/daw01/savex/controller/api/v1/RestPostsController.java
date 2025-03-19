@@ -22,8 +22,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
-import es.daw01.savex.DTOs.PostDTO;
 import es.daw01.savex.DTOs.posts.CreatePostRequest;
+import es.daw01.savex.DTOs.posts.PostDTO;
 import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.PostService;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -55,7 +55,7 @@ public class RestPostsController {
         try {
             PostDTO post = postService.createPost(createPostRequest, banner);
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(post.getId()).toUri();
+                .path("/{id}").buildAndExpand(post.id()).toUri();
 
             return ApiResponseDTO.ok(location, 201);
         } catch (IOException e) {
