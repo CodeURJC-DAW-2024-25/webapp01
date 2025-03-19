@@ -1,6 +1,7 @@
 package es.daw01.savex.service;
 
-import es.daw01.savex.DTOs.ProductDTO;
+import es.daw01.savex.DTOs.PriceDTO;
+import es.daw01.savex.DTOs.products.ProductDTO;
 import es.daw01.savex.model.Product;
 import es.daw01.savex.model.SupermarketType;
 import es.daw01.savex.repository.ProductRepository;
@@ -57,23 +58,6 @@ public class ProductService {
             .collect(Collectors.toList());
     }
 
-    public Product createProductFromDTO(ProductDTO productDTO) {
-        return new Product(
-            productDTO.getDisplay_name(),
-            productDTO.getProduct_id(),
-            productDTO.getProduct_url(),
-            SupermarketType.fromString(productDTO.getSupermarket_name()),
-            productDTO.getProduct_type(),
-            productDTO.getThumbnail(),
-            productDTO.getProduct_categories(),
-            productDTO.getPrice().getTotal(),
-            productDTO.getPrice().getPer_reference_unit(),
-            productDTO.getPrice().getReference_units(),
-            productDTO.getPrice().getReference_unit_name(),
-            productDTO.getBrand()
-        );
-    }
-
     /**
      * Find a product by its product DTO
      * 
@@ -82,12 +66,40 @@ public class ProductService {
     */
     public Optional<Product> findByProductDTO(ProductDTO productDTO) {
         SupermarketType supermarketType;
-        String supermarketName = productDTO.getSupermarket_name();
-        String productId = productDTO.getProduct_id();
+        String supermarketName = productDTO.supermarket_name();
+        String productId = productDTO.product_id();
 
         supermarketType = SupermarketType.fromString(supermarketName);
         
         return findBySupermarketAndProductId(supermarketType, productId);
+    }
+
+    /**
+     * Generate a list of template products
+     * 
+     * @param count The number of products to generate
+     * @return A list of template products
+    */
+    public List<ProductDTO> generateTemplateProducts(int count) {
+        List<ProductDTO> templateProducts = new ArrayList<>(count);
+        for (int i = 0; i < 5; i++) {
+            templateProducts.add(new ProductDTO(
+                "0",
+                "Supermarket",
+                "0",
+                "#",
+                "Product",
+                "product",
+                "type",
+                List.of("category"),
+                new PriceDTO(0.0, 0.0, 0.0, "unit"),
+                "#",
+                "Brand",
+                List.of("keyword")
+            ));
+        }
+        
+        return templateProducts;
     }
     
     public void save(Product product) {

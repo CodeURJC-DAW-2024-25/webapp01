@@ -4,7 +4,7 @@ import org.springframework.web.client.RestClient;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import es.daw01.savex.DTOs.PaginatedDTO;
-import es.daw01.savex.DTOs.ProductDTO;
+import es.daw01.savex.DTOs.products.ProductDTO;
 import es.daw01.savex.DTOs.products.SearchProductRequest;
 
 import java.util.Optional;
