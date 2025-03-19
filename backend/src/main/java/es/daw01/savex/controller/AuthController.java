@@ -79,7 +79,6 @@ public class AuthController {
             return "register";
         }
 
-        // TODO revisar si esto sobra
         // Try to save the user
         try {
             userService.registerNewUser(userDTO);
