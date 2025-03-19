@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.GetMapping;
 
-import es.daw01.savex.DTOs.ProductDTO;
+import es.daw01.savex.DTOs.products.ProductDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.service.ApiService;
 import es.daw01.savex.service.ProductService;
@@ -91,10 +91,7 @@ public class ProductsController {
         List<Map<String, Object>> supermarkets = productService.getAvailableSupermarkets(supermarket);
 
         // Template products to fill the page
-        List<ProductDTO> templateProducts = new ArrayList<>(5);
-        for (int i = 0; i < 5; i++) {
-            templateProducts.add(new ProductDTO());
-        }
+        List<ProductDTO> templateProducts = productService.generateTemplateProducts(5);
 
         model.addAttribute("supermarkets", supermarkets);
         model.addAttribute("title", "SaveX - Products");
@@ -115,7 +112,7 @@ public class ProductsController {
         controllerUtils.addUserDataToModel(model);
         model.addAttribute("product", product);
         model.addAttribute("searchQuery", searchInput != null ? searchInput : "");
-        model.addAttribute("title", "SaveX - " + product.getDisplay_name());
+        model.addAttribute("title", "SaveX - " + product.display_name());
         return "product-detail";
     }
 }
