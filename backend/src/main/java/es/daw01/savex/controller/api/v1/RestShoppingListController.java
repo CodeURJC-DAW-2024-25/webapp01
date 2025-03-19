@@ -1,17 +1,17 @@
 package es.daw01.savex.controller.api.v1;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.daw01.savex.DTOs.ApiResponseDTO;
+import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.lists.CreateListRequest;
 import es.daw01.savex.DTOs.lists.SimpleShoppingListDTO;
-import es.daw01.savex.components.ControllerUtils;
-import es.daw01.savex.model.User;
 import es.daw01.savex.service.ShoppingListService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -27,41 +27,42 @@ public class RestShoppingListController {
     @Autowired
     private ShoppingListService shoppingListService;
 
-    @Autowired
-    private ControllerUtils controllerUtils;
-
     @GetMapping({ "", "/" })
     public ResponseEntity<Object> getUserLists(
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "4") int size) {
-        return shoppingListService.retrieveUserLists(PageRequest.of(page, size));
+        @PageableDefault(page = 0, size = 5) Pageable pageable
+    ) {
+        PaginatedDTO<SimpleShoppingListDTO> lists = shoppingListService.retrieveUserLists(pageable);
+        return ApiResponseDTO.ok(lists);
     }
 
     @PostMapping({ "", "/" })
     public ResponseEntity<Object> newList(
-            @RequestBody CreateListRequest request) {
-        User user = controllerUtils.getAuthenticatedUser();
-        SimpleShoppingListDTO list = shoppingListService.createShoppingList(request, user);
+        @RequestBody CreateListRequest request
+    ) {
+        SimpleShoppingListDTO list = shoppingListService.createShoppingList(request);
         return ApiResponseDTO.ok(list);
     }
 
     @PostMapping("/{id}/product/{productId}")
     public ResponseEntity<Object> addProductToList(
-            @PathVariable Long id,
-            @PathVariable String productId) {
+        @PathVariable Long id,
+        @PathVariable String productId
+    ) {
         return shoppingListService.addProductToList(id, productId);
     }
 
     @DeleteMapping("/{id}/product/{productId}")
     public ResponseEntity<Object> removeProductFromList(
-            @PathVariable Long id,
-            @PathVariable String productId) {
+        @PathVariable Long id,
+        @PathVariable String productId
+    ) {
         return shoppingListService.removeProductFromList(id, productId);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> removeList(
-            @PathVariable Long id) {
+        @PathVariable Long id
+    ) {
         return shoppingListService.deleteById(id);
     }
 
