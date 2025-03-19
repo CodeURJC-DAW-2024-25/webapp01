@@ -3,7 +3,6 @@ package es.daw01.savex.controller.api.v1;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 import jakarta.persistence.EntityExistsException;
@@ -13,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
