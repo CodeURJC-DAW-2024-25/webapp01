@@ -8,6 +8,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToMany;
 
 @Entity
 public class Product {
@@ -56,6 +57,9 @@ public class Product {
 
     @ElementCollection
     private List<String> keywords;
+
+    @ManyToMany(mappedBy = "products")
+    private List<ShoppingList> shoppingLists;
 
     // Constructors ----------------------------------------------------------->>
     public Product() {

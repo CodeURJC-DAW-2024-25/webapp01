@@ -7,7 +7,6 @@ import org.springframework.data.annotation.CreatedDate;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -30,10 +29,9 @@ public class ShoppingList {
     @Column(nullable = false)
     private int numberOfProducts;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private User user;
 
-    @ElementCollection
     @ManyToMany(cascade = CascadeType.PERSIST)
     private List<Product> products;
 
