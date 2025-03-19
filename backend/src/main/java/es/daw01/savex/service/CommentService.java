@@ -1,6 +1,5 @@
 package es.daw01.savex.service;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
 import es.daw01.savex.DTOs.PaginatedDTO;
-import es.daw01.savex.DTOs.comments.CommentDTO;
 import es.daw01.savex.DTOs.comments.CommentMapper;
 import es.daw01.savex.DTOs.comments.CreateCommentRequest;
 import es.daw01.savex.DTOs.comments.SimpleCommentDTO;
@@ -44,12 +42,13 @@ public class CommentService {
         List<SimpleCommentDTO> commentDTOs = commentMapper.toDTOSimple(comments.getContent());
 
         return new PaginatedDTO<>(
-                commentDTOs,
-                comments.getNumber(),
-                comments.getTotalPages(),
-                comments.getTotalElements(),
-                comments.getSize(),
-                comments.isLast());
+            commentDTOs,
+            comments.getNumber(),
+            comments.getTotalPages(),
+            comments.getTotalElements(),
+            comments.getSize(),
+            comments.isLast()
+        );
     }
 
     /**
@@ -163,16 +162,6 @@ public class CommentService {
     }
 
     /**
-     * Get all comments from a post
-     * 
-     * @param post Post to get the comments from
-     * @return List of comments from the given post
-     */
-    public Iterable<Comment> findByPost(Post post) {
-        return commentRepository.findByPost(post);
-    }
-
-    /**
      * Get all comments from a post paginated
      * 
      * @param post     Post to get the comments from
@@ -181,42 +170,6 @@ public class CommentService {
      */
     public Page<Comment> findByPostOrderByCreatedAtDesc(Post post, Pageable pageable) {
         return commentRepository.findByPostOrderByCreatedAtDesc(post, pageable);
-    }
-
-    /**
-     * Get all comments from a post as DTOs
-     * 
-     * @param post Post to get the comments from
-     * @param user Current authenticates user
-     * @return List of comments from the given post as DTOs
-     */
-    public List<CommentDTO> getCommentsDTO(Post post, User user) {
-        List<CommentDTO> commentsDTO = new ArrayList<>();
-
-        // Get all comments from the post and convert them to DTOs
-        for (Comment comment : post.getComments()) {
-            commentsDTO.add(new CommentDTO(comment, user));
-        }
-
-        return commentsDTO;
-    }
-
-    /**
-     * Parses all comments to DTO format
-     * 
-     * @param comments Comments to be parsed
-     * @param user     Current authenticates user
-     * @return List of comments as DTOs
-     */
-    public List<CommentDTO> getCommentsDTO(List<Comment> comments, User user) {
-        List<CommentDTO> commentsDTO = new ArrayList<>();
-
-        // Parse every comment to a DTO format
-        for (Comment comment : comments) {
-            commentsDTO.add(new CommentDTO(comment, user));
-        }
-
-        return commentsDTO;
     }
 
     public SimpleCommentDTO updateComment(Long id, Long commentId, CreateCommentRequest commentRequest, User author) {
