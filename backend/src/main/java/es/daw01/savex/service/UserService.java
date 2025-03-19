@@ -12,13 +12,13 @@ import java.util.Optional;
 import org.hibernate.engine.jdbc.BlobProxy;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 
 import es.daw01.savex.DTOs.PaginatedDTO;
@@ -342,28 +342,17 @@ public class UserService {
     }
 
     /**
-     * Gets the authenticated user from the security context.
-     * @return The authenticated user.
-     * @throws EntityNotFoundException if the user does not exist in the database.
-     */
+     * Get the authenticated user
+     * @return The authenticated user
+    */
     public User getAuthenticatedUser() {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-        if (authentication == null || !authentication.isAuthenticated()) {
-            throw new SecurityException("User is not authenticated");
+        // Check if user is authenticated and return the user
+        if (auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
+            return this.findByUsername(auth.getName()).get();
         }
 
-        Object principal = authentication.getPrincipal();
-        String username;
-
-        if (principal instanceof UserDetails) {
-            username = ((UserDetails) principal).getUsername();
-        } else {
-            username = principal.toString();
-        }
-
-        return getUserByUsername(username);
+        return null;
     }
-
-
 }

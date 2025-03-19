@@ -4,7 +4,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import es.daw01.savex.DTOs.PaginatedDTO;
-import es.daw01.savex.DTOs.ProductDTO;
+import es.daw01.savex.DTOs.products.ProductDTO;
 import es.daw01.savex.DTOs.products.SearchProductRequest;
 import es.daw01.savex.service.ApiService;
 

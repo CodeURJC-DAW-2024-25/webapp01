@@ -1,5 +1,3 @@
-// TODO - Review and implement CustomErrorController (Check docs)
-
 package es.daw01.savex.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;

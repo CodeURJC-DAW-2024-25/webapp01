@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 
 import es.daw01.savex.DTOs.lists.CreateListRequest;
 import es.daw01.savex.DTOs.lists.ShoppingListDTO;
+import es.daw01.savex.DTOs.lists.ShoppingListMapper;
 import es.daw01.savex.DTOs.lists.SimpleShoppingListDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.ShoppingList;
@@ -29,6 +30,9 @@ public class ShoppingListController {
 
     @Autowired
     private ShoppingListService shoppingListService;
+
+    @Autowired
+    private ShoppingListMapper shoppingListMapper;
 
     @GetMapping({ "", "/" })
     public String getShoppingLists(Model model) {
@@ -58,7 +62,7 @@ public class ShoppingListController {
         if (!shoppingList.getUser().equals(user))
             return "redirect:/";
 
-        ShoppingListDTO shoppingListDTO = shoppingListService.parseToDTO(shoppingList);
+        ShoppingListDTO shoppingListDTO = shoppingListMapper.toDTO(shoppingList);
 
         // Add attributes to the model
         controllerUtils.addUserDataToModel(model);
@@ -70,10 +74,8 @@ public class ShoppingListController {
 
     @PostMapping("/create")
     public String postMethodName(@RequestBody CreateListRequest request) {
-        User user = controllerUtils.getAuthenticatedUser();
-
         // Add the shopping list to the user
-        SimpleShoppingListDTO newShoppingList = shoppingListService.createShoppingList(request, user);
+        SimpleShoppingListDTO newShoppingList = shoppingListService.createShoppingList(request);
 
         if (newShoppingList == null)
             return "redirect:/profile";

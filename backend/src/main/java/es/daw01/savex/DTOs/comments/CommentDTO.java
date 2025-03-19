@@ -1,4 +1,4 @@
-package es.daw01.savex.DTOs;
+package es.daw01.savex.DTOs.comments;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 

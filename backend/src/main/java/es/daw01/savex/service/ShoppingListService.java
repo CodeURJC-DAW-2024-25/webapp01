@@ -1,11 +1,7 @@
 package es.daw01.savex.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,11 +10,12 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import es.daw01.savex.DTOs.ApiResponseDTO;
-import es.daw01.savex.DTOs.ProductDTO;
+import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.lists.CreateListRequest;
-import es.daw01.savex.DTOs.lists.ShoppingListDTO;
 import es.daw01.savex.DTOs.lists.ShoppingListMapper;
 import es.daw01.savex.DTOs.lists.SimpleShoppingListDTO;
+import es.daw01.savex.DTOs.products.ProductDTO;
+import es.daw01.savex.DTOs.products.ProductMapper;
 import es.daw01.savex.DTOs.lists.ListResponse;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Product;
@@ -34,6 +31,9 @@ public class ShoppingListService {
 
     @Autowired
     private ShoppingListMapper shoppingListMapper;
+
+    @Autowired
+    private ProductMapper productMapper;
 
     @Autowired
     private ProductService productService;
@@ -89,9 +89,9 @@ public class ShoppingListService {
      * 
      * @param name        The name of the shopping list
      * @param description The description of the shopping list
-     * @param user        The user of the shopping list
      */
-    public SimpleShoppingListDTO createShoppingList(CreateListRequest request, User user) {
+    public SimpleShoppingListDTO createShoppingList(CreateListRequest request) {
+        User user = userService.getAuthenticatedUser();
         String listName = request.name();
         String listDescription = request.description();
 
@@ -106,28 +106,24 @@ public class ShoppingListService {
      * @param pageable The pageable object
      * @return The list of shopping lists
      */
-    public ResponseEntity<Object> retrieveUserLists(Pageable pageable) {
-        User user = userService.getAuthenticatedUser(); // The user is already authenticated
-
-        Map<String, Object> response = new HashMap<>();
+    public PaginatedDTO<SimpleShoppingListDTO> retrieveUserLists(Pageable pageable) {
+        User user = userService.getAuthenticatedUser();
 
         // Retrieve shopping lists paginated
         Page<ShoppingList> listsPage = shoppingListRepository.findAllByUserOrderByCreatedAtDesc(user, pageable);
 
         // Parse shopping lists to DTOs
-        List<ShoppingListDTO> listsDTO = this.parseToDTOs(listsPage.getContent());
+        List<SimpleShoppingListDTO> listsDTO = shoppingListMapper.toSimpleDTOs(listsPage.getContent());
 
-        if (listsDTO.isEmpty()) {
-            return ApiResponseDTO.ok("No shopping lists found");
-        }
-        // Generate response map
-        response.put("data", listsDTO.isEmpty() ? null : listsDTO);
-        response.put("currentPage", listsPage.getNumber());
-        response.put("totalItems", listsPage.getTotalElements());
-        response.put("totalPages", listsPage.getTotalPages());
-        response.put("isLastPage", listsPage.isLast());
-
-        return ApiResponseDTO.ok(response);
+        // Create response
+        return new PaginatedDTO<SimpleShoppingListDTO>(
+            listsDTO,
+            listsPage.getNumber(),
+            listsPage.getTotalPages(),
+            listsPage.getTotalElements(),
+            listsPage.getSize(),
+            listsPage.isLast()
+        );
     }
 
     /**
@@ -154,7 +150,7 @@ public class ShoppingListService {
         Optional<Product> op = productService.findByProductDTO(productDTO);
         Product product;
         if (op.isEmpty()) {
-            product = productService.createProductFromDTO(productDTO);
+            product = productMapper.toEntity(productDTO);
             productService.save(product);
         } else {
             product = op.get();
@@ -164,39 +160,10 @@ public class ShoppingListService {
         shoppingListRepository.save(list);
 
         // Create response
-        List<ProductDTO> productList = list.getProducts().stream()
-                .map(ProductDTO::new)
-                .collect(Collectors.toList());
+        List<ProductDTO> productList = productMapper.toDTOs(list.getProducts());
         ListResponse<ProductDTO> response = new ListResponse<>(list.getId(), user.getUsername(), productList);
 
         return ApiResponseDTO.ok(response);
-    }
-
-    /**
-     * Parse a shopping list to a shopping list DTO
-     * 
-     * @param shoppingList The shopping list to parse
-     * @return The shopping list DTO
-     */
-    public ShoppingListDTO parseToDTO(ShoppingList shoppingList) {
-        return new ShoppingListDTO(shoppingList);
-    }
-
-    /**
-     * Parse a list of shopping lists to a list of shopping list DTOs
-     * 
-     * @param shoppingLists The list of shopping lists to parse
-     * @return The list of shopping list DTOs
-     */
-    public List<ShoppingListDTO> parseToDTOs(List<ShoppingList> shoppingLists) {
-
-        ArrayList<ShoppingListDTO> shoppingListDTOs = new ArrayList<>();
-
-        for (ShoppingList shoppingList : shoppingLists) {
-            shoppingListDTOs.add(new ShoppingListDTO(shoppingList));
-        }
-
-        return shoppingListDTOs;
     }
 
     /**
