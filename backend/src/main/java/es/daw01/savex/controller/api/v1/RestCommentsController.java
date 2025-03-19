@@ -92,7 +92,7 @@ public class RestCommentsController {
     public ResponseEntity<SimpleCommentDTO> updateComment(
             @PathVariable Long id,
             @PathVariable Long commentId,
-            @RequestBody CreateCommentRequest request) {
+            @ModelAttribute CreateCommentRequest request) {
         User author = controllerUtils.getAuthenticatedUser();
         try {
             SimpleCommentDTO updatedComment = commentService.updateComment(id, commentId, request, author);
