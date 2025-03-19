@@ -169,6 +169,8 @@ public class Post {
      * @return the reading time of the post in minutes
     */
     public String calulateReadingTime() {
+        if (this.content == null) return "0 min";
+
         int words = this.content.split(" ").length;
         int minutes = words / 200;
 
