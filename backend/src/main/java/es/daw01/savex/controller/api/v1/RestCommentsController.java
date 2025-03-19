@@ -27,7 +27,6 @@ import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.PostService;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/v1/posts/{id}/comments")
@@ -90,7 +89,7 @@ public class RestCommentsController {
     public ResponseEntity<Object> updateComment(
             @PathVariable Long id,
             @PathVariable Long commentId,
-            @RequestBody CreateCommentRequest request) {
+            @ModelAttribute CreateCommentRequest request) {
         User author = controllerUtils.getAuthenticatedUser();
         try {
             SimpleCommentDTO updatedComment = commentService.updateComment(id, commentId, request, author);
