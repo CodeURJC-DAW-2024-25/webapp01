@@ -11,6 +11,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 
@@ -33,6 +35,11 @@ public class ShoppingList {
     private User user;
 
     @ManyToMany(cascade = CascadeType.PERSIST)
+    @JoinTable(
+        name = "shopping_list_products",
+        joinColumns = @JoinColumn(name = "shopping_list_id"),
+        inverseJoinColumns = @JoinColumn(name = "product_id")
+    )
     private List<Product> products;
 
     @Column(nullable = false)
