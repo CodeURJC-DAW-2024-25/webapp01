@@ -3,7 +3,6 @@ package es.daw01.savex.controller.api.v1;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
@@ -16,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -41,7 +39,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
-import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -170,10 +167,10 @@ public class RestUserController {
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getUser(@PathVariable String id) {
+    public ResponseEntity<Object> getUser(@PathVariable Long id) {
         try {
             // Get the user
-            PublicUserDTO user = userService.findPublicUserByUsername(id);
+            PublicUserDTO user = userService.findPublicUserById(id);
 
             // Return the user
             return ApiResponseDTO.ok(user);
@@ -183,7 +180,4 @@ public class RestUserController {
         }
     }
     
-    
-
 }
-
