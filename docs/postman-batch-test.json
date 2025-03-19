@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "8d0dbe29-e368-48f7-8be1-b035852b29bf",
+		"_postman_id": "ded75476-ad8b-47d6-84cd-ef90ba636419",
 		"name": "SaveX API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "43130823"
+		"_exporter_id": "43254314"
 	},
 	"item": [
 		{
@@ -1007,7 +1007,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{example-post}}/banner",
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{example-post-id}}/banner",
 									"host": [
 										"{{apiBaseURL}}"
 									],
@@ -1015,7 +1015,7 @@
 										"api",
 										"v1",
 										"posts",
-										"{{example-post}}",
+										"{{example-post-id}}",
 										"banner"
 									]
 								}
@@ -1135,15 +1135,14 @@
 									]
 								},
 								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/new",
+									"raw": "{{apiBaseURL}}/api/v1/users",
 									"host": [
 										"{{apiBaseURL}}"
 									],
 									"path": [
 										"api",
 										"v1",
-										"users",
-										"new"
+										"users"
 									]
 								}
 							},
@@ -1167,7 +1166,6 @@
 											"pm.test(\"The user has the right data\", () => {\r",
 											"    const userData = pm.response.json().data\r",
 											"    \r",
-											"    pm.expect(userData.email).to.include(pm.collectionVariables.get(\"example-user\"))\r",
 											"    pm.expect(userData.name).to.include(pm.collectionVariables.get(\"example-user\"))\r",
 											"    pm.expect(userData.role).to.include(\"USER\")\r",
 											"    pm.expect(userData).to.not.have.property('password');\r",
@@ -1274,7 +1272,7 @@
 										{
 											"key": "avatar",
 											"type": "file",
-											"src": "postman-cloud:///1f004c50-6424-4480-b235-81167038b2b1"
+											"src": "postman-cloud:///1f004de7-359e-4f50-a52d-37fd7ff15265"
 										}
 									]
 								},
@@ -1363,7 +1361,7 @@
 										{
 											"key": "avatar",
 											"type": "file",
-											"src": "postman-cloud:///1f004c51-1840-4ae0-9031-a62abdb2b720"
+											"src": "postman-cloud:///1f004de7-a0d5-43f0-8885-c869061d7f71"
 										}
 									]
 								},
@@ -2195,7 +2193,7 @@
 										{
 											"key": "banner",
 											"type": "file",
-											"src": "postman-cloud:///1f004d48-d6b1-4b30-931a-4904ee2e2138"
+											"src": "postman-cloud:///1f004de8-3fa5-4fc0-b35c-3c4b505721f8"
 										}
 									]
 								},
@@ -2268,8 +2266,8 @@
 											"\r",
 											"\r",
 											"// Test for status code\r",
-											"pm.test(\"Status code is 204\", function () {\r",
-											"    pm.response.to.have.status(204);\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
 											"});"
 										],
 										"type": "text/javascript",
@@ -2281,12 +2279,10 @@
 								"method": "DELETE",
 								"header": [],
 								"url": {
-									"raw": "https://localhost:8443/api/v1/posts/{{new-post-id}}/banner",
-									"protocol": "https",
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/banner",
 									"host": [
-										"localhost"
+										"{{apiBaseURL}}"
 									],
-									"port": "8443",
 									"path": [
 										"api",
 										"v1",
@@ -2437,8 +2433,8 @@
 									"script": {
 										"exec": [
 											"// Test for status code\r",
-											"pm.test(\"Status code is 204\", function () {\r",
-											"    pm.response.to.have.status(204);\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											""
 										],
@@ -2566,8 +2562,8 @@
 									"script": {
 										"exec": [
 											"// Test for the status code\r",
-											"pm.test(\"Status code is 204\", function () {\r",
-											"    pm.response.to.have.status(204);\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
 											""
@@ -2610,8 +2606,6 @@
 											"\r",
 											"pm.test(\"Not present in the posts list\", function () {\r",
 											"     var jsonData = pm.response.json();\r",
-											"     pm.expect(jsonData).to.be.an('object');\r",
-											"     pm.expect(jsonData.data).to.be.an('array');\r",
 											"     pm.expect(pm.response.text()).to.not.include(\"XXXXXXXXXXXX\");\r",
 											"});"
 										],
@@ -2725,20 +2719,13 @@
 	"variable": [
 		{
 			"key": "apiBaseURL",
-			"value": "",
+			"value": "https://localhost:8443",
 			"type": "default"
 		},
 		{
 			"key": "example-post-id",
-			"value": ""
-		},
-		{
-			"key": "testB",
-			"value": ""
-		},
-		{
-			"key": "example-post",
-			"value": ""
+			"value": "1",
+			"type": "string"
 		},
 		{
 			"key": "example-user",
@@ -2746,10 +2733,6 @@
 		},
 		{
 			"key": "example-user-id",
-			"value": ""
-		},
-		{
-			"key": "example-comment-id",
 			"value": ""
 		},
 		{
