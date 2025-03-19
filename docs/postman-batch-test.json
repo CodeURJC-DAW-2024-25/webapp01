@@ -1,0 +1,1390 @@
+{
+	"info": {
+		"_postman_id": "8d0dbe29-e368-48f7-8be1-b035852b29bf",
+		"name": "SaveX API",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43130823"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"userDefault9\",\r\n    \"password\": \"pass9\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{apiBaseURL}}/api/auth/login",
+							"host": [
+								"{{apiBaseURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{apiBaseURL}}/api/auth/logout",
+							"host": [
+								"{{apiBaseURL}}"
+							],
+							"path": [
+								"api",
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "v1",
+			"item": [
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Get users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User avatar",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/1/avatar",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"1",
+										"avatar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User avatar",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/C:/Users/elp0r/Pictures/Screenshots/Screenshot 2023-06-18 111252.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/9/avatar",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"9",
+										"avatar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User avatar",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "/C:/Users/elp0r/Pictures/Screenshots/Screenshot 2025-03-06 132213.png"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/9/avatar",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"9",
+										"avatar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get avatar",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/9/avatar",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"9",
+										"avatar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete avatar",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/9/avatar",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"9",
+										"avatar"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Posts",
+					"item": [
+						{
+							"name": "Posts paginated",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts?size=2&page=2",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "2"
+										},
+										{
+											"key": "page",
+											"value": "2"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post comments",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/1/comments?size=5",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"1",
+										"comments"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "5"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post banner",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/2/banner",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"2",
+										"banner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post content",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/1/content",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"1",
+										"content"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/1",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/1",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post banner",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8443/api/v1/posts/2/banner",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"2",
+										"banner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "Nuevo Post 123",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Descripcion random",
+											"type": "text"
+										},
+										{
+											"key": "author",
+											"value": "SaveX",
+											"type": "text"
+										},
+										{
+											"key": "readingTime",
+											"value": "1 min",
+											"type": "text"
+										},
+										{
+											"key": "visibility",
+											"value": "PUBLIC",
+											"type": "text"
+										},
+										{
+											"key": "tags",
+											"value": "Comparador",
+											"type": "text"
+										},
+										{
+											"key": "content\n",
+											"value": "# Hello\n\n- This is a new post",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post banner",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "banner",
+											"type": "file",
+											"src": []
+										}
+									]
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/2/banner",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"2",
+										"banner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post comments",
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "content",
+											"value": "New comment",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "https://localhost:8443/api/v1/posts/2/comments",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"2",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/2",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/4/comments/18",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"4",
+										"comments",
+										"18"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Comment",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "content",
+											"value": "Update comment",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/2/comments/1",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"2",
+										"comments",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Products",
+					"item": [
+						{
+							"name": "Products API",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/products?search=leche&limit=24&page=1&supermarket=mercadona",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "search",
+											"value": "leche"
+										},
+										{
+											"key": "limit",
+											"value": "24"
+										},
+										{
+											"key": "page",
+											"value": "1"
+										},
+										{
+											"key": "supermarket",
+											"value": "mercadona"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Product by Id",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/products/10533@mercadona",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products",
+										"10533@mercadona"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "ShoppingList",
+					"item": [
+						{
+							"name": "ShowLists",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": ""
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "AddProductList",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/lists/2/product/10533@mercadona",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"lists",
+										"2",
+										"product",
+										"10533@mercadona"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "DeleteProductList",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/lists/1/product/10533@mercadona",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"lists",
+										"1",
+										"product",
+										"10533@mercadona"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Admin",
+					"item": [
+						{
+							"name": "Get users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete user",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/2",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Delete comment",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/1",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get comments",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/comments",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get products (stats)",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/products?supermarket=mercadona",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"products"
+									],
+									"query": [
+										{
+											"key": "supermarket",
+											"value": "mercadona"
+										}
+									]
+								},
+								"description": "Checks that the products and filters work in ofder for the admin stats to work"
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "v1-batch",
+			"item": [
+				{
+					"name": "Unautheticated-endpoints",
+					"item": [
+						{
+							"name": "Get users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.test(\"Example users are loaded by default\", () => {\r",
+											"    const res = pm.response.json()\r",
+											"    const users = res.data\r",
+											"\r",
+											"    pm.expect(users.length).to.be.greaterThan(0)\r",
+											"})\r",
+											"\r",
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Test for response body properties\r",
+											"pm.test(\"Response body has properties\", function () {\r",
+											"    pm.expect(pm.response.json()).to.have.property('code');\r",
+											"    pm.expect(pm.response.json()).to.have.property('ok');\r",
+											"    pm.expect(pm.response.json()).to.have.property('data');\r",
+											"    pm.expect(pm.response.json()).to.have.property('error');\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										""
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get posts",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"// --- Capture a post id ---\r",
+											"var jsonData = pm.response.json();\r",
+											"const id = jsonData.data[0].id\r",
+											"\r",
+											"// Capture a post\r",
+											"pm.collectionVariables.set(\"example-post\", id)\r",
+											"// -------------------------\r",
+											"\r",
+											"\r",
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Test for response body properties\r",
+											"pm.test(\"Response body has properties\", function () {\r",
+											"    pm.expect(pm.response.json()).to.have.property('code');\r",
+											"    pm.expect(pm.response.json()).to.have.property('ok');\r",
+											"    pm.expect(pm.response.json()).to.have.property('data');\r",
+											"    pm.expect(pm.response.json()).to.have.property('error');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Example posts are loaded by default\", () => {\r",
+											"    const res = pm.response.json()\r",
+											"    const data = res.data\r",
+											"\r",
+											"    pm.expect(data.length).to.be.greaterThan(0)\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get post comments",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Test for response body properties\r",
+											"pm.test(\"Response body has properties\", function () {\r",
+											"    pm.expect(pm.response.json()).to.have.property('code');\r",
+											"    pm.expect(pm.response.json()).to.have.property('ok');\r",
+											"    pm.expect(pm.response.json()).to.have.property('data');\r",
+											"    pm.expect(pm.response.json()).to.have.property('error');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Example comments are loaded by default\", () => {\r",
+											"    const res = pm.response.json()\r",
+											"    const data = res.data\r",
+											"\r",
+											"    pm.expect(data.length).to.be.greaterThan(0)\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{example-post}}/comments",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{example-post}}",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Get post banner",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Test for response body properties\r",
+											"pm.test(\"Response body has properties\", function () {\r",
+											"    pm.expect(pm.response.json()).to.have.property('code');\r",
+											"    pm.expect(pm.response.json()).to.have.property('ok');\r",
+											"    pm.expect(pm.response.json()).to.have.property('data');\r",
+											"    pm.expect(pm.response.json()).to.have.property('error');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response is an image\", function() {\r",
+											"    const ct = pm.response.headers.get(\"Content-Type\")\r",
+											"    pm.expect(ct).to.be.contain(\"image\")\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{example-post}}/banner",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{example-post}}",
+										"banner"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Users",
+					"item": [
+						{
+							"name": "Get users",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const res = pm.response.json()\r",
+											"const users = res.data\r",
+											"\r",
+											"const nUsers = users.length\r",
+											"\r",
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Test for response body properties\r",
+											"pm.test(\"Response body has properties\", function () {\r",
+											"    pm.expect(pm.response.json()).to.have.property('code');\r",
+											"    pm.expect(pm.response.json()).to.have.property('ok');\r",
+											"    pm.expect(pm.response.json()).to.have.property('data');\r",
+											"    pm.expect(pm.response.json()).to.have.property('error');\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users?page=1",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "1"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Create user (request)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const req = pm.request\r",
+											"const timestamp = req.body.toJSON().formdata.slice(-1)[0].value\r",
+											"\r",
+											"pm.collectionVariables.set(\"example-user\", `user${timestamp}`)\r",
+											"\r",
+											"\r",
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Test for response body properties\r",
+											"pm.test(\"Response body has properties\", function () {\r",
+											"    pm.expect(pm.response.json()).to.have.property('code');\r",
+											"    pm.expect(pm.response.json()).to.have.property('ok');\r",
+											"    pm.expect(pm.response.json()).to.have.property('data');\r",
+											"    pm.expect(pm.response.json()).to.have.property('error');\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "email",
+											"value": "user{{$timestamp}}@test.com",
+											"type": "text"
+										},
+										{
+											"key": "username",
+											"value": "user{{$timestamp}}",
+											"type": "text"
+										},
+										{
+											"key": "password",
+											"value": "passPASS1",
+											"type": "text"
+										},
+										{
+											"key": "name",
+											"value": "user{{$timestamp}}",
+											"type": "text"
+										},
+										{
+											"key": "_csrf",
+											"value": "x6TBSe4AERywZ6FG8RJ3FaakfuJU_k4ZH_a9J_8XhCVcnlch9cX0K482d36dBJZ1wj9Dc8KUU9tgz3o0J5KOQsgi4Rxl-2cV",
+											"type": "text",
+											"disabled": true
+										},
+										{
+											"key": "timestamp",
+											"value": "{{$timestamp}}",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/new",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"new"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Check user created",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"pm.collectionVariables.set(\"example-user-id\", pm.response.json().data.id)\r",
+											"\r",
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Test for response body properties\r",
+											"pm.test(\"Response body has properties\", function () {\r",
+											"    pm.expect(pm.response.json()).to.have.property('code');\r",
+											"    pm.expect(pm.response.json()).to.have.property('ok');\r",
+											"    pm.expect(pm.response.json()).to.have.property('data');\r",
+											"    pm.expect(pm.response.json()).to.have.property('error');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"The user has the right data\", () => {\r",
+											"    const userData = pm.response.json().data\r",
+											"    \r",
+											"    pm.expect(userData.email).to.include(pm.collectionVariables.get(\"example-user\"))\r",
+											"    pm.expect(userData.name).to.include(pm.collectionVariables.get(\"example-user\"))\r",
+											"    pm.expect(userData.role).to.include(\"USER\")\r",
+											"    pm.expect(userData).to.not.have.property('password');\r",
+											"})"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user}}",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{example-user}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body has properties\", function () {\r",
+											"    pm.expect(pm.response.json().status).to.be.equal(\"SUCCESS\")\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"{{example-user}}\",\r\n    \"password\": \"passPASS1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/auth/login",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "New Request",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(403);\r",
+											"});\r",
+											"\r",
+											"// Test for response body properties\r",
+											"pm.test(\"Response body has properties\", function () {\r",
+											"    pm.expect(pm.response.json()).to.have.property('code');\r",
+											"    pm.expect(pm.response.json()).to.have.property('ok');\r",
+											"    pm.expect(pm.response.json()).to.have.property('data');\r",
+											"    pm.expect(pm.response.json()).to.have.property('error');\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"User cannot delete himself\", function () {\r",
+											"    pm.expect(pm.response.json().error.message).to.be.equal(\"You cannot delete yourself\")\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{example-user-id}}"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "apiBaseURL",
+			"value": "",
+			"type": "default"
+		},
+		{
+			"key": "testB",
+			"value": ""
+		},
+		{
+			"key": "example-post",
+			"value": ""
+		},
+		{
+			"key": "example-user",
+			"value": ""
+		},
+		{
+			"key": "example-user-id",
+			"value": ""
+		}
+	]
+}

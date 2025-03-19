@@ -3,10 +3,12 @@ package es.daw01.savex.controller.api.v1;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
 import jakarta.persistence.EntityExistsException;
+import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -14,7 +16,8 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
-
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,6 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
+import es.daw01.savex.DTOs.UserDTO;
 import es.daw01.savex.DTOs.users.PublicUserDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.User;
@@ -31,11 +35,14 @@ import es.daw01.savex.service.UserService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
+import org.springframework.web.bind.annotation.RequestBody;
+
 
 @RestController
 @RequestMapping("/api/v1/users")
@@ -127,7 +134,7 @@ public class RestUserController {
 
             // Prevent admin from deleting himself
             if (authenticatedUser.getId() == id) {
-                return ApiResponseDTO.error("You cannot delete yourself");
+                return ApiResponseDTO.error("You cannot delete yourself", 403);
             }
 
             // Before deleting the user, we must delete all the comments and posts associated with him
@@ -144,4 +151,39 @@ public class RestUserController {
         }
     }
 
+    @PostMapping("/new")
+    public ResponseEntity<Object> postRegisterPage(@Valid @ModelAttribute UserDTO userDTO, BindingResult bindingResult) {
+        if (bindingResult.hasErrors()) {
+            return ApiResponseDTO.error("Validation failed: " + bindingResult.getFieldErrors());
+        }
+
+        try {
+            userService.registerNewUser(userDTO);
+        } catch (EntityExistsException e) {
+            return ApiResponseDTO.error("User already exists");
+        } catch (Exception e) {
+            return ApiResponseDTO.error("Error creating user");
+        }
+
+        return ApiResponseDTO.ok("User created successfully");
+    }
+
+
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getUser(@PathVariable String id) {
+        try {
+            // Get the user
+            PublicUserDTO user = userService.findPublicUserByUsername(id);
+
+            // Return the user
+            return ApiResponseDTO.ok(user);
+        } catch (NoSuchElementException e) {
+            // Return error message
+            return ApiResponseDTO.error("User not found");
+        }
+    }
+    
+    
+
 }
+

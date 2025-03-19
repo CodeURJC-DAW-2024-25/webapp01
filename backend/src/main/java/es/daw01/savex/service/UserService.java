@@ -165,6 +165,16 @@ public class UserService {
     }
 
     /**
+     * Finds a user by its id and returns a public user DTO
+     * 
+     * @param id The id of the user to find
+     * @return The user with the given id, or null if it doesn't exist
+     */
+    public PublicUserDTO findPublicUserByUsername(String id) {
+        return userMapper.toPublicUserDTO(userRepository.findByUsername(id).orElse(null));
+    }
+
+    /**
      * Finds a user by its username
      * 
      * @param username The username of the user to find
