@@ -2,7 +2,6 @@ package es.daw01.savex.service;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,7 +22,6 @@ import es.daw01.savex.DTOs.posts.PostMapper;
 import es.daw01.savex.model.Post;
 import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.repository.PostRepository;
-import es.daw01.savex.utils.DateUtils;
 import es.daw01.savex.utils.ImageUtils;
 
 @Service
@@ -118,7 +116,7 @@ public class PostService {
         Map<String, Object> response = new HashMap<>();
         Page<Post> posts = postRepository.findAll(pageable);
 
-        List<PostDTO> postsDTO = this.getPostsDTO(posts.getContent());
+        List<PostDTO> postsDTO = this.postMapper.toDTOs(posts.getContent());
 
         response.put("posts", postsDTO);
         response.put("currentPage", posts.getNumber());
@@ -127,8 +125,6 @@ public class PostService {
 
         return response;
     }
-
-
 
     /**
      * Finds a post by its id
@@ -153,23 +149,6 @@ public class PostService {
     }
 
     /**
-     * Parses a list of posts to a list of post DTOs
-     * 
-     * @param posts The list of posts to parse
-     * @return A list of post DTOs
-     */
-    public List<PostDTO> getPostsDTO(List<Post> posts) {
-        List<PostDTO> postDTOList = new ArrayList<>();
-
-        // Parse each post to a post DTO
-        for (Post post : posts) {
-            postDTOList.add(postMapper.toDTO(post));
-        }
-
-        return postDTOList;
-    }
-
-    /**
      * Finds all posts in the database, ordered by creation date
      * 
      * @param pageable The page to return
@@ -180,7 +159,7 @@ public class PostService {
         Page<Post> postPage = this.findByVisibilityOrderByCreatedAtDesc(VisibilityType.PUBLIC, pageable);
 
         // Create post DTO list
-        List<PostDTO> postDTOList = this.getPostsDTO(postPage.getContent());
+        List<PostDTO> postDTOList = this.postMapper.toDTOs(postPage.getContent());
 
         // Generate response map
         return new PaginatedDTO<PostDTO>(
@@ -191,42 +170,6 @@ public class PostService {
             postPage.getSize(),
             postPage.isLast()
         );
-    }
-
-    /**
-     * Creates a new post
-     * 
-     * @param title       The title of the post
-     * @param description The description of the post
-     * @param content     The content of the post
-     * @param author      The author of the post
-     * @param tags        The tags of the post
-     * @param visibility  The visibility of the post
-     * @return The created post
-     */
-    public Post createPost(
-            String title,
-            String description,
-            String content,
-            String author,
-            String tags,
-            String visibility) {
-        // Parse visibility string to VisibilityType
-        VisibilityType visibilityType = VisibilityType.valueOf(visibility) == null
-                ? VisibilityType.PUBLIC
-                : VisibilityType.valueOf(visibility);
-
-        Post post = new Post();
-        post.setTitle(title);
-        post.setDescription(description);
-        post.setContent(content);
-        post.setAuthor(author);
-        post.setDate(DateUtils.format(DateUtils.now()));
-        post.setVisibility(visibilityType);
-        post.setReadingTime(post.calulateReadingTime());
-        post.setTags(List.of(tags));
-
-        return post;
     }
 
     /**

@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import es.daw01.savex.DTOs.posts.CreatePostRequest;
+import es.daw01.savex.DTOs.posts.PostDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Comment;
 import es.daw01.savex.model.Post;
@@ -147,21 +148,15 @@ public class PostsController {
 
     @PostMapping("/createPost")
     public String createPost(
-            @RequestParam String title,
-            @RequestParam String description,
-            @RequestParam String content,
-            @RequestParam String author,
-            @RequestParam String tags,
-            @RequestParam String visibility,
-            @RequestParam MultipartFile banner) {
-        // Create a new post with the form data
-        Post newPost = postService.createPost(title, description, content, author, tags, visibility);
-
-        // Save the post in the database
-        postService.save(newPost, banner);
-
-        // Redirect to the new post page
-        return "redirect:/posts/" + newPost.getId();
+        @ModelAttribute CreatePostRequest createPostRequest,
+        @RequestParam MultipartFile banner
+    ) {
+        try {
+            PostDTO newPost = postService.createPost(createPostRequest, banner);
+            return "redirect:/posts/" + newPost.id();
+        } catch (IOException e) {
+            return "redirect:/posts";
+        }
     }
 
     @GetMapping("/editPost/{id}")

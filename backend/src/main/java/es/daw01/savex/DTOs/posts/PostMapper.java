@@ -14,7 +14,7 @@ import es.daw01.savex.utils.DateUtils;
 @Mapper(componentModel = "spring")
 public interface PostMapper {
     PostDTO toDTO(Post post);
-    List<PostDTO> toDTO(Collection<Post> posts);
+    List<PostDTO> toDTOs(Collection<Post> posts);
 
     @Mapping(target = "banner", ignore = true)
     @Mapping(target = "comments", ignore = true)
