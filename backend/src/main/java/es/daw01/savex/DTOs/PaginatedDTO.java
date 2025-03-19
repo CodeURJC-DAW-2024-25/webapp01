@@ -3,7 +3,7 @@ package es.daw01.savex.DTOs;
 import java.util.List;
 
 public record PaginatedDTO<T>(
-    List<T> data,
+    List<T> page,
     long current_page,
     long total_pages,
     long total_items,

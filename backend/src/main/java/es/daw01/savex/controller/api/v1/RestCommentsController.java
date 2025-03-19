@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.PostDTO;
 import es.daw01.savex.DTOs.comments.CreateCommentRequest;
@@ -42,63 +43,60 @@ public class RestCommentsController {
     private ControllerUtils controllerUtils;
 
     @GetMapping({ "", "/" })
-    public ResponseEntity<PaginatedDTO<SimpleCommentDTO>> getComments(
+    public ResponseEntity<Object> getComments(
             @PathVariable Long id,
             @PageableDefault(page = 0, size = 5) Pageable pageable) {
         PostDTO post = postService.getPost(id);
         if (post.getVisibility().equals(VisibilityType.PRIVATE) & !controllerUtils.isAuthenticatedUserAdmin()) {
-            return ResponseEntity.badRequest().body(null);
+            return ApiResponseDTO.error("Post is private", 403);
         }
 
         PaginatedDTO<SimpleCommentDTO> response = commentService.retrieveComments(id, pageable);
-        return ResponseEntity.ok(response);
+        return ApiResponseDTO.ok(response);
     }
 
     @PostMapping({ "", "/" })
-    public ResponseEntity<SimpleCommentDTO> createComment(
+    public ResponseEntity<Object> createComment(
             @PathVariable Long id,
             @ModelAttribute CreateCommentRequest request) {
         User author = controllerUtils.getAuthenticatedUser();
         SimpleCommentDTO comment = commentService.createComment(id, request, author);
 
-        URI location = ServletUriComponentsBuilder.fromCurrentRequest()
-                .path("/{id}").buildAndExpand(comment.id()).toUri();
-
-        return ResponseEntity.created(location).body(comment);
+        return ApiResponseDTO.ok(comment, 201);
     }
 
     @GetMapping("/{commentId}")
-    public ResponseEntity<SimpleCommentDTO> getComment(
+    public ResponseEntity<Object> getComment(
             @PathVariable Long id,
             @PathVariable Long commentId) {
         SimpleCommentDTO comment = commentService.getComment(id, commentId);
-        return ResponseEntity.ok().body(comment);
+        return ApiResponseDTO.ok(comment);
     }
 
     @DeleteMapping("/{commentId}")
-    public ResponseEntity<SimpleCommentDTO> deleteComment(
+    public ResponseEntity<Object> deleteComment(
             @PathVariable Long id,
             @PathVariable Long commentId) {
         User author = controllerUtils.getAuthenticatedUser();
         try {
-            SimpleCommentDTO comment = commentService.deleteComment(id, commentId, author);
-            return ResponseEntity.ok().body(comment);
-        } catch (ResponseStatusException e) {
-            return ResponseEntity.status(e.getStatusCode()).body(null);
+            commentService.deleteComment(id, commentId, author);
+            return ApiResponseDTO.ok(204);
+        } catch (Exception e) {
+            return ApiResponseDTO.error("Failed to delete comment (check if the comment exists)");
         }
     }
 
     @PatchMapping("/{commentId}")
-    public ResponseEntity<SimpleCommentDTO> updateComment(
+    public ResponseEntity<Object> updateComment(
             @PathVariable Long id,
             @PathVariable Long commentId,
             @RequestBody CreateCommentRequest request) {
         User author = controllerUtils.getAuthenticatedUser();
         try {
             SimpleCommentDTO updatedComment = commentService.updateComment(id, commentId, request, author);
-            return ResponseEntity.ok().body(updatedComment);
+            return ApiResponseDTO.ok(updatedComment);
         } catch (ResponseStatusException e) {
-            return ResponseEntity.status(e.getStatusCode()).body(null);
+            return ApiResponseDTO.error("Failed to update comment");
         }
     }
 }

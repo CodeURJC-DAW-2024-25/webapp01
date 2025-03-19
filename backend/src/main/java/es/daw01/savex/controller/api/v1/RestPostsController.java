@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.PostDTO;
 import es.daw01.savex.DTOs.posts.CreatePostRequest;
@@ -40,15 +41,15 @@ public class RestPostsController {
     private PostService postService;
 
     @GetMapping({ "", "/" })
-    public ResponseEntity<PaginatedDTO<PostDTO>> getPosts(
+    public ResponseEntity<Object> getPosts(
         @PageableDefault(page = 0, size = 5) Pageable pageable
     ) {
         PaginatedDTO<PostDTO> response = postService.retrievePosts(pageable);
-        return ResponseEntity.ok(response);
+        return ApiResponseDTO.ok(response);
     }
     
     @PostMapping({ "", "/" })
-    public ResponseEntity<PostDTO> createPost(
+    public ResponseEntity<Object> createPost(
         @ModelAttribute CreatePostRequest createPostRequest,
         @RequestParam(required = false) MultipartFile banner
     ) {
@@ -57,70 +58,75 @@ public class RestPostsController {
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(post.getId()).toUri();
 
-            return ResponseEntity.created(location).body(post);
+            return ApiResponseDTO.ok(location, 201);
         } catch (IOException e) {
-            return ResponseEntity.badRequest().body(null);
+            return ApiResponseDTO.error("Failed to create post");
         }
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<PostDTO> getPost(@PathVariable long id) {
+    public ResponseEntity<Object> getPost(@PathVariable long id) {
         PostDTO post = postService.getPost(id);
-        return ResponseEntity.ok(post);
+        return ApiResponseDTO.ok(post);
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<PostDTO> updatePost(
+    public ResponseEntity<Object> updatePost(
         @PathVariable long id,
         @ModelAttribute CreatePostRequest createPostRequest
     ) {
         try {
             PostDTO post = postService.updatePost(id, createPostRequest);
-            return ResponseEntity.ok(post);
+            return ApiResponseDTO.ok(post);
         } catch (IOException e) {
-            return ResponseEntity.badRequest().body(null);
+            return ApiResponseDTO.error("Failed to update post");
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<PostDTO> deletePost(@PathVariable long id) {
-        commentService.deleteByPostId(id);
-        PostDTO post = postService.deleteById(id);
-        return ResponseEntity.ok(post);
+    public ResponseEntity<Object> deletePost(@PathVariable long id) {
+        try{
+            commentService.deleteByPostId(id);
+            postService.deleteById(id);
+            return ApiResponseDTO.ok(204);
+        } catch (Exception e) {
+            return ApiResponseDTO.error("Failed to delete post");
+        }
     }
     
     @GetMapping("/{id}/banner")
     public ResponseEntity<Object> getPostBanner(@PathVariable long id) throws SQLException, IOException {
         Resource banner = postService.getPostBanner(id);
 
-        return ResponseEntity.ok()
-            .header(HttpHeaders.CONTENT_TYPE, "image/png")
-            .body(banner);
+        return ApiResponseDTO.ok(banner);
     }
 
     @PostMapping("/{id}/banner")
-    public ResponseEntity<PostDTO> updatePostBanner(
+    public ResponseEntity<Object> updatePostBanner(
         @PathVariable long id,
         @RequestParam MultipartFile banner
     ) {
         try {
             PostDTO post = postService.updatePostBanner(id, banner);
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
-            return ResponseEntity.created(location).body(post);
-        } catch (IOException e) {
-            return ResponseEntity.badRequest().body(null);
+            return ApiResponseDTO.ok(post, 201);
+        } catch (Exception e) {
+            return ApiResponseDTO.error("Failed to update post banner, maybe the post does not exist", 404);
         }
     }
 
     @DeleteMapping("/{id}/banner")
-    public ResponseEntity<PostDTO> deletePostBanner(@PathVariable long id) {
-        PostDTO post = postService.deletePostBanner(id);
-        return ResponseEntity.ok(post);
+    public ResponseEntity<Object> deletePostBanner(@PathVariable long id) {
+        try {
+            postService.deletePostBanner(id);
+            return ApiResponseDTO.ok(204);
+        } catch (Exception e) {
+            return ApiResponseDTO.error("Failed to delete post banner");
+        }
     }
 
     @GetMapping("/{id}/content")
-    public ResponseEntity<String> getPostContent(@PathVariable long id) {
+    public ResponseEntity<Object> getPostContent(@PathVariable long id) {
         String content = postService.getPostContent(id);
-        return ResponseEntity.ok(content);
+        return ApiResponseDTO.ok(content);
     }
 }

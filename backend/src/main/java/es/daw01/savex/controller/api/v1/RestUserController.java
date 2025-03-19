@@ -58,7 +58,7 @@ public class RestUserController {
     private ControllerUtils controllerUtils;
 
     @GetMapping({ "", "/" })
-    public ResponseEntity<PaginatedDTO<PublicUserDTO>> getUsers(
+    public ResponseEntity<Object> getUsers(
         @PageableDefault(page = 0, size = 10) Pageable pageable
     ) {
         // Get all users
@@ -68,22 +68,20 @@ public class RestUserController {
         );
 
         // Return the users list
-        return ResponseEntity.ok(response);
+        return ApiResponseDTO.ok(response);
     }
 
     @GetMapping("/{id}/avatar")
     public ResponseEntity<Object> getProfilePic(@PathVariable long id) throws SQLException, IOException {
         Resource avatar = userService.getUserAvatar(id);
-        return ResponseEntity.ok()
-                .header(HttpHeaders.CONTENT_TYPE, "image/png")
-                .body(avatar);
+        return ApiResponseDTO.ok(avatar);
     }
 
     @PostMapping("/{id}/avatar")
-    public ResponseEntity<Map<String, Object>> uploadAvatar( @PathVariable long id, @RequestParam MultipartFile avatar) throws IOException {
+    public ResponseEntity<Object> uploadAvatar( @PathVariable long id, @RequestParam MultipartFile avatar) throws IOException {
         User user = controllerUtils.getAuthenticatedUser();
         if (user.getId() != id) {
-            return ResponseEntity.status(403).build();
+            return ApiResponseDTO.error("You cannot upload an avatar for another user", 403);
         }
 
         URI location = fromCurrentRequest().build().toUri();
@@ -91,39 +89,39 @@ public class RestUserController {
         try {
             userService.createUserAvatar(id, location, avatar);
         } catch (EntityExistsException e) {
-            return ResponseEntity.status(409).build();
+            return ApiResponseDTO.error("Avatar already exists", 409);
         }
-        return ResponseEntity.created(location).build();
+        return ApiResponseDTO.ok(location, 201);
     }
 
     @PutMapping("/{id}/avatar")
-    public ResponseEntity<Map<String, Object>> modifyAvatar(
+    public ResponseEntity<Object> modifyAvatar(
             @PathVariable long id, @RequestParam MultipartFile avatar) throws IOException {
         User user = controllerUtils.getAuthenticatedUser();
         if (user.getId() != id) {
-            return ResponseEntity.status(403).build();
+            return ApiResponseDTO.error("You cannot modify an avatar for another user", 403);
         }
         URI location = fromCurrentRequest().build().toUri();
         try {
             userService.modifyUserAvatar(id, location, avatar);
         } catch (NoSuchElementException e) {
-            return ResponseEntity.status(404).build();
+            return ApiResponseDTO.error("User not found", 404);
         }
-        return ResponseEntity.ok().build();
+        return ApiResponseDTO.ok(location);
     }
 
     @DeleteMapping("/{id}/avatar")
     public ResponseEntity<Object> deleteAvatar(@PathVariable long id) {
         User user = controllerUtils.getAuthenticatedUser();
         if (user.getId() != id) {
-            return ResponseEntity.status(403).build();
+            return ApiResponseDTO.error("You cannot delete an avatar for another user", 403);
         }
         try {
             userService.deleteUserAvatar(id);
         } catch (NoSuchElementException e) {
-            return ResponseEntity.status(404).build();
+            return ApiResponseDTO.error("User not found", 404);
         }
-        return ResponseEntity.ok().build();
+        return ApiResponseDTO.ok("Avatar deleted successfully");
     }
 
     @DeleteMapping("/{id}")
@@ -158,22 +156,22 @@ public class RestUserController {
         }
 
         try {
-            userService.registerNewUser(userDTO);
+            User newUser = userService.registerNewUser(userDTO);
+            return ApiResponseDTO.ok(newUser, 201);
         } catch (EntityExistsException e) {
             return ApiResponseDTO.error("User already exists");
         } catch (Exception e) {
             return ApiResponseDTO.error("Error creating user");
         }
 
-        return ApiResponseDTO.ok("User created successfully");
     }
 
 
     @GetMapping("/{id}")
-    public ResponseEntity<Object> getUser(@PathVariable String id) {
+    public ResponseEntity<Object> getUser(@PathVariable long id) {
         try {
             // Get the user
-            PublicUserDTO user = userService.findPublicUserByUsername(id);
+            PublicUserDTO user = userService.findPublicUserById(id);
 
             // Return the user
             return ApiResponseDTO.ok(user);
