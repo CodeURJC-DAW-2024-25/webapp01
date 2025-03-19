@@ -17,6 +17,7 @@ import org.springframework.web.server.ResponseStatusException;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.daw01.savex.DTOs.ApiResponseDTO;
+import es.daw01.savex.DTOs.CommentDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.PostDTO;
 import es.daw01.savex.DTOs.comments.CreateCommentRequest;
@@ -78,8 +79,8 @@ public class RestCommentsController {
             @PathVariable Long commentId) {
         User author = controllerUtils.getAuthenticatedUser();
         try {
-            commentService.deleteComment(id, commentId, author);
-            return ApiResponseDTO.ok(204);
+            SimpleCommentDTO comment = commentService.deleteComment(id, commentId, author);
+            return ApiResponseDTO.ok(comment);
         } catch (Exception e) {
             return ApiResponseDTO.error("Failed to delete comment (check if the comment exists)");
         }

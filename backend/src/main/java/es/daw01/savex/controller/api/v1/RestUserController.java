@@ -146,7 +146,7 @@ public class RestUserController {
         }
     }
 
-    @PostMapping("/new")
+    @PostMapping({"", "/"})
     public ResponseEntity<Object> postRegisterPage(@Valid @ModelAttribute UserDTO userDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ApiResponseDTO.error("Validation failed: " + bindingResult.getFieldErrors());
