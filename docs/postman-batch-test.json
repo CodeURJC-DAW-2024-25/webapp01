@@ -833,7 +833,7 @@
 					"name": "Unautheticated-endpoints",
 					"item": [
 						{
-							"name": "Get users",
+							"name": "Users",
 							"event": [
 								{
 									"listen": "test",
@@ -841,7 +841,7 @@
 										"exec": [
 											"pm.test(\"Example users are loaded by default\", () => {\r",
 											"    const res = pm.response.json()\r",
-											"    const users = res.data\r",
+											"    const users = res.data.page\r",
 											"\r",
 											"    pm.expect(users.length).to.be.greaterThan(0)\r",
 											"})\r",
@@ -850,14 +850,7 @@
 											"pm.test(\"Status code is 200\", function () {\r",
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
-											"\r",
-											"// Test for response body properties\r",
-											"pm.test(\"Response body has properties\", function () {\r",
-											"    pm.expect(pm.response.json()).to.have.property('code');\r",
-											"    pm.expect(pm.response.json()).to.have.property('ok');\r",
-											"    pm.expect(pm.response.json()).to.have.property('data');\r",
-											"    pm.expect(pm.response.json()).to.have.property('error');\r",
-											"});"
+											""
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -883,7 +876,7 @@
 							"response": []
 						},
 						{
-							"name": "Get posts",
+							"name": "Posts",
 							"event": [
 								{
 									"listen": "test",
@@ -892,10 +885,7 @@
 											"\r",
 											"// --- Capture a post id ---\r",
 											"var jsonData = pm.response.json();\r",
-											"const id = jsonData.data[0].id\r",
-											"\r",
-											"// Capture a post\r",
-											"pm.collectionVariables.set(\"example-post\", id)\r",
+											"const id = jsonData.data.page[0].id\r",
 											"// -------------------------\r",
 											"\r",
 											"\r",
@@ -904,17 +894,10 @@
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"// Test for response body properties\r",
-											"pm.test(\"Response body has properties\", function () {\r",
-											"    pm.expect(pm.response.json()).to.have.property('code');\r",
-											"    pm.expect(pm.response.json()).to.have.property('ok');\r",
-											"    pm.expect(pm.response.json()).to.have.property('data');\r",
-											"    pm.expect(pm.response.json()).to.have.property('error');\r",
-											"});\r",
 											"\r",
 											"pm.test(\"Example posts are loaded by default\", () => {\r",
 											"    const res = pm.response.json()\r",
-											"    const data = res.data\r",
+											"    const data = res.data.page\r",
 											"\r",
 											"    pm.expect(data.length).to.be.greaterThan(0)\r",
 											"})"
@@ -928,7 +911,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts",
+									"raw": "{{apiBaseURL}}/api/v1/posts?size=999",
 									"host": [
 										"{{apiBaseURL}}"
 									],
@@ -936,13 +919,19 @@
 										"api",
 										"v1",
 										"posts"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "999"
+										}
 									]
 								}
 							},
 							"response": []
 						},
 						{
-							"name": "Get post comments",
+							"name": "Post comments",
 							"event": [
 								{
 									"listen": "test",
@@ -954,17 +943,10 @@
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"// Test for response body properties\r",
-											"pm.test(\"Response body has properties\", function () {\r",
-											"    pm.expect(pm.response.json()).to.have.property('code');\r",
-											"    pm.expect(pm.response.json()).to.have.property('ok');\r",
-											"    pm.expect(pm.response.json()).to.have.property('data');\r",
-											"    pm.expect(pm.response.json()).to.have.property('error');\r",
-											"});\r",
 											"\r",
 											"pm.test(\"Example comments are loaded by default\", () => {\r",
 											"    const res = pm.response.json()\r",
-											"    const data = res.data\r",
+											"    const data = res.data.page\r",
 											"\r",
 											"    pm.expect(data.length).to.be.greaterThan(0)\r",
 											"})"
@@ -978,7 +960,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{example-post}}/comments",
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{example-post-id}}/comments",
 									"host": [
 										"{{apiBaseURL}}"
 									],
@@ -986,7 +968,7 @@
 										"api",
 										"v1",
 										"posts",
-										"{{example-post}}",
+										"{{example-post-id}}",
 										"comments"
 									]
 								}
@@ -994,7 +976,7 @@
 							"response": []
 						},
 						{
-							"name": "Get post banner",
+							"name": "Post banner",
 							"event": [
 								{
 									"listen": "test",
@@ -1007,16 +989,14 @@
 											"\r",
 											"// Test for response body properties\r",
 											"pm.test(\"Response body has properties\", function () {\r",
-											"    pm.expect(pm.response.json()).to.have.property('code');\r",
-											"    pm.expect(pm.response.json()).to.have.property('ok');\r",
-											"    pm.expect(pm.response.json()).to.have.property('data');\r",
-											"    pm.expect(pm.response.json()).to.have.property('error');\r",
+											"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"image/\")\r",
 											"});\r",
 											"\r",
 											"pm.test(\"Response is an image\", function() {\r",
 											"    const ct = pm.response.headers.get(\"Content-Type\")\r",
 											"    pm.expect(ct).to.be.contain(\"image\")\r",
-											"});"
+											"});\r",
+											""
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1048,7 +1028,7 @@
 					"name": "Users",
 					"item": [
 						{
-							"name": "Get users",
+							"name": "Users",
 							"event": [
 								{
 									"listen": "test",
@@ -1064,14 +1044,6 @@
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"// Test for response body properties\r",
-											"pm.test(\"Response body has properties\", function () {\r",
-											"    pm.expect(pm.response.json()).to.have.property('code');\r",
-											"    pm.expect(pm.response.json()).to.have.property('ok');\r",
-											"    pm.expect(pm.response.json()).to.have.property('data');\r",
-											"    pm.expect(pm.response.json()).to.have.property('error');\r",
-											"});\r",
-											"\r",
 											"\r",
 											""
 										],
@@ -1084,7 +1056,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users?page=1",
+									"raw": "{{apiBaseURL}}/api/v1/users?size=999",
 									"host": [
 										"{{apiBaseURL}}"
 									],
@@ -1095,8 +1067,8 @@
 									],
 									"query": [
 										{
-											"key": "page",
-											"value": "1"
+											"key": "size",
+											"value": "999"
 										}
 									]
 								}
@@ -1104,7 +1076,7 @@
 							"response": []
 						},
 						{
-							"name": "Create user (request)",
+							"name": "User",
 							"event": [
 								{
 									"listen": "test",
@@ -1112,22 +1084,17 @@
 										"exec": [
 											"const req = pm.request\r",
 											"const timestamp = req.body.toJSON().formdata.slice(-1)[0].value\r",
+											"const id = pm.response.json().data.id\r",
 											"\r",
 											"pm.collectionVariables.set(\"example-user\", `user${timestamp}`)\r",
+											"pm.collectionVariables.set(\"example-user-id\", id)\r",
 											"\r",
 											"\r",
 											"// Test for status code\r",
-											"pm.test(\"Status code is 200\", function () {\r",
-											"    pm.response.to.have.status(200);\r",
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
 											"});\r",
-											"\r",
-											"// Test for response body properties\r",
-											"pm.test(\"Response body has properties\", function () {\r",
-											"    pm.expect(pm.response.json()).to.have.property('code');\r",
-											"    pm.expect(pm.response.json()).to.have.property('ok');\r",
-											"    pm.expect(pm.response.json()).to.have.property('data');\r",
-											"    pm.expect(pm.response.json()).to.have.property('error');\r",
-											"});"
+											""
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1159,12 +1126,6 @@
 											"key": "name",
 											"value": "user{{$timestamp}}",
 											"type": "text"
-										},
-										{
-											"key": "_csrf",
-											"value": "x6TBSe4AERywZ6FG8RJ3FaakfuJU_k4ZH_a9J_8XhCVcnlch9cX0K482d36dBJZ1wj9Dc8KUU9tgz3o0J5KOQsgi4Rxl-2cV",
-											"type": "text",
-											"disabled": true
 										},
 										{
 											"key": "timestamp",
@@ -1202,13 +1163,6 @@
 											"    pm.response.to.have.status(200);\r",
 											"});\r",
 											"\r",
-											"// Test for response body properties\r",
-											"pm.test(\"Response body has properties\", function () {\r",
-											"    pm.expect(pm.response.json()).to.have.property('code');\r",
-											"    pm.expect(pm.response.json()).to.have.property('ok');\r",
-											"    pm.expect(pm.response.json()).to.have.property('data');\r",
-											"    pm.expect(pm.response.json()).to.have.property('error');\r",
-											"});\r",
 											"\r",
 											"pm.test(\"The user has the right data\", () => {\r",
 											"    const userData = pm.response.json().data\r",
@@ -1228,7 +1182,7 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user}}",
+									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}",
 									"host": [
 										"{{apiBaseURL}}"
 									],
@@ -1236,7 +1190,7 @@
 										"api",
 										"v1",
 										"users",
-										"{{example-user}}"
+										"{{example-user-id}}"
 									]
 								}
 							},
@@ -1256,7 +1210,9 @@
 											"\r",
 											"pm.test(\"Response body has properties\", function () {\r",
 											"    pm.expect(pm.response.json().status).to.be.equal(\"SUCCESS\")\r",
-											"});"
+											"});\r",
+											"\r",
+											""
 										],
 										"type": "text/javascript",
 										"packages": {}
@@ -1290,7 +1246,261 @@
 							"response": []
 						},
 						{
-							"name": "New Request",
+							"name": "User avatar",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "postman-cloud:///1f004c50-6424-4480-b235-81167038b2b1"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{example-user-id}}",
+										"avatar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User avatar (img 1)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Received data is an image\", function () {\r",
+											"    pm.expect(pm.response.body).to.not.be.null;\r",
+											"    pm.expect(pm.response.headers.get('Content-Type')).to.include('image');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{example-user-id}}",
+										"avatar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User avatar",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"//Fixed the response type to JSON\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "avatar",
+											"type": "file",
+											"src": "postman-cloud:///1f004c51-1840-4ae0-9031-a62abdb2b720"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{example-user-id}}",
+										"avatar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User avatar (img 2)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Received data is an image\", function () {\r",
+											"    pm.expect(pm.response.body).to.not.be.null;\r",
+											"    pm.expect(pm.response.headers.get('Content-Type')).to.include('image');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{example-user-id}}",
+										"avatar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User avatar",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{example-user-id}}",
+										"avatar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User avatar (none)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"users",
+										"{{example-user-id}}",
+										"avatar"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "User",
 							"event": [
 								{
 									"listen": "test",
@@ -1301,13 +1511,6 @@
 											"    pm.response.to.have.status(403);\r",
 											"});\r",
 											"\r",
-											"// Test for response body properties\r",
-											"pm.test(\"Response body has properties\", function () {\r",
-											"    pm.expect(pm.response.json()).to.have.property('code');\r",
-											"    pm.expect(pm.response.json()).to.have.property('ok');\r",
-											"    pm.expect(pm.response.json()).to.have.property('data');\r",
-											"    pm.expect(pm.response.json()).to.have.property('error');\r",
-											"});\r",
 											"\r",
 											"\r",
 											"pm.test(\"User cannot delete himself\", function () {\r",
@@ -1336,8 +1539,1163 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/auth/logout",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"response": []
 						}
 					]
+				},
+				{
+					"name": "Posts",
+					"item": [
+						{
+							"name": "Logout",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/auth/logout",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"logout"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Posts paginated",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const data = pm.response.json().data.page\r",
+											"\r",
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Test for status code\r",
+											"pm.test(\"Example posts are loaded\", function () {\r",
+											"    pm.expect(data.length).to.be.greaterThan(0)\r",
+											"});\r",
+											"\r",
+											"// Test for status code\r",
+											"pm.test(\"Only 2 posts are retrieved\", function () {\r",
+											"    pm.expect(data.length).to.be.equal(2)\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts?size=2&page=0",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "2"
+										},
+										{
+											"key": "page",
+											"value": "0"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const data = pm.response.json().data.page\r",
+											"\r",
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{example-post-id}}",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{example-post-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post comments",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const data = pm.response.json().data.page\r",
+											"\r",
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Test for the presence of data array\r",
+											"pm.test(\"Response body has a data array\", function () {\r",
+											"    pm.expect(data).to.be.an('array');\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Example comments are loaded\", function () {\r",
+											"     pm.expect(data.length).to.be.greaterThan(0);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{example-post-id}}/comments?size=999",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{example-post-id}}",
+										"comments"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "999"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post content",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Test for specific content in the response body\r",
+											"pm.test(\"Response body contains steps to use the price comparison tool\", function () {\r",
+											"    pm.expect(pm.response.text()).to.include(\"Cómo usar nuestro comparador de precios\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{example-post-id}}/content",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{example-post-id}}",
+										"content"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post banner",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Test for status code\r",
+											"pm.test(\"Is image\", function () {\r",
+											"    const ct = pm.response.headers.get(\"Content-Type\")\r",
+											"\r",
+											"    pm.expect(ct).to.include(\"image/\")\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{example-post-id}}/banner",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{example-post-id}}",
+										"banner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login (user)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body has properties\", function () {\r",
+											"    pm.expect(pm.response.json().status).to.be.equal(\"SUCCESS\")\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"userDefault1\",\r\n    \"password\": \"pass1\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/auth/login",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post (unauthorized)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 403\", function () {\r",
+											"    pm.response.to.have.status(403);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "Nuevo Post 123",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Descripcion random",
+											"type": "text"
+										},
+										{
+											"key": "author",
+											"value": "SaveX",
+											"type": "text"
+										},
+										{
+											"key": "readingTime",
+											"value": "1 min",
+											"type": "text"
+										},
+										{
+											"key": "visibility",
+											"value": "PUBLIC",
+											"type": "text"
+										},
+										{
+											"key": "tags",
+											"value": "Comparador",
+											"type": "text"
+										},
+										{
+											"key": "content\n",
+											"value": "# Hello\n\n- This is a new post",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Login (admin)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"pm.test(\"Response body has properties\", function () {\r",
+											"    pm.expect(pm.response.json().status).to.be.equal(\"SUCCESS\")\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/auth/login",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"auth",
+										"login"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post (success)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const data = pm.response.json().data\r",
+											"const id = data.split(\"/\").slice(-1)[0]\r",
+											"pm.collectionVariables.set(\"new-post-id\", id)\r",
+											"\r",
+											"// Test for status code\r",
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"// Test for content type\r",
+											"pm.test(\"Content type is application/json\", function () {\r",
+											"    pm.expect(pm.response.headers.get(\"Content-Type\")).to.include(\"application/json\");\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "title",
+											"value": "Nuevo Post 123",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Descripcion random",
+											"type": "text"
+										},
+										{
+											"key": "author",
+											"value": "SaveX",
+											"type": "text"
+										},
+										{
+											"key": "readingTime",
+											"value": "1 min",
+											"type": "text"
+										},
+										{
+											"key": "visibility",
+											"value": "PUBLIC",
+											"type": "text"
+										},
+										{
+											"key": "tags",
+											"value": "Comparador",
+											"type": "text"
+										},
+										{
+											"key": "content\n",
+											"value": "# Hello\n\n- This is a new post",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post (new)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"// Test for response body properties\r",
+											"pm.test(\"Response body has all expected properties\", function () {\r",
+											"    pm.expect(pm.response.json().data).to.have.all.keys('id', 'title', 'description', 'author', 'date', 'readingTime', 'visibility', 'tags');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{new-post-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post banner",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const data = pm.response.json().data\r",
+											"\r",
+											"// Test for status code\r",
+											"pm.test(\"Status code is 201\", function () {\r",
+											"    pm.response.to.have.status(201);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"// Test for response body properties\r",
+											"pm.test(\"Response body has the required properties\", function () {\r",
+											"    pm.expect(data).to.have.property('id');\r",
+											"    pm.expect(data).to.have.property('title');\r",
+											"    pm.expect(data).to.have.property('description');\r",
+											"    pm.expect(data).to.have.property('author');\r",
+											"    pm.expect(data).to.have.property('date');\r",
+											"    pm.expect(data).to.have.property('readingTime');\r",
+											"    pm.expect(data).to.have.property('visibility');\r",
+											"    pm.expect(data).to.have.property('tags');\r",
+											"});\r",
+											"\r",
+											"// Test for response body content type\r",
+											"pm.test(\"Response has a JSON content type\", function () {\r",
+											"    pm.expect(pm.response.headers.get('Content-Type')).to.include('application/json');\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "banner",
+											"type": "file",
+											"src": "postman-cloud:///1f004d48-d6b1-4b30-931a-4904ee2e2138"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/banner",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{new-post-id}}",
+										"banner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post banner (new)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    const ct = pm.response.headers.get(\"Content-Type\")\r",
+											"\r",
+											"    pm.expect(ct).to.include(\"image/\")\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/banner",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{new-post-id}}",
+										"banner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post banner",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"\r",
+											"\r",
+											"// Test for status code\r",
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "https://localhost:8443/api/v1/posts/{{new-post-id}}/banner",
+									"protocol": "https",
+									"host": [
+										"localhost"
+									],
+									"port": "8443",
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{new-post-id}}",
+										"banner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post banner (not found)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/banner",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{new-post-id}}",
+										"banner"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"const id = pm.response.json().data.id\r",
+											"pm.collectionVariables.set(\"new-comment-id\", id)\r",
+											"\r",
+											"pm.test(\"Status code is 201 created\", function () {\r",
+											"     pm.expect(pm.response.code).to.equal(201);\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"auth": {
+									"type": "noauth"
+								},
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "content",
+											"value": "New comment",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/comments",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{new-post-id}}",
+										"comments"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post comment (just created)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"// Test for comment id\r",
+											"pm.test(\"Comment id is correct\", function () {\r",
+											"    pm.expect(pm.response.json().data.id).to.equal(pm.collectionVariables.get(\"new-comment-id\"));\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/comments/{{new-comment-id}}",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{new-post-id}}",
+										"comments",
+										"{{new-comment-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post comment",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/comments/{{new-comment-id}}",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{new-post-id}}",
+										"comments",
+										"{{new-comment-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post comment (not found)",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 404\", function () {\r",
+											"    pm.response.to.have.status(404);\r",
+											"});\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/comments/{{new-comment-id}}",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{new-post-id}}",
+										"comments",
+										"{{new-comment-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post title",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"// Test for updated title in the response body\r",
+											"pm.test(\"Updated title is present in the response\", function () {\r",
+											"    pm.expect(pm.response.json().data.title).to.eql(\"XXXXXXXXXXXX\");\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": []
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}?title=XXXXXXXXXXXX",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{new-post-id}}"
+									],
+									"query": [
+										{
+											"key": "title",
+											"value": "XXXXXXXXXXXX"
+										}
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for the status code\r",
+											"pm.test(\"Status code is 204\", function () {\r",
+											"    pm.response.to.have.status(204);\r",
+											"});\r",
+											"\r",
+											""
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts",
+										"{{new-post-id}}"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Verify deleted post",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"// Test for status code\r",
+											"pm.test(\"Status code is 200\", function () {\r",
+											"    pm.response.to.have.status(200);\r",
+											"});\r",
+											"\r",
+											"\r",
+											"pm.test(\"Not present in the posts list\", function () {\r",
+											"     var jsonData = pm.response.json();\r",
+											"     pm.expect(jsonData).to.be.an('object');\r",
+											"     pm.expect(jsonData.data).to.be.an('array');\r",
+											"     pm.expect(pm.response.text()).to.not.include(\"XXXXXXXXXXXX\");\r",
+											"});"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/posts?size=999",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"posts"
+									],
+									"query": [
+										{
+											"key": "size",
+											"value": "999"
+										}
+									]
+								}
+							},
+							"response": []
+						}
+					],
+					"event": [
+						{
+							"listen": "prerequest",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						},
+						{
+							"listen": "test",
+							"script": {
+								"type": "text/javascript",
+								"packages": {},
+								"exec": [
+									""
+								]
+							}
+						}
+					]
+				}
+			],
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							"// Test for response body properties\r",
+							"pm.test(\"API Scheme | Response body has properties\", function () {\r",
+							"    if (pm.response.headers.get(\"Content-Type\")?.includes(\"image\")) return\r",
+							"    if (pm.request.url.getPath().includes(\"api/auth/log\")) return\r",
+							"    if (pm.response.code >= 403) return\r",
+							"\r",
+							"    pm.expect(pm.response.json()).to.have.property('data');\r",
+							"    pm.expect(pm.response.json()).to.have.property('error');\r",
+							"});"
+						]
+					}
 				}
 			]
 		}
@@ -1371,6 +2729,10 @@
 			"type": "default"
 		},
 		{
+			"key": "example-post-id",
+			"value": ""
+		},
+		{
 			"key": "testB",
 			"value": ""
 		},
@@ -1384,6 +2746,18 @@
 		},
 		{
 			"key": "example-user-id",
+			"value": ""
+		},
+		{
+			"key": "example-comment-id",
+			"value": ""
+		},
+		{
+			"key": "new-post-id",
+			"value": ""
+		},
+		{
+			"key": "new-comment-id",
 			"value": ""
 		}
 	]
