@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import es.daw01.savex.DTOs.comments.CreateCommentRequest;
 import es.daw01.savex.DTOs.posts.CreatePostRequest;
 import es.daw01.savex.DTOs.posts.PostDTO;
 import es.daw01.savex.components.ControllerUtils;
@@ -79,22 +80,8 @@ public class PostsController {
     }
 
     @PostMapping("/posts/{id}/addComment")
-    public String addComment(@PathVariable long id, @RequestParam String comment) {
-        // Get the post by id
-        Optional<Post> op = postService.findById(id);
-
-        if (op.isEmpty())
-            throw new IllegalArgumentException("Post not found");
-
-        // Get the logged user
-        User user = controllerUtils.getAuthenticatedUser();
-
-        Post post = op.get();
-        Comment newComment = new Comment(user, post, comment);
-
-        // Save the post, user and comment by updating the database
-        commentService.save(newComment);
-
+    public String addComment(@PathVariable long id, @ModelAttribute CreateCommentRequest createCommentRequest) {
+        commentService.createComment(id, createCommentRequest);
         return "redirect:/posts/" + id;
     }
 

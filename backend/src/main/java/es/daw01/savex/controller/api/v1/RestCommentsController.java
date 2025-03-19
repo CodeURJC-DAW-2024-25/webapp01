@@ -19,7 +19,6 @@ import es.daw01.savex.DTOs.comments.CreateCommentRequest;
 import es.daw01.savex.DTOs.comments.SimpleCommentDTO;
 import es.daw01.savex.DTOs.posts.PostDTO;
 import es.daw01.savex.components.ControllerUtils;
-import es.daw01.savex.model.User;
 import es.daw01.savex.model.VisibilityType;
 import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.PostService;
@@ -53,29 +52,29 @@ public class RestCommentsController {
 
     @PostMapping({ "", "/" })
     public ResponseEntity<Object> createComment(
-            @PathVariable Long id,
-            @ModelAttribute CreateCommentRequest request) {
-        User author = controllerUtils.getAuthenticatedUser();
-        SimpleCommentDTO comment = commentService.createComment(id, request, author);
-
+        @PathVariable Long id,
+        @ModelAttribute CreateCommentRequest request
+    ) {
+        SimpleCommentDTO comment = commentService.createComment(id, request);
         return ApiResponseDTO.ok(comment, 201);
     }
 
     @GetMapping("/{commentId}")
     public ResponseEntity<Object> getComment(
-            @PathVariable Long id,
-            @PathVariable Long commentId) {
+        @PathVariable Long id,
+        @PathVariable Long commentId
+    ) {
         SimpleCommentDTO comment = commentService.getComment(id, commentId);
         return ApiResponseDTO.ok(comment);
     }
 
     @DeleteMapping("/{commentId}")
     public ResponseEntity<Object> deleteComment(
-            @PathVariable Long id,
-            @PathVariable Long commentId) {
-        User author = controllerUtils.getAuthenticatedUser();
+        @PathVariable Long id,
+        @PathVariable Long commentId
+    ) {
         try {
-            SimpleCommentDTO comment = commentService.deleteComment(id, commentId, author);
+            SimpleCommentDTO comment = commentService.deleteComment(id, commentId);
             return ApiResponseDTO.ok(comment);
         } catch (Exception e) {
             return ApiResponseDTO.error("Failed to delete comment (check if the comment exists)");
@@ -84,12 +83,12 @@ public class RestCommentsController {
 
     @PatchMapping("/{commentId}")
     public ResponseEntity<Object> updateComment(
-            @PathVariable Long id,
-            @PathVariable Long commentId,
-            @ModelAttribute CreateCommentRequest request) {
-        User author = controllerUtils.getAuthenticatedUser();
+        @PathVariable Long id,
+        @PathVariable Long commentId,
+        @ModelAttribute CreateCommentRequest request
+    ) {
         try {
-            SimpleCommentDTO updatedComment = commentService.updateComment(id, commentId, request, author);
+            SimpleCommentDTO updatedComment = commentService.updateComment(id, commentId, request);
             return ApiResponseDTO.ok(updatedComment);
         } catch (ResponseStatusException e) {
             return ApiResponseDTO.error("Failed to update comment");

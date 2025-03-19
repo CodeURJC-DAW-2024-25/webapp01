@@ -29,6 +29,9 @@ public class CommentService {
     private PostService postService;
 
     @Autowired
+    private UserService userService;
+
+    @Autowired
     private CommentMapper commentMapper;
 
     /**
@@ -68,10 +71,10 @@ public class CommentService {
      * 
      * @param postId  Post id
      * @param request Comment request
-     * @param author  Comment author
      * @return Comment created
      */
-    public SimpleCommentDTO createComment(long postId, CreateCommentRequest request, User author) {
+    public SimpleCommentDTO createComment(long postId, CreateCommentRequest request) {
+        User author = userService.getAuthenticatedUser();
         Post post = postService.findById(postId).orElseThrow();
         Comment comment = commentMapper.toDomain(request, author, post);
         return commentMapper.toDTOSimple(commentRepository.save(comment));
@@ -85,7 +88,8 @@ public class CommentService {
      * @param author    Comment author
      * @return Comment deleted
      */
-    public SimpleCommentDTO deleteComment(long postId, long commentId, User author) {
+    public SimpleCommentDTO deleteComment(long postId, long commentId) {
+        User author = userService.getAuthenticatedUser();
         Comment comment = commentRepository.findById(commentId).orElseThrow();
         if (comment.isAuthor(author)) {
             comment.removeFromPost();
@@ -95,27 +99,6 @@ public class CommentService {
         } else {
             throw new ResponseStatusException(HttpStatus.UNAUTHORIZED, "You are not the author of this comment");
         }
-    }
-
-    /**
-     * Save a comment in the database
-     * 
-     * @param comment Comment to save
-     */
-    public void save(Comment comment) {
-        commentRepository.save(comment);
-    }
-
-    /**
-     * Save a comment in the database with the given content, author and post
-     * 
-     * @param content Comment content
-     * @param author  Comment author
-     * @param post    Comment post
-     */
-    public void save(String content, User author, Post post) {
-        Comment comment = new Comment(author, post, content);
-        commentRepository.save(comment);
     }
 
     /**
@@ -172,9 +155,9 @@ public class CommentService {
         return commentRepository.findByPostOrderByCreatedAtDesc(post, pageable);
     }
 
-    public SimpleCommentDTO updateComment(Long id, Long commentId, CreateCommentRequest commentRequest, User author) {
-        Comment toUpdatecomment = commentRepository.findByPostIdAndId(id, commentId)
-                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "Comentario no encontrado"));
+    public SimpleCommentDTO updateComment(Long id, Long commentId, CreateCommentRequest commentRequest) {
+        User author = userService.getAuthenticatedUser();
+        Comment toUpdatecomment = commentRepository.findByPostIdAndId(id, commentId).orElseThrow();
         Comment reqComment = commentMapper.toDomain(commentRequest, author, toUpdatecomment.getPost());
 
         toUpdatecomment.updateComment(reqComment);
