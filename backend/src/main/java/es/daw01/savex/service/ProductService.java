@@ -1,6 +1,6 @@
 package es.daw01.savex.service;
 
-import es.daw01.savex.DTOs.PriceDTO;
+import es.daw01.savex.DTOs.products.PriceDTO;
 import es.daw01.savex.DTOs.products.ProductDTO;
 import es.daw01.savex.model.Product;
 import es.daw01.savex.model.SupermarketType;

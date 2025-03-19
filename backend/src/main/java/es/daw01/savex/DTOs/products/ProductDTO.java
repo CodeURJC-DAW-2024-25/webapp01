@@ -2,8 +2,6 @@ package es.daw01.savex.DTOs.products;
 
 import java.util.List;
 
-import es.daw01.savex.DTOs.PriceDTO;
-
 public record ProductDTO(
     String _id,
     String supermarket_name,
