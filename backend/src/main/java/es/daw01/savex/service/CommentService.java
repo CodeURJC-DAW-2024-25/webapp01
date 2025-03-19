@@ -11,8 +11,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.server.ResponseStatusException;
 
-import es.daw01.savex.DTOs.CommentDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
+import es.daw01.savex.DTOs.comments.CommentDTO;
 import es.daw01.savex.DTOs.comments.CommentMapper;
 import es.daw01.savex.DTOs.comments.CreateCommentRequest;
 import es.daw01.savex.DTOs.comments.SimpleCommentDTO;
