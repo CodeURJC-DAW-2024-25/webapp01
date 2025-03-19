@@ -2,9 +2,7 @@ package es.daw01.savex.service;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 
@@ -104,26 +102,6 @@ public class PostService {
      */
     public List<Post> findAll() {
         return postRepository.findAll();
-    }
-
-    
-    /**
-     * Finds all posts in the database
-     * 
-     * @return A list of all posts in the database
-     */
-    public Map<String, Object> findAll(Pageable pageable) {
-        Map<String, Object> response = new HashMap<>();
-        Page<Post> posts = postRepository.findAll(pageable);
-
-        List<PostDTO> postsDTO = this.postMapper.toDTOs(posts.getContent());
-
-        response.put("posts", postsDTO);
-        response.put("currentPage", posts.getNumber());
-        response.put("totalItems", posts.getTotalElements());
-        response.put("totalPages", posts.getTotalPages());
-
-        return response;
     }
 
     /**
