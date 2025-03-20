@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -23,6 +24,9 @@ import org.springframework.security.core.Authentication;
 
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.UserDTO;
+import es.daw01.savex.DTOs.users.ModifyUserPassword;
+import es.daw01.savex.DTOs.users.ModifyUserRequest;
+import es.daw01.savex.DTOs.users.PrivateUserDTO;
 import es.daw01.savex.DTOs.users.PublicUserDTO;
 import es.daw01.savex.DTOs.users.UserMapper;
 import es.daw01.savex.model.User;
@@ -291,6 +295,29 @@ public class UserService {
             usersDTO.add(new UserDTO(user));
         }
         return usersDTO;
+    }
+
+    public PrivateUserDTO modifyUser(long id, ModifyUserRequest modifyUser){
+        User user = userRepository.findById(id).orElseThrow();
+        userMapper.updateFromModifyUserRequest(modifyUser, user);
+        userRepository.save(user);
+        return userMapper.toPrivateUserDTO(user);
+    }
+
+    public PrivateUserDTO modifyPassword(long id, ModifyUserPassword modifyUserPassword, Map<String, String> errors) {
+        User user = userRepository.findById(id).orElseThrow();
+
+        checkPassword(
+            user, 
+            modifyUserPassword.oldPassword(), 
+            modifyUserPassword.newPassword(), 
+            modifyUserPassword.newPasswordConfirmation(), 
+            errors
+        );
+        if (!errors.isEmpty()) {
+            throw new IllegalArgumentException();
+        }
+        return userMapper.toPrivateUserDTO(user);
     }
 
     // Private Methods -------------------------------------------------------->>
