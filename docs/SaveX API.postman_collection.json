@@ -76,7 +76,7 @@
 										{
 											"key": "avatar",
 											"type": "file",
-											"src": "/C:/Users/elp0r/Pictures/Screenshots/Screenshot 2023-06-18 111252.png"
+											"src": "/Users/dani/Downloads/coolpfp.jpg"
 										}
 									]
 								},
@@ -146,8 +146,7 @@
 										{
 											"key": "name",
 											"value": "Nombre Prueba",
-											"type": "text",
-											"disabled": true
+											"type": "text"
 										},
 										{
 											"key": "email",

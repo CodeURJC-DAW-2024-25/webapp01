@@ -2,7 +2,6 @@ package es.daw01.savex.DTOs.users;
 
 import java.util.List;
 
-import org.aspectj.lang.annotation.After;
 import org.mapstruct.AfterMapping;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -26,7 +25,7 @@ public interface UserMapper {
     @Mapping(target = "role", ignore = true)
     void updateFromModifyUserRequest(ModifyUserRequest modifyUserRequest,@MappingTarget User user);
     
-    @AfterMapping
+    @AfterMapping //TODO change this to permit modify partial user
     default void afterMapping(ModifyUserRequest modifyUserRequest, @MappingTarget User user) {
         if (modifyUserRequest.name() != null) {
             user.setName(modifyUserRequest.name());
