@@ -70,7 +70,8 @@ async function loadProducts(page = 0) {
     if (minPrice) endpoint += `&minPrice=${encodeURIComponent(minPrice)}`;
     if (maxPrice) endpoint += `&maxPrice=${encodeURIComponent(maxPrice)}`;
     
-    const data = await fetchData(endpoint, "GET");
+    const res = await fetchData(endpoint, "GET", { cacheData: false });
+    const data = res.data;
 
     currentPage = data.current_page;
     totalPages = data.total_pages < 1 ? 1 : data.total_pages + 1;
@@ -80,7 +81,7 @@ async function loadProducts(page = 0) {
     $previousButton.disabled = currentPage === 0;
     $nextButton.disabled = isEnd;
 
-    const productsHTML = data.data.map(product => createHTMLProduct(product)).join("");
+    const productsHTML = data.page.map(product => createHTMLProduct(product)).join("");
     $productsContainer.innerHTML = productsHTML;
     $pageNumber.textContent = `Page ${currentPage + 1} of ${totalPages}`;
 
