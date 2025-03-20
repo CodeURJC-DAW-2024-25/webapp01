@@ -22,6 +22,8 @@ import org.springframework.web.multipart.MultipartFile;
 import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.UserDTO;
+import es.daw01.savex.DTOs.users.ModifyUserRequest;
+import es.daw01.savex.DTOs.users.PrivateUserDTO;
 import es.daw01.savex.DTOs.users.PublicUserDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.User;
@@ -32,6 +34,7 @@ import es.daw01.savex.service.UserService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -144,7 +147,7 @@ public class RestUserController {
         }
     }
 
-    @PostMapping({"", "/"})
+    @PostMapping({"", "/"}) //TODO check method
     public ResponseEntity<Object> postRegisterPage(@Valid @ModelAttribute UserDTO userDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ApiResponseDTO.error("Validation failed: " + bindingResult.getFieldErrors());
@@ -176,4 +179,33 @@ public class RestUserController {
         }
     }
     
+    @PatchMapping("/{id}")
+    public ResponseEntity<Object> modifyUser(@PathVariable long id, ModifyUserRequest modifyUser,BindingResult bindingResult) {
+        
+        try {
+            // Get the authenticated user
+            User authenticatedUser = controllerUtils.getAuthenticatedUser();
+
+            // Prevent user from modifying another user
+            if (authenticatedUser.getId() != id) {
+                return ApiResponseDTO.error("You cannot modify another user", 403);
+            }
+            if (bindingResult.hasErrors()) {
+                        return ApiResponseDTO.error("Validation failed: " + bindingResult.getFieldErrors());
+                    }
+            // Modify the user
+            PrivateUserDTO privateUser = userService.modifyUser(id, modifyUser);
+
+            // Return success message
+            return ApiResponseDTO.ok(privateUser);
+        } catch (NoSuchElementException e) {
+            // Return error message
+            return ApiResponseDTO.error("User not found");
+        } catch (Exception e) {
+            // Return error message
+            return ApiResponseDTO.error("Error modifying user");
+    }
+    
+    }
+
 }
