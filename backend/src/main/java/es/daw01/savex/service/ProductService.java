@@ -2,6 +2,7 @@ package es.daw01.savex.service;
 
 import es.daw01.savex.DTOs.products.PriceDTO;
 import es.daw01.savex.DTOs.products.ProductDTO;
+import es.daw01.savex.DTOs.products.SearchProductRequest;
 import es.daw01.savex.model.Product;
 import es.daw01.savex.model.SupermarketType;
 import es.daw01.savex.repository.ProductRepository;
@@ -17,7 +18,6 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
-
     
     /**
      * Find a product by its id
@@ -72,6 +72,25 @@ public class ProductService {
         supermarketType = SupermarketType.fromString(supermarketName);
         
         return findBySupermarketAndProductId(supermarketType, productId);
+    }
+
+    /**
+     * Generate a search product request based on a list of keywords
+     * 
+     * @param keywords The list of keywords
+     * @return A search product request
+    */
+    public SearchProductRequest generateKeywordSearchProductRequest(List<String> keywords) {
+        String joinedKeywords = String.join(", ", keywords);
+        return new SearchProductRequest(
+            null,
+            null,
+            joinedKeywords,
+            0.0,
+            0.0,
+            1000,
+            0
+        );
     }
 
     /**

@@ -8,5 +8,4 @@ public record SearchProductRequest (
     Double maxPrice,
     Integer limit,
     Integer page
-){
-}
+){}
