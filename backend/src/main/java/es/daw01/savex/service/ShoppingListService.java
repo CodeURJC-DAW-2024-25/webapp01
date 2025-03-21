@@ -146,7 +146,7 @@ public class ShoppingListService {
         if (!list.getUser().equals(user)) {
             throw new RuntimeException("Shopping list does not belong to the user");
         }
-        
+
         ProductDTO productDTO = apiService.fetchProduct(productId);
         
         // Check if the product already exists
@@ -189,6 +189,25 @@ public class ShoppingListService {
         shoppingListRepository.save(list);
 
         return shoppingListMapper.toSimpleDTO(list);
+    }
+
+    /**
+     * Get the shopping list of a user
+     * 
+     * @param user The user to get the shopping list
+     * @param id   The id of the shopping list
+     * @return The shopping list
+     */
+    public ShoppingListDTO getListById(long id) {
+        User user = controllerUtils.getAuthenticatedUser();
+
+        ShoppingList shoppingList = shoppingListRepository.findById(id).orElseThrow();
+
+        // Check if the user is the owner of the shopping list
+        if (!shoppingList.getUser().equals(user))
+            throw new RuntimeException("Shopping list does not belong to the user");
+
+        return shoppingListMapper.toDTO(shoppingList);
     }
 
 }
