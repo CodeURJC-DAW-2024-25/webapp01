@@ -1,7 +1,6 @@
 package es.daw01.savex.service;
 
 import java.io.IOException;
-import java.net.URI;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -67,7 +66,7 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public void createUserAvatar(long id, URI location, MultipartFile avatar) throws IOException {
+    public PublicUserDTO createUserAvatar(long id, MultipartFile avatar) throws IOException {
         
         User user = userRepository.findById(id).orElseThrow();
         
@@ -75,17 +74,17 @@ public class UserService {
             throw new EntityExistsException("User already has an avatar");
         }
         user.setAvatar(ImageUtils.multipartFileToBlob(avatar));
-        userRepository.save(user);
+        return userMapper.toPublicUserDTO(userRepository.save(user));
 	}
 
-    public void modifyUserAvatar(long id, URI location, MultipartFile avatar) throws IOException {
+    public PublicUserDTO modifyUserAvatar(long id, MultipartFile avatar) throws IOException {
 
         User user = userRepository.findById(id).orElseThrow();
         if (user.getAvatar() == null) {
             throw new NoSuchElementException("User doesn't have an avatar");
         }
         user.setAvatar(ImageUtils.multipartFileToBlob(avatar));
-        userRepository.save(user);
+        return userMapper.toPublicUserDTO(userRepository.save(user));
     }
 
     public Resource getUserAvatar(long id) throws SQLException {

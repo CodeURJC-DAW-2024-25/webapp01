@@ -88,11 +88,11 @@ public class RestUserController {
         URI location = fromCurrentRequest().build().toUri();
         
         try {
-            userService.createUserAvatar(id, location, avatar);
+            PublicUserDTO updatedUser = userService.createUserAvatar(id, avatar);
+            return ApiResponseDTO.ok(updatedUser, location, 201);
         } catch (EntityExistsException e) {
             return ApiResponseDTO.error("Avatar already exists", 409);
         }
-        return ApiResponseDTO.ok(location, 201);
     }
 
     @PutMapping("/{id}/avatar")
@@ -104,11 +104,11 @@ public class RestUserController {
         }
         URI location = fromCurrentRequest().build().toUri();
         try {
-            userService.modifyUserAvatar(id, location, avatar);
+            PublicUserDTO updatedUser = userService.modifyUserAvatar(id, avatar);
+            return ApiResponseDTO.ok(updatedUser, location, 200);
         } catch (NoSuchElementException e) {
             return ApiResponseDTO.error("User not found", 404);
         }
-        return ApiResponseDTO.ok(location);
     }
 
     @DeleteMapping("/{id}/avatar")
