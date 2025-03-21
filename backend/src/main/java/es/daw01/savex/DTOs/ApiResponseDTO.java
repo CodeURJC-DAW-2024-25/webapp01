@@ -1,5 +1,7 @@
 package es.daw01.savex.DTOs;
 
+import java.net.URI;
+
 import org.springframework.core.io.Resource;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
@@ -35,14 +37,12 @@ public class ApiResponseDTO<T> {
     private T data;
     private ApiError error;
     private HttpHeaders headers;
-    private String a = "holi :)";
 
     // ====================[ Default Constructors ]====================
 
     public ApiResponseDTO() {
         this.data = null;
         this.error = null;
-        this.a = "holi :)";
     }
 
     // ====================[ Data constructors ]====================
@@ -89,6 +89,14 @@ public class ApiResponseDTO<T> {
             return ResponseEntity.status(code).body(new ApiResponseDTO<Object>());
         }
         return ResponseEntity.status(code).body(new ApiResponseDTO<Object>(data));
+    }
+
+    public static ResponseEntity<Object> ok(Object data, URI location) {
+        return ResponseEntity.created(location).body(new ApiResponseDTO<Object>(data));
+    }
+
+    public static ResponseEntity<Object> ok(Object data, URI location, int code) {
+        return ResponseEntity.status(code).location(location).body(new ApiResponseDTO<Object>(data));
     }
 
     public static ResponseEntity<Object> error(String error) {
@@ -144,10 +152,6 @@ public class ApiResponseDTO<T> {
         return headers;
     }
 
-    public String getA() {
-        return a;
-    }
-
     // ====================[ Setters ]====================
 
     public void setData(T data) {
@@ -160,9 +164,5 @@ public class ApiResponseDTO<T> {
 
     public void setHeaders(HttpHeaders headers) {
         this.headers = headers;
-    }
-
-    public void setA(String a) {
-        this.a = a;
     }
 }

@@ -3,6 +3,8 @@ package es.daw01.savex.controller.api.v1;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import jakarta.persistence.EntityExistsException;
@@ -22,6 +24,9 @@ import org.springframework.web.multipart.MultipartFile;
 import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.UserDTO;
+import es.daw01.savex.DTOs.users.ModifyUserPassword;
+import es.daw01.savex.DTOs.users.ModifyUserRequest;
+import es.daw01.savex.DTOs.users.PrivateUserDTO;
 import es.daw01.savex.DTOs.users.PublicUserDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.User;
@@ -32,6 +37,7 @@ import es.daw01.savex.service.UserService;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -82,11 +88,11 @@ public class RestUserController {
         URI location = fromCurrentRequest().build().toUri();
         
         try {
-            userService.createUserAvatar(id, location, avatar);
+            PublicUserDTO updatedUser = userService.createUserAvatar(id, avatar);
+            return ApiResponseDTO.ok(updatedUser, location, 201);
         } catch (EntityExistsException e) {
             return ApiResponseDTO.error("Avatar already exists", 409);
         }
-        return ApiResponseDTO.ok(location, 201);
     }
 
     @PutMapping("/{id}/avatar")
@@ -98,11 +104,11 @@ public class RestUserController {
         }
         URI location = fromCurrentRequest().build().toUri();
         try {
-            userService.modifyUserAvatar(id, location, avatar);
+            PublicUserDTO updatedUser = userService.modifyUserAvatar(id, avatar);
+            return ApiResponseDTO.ok(updatedUser, location, 200);
         } catch (NoSuchElementException e) {
             return ApiResponseDTO.error("User not found", 404);
         }
-        return ApiResponseDTO.ok(location);
     }
 
     @DeleteMapping("/{id}/avatar")
@@ -144,7 +150,7 @@ public class RestUserController {
         }
     }
 
-    @PostMapping({"", "/"})
+    @PostMapping({"", "/"}) //TODO check method
     public ResponseEntity<Object> postRegisterPage(@Valid @ModelAttribute UserDTO userDTO, BindingResult bindingResult) {
         if (bindingResult.hasErrors()) {
             return ApiResponseDTO.error("Validation failed: " + bindingResult.getFieldErrors());
@@ -176,4 +182,62 @@ public class RestUserController {
         }
     }
     
+    @PatchMapping("/{id}")
+    public ResponseEntity<Object> modifyUser(@PathVariable long id,@ModelAttribute ModifyUserRequest modifyUser,BindingResult bindingResult) {
+        
+        try {
+            // Get the authenticated user
+            User authenticatedUser = controllerUtils.getAuthenticatedUser();
+
+            // Prevent user from modifying another user
+            if (authenticatedUser.getId() != id) {
+                return ApiResponseDTO.error("You cannot modify another user", 403);
+            }
+            if (bindingResult.hasErrors()) {
+                        return ApiResponseDTO.error("Validation failed: " + bindingResult.getFieldErrors());
+                    }
+            // Modify the user
+            PrivateUserDTO privateUser = userService.modifyUser(id, modifyUser);
+
+            // Return success message
+            return ApiResponseDTO.ok(privateUser);
+        } catch (NoSuchElementException e) {
+            // Return error message
+            return ApiResponseDTO.error("User not found");
+        } catch (Exception e) {
+            // Return error message
+            return ApiResponseDTO.error("Error modifying user");
+    }
+    
+    }
+
+    @PatchMapping("/{id}/password")
+    public ResponseEntity<Object> modifyPassword(@PathVariable long id, @ModelAttribute ModifyUserPassword modifyUserPassword) {
+        
+        Map<String, String> errors = new HashMap<>();
+        
+        try {
+            // Get the authenticated user
+            User authenticatedUser = controllerUtils.getAuthenticatedUser();
+
+            // Prevent user from modifying another user
+            if (authenticatedUser.getId() != id) {
+                return ApiResponseDTO.error("You cannot modify another user", 403);
+            }
+
+
+            // Modify the password
+            PrivateUserDTO privateUserDTO = userService.modifyPassword(id, modifyUserPassword, errors);
+
+            // Return success message
+            return ApiResponseDTO.ok(privateUserDTO);
+        } catch (NoSuchElementException e) {
+            // Return error message
+            return ApiResponseDTO.error("User not found");
+        } catch (Exception e) {
+            // Return error message
+            return ApiResponseDTO.error(errors.toString());
+        }
+    }
+
 }

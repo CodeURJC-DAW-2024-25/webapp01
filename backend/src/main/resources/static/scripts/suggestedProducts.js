@@ -11,7 +11,7 @@ const fetchSuggestedProducts = async () => {
         cacheData: false
     })
 
-    let products = res.data
+    let products = res.data.page
     products = products.filter(product => product.normalized_name !== $grid.dataset.productName)
     const prodScore = {}
     products.forEach(product => prodScore[`${product.product_id}@${product.supermarket_name}`] = levensteinDistance($grid.dataset.productName, product.normalized_name))

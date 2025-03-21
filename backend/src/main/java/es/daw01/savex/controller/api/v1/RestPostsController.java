@@ -57,7 +57,7 @@ public class RestPostsController {
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(post.id()).toUri();
 
-            return ApiResponseDTO.ok(location, 201);
+            return ApiResponseDTO.ok(post, location, 201);
         } catch (IOException e) {
             return ApiResponseDTO.error("Failed to create post");
         }

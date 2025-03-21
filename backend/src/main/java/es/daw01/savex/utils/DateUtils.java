@@ -8,7 +8,8 @@ public class DateUtils {
     public static final String DATE_FORMAT_DATE = "dd-MM-yyyy";
 
     private DateUtils() {
-        /* Prevent instantiation */ }
+        /* Prevent instantiation */
+    }
 
     /**
      * Get the current date and time
