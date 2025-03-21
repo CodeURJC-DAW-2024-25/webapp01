@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
 import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.lists.CreateListRequest;
+import es.daw01.savex.DTOs.lists.ShoppingListDTO;
 import es.daw01.savex.DTOs.lists.SimpleShoppingListDTO;
 import es.daw01.savex.service.ShoppingListService;
 
@@ -48,7 +49,12 @@ public class RestShoppingListController {
         @PathVariable Long id,
         @PathVariable String productId
     ) {
-        return shoppingListService.addProductToList(id, productId);
+        try{
+            ShoppingListDTO slist = shoppingListService.addProductToList(id, productId);
+            return ApiResponseDTO.ok(slist);
+        } catch (Exception e) {
+            return ApiResponseDTO.error("Error adding product to list");
+        }
     }
 
     @DeleteMapping("/{id}/product/{productId}")
@@ -56,14 +62,23 @@ public class RestShoppingListController {
         @PathVariable Long id,
         @PathVariable String productId
     ) {
-        return shoppingListService.removeProductFromList(id, productId);
+        try{
+            SimpleShoppingListDTO shoppingList = shoppingListService.removeProductFromList(id, productId);
+            return ApiResponseDTO.ok(shoppingList);
+        }  catch (Exception e) {
+            return ApiResponseDTO.error("Error removing product from list");
+        }
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> removeList(
         @PathVariable Long id
     ) {
-        return shoppingListService.deleteById(id);
+        try{
+            return ApiResponseDTO.ok(shoppingListService.deleteById(id));
+        } catch (Exception e) {
+            return ApiResponseDTO.error("Error removing list");
+        }
     }
 
 }
