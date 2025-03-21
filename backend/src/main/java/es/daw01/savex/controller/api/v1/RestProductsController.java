@@ -20,7 +20,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 
-
 @RestController
 @RequestMapping("/api/v1/products")
 public class RestProductsController {
@@ -51,7 +50,10 @@ public class RestProductsController {
     @GetMapping("/{id}/compare")
     public ResponseEntity<Object> compareProducts(@PathVariable String id) {
         ProductDTO mainProduct = apiService.fetchProduct(id);
-        SearchProductRequest searchProductRequest = productService.generateKeywordSearchProductRequest(mainProduct.keywords());
+        SearchProductRequest searchProductRequest = productService.generateKeywordSearchProductRequest(
+            mainProduct.keywords(),
+            1000
+        );
 
         // Fetch candidate products
         List<ProductDTO> candidateProducts = apiService.fetchProducts(searchProductRequest).page();
@@ -63,5 +65,22 @@ public class RestProductsController {
 
         return ApiResponseDTO.ok(result);
     }
-    
+
+    @GetMapping("/{id}/suggested")
+    public ResponseEntity<Object> suggestProducts(@PathVariable String id) {
+        ProductDTO mainProduct = apiService.fetchProduct(id);
+        SearchProductRequest searchProductRequest = productService.generateKeywordSearchProductRequest(
+            mainProduct.keywords(),
+            5
+        );
+
+        // Fetch candidate products
+        List<ProductDTO> candidateProducts = apiService.fetchProducts(searchProductRequest).page();
+
+        if (candidateProducts.isEmpty()) {
+            return ApiResponseDTO.error("No products found");
+        }
+
+        return ApiResponseDTO.ok(candidateProducts);
+    }
 }

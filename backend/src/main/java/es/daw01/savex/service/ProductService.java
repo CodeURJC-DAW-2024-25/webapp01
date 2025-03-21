@@ -80,7 +80,7 @@ public class ProductService {
      * @param keywords The list of keywords
      * @return A search product request
     */
-    public SearchProductRequest generateKeywordSearchProductRequest(List<String> keywords) {
+    public SearchProductRequest generateKeywordSearchProductRequest(List<String> keywords, int limit) {
         String joinedKeywords = String.join(", ", keywords);
         return new SearchProductRequest(
             null,
@@ -88,7 +88,7 @@ public class ProductService {
             joinedKeywords,
             0.0,
             0.0,
-            1000,
+            limit,
             0
         );
     }
