@@ -65,9 +65,6 @@ public class WebSecurityConfig {
 
         http
                 .authorizeHttpRequests(authorize -> authorize
-                        // PRIVATE ENDPOINTS
-                        // add more endpoints here
-                        // PUBLIC ENDPOINTS
                         .requestMatchers(HttpMethod.POST, "/api/auth/login").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/logout").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/auth/refresh").permitAll()
@@ -152,6 +149,10 @@ public class WebSecurityConfig {
                         // Admin
                         .requestMatchers("/admin").hasRole(UserType.ADMIN.name())
                         .requestMatchers("/admin/**").hasRole(UserType.ADMIN.name())
+
+                        // API Docs
+                        .requestMatchers("/v3/api-docs.yaml").permitAll()
+                        .requestMatchers("/swagger-ui**").permitAll()
 
                         // Other routes
                         .anyRequest().authenticated()
