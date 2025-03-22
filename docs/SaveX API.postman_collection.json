@@ -762,10 +762,33 @@
 						{
 							"name": "DeleteList",
 							"request": {
-								"method": "GET",
+								"method": "DELETE",
 								"header": []
 							},
 							"response": []
+						},
+						{
+							"name": "ShoppingList",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Lista de la compra",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Actualizada la lista de la compra",
+											"type": "text"
+										}
+									]
+								},
+								"url": "{{apiBaseURL}}/api/v1/lists/1"
+							}
 						}
 					]
 				}

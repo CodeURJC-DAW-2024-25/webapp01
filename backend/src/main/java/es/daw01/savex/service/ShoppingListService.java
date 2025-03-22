@@ -6,17 +6,14 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
-import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.lists.CreateListRequest;
 import es.daw01.savex.DTOs.lists.ShoppingListMapper;
 import es.daw01.savex.DTOs.lists.SimpleShoppingListDTO;
 import es.daw01.savex.DTOs.products.ProductDTO;
 import es.daw01.savex.DTOs.products.ProductMapper;
-import es.daw01.savex.DTOs.lists.ListResponse;
 import es.daw01.savex.DTOs.lists.ShoppingListDTO;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.Product;
