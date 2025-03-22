@@ -14,7 +14,6 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Page;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -33,6 +32,7 @@ import es.daw01.savex.model.UserType;
 import es.daw01.savex.repository.CommentRepository;
 import es.daw01.savex.repository.ShoppingListRepository;
 import es.daw01.savex.repository.UserRepository;
+import es.daw01.savex.utils.HashUtils;
 import es.daw01.savex.utils.ImageUtils;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
@@ -49,9 +49,6 @@ public class UserService {
 
     @Autowired
     private UserMapper userMapper;
-
-    @Autowired
-    private PasswordEncoder passwordEncoder;
 
     @Autowired
     private ShoppingListRepository shoppingListRepository;
@@ -238,12 +235,12 @@ public class UserService {
         }
 
         //Check if the password is correct
-        if (!checkPasswordMatches(password, user.getHashedPassword())) {
+        if (!HashUtils.checkPassword(password, user.getHashedPassword())) {
             errors.put("password", "La contraseña actual no coincide");
         }
 
         //Check if the new password is the same as the current one
-        if (checkPasswordMatches(newPassword, user.getHashedPassword())) {
+        if (!HashUtils.checkPassword(newPassword, user.getHashedPassword())) {
             errors.put("newPassword", "La nueva contraseña no puede ser igual a la actual");
         }
 
@@ -264,7 +261,7 @@ public class UserService {
             return;
 
         // Update the password
-        user.setHashedPassword(hashPassword(newPassword));
+        user.setHashedPassword(HashUtils.hashPassword(newPassword));
         userRepository.save(user);
     }
 
@@ -313,7 +310,7 @@ public class UserService {
                 createUserRequest.email(),
                 createUserRequest.username(),
                 createUserRequest.username(),
-                hashPassword(createUserRequest.password()),
+                HashUtils.hashPassword(createUserRequest.password()),
                 null,
                 UserType.USER);
     
@@ -343,32 +340,6 @@ public class UserService {
      */
     private boolean emailExists(String email) {
         return userRepository.findByEmail(email).isPresent();
-    }
-
-    /**
-     * Hashes a password using the password encoder
-     * 
-     * @param password
-     * @return The hashed password
-     */
-    private String hashPassword(String password) {
-        return passwordEncoder.encode(password);
-    }
-
-    /**
-     * Checks if a raw password matches an encoded password
-     * 
-     * @param rawPassword
-     * @param encodedPassword
-     * @return true if the passwords match, false otherwise
-     */
-    private boolean checkPasswordMatches(String rawPassword, String encodedPassword) {
-        return passwordEncoder.matches(rawPassword, encodedPassword);
-    }
-
-      public User getUserByUsername(String username) {
-        return userRepository.findByUsername(username)
-                .orElseThrow(() -> new EntityNotFoundException("User not found with username: " + username));
     }
 
     /**
