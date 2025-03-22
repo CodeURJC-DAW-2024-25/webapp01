@@ -14,7 +14,6 @@ import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.lists.CreateListRequest;
 import es.daw01.savex.DTOs.lists.ShoppingListDTO;
 import es.daw01.savex.DTOs.lists.SimpleShoppingListDTO;
-import es.daw01.savex.repository.ShoppingListRepository;
 import es.daw01.savex.service.ShoppingListService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -30,8 +29,6 @@ public class RestShoppingListController {
 
     @Autowired
     private ShoppingListService shoppingListService;
-    @Autowired
-    private ShoppingListRepository shoppingListRepository;
 
     @GetMapping({ "", "/" })
     public ResponseEntity<Object> getUserLists(
@@ -84,8 +81,8 @@ public class RestShoppingListController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> removeList(@PathVariable Long id) {
         try {
-            shoppingListRepository.deleteById(id);
-            return ApiResponseDTO.ok(id);
+            ShoppingListDTO list = shoppingListService.deleteById(id);
+            return ApiResponseDTO.ok(list);
         } catch (Exception e) {
             return ApiResponseDTO.error("Error removing list");
         }

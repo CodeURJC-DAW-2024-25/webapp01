@@ -20,6 +20,7 @@ import es.daw01.savex.model.Product;
 import es.daw01.savex.model.ShoppingList;
 import es.daw01.savex.model.User;
 import es.daw01.savex.repository.ShoppingListRepository;
+import jakarta.transaction.Transactional;
 
 @Service
 public class ShoppingListService {
@@ -69,6 +70,7 @@ public class ShoppingListService {
      * 
      * @param id The id of the shopping list
      */
+    @Transactional
     public ShoppingListDTO deleteById(long id) {
         ShoppingList shoppingList = shoppingListRepository.findById(id).orElseThrow();
         shoppingListRepository.deleteById(id);
