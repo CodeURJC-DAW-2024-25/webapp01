@@ -34,6 +34,7 @@ import es.daw01.savex.repository.ShoppingListRepository;
 import es.daw01.savex.repository.UserRepository;
 import es.daw01.savex.utils.HashUtils;
 import es.daw01.savex.utils.ImageUtils;
+import es.daw01.savex.utils.ValidationUtils;
 import jakarta.persistence.EntityExistsException;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
@@ -296,27 +297,29 @@ public class UserService {
         return userMapper.toPrivateUserDTO(user);
     }
 
-    public PrivateUserDTO register(CreateUserRequest createUserRequest) throws EntityExistsException {
+    public PrivateUserDTO register(CreateUserRequest createUserRequest) throws EntityExistsException, IllegalArgumentException {
         // Handle if the user already exists
         if (usernameExists(createUserRequest.username())) {
             throw new EntityExistsException("Username already exists");
         }
+
+        // Handle if the email already exists
         if (emailExists(createUserRequest.email())) {
             throw new EntityExistsException("Email already exists");
         }
-    
+
+        // Validate new user fields
+        ValidationUtils.ResultCode validationResult = ValidationUtils.isValidUser(createUserRequest);
+        if (validationResult != ValidationUtils.ResultCode.OK) {
+            throw new IllegalArgumentException(validationResult.getErrorMessage());
+        }
+
         // Create a new user object
-        User user = new User(
-                createUserRequest.email(),
-                createUserRequest.username(),
-                createUserRequest.username(),
-                HashUtils.hashPassword(createUserRequest.password()),
-                null,
-                UserType.USER);
+        User newUser = new User();
+        userMapper.createUserFromRequest(createUserRequest, newUser);
     
         // Save the user to the database
-        userRepository.save(user);
-        return userMapper.toPrivateUserDTO(user);
+        return userMapper.toPrivateUserDTO(userRepository.save(newUser));
     }
 
 

@@ -54,8 +54,9 @@ public class User {
 
     // Constructors ----------------------------------------------------------->>
 
-    protected User() {
-        /* Used by Spring Data JPA */ }
+    public User() {
+        /* Used by Spring Data JPA */
+    }
 
     public User(
             String email,

@@ -39,7 +39,6 @@ public interface UserMapper {
         user.setComments(new ArrayList<>());
     }
 
-
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "hashedPassword", ignore = true)
     @Mapping(target = "comments", ignore = true)
