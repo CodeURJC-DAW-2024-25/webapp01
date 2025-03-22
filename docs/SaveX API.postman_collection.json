@@ -694,7 +694,15 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": ""
+									"raw": "{{apiBaseURL}}/api/v1/lists",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"lists"
+									]
 								}
 							},
 							"response": []
@@ -752,10 +760,36 @@
 							"response": []
 						},
 						{
-							"name": "NewList",
+							"name": "CreateList",
 							"request": {
-								"method": "GET",
-								"header": []
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "New Shopping List",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "This is a new shopping list",
+											"type": "text"
+										}
+									]
+								},
+								"url": {
+									"raw": "{{apiBaseURL}}/api/v1/lists",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"lists"
+									]
+								}
 							},
 							"response": []
 						},
