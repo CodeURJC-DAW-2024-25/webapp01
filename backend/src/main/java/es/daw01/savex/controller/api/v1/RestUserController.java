@@ -8,7 +8,6 @@ import java.util.Map;
 import java.util.NoSuchElementException;
 
 import jakarta.persistence.EntityExistsException;
-import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
@@ -23,7 +22,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
-import es.daw01.savex.DTOs.UserDTO;
+import es.daw01.savex.DTOs.users.CreateUserRequest;
 import es.daw01.savex.DTOs.users.ModifyUserPassword;
 import es.daw01.savex.DTOs.users.ModifyUserRequest;
 import es.daw01.savex.DTOs.users.PrivateUserDTO;
@@ -150,21 +149,18 @@ public class RestUserController {
         }
     }
 
-    @PostMapping({"", "/"}) //TODO check method
-    public ResponseEntity<Object> postRegisterPage(@Valid @ModelAttribute UserDTO userDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return ApiResponseDTO.error("Validation failed: " + bindingResult.getFieldErrors());
-        }
-
+    @PostMapping({"", "/"})
+    public ResponseEntity<Object> registerNewUser(@ModelAttribute CreateUserRequest createUserRequest) {
         try {
-            User newUser = userService.registerNewUser(userDTO);
-            return ApiResponseDTO.ok(newUser, 201);
+            PrivateUserDTO privateUser = userService.register(createUserRequest);
+            return ApiResponseDTO.ok(privateUser, 201);
         } catch (EntityExistsException e) {
             return ApiResponseDTO.error("User already exists");
+        } catch (IllegalArgumentException e) {
+            return ApiResponseDTO.error(e.getMessage());
         } catch (Exception e) {
             return ApiResponseDTO.error("Error creating user");
         }
-
     }
 
 
