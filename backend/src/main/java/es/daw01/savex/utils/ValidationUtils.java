@@ -1,21 +1,61 @@
 package es.daw01.savex.utils;
 
+import es.daw01.savex.DTOs.users.CreateUserRequest;
+
 public class ValidationUtils {
 
     public enum ResultCode {
-        OK,
-        INVALID_EMAIL,
-        INVALID_USERNAME_FORMAT,
-        INVALID_USERNAME_LENGTH,
-        INVALID_NAME_FORMAT,
-        INVALID_NAME_LENGTH,
-        INVALID_PASSWORD_FORMAT,
-        INVALID_PASSWORD_LENGTH
+        OK("The object is valid"),
+        INVALID_EMAIL("The email is invalid"),
+        INVALID_USERNAME_FORMAT("The username can only contain letters and numbers"),
+        INVALID_USERNAME_LENGTH("The username must be between 3 and 20 characters"),
+        INVALID_NAME_FORMAT("The name can only contain letters, numbers and spaces"),
+        INVALID_NAME_LENGTH("The name must be between 3 and 20 characters"),
+        INVALID_PASSWORD_FORMAT("The password must contain at least one lowercase letter, one uppercase letter and one number"),
+        INVALID_PASSWORD_LENGTH("The password must be between 8 and 50 characters");
+
+        private final String errorMessage;
+
+        ResultCode(String errorMessage) {
+            this.errorMessage = errorMessage;
+        }
+
+        public String getErrorMessage() {
+            return errorMessage;
+        }
     }
 
+    // Constructors ----------------------------------------------------------->>
     
     private ValidationUtils() {
         /* Prevent instantiation */
+    }
+
+    // Public methods --------------------------------------------------------->>
+
+    /**
+     * Check if a User object is valid
+     * 
+     * @param createUserRequest The User object to check
+     * @return ResultCode.OK if the User object is valid, the corresponding ResultCode otherwise
+     */
+    public static ResultCode isValidUser(CreateUserRequest createUserRequest) {
+        ResultCode emailResult = isValidEmail(createUserRequest.email());
+        if (emailResult != ResultCode.OK) {
+            return emailResult;
+        }
+
+        ResultCode usernameResult = isValidUsername(createUserRequest.username());
+        if (usernameResult != ResultCode.OK) {
+            return usernameResult;
+        }
+
+        ResultCode passwordResult = isValidPassword(createUserRequest.password());
+        if (passwordResult != ResultCode.OK) {
+            return passwordResult;
+        }
+
+        return ResultCode.OK;
     }
 
     /**
