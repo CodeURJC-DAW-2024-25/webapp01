@@ -45,7 +45,7 @@ public class RestLoginController {
 		return userLoginService.login(response, loginRequest);
 	}
 
-	    @PatchMapping("/register")
+	@PostMapping("/register")
     public ResponseEntity<Object> register(@ModelAttribute CreateUserRequest createUserRequest) {
         
         Map<String, String> errors = new HashMap<>();
