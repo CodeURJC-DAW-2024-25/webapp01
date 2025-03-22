@@ -77,6 +77,7 @@ public class ShoppingListService {
         shoppingListRepository.deleteById(id);
         return shoppingListMapper.toDTO(shoppingList);
     }
+
     /**
      * Find all shopping lists by user
      * 
@@ -119,13 +120,12 @@ public class ShoppingListService {
 
         // Create response
         return new PaginatedDTO<SimpleShoppingListDTO>(
-            listsDTO,
-            listsPage.getNumber(),
-            listsPage.getTotalPages(),
-            listsPage.getTotalElements(),
-            listsPage.getSize(),
-            listsPage.isLast()
-        );
+                listsDTO,
+                listsPage.getNumber(),
+                listsPage.getTotalPages(),
+                listsPage.getTotalElements(),
+                listsPage.getSize(),
+                listsPage.isLast());
     }
 
     /**
@@ -135,20 +135,20 @@ public class ShoppingListService {
      * @param product      The product to add
      */
     public ShoppingListDTO addProductToList(Long listId, String productId) {
-        
+
         // Get the authenticated user
         User user = controllerUtils.getAuthenticatedUser();
-        
+
         // Get the shopping list
         ShoppingList list = findById(listId).orElseThrow();
-        
+
         // Check if the shopping list belongs to the user
         if (!list.getUser().equals(user)) {
             throw new RuntimeException("Shopping list does not belong to the user");
         }
 
         ProductDTO productDTO = apiService.fetchProduct(productId);
-        
+
         // Check if the product already exists
         Optional<Product> op = productService.findByProductDTO(productDTO);
         Product product;
@@ -210,4 +210,26 @@ public class ShoppingListService {
         return shoppingListMapper.toDTO(shoppingList);
     }
 
+    /**
+     * Update a shopping list
+     * 
+     * @param id      The id of the shopping list
+     * @param request The request to update the shopping list
+     * @return The updated shopping list
+     */
+    public ShoppingListDTO updateList(Long id, CreateListRequest request) {
+        User user = controllerUtils.getAuthenticatedUser();
+
+        ShoppingList shoppingList = shoppingListRepository.findById(id).orElseThrow();
+
+        // Check if the user is the owner of the shopping list
+        if (!shoppingList.getUser().equals(user))
+            throw new RuntimeException("Shopping list does not belong to the user");
+
+        shoppingList.setName(request.name());
+        shoppingList.setDescription(request.description());
+
+        return shoppingListMapper.toDTO(shoppingListRepository.save(shoppingList));
+
+    }
 }

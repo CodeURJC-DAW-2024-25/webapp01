@@ -449,7 +449,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": ""
+								"url": "{{apiBaseURL}}/api/v1/lists"
 							},
 							"response": []
 						},
@@ -476,6 +476,56 @@
 									"formdata": []
 								},
 								"url": "{{apiBaseURL}}/api/v1/lists/1/product/10533@mercadona"
+							},
+							"response": []
+						},
+						{
+							"name": "ShoppingList",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": "{{apiBaseURL}}/api/v1/lists/1"
+							},
+							"response": []
+						},
+						{
+							"name": "ShoppingList",
+							"request": {
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "name",
+											"value": "Lista de la compra",
+											"type": "text"
+										},
+										{
+											"key": "description",
+											"value": "Actualizada la lista de la compra",
+											"type": "text"
+										}
+									]
+								},
+								"url": "{{apiBaseURL}}/api/v1/lists/1"
+							}
+						},
+						{
+							"name": "ShoppingList",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"name\": \"My Shopping List\",\r\n    \"description\": \"This is a test shopping list\"\r\n}"
+								},
+								"url": "{{apiBaseURL}}/api/v1/lists"
 							},
 							"response": []
 						}
