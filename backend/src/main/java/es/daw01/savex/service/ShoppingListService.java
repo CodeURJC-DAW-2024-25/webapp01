@@ -117,12 +117,13 @@ public class ShoppingListService {
 
         // Create response
         return new PaginatedDTO<SimpleShoppingListDTO>(
-                listsDTO,
-                listsPage.getNumber(),
-                listsPage.getTotalPages(),
-                listsPage.getTotalElements(),
-                listsPage.getSize(),
-                listsPage.isLast());
+            listsDTO,
+            listsPage.getNumber(),
+            listsPage.getTotalPages(),
+            listsPage.getTotalElements(),
+            listsPage.getSize(),
+            listsPage.isLast()
+        );
     }
 
     /**
@@ -132,7 +133,6 @@ public class ShoppingListService {
      * @param product      The product to add
      */
     public ShoppingListDTO addProductToList(Long listId, String productId) {
-
         // Get the authenticated user
         User user = controllerUtils.getAuthenticatedUser();
 
@@ -145,17 +145,14 @@ public class ShoppingListService {
         }
 
         ProductDTO productDTO = apiService.fetchProduct(productId);
+        Product product = productMapper.toEntity(productDTO);
 
-        // Check if the product already exists
-        Optional<Product> op = productService.findByProductDTO(productDTO);
-        Product product;
-        if (op.isEmpty()) {
-            product = productMapper.toEntity(productDTO);
+        // Check if the product already exists in the database
+        if (productService.findById(product.getId()).isEmpty()) {
             productService.save(product);
-        } else {
-            product = op.get();
         }
 
+        // Add the product to the shopping list
         list.addProduct(product);
         return shoppingListMapper.toDTO(shoppingListRepository.save(list));
     }
@@ -167,8 +164,6 @@ public class ShoppingListService {
      * @param product      The product to remove
      */
     public SimpleShoppingListDTO removeProductFromList(Long id, String productId) {
-
-        ProductDTO productDTO = apiService.fetchProduct(productId);
         // Get the authenticated user
         User user = controllerUtils.getAuthenticatedUser();
 
@@ -177,10 +172,10 @@ public class ShoppingListService {
 
         // Check if the shopping list belongs to the user
         if (!list.getUser().equals(user)) {
-            return null;
+            throw new RuntimeException("Shopping list does not belong to the user");
         }
 
-        Product product = productService.findByProductDTO(productDTO).orElseThrow();
+        Product product = productService.findById(productId).orElseThrow();
 
         list.removeProduct(product);
         shoppingListRepository.save(list);

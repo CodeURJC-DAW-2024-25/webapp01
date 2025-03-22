@@ -25,7 +25,7 @@ public class ProductService {
      * @param id The id of the product
      * @return The product if found or an empty optional
     */
-    public Optional<Product> findById(long id) {
+    public Optional<Product> findById(String id) {
         return productRepository.findById(id);
     }
 
@@ -56,22 +56,6 @@ public class ProductService {
             .map(SupermarketType::getName)
             .map(String::toLowerCase)
             .collect(Collectors.toList());
-    }
-
-    /**
-     * Find a product by its product DTO
-     * 
-     * @param productDTO The product DTO
-     * @return The product if found or an empty optional
-    */
-    public Optional<Product> findByProductDTO(ProductDTO productDTO) {
-        SupermarketType supermarketType;
-        String supermarketName = productDTO.supermarket_name();
-        String productId = productDTO.product_id();
-
-        supermarketType = SupermarketType.fromString(supermarketName);
-        
-        return findBySupermarketAndProductId(supermarketType, productId);
     }
 
     /**
@@ -123,11 +107,5 @@ public class ProductService {
     
     public void save(Product product) {
         productRepository.save(product);
-    }
-
-    // Private methods -------------------------------------------------------->>
-    
-    private Optional<Product> findBySupermarketAndProductId(SupermarketType supermarketType, String productId) {
-        return productRepository.findBySupermarketAndProductId(supermarketType, productId);
     }
 }

@@ -1,5 +1,7 @@
 package es.daw01.savex.controller.api.v1;
 
+import java.util.NoSuchElementException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
@@ -21,7 +23,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/v1/lists")
@@ -34,46 +35,54 @@ public class RestShoppingListController {
 
     @GetMapping({ "", "/" })
     public ResponseEntity<Object> getUserLists(
-            @PageableDefault(page = 0, size = 5) Pageable pageable) {
+        @PageableDefault(page = 0, size = 5) Pageable pageable
+    ) {
         PaginatedDTO<SimpleShoppingListDTO> lists = shoppingListService.retrieveUserLists(pageable);
         return ApiResponseDTO.ok(lists);
     }
 
     @PostMapping({ "", "/" })
     public ResponseEntity<Object> newList(
-            @RequestBody CreateListRequest request) {
+        @ModelAttribute CreateListRequest request
+    ) {
         SimpleShoppingListDTO list = shoppingListService.createShoppingList(request);
         return ApiResponseDTO.ok(list);
     }
 
     @PostMapping("/{id}/product/{productId}")
     public ResponseEntity<Object> addProductToList(
-            @PathVariable Long id,
-            @PathVariable String productId) {
+        @PathVariable Long id,
+        @PathVariable String productId
+    ) {
         try {
-            ShoppingListDTO slist = shoppingListService.addProductToList(id, productId);
-            return ApiResponseDTO.ok(slist);
+            ShoppingListDTO list = shoppingListService.addProductToList(id, productId);
+            return ApiResponseDTO.ok(list);
+        } catch (NoSuchElementException e) {
+            return ApiResponseDTO.error("List not found");
         } catch (Exception e) {
-            return ApiResponseDTO.error("Error adding product to list");
+            return ApiResponseDTO.error(e.getMessage());
         }
     }
 
     @DeleteMapping("/{id}/product/{productId}")
     public ResponseEntity<Object> removeProductFromList(
-            @PathVariable Long id,
-            @PathVariable String productId) {
+        @PathVariable Long id,
+        @PathVariable String productId
+    ) {
         try {
             SimpleShoppingListDTO shoppingList = shoppingListService.removeProductFromList(id, productId);
             return ApiResponseDTO.ok(shoppingList);
+        } catch (NoSuchElementException e) {
+            return ApiResponseDTO.error("List not found");
+        } catch (RuntimeException e) {
+            return ApiResponseDTO.error(e.getMessage());
         } catch (Exception e) {
             return ApiResponseDTO.error("Error removing product from list");
         }
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Object> removeList(
-
-            @PathVariable Long id) {
+    public ResponseEntity<Object> removeList(@PathVariable Long id) {
         try {
             shoppingListRepository.deleteById(id);
             return ApiResponseDTO.ok(id);
@@ -94,8 +103,9 @@ public class RestShoppingListController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Object> updateList(
-            @PathVariable Long id,
-            @ModelAttribute CreateListRequest request) {
+        @PathVariable Long id,
+        @ModelAttribute CreateListRequest request
+    ) {
         try {
             ShoppingListDTO shoppingList = shoppingListService.updateList(id, request);
             return ApiResponseDTO.ok(shoppingList);

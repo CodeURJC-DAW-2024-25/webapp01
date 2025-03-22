@@ -7,6 +7,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import es.daw01.savex.model.Product;
 import es.daw01.savex.model.SupermarketType;
 
-public interface ProductRepository extends JpaRepository<Product, Long> {
+public interface ProductRepository extends JpaRepository<Product, String> {
     Optional<Product> findBySupermarketAndProductId(SupermarketType supermarket, String productId);
 }
