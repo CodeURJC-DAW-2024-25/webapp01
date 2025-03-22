@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 
 import es.daw01.savex.DTOs.UserDTO;
 import es.daw01.savex.components.ControllerUtils;
-import es.daw01.savex.service.UserService;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -23,9 +22,6 @@ public class AuthController {
 
     @Autowired
     private ControllerUtils controllerUtils;
-
-    @Autowired
-    private UserService userService;
 
     @GetMapping("/login")
     public String getLoginPage(@RequestParam(required = false) boolean error, Model model) {
@@ -81,7 +77,8 @@ public class AuthController {
 
         // Try to save the user
         try {
-            userService.registerNewUser(userDTO);
+            // userService.registerNewUser(userDTO);
+            // TODO FIX THIS
 
         } catch (Exception e) {
             return "redirect:/register?error=exists";
