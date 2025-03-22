@@ -1,13 +1,10 @@
 package es.daw01.savex.controller.api.v1;
 
 
-import java.util.Optional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -15,11 +12,7 @@ import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.lists.CreateListRequest;
 import es.daw01.savex.DTOs.lists.ShoppingListDTO;
-import es.daw01.savex.DTOs.lists.ShoppingListMapper;
 import es.daw01.savex.DTOs.lists.SimpleShoppingListDTO;
-import es.daw01.savex.components.ControllerUtils;
-import es.daw01.savex.model.ShoppingList;
-import es.daw01.savex.model.User;
 import es.daw01.savex.service.ShoppingListService;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -34,9 +27,6 @@ public class RestShoppingListController {
 
     @Autowired
     private ShoppingListService shoppingListService;
-
-    @Autowired
-    private ControllerUtils controllerUtils;
 
     @GetMapping({ "", "/" })
     public ResponseEntity<Object> getUserLists(
