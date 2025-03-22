@@ -22,6 +22,7 @@ import org.springframework.security.core.Authentication;
 
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.UserDTO;
+import es.daw01.savex.DTOs.users.CreateUserRequest;
 import es.daw01.savex.DTOs.users.ModifyUserPassword;
 import es.daw01.savex.DTOs.users.ModifyUserRequest;
 import es.daw01.savex.DTOs.users.PrivateUserDTO;
@@ -317,6 +318,34 @@ public class UserService {
         }
         return userMapper.toPrivateUserDTO(user);
     }
+
+
+    //TODO: check this method to modularize with the other register method (registerNewUser)
+    public PrivateUserDTO register(CreateUserRequest createUserRequest, Map<String, String> errors) throws EntityExistsException {
+        // Handle if the user already exists
+        if (usernameExists(createUserRequest.username())) {
+            errors.put("username", "Username already exists");
+            throw new EntityExistsException("Username already exists");
+        }
+        if (emailExists(createUserRequest.email())) {
+            errors.put("email", "Email already exists");
+            throw new EntityExistsException("Email already exists");
+        }
+    
+        // Create a new user object
+        User user = new User(
+                createUserRequest.email(),
+                createUserRequest.username(),
+                createUserRequest.username(),
+                hashPassword(createUserRequest.password()),
+                null,
+                UserType.USER);
+    
+        // Save the user to the database
+        userRepository.save(user);
+        return userMapper.toPrivateUserDTO(user);
+    }
+
 
     // Private Methods -------------------------------------------------------->>
 
