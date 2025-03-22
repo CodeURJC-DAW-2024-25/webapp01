@@ -19,6 +19,23 @@ public interface UserMapper {
     List<PrivateUserDTO> toPrivateUserDTOs(List<User> users);
 
     @Mapping(target = "id", ignore = true)
+    @Mapping(target = "name", ignore = true)
+    @Mapping(target = "hashedPassword", ignore = true)
+    @Mapping(target = "comments", ignore = true)
+    @Mapping(target = "avatar", ignore = true)
+    @Mapping(target = "role", ignore = true)
+    void createUserFromRequest(CreateUserRequest createUserRequest, @MappingTarget User user);
+
+    @AfterMapping
+    default void afterMapping(CreateUserRequest createUserRequest, @MappingTarget User user) {
+        user.setName(createUserRequest.username());
+        user.setUsername(createUserRequest.username());
+
+        
+    }
+
+
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "hashedPassword", ignore = true)
     @Mapping(target = "comments", ignore = true)
     @Mapping(target = "avatar", ignore = true)

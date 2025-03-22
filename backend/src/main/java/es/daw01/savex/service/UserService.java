@@ -197,26 +197,6 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public User registerNewUser(UserDTO userDTO) throws EntityExistsException {
-        // Handle if the user already exists
-        if (usernameExists(userDTO.getUsername()))
-            throw new EntityExistsException("Username already exists");
-        if (emailExists(userDTO.getEmail()))
-            throw new EntityExistsException("Email already exists");
-
-        // Create a new user object
-        User user = new User(
-                userDTO.getEmail(),
-                userDTO.getUsername(),
-                userDTO.getUsername(),
-                hashPassword(userDTO.getPassword()),
-                null,
-                UserType.USER);
-
-        // Save the user to the database
-        return userRepository.save(user);
-    }
-
     public void updateUserAvatar(String username, MultipartFile avatar) throws IOException {
         Optional<User> optionalUser = userRepository.findByUsername(username);
 
@@ -319,16 +299,12 @@ public class UserService {
         return userMapper.toPrivateUserDTO(user);
     }
 
-
-    //TODO: check this method to modularize with the other register method (registerNewUser)
-    public PrivateUserDTO register(CreateUserRequest createUserRequest, Map<String, String> errors) throws EntityExistsException {
+    public PrivateUserDTO register(CreateUserRequest createUserRequest) throws EntityExistsException {
         // Handle if the user already exists
         if (usernameExists(createUserRequest.username())) {
-            errors.put("username", "Username already exists");
             throw new EntityExistsException("Username already exists");
         }
         if (emailExists(createUserRequest.email())) {
-            errors.put("email", "Email already exists");
             throw new EntityExistsException("Email already exists");
         }
     

@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.UserDTO;
+import es.daw01.savex.DTOs.users.CreateUserRequest;
 import es.daw01.savex.DTOs.users.ModifyUserPassword;
 import es.daw01.savex.DTOs.users.ModifyUserRequest;
 import es.daw01.savex.DTOs.users.PrivateUserDTO;
@@ -150,15 +151,18 @@ public class RestUserController {
         }
     }
 
-    @PostMapping({"", "/"}) //TODO check method
-    public ResponseEntity<Object> postRegisterPage(@Valid @ModelAttribute UserDTO userDTO, BindingResult bindingResult) {
+    @PostMapping({"", "/"})
+    public ResponseEntity<Object> postRegisterPage(@Valid @ModelAttribute CreateUserRequest createUserRequest, BindingResult bindingResult) {
+        
+        Map<String, String> errors = new HashMap<>();
+
         if (bindingResult.hasErrors()) {
             return ApiResponseDTO.error("Validation failed: " + bindingResult.getFieldErrors());
         }
 
         try {
-            User newUser = userService.registerNewUser(userDTO);
-            return ApiResponseDTO.ok(newUser, 201);
+            PrivateUserDTO privateUser = userService.register(createUserRequest,errors);
+            return ApiResponseDTO.ok(privateUser, 201);
         } catch (EntityExistsException e) {
             return ApiResponseDTO.error("User already exists");
         } catch (Exception e) {
