@@ -694,7 +694,15 @@
 								"method": "GET",
 								"header": [],
 								"url": {
-									"raw": ""
+									"raw": "{{apiBaseURL}}/api/v1/lists",
+									"host": [
+										"{{apiBaseURL}}"
+									],
+									"path": [
+										"api",
+										"v1",
+										"lists"
+									]
 								}
 							},
 							"response": []
