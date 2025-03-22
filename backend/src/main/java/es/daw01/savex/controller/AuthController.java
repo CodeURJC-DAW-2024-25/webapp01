@@ -1,19 +1,17 @@
 package es.daw01.savex.controller;
 
-import java.util.HashMap;
 import java.util.Map;
-
-import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
-import es.daw01.savex.DTOs.UserDTO;
+import es.daw01.savex.DTOs.users.CreateUserRequest;
 import es.daw01.savex.components.ControllerUtils;
+import es.daw01.savex.service.UserService;
+
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -22,6 +20,9 @@ public class AuthController {
 
     @Autowired
     private ControllerUtils controllerUtils;
+
+    @Autowired
+    private UserService userService;
 
     @GetMapping("/login")
     public String getLoginPage(@RequestParam(required = false) boolean error, Model model) {
@@ -40,9 +41,6 @@ public class AuthController {
         // Add user data to the model
         controllerUtils.addUserDataToModel(model);
 
-        // Create a new UserDTO object and add it to the model
-        model.addAttribute("user", new UserDTO());
-
         // Add the title to the model
         model.addAttribute("title", "SaveX - Registrarse");
 
@@ -51,35 +49,21 @@ public class AuthController {
 
     @PostMapping("/register")
     public String postRegisterPage(
-            @Valid @ModelAttribute UserDTO userDTO,
-            BindingResult bindingResult,
-            Model model) {
+        @ModelAttribute CreateUserRequest createUserRequest,
+        Model model
+    ) {
+        Map<String, String> errors = userService.validateUserAndReturnErrors(createUserRequest);
 
-        Map<String, String> errors = new HashMap<>();
-
-        if (bindingResult.getFieldError("username") != null) {
-            errors.put("username", bindingResult.getFieldError("username").getDefaultMessage());
-        }
-        if (bindingResult.getFieldError("email") != null) {
-            errors.put("email", bindingResult.getFieldError("email").getDefaultMessage());
-        }
-        if (bindingResult.getFieldError("password") != null) {
-            errors.put("password", bindingResult.getFieldError("password").getDefaultMessage());
-        }
-
+        // If there are errors, return the register page with the errors
         if (!errors.isEmpty()) {
-
             model.addAttribute("title", "SaveX - Registrarse");
-            model.addAttribute("user", userDTO);
             model.addAttribute("errors", errors);
             return "register";
         }
 
         // Try to save the user
         try {
-            // userService.registerNewUser(userDTO);
-            // TODO FIX THIS
-
+            userService.register(createUserRequest);
         } catch (Exception e) {
             return "redirect:/register?error=exists";
         }

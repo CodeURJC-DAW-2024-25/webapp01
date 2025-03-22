@@ -2,7 +2,7 @@ package es.daw01.savex.service;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
@@ -266,14 +266,6 @@ public class UserService {
         userRepository.save(user);
     }
 
-    public List<UserDTO> getUsersDTO(Iterable<User> users) {
-        List<UserDTO> usersDTO = new ArrayList<>();
-        for (User user : users) {
-            usersDTO.add(new UserDTO(user));
-        }
-        return usersDTO;
-    }
-
     public PrivateUserDTO modifyUser(long id, ModifyUserRequest modifyUser){
         User user = userRepository.findById(id).orElseThrow();
         userMapper.updateFromModifyUserRequest(modifyUser, user);
@@ -321,6 +313,41 @@ public class UserService {
         // Save the user to the database
         return userMapper.toPrivateUserDTO(userRepository.save(newUser));
     }
+
+    public Map<String, String> validateUserAndReturnErrors(CreateUserRequest createUserRequest) {
+        Map<String, String> errors = new HashMap<>();
+
+        // Check if the username exists
+        if (usernameExists(createUserRequest.username())) {
+            errors.put("username", "Username already exists");
+        }
+
+        // Check if the email exists
+        if (emailExists(createUserRequest.email())) {
+            errors.put("email", "Email already exists");
+        }
+
+        // Validate the user email
+        ValidationUtils.ResultCode emailResult = ValidationUtils.isValidEmail(createUserRequest.email());
+        if (emailResult != ValidationUtils.ResultCode.OK) {
+            errors.put("email", emailResult.getErrorMessage());
+        }
+
+        // Validate the username
+        ValidationUtils.ResultCode usernameResult = ValidationUtils.isValidUsername(createUserRequest.username());
+        if (usernameResult != ValidationUtils.ResultCode.OK) {
+            errors.put("username", usernameResult.getErrorMessage());
+        }
+
+        // Validate the password
+        ValidationUtils.ResultCode passwordResult = ValidationUtils.isValidPassword(createUserRequest.password());
+        if (passwordResult != ValidationUtils.ResultCode.OK) {
+            errors.put("password", passwordResult.getErrorMessage());
+        }
+
+        return errors;
+    }
+        
 
 
     // Private Methods -------------------------------------------------------->>
