@@ -3,19 +3,15 @@ package es.daw01.savex.controller.api.v1;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 import jakarta.persistence.EntityExistsException;
-import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -23,8 +19,8 @@ import org.springframework.web.multipart.MultipartFile;
 
 import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
-import es.daw01.savex.DTOs.UserDTO;
-import es.daw01.savex.DTOs.users.ModifyUserPassword;
+import es.daw01.savex.DTOs.users.CreateUserRequest;
+import es.daw01.savex.DTOs.users.ModifyPasswordRequest;
 import es.daw01.savex.DTOs.users.ModifyUserRequest;
 import es.daw01.savex.DTOs.users.PrivateUserDTO;
 import es.daw01.savex.DTOs.users.PublicUserDTO;
@@ -107,7 +103,7 @@ public class RestUserController {
             PublicUserDTO updatedUser = userService.modifyUserAvatar(id, avatar);
             return ApiResponseDTO.ok(updatedUser, location, 200);
         } catch (NoSuchElementException e) {
-            return ApiResponseDTO.error("User not found", 404);
+            return ApiResponseDTO.error(e.getMessage(), 404);
         }
     }
 
@@ -128,43 +124,32 @@ public class RestUserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable long id) {
         try {
-            // Get the authenticated user
-            User authenticatedUser = controllerUtils.getAuthenticatedUser();
-
-            // Prevent admin from deleting himself
-            if (authenticatedUser.getId() == id) {
-                return ApiResponseDTO.error("You cannot delete yourself", 403);
-            }
-
-            // Before deleting the user, we must delete all the comments and posts associated with him
-            // Delete comments
-            commentService.deleteByAuthorId(id);
             // Delete user
+            commentService.deleteByAuthorId(id);
             userService.deleteById(id);
 
-            // Return success message
             return ApiResponseDTO.ok("User deleted successfully");
+        } catch (NoSuchElementException e) {
+            return ApiResponseDTO.error("User not found");
+        } catch (IllegalArgumentException e) {
+            return ApiResponseDTO.error(e.getMessage());
         } catch (Exception e) {
-            // Return error message
             return ApiResponseDTO.error("Error deleting user");
         }
     }
 
-    @PostMapping({"", "/"}) //TODO check method
-    public ResponseEntity<Object> postRegisterPage(@Valid @ModelAttribute UserDTO userDTO, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return ApiResponseDTO.error("Validation failed: " + bindingResult.getFieldErrors());
-        }
-
+    @PostMapping({"", "/"})
+    public ResponseEntity<Object> registerNewUser(@ModelAttribute CreateUserRequest createUserRequest) {
         try {
-            User newUser = userService.registerNewUser(userDTO);
-            return ApiResponseDTO.ok(newUser, 201);
+            PrivateUserDTO privateUser = userService.register(createUserRequest);
+            return ApiResponseDTO.ok(privateUser, 201);
         } catch (EntityExistsException e) {
             return ApiResponseDTO.error("User already exists");
+        } catch (IllegalArgumentException e) {
+            return ApiResponseDTO.error(e.getMessage());
         } catch (Exception e) {
             return ApiResponseDTO.error("Error creating user");
         }
-
     }
 
 
@@ -183,39 +168,34 @@ public class RestUserController {
     }
     
     @PatchMapping("/{id}")
-    public ResponseEntity<Object> modifyUser(@PathVariable long id,@ModelAttribute ModifyUserRequest modifyUser,BindingResult bindingResult) {
-        
+    public ResponseEntity<Object> modifyUser(
+        @PathVariable long id,
+        @ModelAttribute ModifyUserRequest modifyUser
+    ) {
         try {
-            // Get the authenticated user
             User authenticatedUser = controllerUtils.getAuthenticatedUser();
 
-            // Prevent user from modifying another user
             if (authenticatedUser.getId() != id) {
                 return ApiResponseDTO.error("You cannot modify another user", 403);
             }
-            if (bindingResult.hasErrors()) {
-                        return ApiResponseDTO.error("Validation failed: " + bindingResult.getFieldErrors());
-                    }
-            // Modify the user
+            
             PrivateUserDTO privateUser = userService.modifyUser(id, modifyUser);
 
-            // Return success message
             return ApiResponseDTO.ok(privateUser);
         } catch (NoSuchElementException e) {
-            // Return error message
             return ApiResponseDTO.error("User not found");
+        } catch (IllegalArgumentException e) {
+            return ApiResponseDTO.error(e.getMessage());
         } catch (Exception e) {
-            // Return error message
             return ApiResponseDTO.error("Error modifying user");
-    }
-    
+        }
     }
 
     @PatchMapping("/{id}/password")
-    public ResponseEntity<Object> modifyPassword(@PathVariable long id, @ModelAttribute ModifyUserPassword modifyUserPassword) {
-        
-        Map<String, String> errors = new HashMap<>();
-        
+    public ResponseEntity<Object> modifyPassword(
+        @PathVariable long id,
+        @ModelAttribute ModifyPasswordRequest modifyUserPassword
+    ) {
         try {
             // Get the authenticated user
             User authenticatedUser = controllerUtils.getAuthenticatedUser();
@@ -225,18 +205,16 @@ public class RestUserController {
                 return ApiResponseDTO.error("You cannot modify another user", 403);
             }
 
-
             // Modify the password
-            PrivateUserDTO privateUserDTO = userService.modifyPassword(id, modifyUserPassword, errors);
+            PrivateUserDTO privateUserDTO = userService.modifyPassword(id, modifyUserPassword);
 
-            // Return success message
             return ApiResponseDTO.ok(privateUserDTO);
         } catch (NoSuchElementException e) {
-            // Return error message
             return ApiResponseDTO.error("User not found");
+        } catch (IllegalArgumentException e) {
+            return ApiResponseDTO.error(e.getMessage());
         } catch (Exception e) {
-            // Return error message
-            return ApiResponseDTO.error(errors.toString());
+            return ApiResponseDTO.error("Error modifying password");
         }
     }
 

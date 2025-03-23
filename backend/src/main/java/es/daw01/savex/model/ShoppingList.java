@@ -75,15 +75,16 @@ public class ShoppingList {
      * 
      * @param product The product to remove
     */
-    public void removeProduct(Product product) {
+    public void removeProduct(Product product) throws RuntimeException {
         for (Product p : this.products) {
             if (p.equals(product)) {
                 this.products.remove(p);
-                break;
+                this.numberOfProducts--;
+                return;
             }
         }
 
-        this.numberOfProducts--;
+        throw new RuntimeException("Product not found in the shopping list");
     }
 
     // Getters and Setters ---------------------------------------------------->>

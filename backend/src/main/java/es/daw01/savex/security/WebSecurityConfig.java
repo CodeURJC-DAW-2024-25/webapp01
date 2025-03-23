@@ -73,7 +73,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/api/v1/users/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/users/**").permitAll()
                         .requestMatchers(HttpMethod.PUT, "/api/v1/users/**").authenticated()
-                        .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").hasAnyRole(UserType.USER.name())
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").authenticated()
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll()
 
@@ -91,6 +91,7 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/lists/*/product/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/v1/lists/**").authenticated()
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/lists/**").authenticated()
+                        .requestMatchers(HttpMethod.PATCH, "/api/v1/lists/**").authenticated()
 
                         .anyRequest().authenticated());
 

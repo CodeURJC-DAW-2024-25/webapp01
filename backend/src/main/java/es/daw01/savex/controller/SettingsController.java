@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import es.daw01.savex.DTOs.UserDTO;
+import es.daw01.savex.DTOs.users.ModifyPasswordRequest;
 import es.daw01.savex.components.ControllerUtils;
 import es.daw01.savex.model.User;
 import es.daw01.savex.service.UserService;
@@ -94,17 +95,14 @@ public class SettingsController {
     }
 
     @PostMapping("/change-password")
-    public String postChangePassword(String password, String newPassword, String confirmPassword, Model model,
-            RedirectAttributes redirectAttributes) {
-
-        User user = controllerUtils.getAuthenticatedUser();
-        Map<String, String> errors = new HashMap<>();
-
-        // Check if the password is correct
-        userService.checkPassword(user, password, newPassword, confirmPassword, errors);
-
-        if (!errors.isEmpty()) {
-            model.addAttribute("errors", errors);
+    public String postChangePassword(@ModelAttribute ModifyPasswordRequest request, Model model,
+        RedirectAttributes redirectAttributes
+    ) {
+        try {
+            User user = controllerUtils.getAuthenticatedUser();
+            userService.modifyPassword(user.getId(), request);
+        } catch (Exception e) {
+            model.addAttribute("error", e.getMessage());
             return renderSettingsPage(model);
         }
 

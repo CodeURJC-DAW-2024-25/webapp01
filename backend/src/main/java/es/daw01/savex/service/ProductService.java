@@ -25,7 +25,7 @@ public class ProductService {
      * @param id The id of the product
      * @return The product if found or an empty optional
     */
-    public Optional<Product> findById(long id) {
+    public Optional<Product> findById(String id) {
         return productRepository.findById(id);
     }
 
@@ -59,22 +59,6 @@ public class ProductService {
     }
 
     /**
-     * Find a product by its product DTO
-     * 
-     * @param productDTO The product DTO
-     * @return The product if found or an empty optional
-    */
-    public Optional<Product> findByProductDTO(ProductDTO productDTO) {
-        SupermarketType supermarketType;
-        String supermarketName = productDTO.supermarket_name();
-        String productId = productDTO.product_id();
-
-        supermarketType = SupermarketType.fromString(supermarketName);
-        
-        return findBySupermarketAndProductId(supermarketType, productId);
-    }
-
-    /**
      * Generate a search product request based on a list of keywords
      * 
      * @param keywords The list of keywords
@@ -103,7 +87,6 @@ public class ProductService {
         List<ProductDTO> templateProducts = new ArrayList<>(count);
         for (int i = 0; i < 5; i++) {
             templateProducts.add(new ProductDTO(
-                "0",
                 "Supermarket",
                 "0",
                 "#",
@@ -123,11 +106,5 @@ public class ProductService {
     
     public void save(Product product) {
         productRepository.save(product);
-    }
-
-    // Private methods -------------------------------------------------------->>
-    
-    private Optional<Product> findBySupermarketAndProductId(SupermarketType supermarketType, String productId) {
-        return productRepository.findBySupermarketAndProductId(supermarketType, productId);
     }
 }

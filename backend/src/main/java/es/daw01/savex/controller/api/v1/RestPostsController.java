@@ -126,7 +126,11 @@ public class RestPostsController {
 
     @GetMapping("/{id}/content")
     public ResponseEntity<Object> getPostContent(@PathVariable long id) {
-        String content = postService.getPostContent(id);
-        return ApiResponseDTO.ok(content);
+        try {
+            String content = postService.getPostContent(id);
+            return ResponseEntity.ok(content);
+        } catch (Exception e) {
+            return ApiResponseDTO.error("Failed to get post content");
+        }
     }
 }
