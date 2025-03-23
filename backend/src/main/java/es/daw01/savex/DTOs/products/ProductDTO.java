@@ -3,7 +3,6 @@ package es.daw01.savex.DTOs.products;
 import java.util.List;
 
 public record ProductDTO(
-    String _id,
     String supermarket_name,
     String product_id,
     String product_url,
