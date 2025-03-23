@@ -103,7 +103,7 @@ public class RestUserController {
             PublicUserDTO updatedUser = userService.modifyUserAvatar(id, avatar);
             return ApiResponseDTO.ok(updatedUser, location, 200);
         } catch (NoSuchElementException e) {
-            return ApiResponseDTO.error("User not found", 404);
+            return ApiResponseDTO.error(e.getMessage(), 404);
         }
     }
 
@@ -124,24 +124,16 @@ public class RestUserController {
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable long id) {
         try {
-            // Get the authenticated user
-            User authenticatedUser = controllerUtils.getAuthenticatedUser();
-
-            // Prevent admin from deleting himself
-            if (authenticatedUser.getId() == id) {
-                return ApiResponseDTO.error("You cannot delete yourself", 403);
-            }
-
-            // Before deleting the user, we must delete all the comments and posts associated with him
-            // Delete comments
-            commentService.deleteByAuthorId(id);
             // Delete user
+            commentService.deleteByAuthorId(id);
             userService.deleteById(id);
 
-            // Return success message
             return ApiResponseDTO.ok("User deleted successfully");
+        } catch (NoSuchElementException e) {
+            return ApiResponseDTO.error("User not found");
+        } catch (IllegalArgumentException e) {
+            return ApiResponseDTO.error(e.getMessage());
         } catch (Exception e) {
-            // Return error message
             return ApiResponseDTO.error("Error deleting user");
         }
     }
