@@ -241,7 +241,7 @@ public class UserService {
         }
 
         //Check if the new password is the same as the current one
-        if (!HashUtils.checkPassword(newPassword, user.getHashedPassword())) {
+        if (HashUtils.checkPassword(newPassword, user.getHashedPassword())) {
             errors.put("newPassword", "La nueva contraseña no puede ser igual a la actual");
         }
 
