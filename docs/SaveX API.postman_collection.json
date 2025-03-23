@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "692022ee-a5c1-432b-8488-5c4196c28b8e",
+		"_postman_id": "a030eae6-5dc0-47b9-aaab-930b2ce73a8a",
 		"name": "SaveX API",
-		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "42989742"
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "43057522"
 	},
 	"item": [
 		{
@@ -16,24 +16,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"userDefault9\",\r\n    \"password\": \"pass9\"\r\n}",
+							"raw": "{\r\n    \"username\": \"admin\",\r\n    \"password\": \"admin\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": {
-							"raw": "{{apiBaseURL}}/api/auth/login",
-							"host": [
-								"{{apiBaseURL}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"login"
-							]
-						}
+						"url": "{{apiBaseURL}}/api/auth/login"
 					},
 					"response": []
 				},
@@ -45,17 +35,16 @@
 						},
 						"method": "POST",
 						"header": [],
-						"url": {
-							"raw": "{{apiBaseURL}}/api/auth/logout",
-							"host": [
-								"{{apiBaseURL}}"
-							],
-							"path": [
-								"api",
-								"auth",
-								"logout"
-							]
-						}
+						"url": "{{apiBaseURL}}/api/auth/logout"
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{apiBaseURL}}/api/auth/refresh"
 					},
 					"response": []
 				}
@@ -68,210 +57,193 @@
 					"name": "Users",
 					"item": [
 						{
-							"name": "Get users",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										""
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "User avatar",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/1/avatar",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"1",
-										"avatar"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "User avatar",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "avatar",
-											"type": "file",
-											"src": "/Users/dani/Downloads/coolpfp.jpg"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/9/avatar",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"9",
-										"avatar"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "User avatar",
-							"request": {
-								"method": "PUT",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "avatar",
-											"type": "file",
-											"src": "/C:/Users/elp0r/Pictures/Screenshots/Screenshot 2025-03-06 132213.png"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/9/avatar",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"9",
-										"avatar"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Delete avatar",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/9/avatar",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"9",
-										"avatar"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "User avatar",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/9/avatar",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"9",
-										"avatar"
-									]
-								}
-							},
-							"response": []
-						},
-						{
 							"name": "User",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/2",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"2"
-									]
+							"item": [
+								{
+									"name": "User",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "username",
+													"value": "username",
+													"type": "text"
+												},
+												{
+													"key": "password",
+													"value": "Str0ngP@ssw0rd!",
+													"type": "text"
+												},
+												{
+													"key": "email",
+													"value": "emailDefault@email.com",
+													"type": "text"
+												}
+											]
+										},
+										"url": "{{apiBaseURL}}/api/v1/users/"
+									},
+									"response": []
+								},
+								{
+									"name": "User",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "{{apiBaseURL}}/api/v1/users/9"
+									},
+									"response": []
+								},
+								{
+									"name": "User",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "{{apiBaseURL}}/api/v1/users/9"
+									},
+									"response": []
+								},
+								{
+									"name": "User",
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "username",
+													"value": "",
+													"type": "text",
+													"disabled": true
+												},
+												{
+													"key": "name",
+													"value": "Nombre Prueba",
+													"type": "text"
+												},
+												{
+													"key": "email",
+													"value": "testmail@mail.com",
+													"type": "text"
+												}
+											]
+										},
+										"url": "{{apiBaseURL}}/api/v1/users/9"
+									},
+									"response": []
+								},
+								{
+									"name": "User Password",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "oldPassword",
+													"value": "pass9",
+													"type": "text"
+												},
+												{
+													"key": "newPassword",
+													"value": "Str0ngP@ssw0rd!",
+													"type": "text"
+												},
+												{
+													"key": "newPasswordConfirmation",
+													"value": "Str0ngP@ssw0rd!",
+													"type": "text"
+												}
+											]
+										},
+										"url": "{{apiBaseURL}}/api/v1/users/9/password"
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "User",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "username",
-											"value": "holaholahola",
-											"type": "text"
-										},
-										{
-											"key": "name",
-											"value": "Nombre Prueba",
-											"type": "text",
-											"disabled": true
-										},
-										{
-											"key": "email",
-											"value": "testmail@mail.com",
-											"type": "text"
-										}
-									]
+							"name": "User Avatar",
+							"item": [
+								{
+									"name": "User Avatar",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "{{apiBaseURL}}/api/v1/users/9/avatar"
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/9",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"9"
-									]
+								{
+									"name": "User Avatar",
+									"request": {
+										"method": "PUT",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "avatar",
+													"type": "file",
+													"src": "/Users/dani/Downloads/coolpfp.jpg"
+												}
+											]
+										},
+										"url": "{{apiBaseURL}}/api/v1/users/9/avatar"
+									},
+									"response": []
+								},
+								{
+									"name": "User Avatar",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "avatar",
+													"type": "file",
+													"src": "/Users/dani/Downloads/view-3d-cool-modern-bird_23-2150946639.avif"
+												}
+											]
+										},
+										"url": "{{apiBaseURL}}/api/v1/users/9/avatar"
+									},
+									"response": []
+								},
+								{
+									"name": "User Avatar",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "{{apiBaseURL}}/api/v1/users/9/avatar"
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
+						},
+						{
+							"name": "Paginated",
+							"item": [
+								{
+									"name": "Users",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "{{apiBaseURL}}/api/v1/users/"
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				},
@@ -279,347 +251,265 @@
 					"name": "Posts",
 					"item": [
 						{
-							"name": "Posts paginated",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts?size=2&page=2",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts"
-									],
-									"query": [
-										{
-											"key": "size",
-											"value": "2"
+							"name": "Post Banner",
+							"item": [
+								{
+									"name": "Post Banner",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "{{apiBaseURL}}/api/v1/posts/2/banner"
+									},
+									"response": []
+								},
+								{
+									"name": "Post Banner",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "https://localhost:8443/api/v1/posts/2/banner"
+									},
+									"response": []
+								},
+								{
+									"name": "Post Banner",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "banner",
+													"type": "file",
+													"src": "/Users/dani/Downloads/view-3d-cool-modern-bird_23-2150946639.avif"
+												}
+											]
 										},
-										{
-											"key": "page",
-											"value": "2"
-										}
-									]
+										"url": "{{apiBaseURL}}/api/v1/posts/2/banner"
+									},
+									"response": []
 								}
-							},
-							"response": []
-						},
-						{
-							"name": "Post comments",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/1/comments?size=5",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"1",
-										"comments"
-									],
-									"query": [
-										{
-											"key": "size",
-											"value": "5"
-										}
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Post banner",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/2/banner",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"2",
-										"banner"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Post content",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/1/content",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"1",
-										"content"
-									]
-								}
-							},
-							"response": []
+							]
 						},
 						{
 							"name": "Post",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/1",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"1"
-									]
+							"item": [
+								{
+									"name": "Post",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "{{apiBaseURL}}/api/v1/posts/1"
+									},
+									"response": []
+								},
+								{
+									"name": "Post",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "{{apiBaseURL}}/api/v1/posts/1"
+									},
+									"response": []
+								},
+								{
+									"name": "Post",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "title",
+													"value": "Nuevo Post 123",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "Descripcion random",
+													"type": "text"
+												},
+												{
+													"key": "author",
+													"value": "SaveX",
+													"type": "text"
+												},
+												{
+													"key": "readingTime",
+													"value": "1 min",
+													"type": "text"
+												},
+												{
+													"key": "visibility",
+													"value": "PUBLIC",
+													"type": "text"
+												},
+												{
+													"key": "tags",
+													"value": "Comparador",
+													"type": "text"
+												},
+												{
+													"key": "content\n",
+													"value": "# Hello\n\n- This is a new post",
+													"type": "text"
+												}
+											]
+										},
+										"url": "{{apiBaseURL}}/api/v1/posts"
+									},
+									"response": []
+								},
+								{
+									"name": "Post",
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": "{{apiBaseURL}}/api/v1/posts/2"
+									},
+									"response": []
+								},
+								{
+									"name": "Post Content",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "{{apiBaseURL}}/api/v1/posts/1/content"
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "Post",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/1",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"1"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Post banner",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"url": {
-									"raw": "https://localhost:8443/api/v1/posts/2/banner",
-									"protocol": "https",
-									"host": [
-										"localhost"
-									],
-									"port": "8443",
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"2",
-										"banner"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Post",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "title",
-											"value": "Nuevo Post 123",
-											"type": "text"
-										},
-										{
-											"key": "description",
-											"value": "Descripcion random",
-											"type": "text"
-										},
-										{
-											"key": "author",
-											"value": "SaveX",
-											"type": "text"
-										},
-										{
-											"key": "readingTime",
-											"value": "1 min",
-											"type": "text"
-										},
-										{
-											"key": "visibility",
-											"value": "PUBLIC",
-											"type": "text"
-										},
-										{
-											"key": "tags",
-											"value": "Comparador",
-											"type": "text"
-										},
-										{
-											"key": "content\n",
-											"value": "# Hello\n\n- This is a new post",
-											"type": "text"
+							"name": "Paginated",
+							"item": [
+								{
+									"name": "Posts",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{apiBaseURL}}/api/v1/posts?size=2&page=2",
+											"host": [
+												"{{apiBaseURL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"posts"
+											],
+											"query": [
+												{
+													"key": "size",
+													"value": "2"
+												},
+												{
+													"key": "page",
+													"value": "2"
+												}
+											]
 										}
-									]
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Post banner",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "banner",
-											"type": "file",
-											"src": []
+								{
+									"name": "Post Comments",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": {
+											"raw": "{{apiBaseURL}}/api/v1/posts/1/comments?size=5",
+											"host": [
+												"{{apiBaseURL}}"
+											],
+											"path": [
+												"api",
+												"v1",
+												"posts",
+												"1",
+												"comments"
+											],
+											"query": [
+												{
+													"key": "size",
+													"value": "5"
+												}
+											]
 										}
-									]
-								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/2/banner",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"2",
-										"banner"
-									]
+									},
+									"response": []
 								}
-							},
-							"response": []
+							]
 						},
 						{
-							"name": "Post comments",
-							"request": {
-								"auth": {
-									"type": "noauth"
+							"name": "Comments",
+							"item": [
+								{
+									"name": "Post Comment",
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "content",
+													"value": "Update comment",
+													"type": "text"
+												}
+											]
+										},
+										"url": "{{apiBaseURL}}/api/v1/posts/1/comments/1"
+									},
+									"response": []
 								},
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "content",
-											"value": "New comment",
-											"type": "text"
-										}
-									]
+								{
+									"name": "Post Comment",
+									"request": {
+										"auth": {
+											"type": "noauth"
+										},
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "content",
+													"value": "New comment",
+													"type": "text"
+												}
+											]
+										},
+										"url": "{{apiBaseURL}}/api/v1/posts/2/comments"
+									},
+									"response": []
 								},
-								"url": {
-									"raw": "https://localhost:8443/api/v1/posts/2/comments",
-									"protocol": "https",
-									"host": [
-										"localhost"
-									],
-									"port": "8443",
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"2",
-										"comments"
-									]
+								{
+									"name": "Post Comment",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "{{apiBaseURL}}/api/v1/posts/1/comments/1"
+									},
+									"response": []
+								},
+								{
+									"name": "Post Comment",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "{{apiBaseURL}}/api/v1/posts/1/comments/1"
+									},
+									"response": []
 								}
-							},
-							"response": []
-						},
-						{
-							"name": "Post",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": []
-								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/2",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"2"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "Comment",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "content",
-											"value": "Update comment",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/2/comments/1",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"2",
-										"comments",
-										"1"
-									]
-								}
-							},
-							"response": []
+							]
 						}
 					]
 				},
@@ -668,177 +558,155 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/products/10533@mercadona",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"products",
-										"10533@mercadona"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/products/10533@mercadona"
+							},
+							"response": []
+						},
+						{
+							"name": "Product Suggested",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{apiBaseURL}}/api/v1/products/10533@mercadona/suggested"
+							},
+							"response": []
+						},
+						{
+							"name": "Products Comparison",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{apiBaseURL}}/api/v1/products/10533@mercadona/compare"
 							},
 							"response": []
 						}
 					]
 				},
 				{
-					"name": "ShoppingList",
+					"name": "ShoppingLists",
 					"item": [
 						{
-							"name": "ShowLists",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/lists",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"lists"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "AddProductList",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": []
-								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/lists/2/product/10533@mercadona",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"lists",
-										"2",
-										"product",
-										"10533@mercadona"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "DeleteProductList",
-							"request": {
-								"method": "DELETE",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": []
-								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/lists/1/product/10533@mercadona",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"lists",
-										"1",
-										"product",
-										"10533@mercadona"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "CreateList",
-							"request": {
-								"method": "POST",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "name",
-											"value": "New Shopping List",
-											"type": "text"
-										},
-										{
-											"key": "description",
-											"value": "This is a new shopping list",
-											"type": "text"
-										}
-									]
-								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/lists",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"lists"
-									]
-								}
-							},
-							"response": []
-						},
-						{
-							"name": "DeleteList",
-							"request": {
-								"method": "DELETE",
-								"header": []
-							},
-							"response": []
-						},
-						{
 							"name": "ShoppingList",
-							"request": {
-								"method": "GET",
-								"header": [],
-								"url": "{{apiBaseURL}}/api/v1/lists/1"
-
-							}
+							"item": [
+								{
+									"name": "ShoppingList",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "{{apiBaseURL}}/api/v1/lists/1"
+									},
+									"response": []
+								},
+								{
+									"name": "ShoppingList",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "MyList",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "MyListDescription",
+													"type": "text"
+												}
+											]
+										},
+										"url": "{{apiBaseURL}}/api/v1/lists/"
+									},
+									"response": []
+								},
+								{
+									"name": "ShoppingList",
+									"request": {
+										"method": "PATCH",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": [
+												{
+													"key": "name",
+													"value": "updating my list name",
+													"type": "text"
+												},
+												{
+													"key": "description",
+													"value": "updating my list description",
+													"type": "text"
+												}
+											]
+										},
+										"url": "{{apiBaseURL}}/api/v1/lists/1"
+									},
+									"response": []
+								},
+								{
+									"name": "ShoppingList",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"url": "{{apiBaseURL}}/api/v1/lists/1"
+									},
+									"response": []
+								}
+							]
 						},
 						{
-							"name": "ShoppingList",
-							"request": {
-								"method": "PATCH",
-								"header": [],
-								"body": {
-									"mode": "formdata",
-									"formdata": [
-										{
-											"key": "name",
-											"value": "Shopping List",
-											"type": "text"
+							"name": "Paginated",
+							"item": [
+								{
+									"name": "ShoppingLists",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "{{apiBaseURL}}/api/v1/lists/"
+									},
+									"response": []
+								}
+							]
+						},
+						{
+							"name": "ShoppingList Product",
+							"item": [
+								{
+									"name": "Product",
+									"request": {
+										"method": "POST",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
 										},
-										{
-											"key": "description",
-											"value": "Updated shopping list",
-											"type": "text"
-										}
-									]
+										"url": "{{apiBaseURL}}/api/v1/lists/1/product/10533@mercadona"
+									},
+									"response": []
 								},
-								"url": "{{apiBaseURL}}/api/v1/lists/1"
-							}
+								{
+									"name": "Product",
+									"request": {
+										"method": "DELETE",
+										"header": [],
+										"body": {
+											"mode": "formdata",
+											"formdata": []
+										},
+										"url": "{{apiBaseURL}}/api/v1/lists/1/product/10533@mercadona"
+									},
+									"response": []
+								}
+							]
 						}
 					]
 				}
 			]
 		},
 		{
-			"name": "v1-batch",
+			"name": "v1-Testing",
 			"item": [
 				{
 					"name": "Unautheticated-endpoints",
@@ -871,18 +739,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										""
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/users/"
 							},
 							"response": []
 						},
@@ -970,19 +827,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{example-post-id}}/comments",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"{{example-post-id}}",
-										"comments"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts/{{example-post-id}}/comments"
 							},
 							"response": []
 						},
@@ -1017,19 +862,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{example-post-id}}/banner",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"{{example-post-id}}",
-										"banner"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts/{{example-post-id}}/banner"
 							},
 							"response": []
 						}
@@ -1145,17 +978,7 @@
 										}
 									]
 								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/users"
 							},
 							"response": []
 						},
@@ -1190,18 +1013,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"{{example-user-id}}"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}"
 							},
 							"response": []
 						},
@@ -1240,17 +1052,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/auth/login",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"login"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/auth/login"
 							},
 							"response": []
 						},
@@ -1287,19 +1089,7 @@
 										}
 									]
 								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"{{example-user-id}}",
-										"avatar"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar"
 							},
 							"response": []
 						},
@@ -1329,19 +1119,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"{{example-user-id}}",
-										"avatar"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar"
 							},
 							"response": []
 						},
@@ -1376,19 +1154,7 @@
 										}
 									]
 								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"{{example-user-id}}",
-										"avatar"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar"
 							},
 							"response": []
 						},
@@ -1418,19 +1184,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"{{example-user-id}}",
-										"avatar"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar"
 							},
 							"response": []
 						},
@@ -1455,19 +1209,7 @@
 							"request": {
 								"method": "DELETE",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"{{example-user-id}}",
-										"avatar"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar"
 							},
 							"response": []
 						},
@@ -1492,19 +1234,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"{{example-user-id}}",
-										"avatar"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}/avatar"
 							},
 							"response": []
 						},
@@ -1534,18 +1264,7 @@
 							"request": {
 								"method": "DELETE",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"users",
-										"{{example-user-id}}"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/users/{{example-user-id}}"
 							},
 							"response": []
 						},
@@ -1570,17 +1289,7 @@
 							"request": {
 								"method": "POST",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/auth/logout",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"logout"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/auth/logout"
 							},
 							"response": []
 						}
@@ -1610,17 +1319,7 @@
 							"request": {
 								"method": "POST",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/auth/logout",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"logout"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/auth/logout"
 							},
 							"response": []
 						},
@@ -1705,18 +1404,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{example-post-id}}",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"{{example-post-id}}"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts/{{example-post-id}}"
 							},
 							"response": []
 						},
@@ -1800,19 +1488,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{example-post-id}}/content",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"{{example-post-id}}",
-										"content"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts/{{example-post-id}}/content"
 							},
 							"response": []
 						},
@@ -1845,19 +1521,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{example-post-id}}/banner",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"{{example-post-id}}",
-										"banner"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts/{{example-post-id}}/banner"
 							},
 							"response": []
 						},
@@ -1894,17 +1558,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/auth/login",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"login"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/auth/login"
 							},
 							"response": []
 						},
@@ -1969,17 +1623,7 @@
 										}
 									]
 								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts"
 							},
 							"response": []
 						},
@@ -2017,17 +1661,7 @@
 										}
 									}
 								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/auth/login",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"auth",
-										"login"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/auth/login"
 							},
 							"response": []
 						},
@@ -2101,17 +1735,7 @@
 										}
 									]
 								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts"
 							},
 							"response": []
 						},
@@ -2142,18 +1766,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"{{new-post-id}}"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}"
 							},
 							"response": []
 						},
@@ -2208,19 +1821,7 @@
 										}
 									]
 								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/banner",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"{{new-post-id}}",
-										"banner"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/banner"
 							},
 							"response": []
 						},
@@ -2251,19 +1852,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/banner",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"{{new-post-id}}",
-										"banner"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/banner"
 							},
 							"response": []
 						},
@@ -2289,19 +1878,7 @@
 							"request": {
 								"method": "DELETE",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/banner",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"{{new-post-id}}",
-										"banner"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/banner"
 							},
 							"response": []
 						},
@@ -2326,19 +1903,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/banner",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"{{new-post-id}}",
-										"banner"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/banner"
 							},
 							"response": []
 						},
@@ -2377,19 +1942,7 @@
 										}
 									]
 								},
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/comments",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"{{new-post-id}}",
-										"comments"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/comments"
 							},
 							"response": []
 						},
@@ -2419,20 +1972,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/comments/{{new-comment-id}}",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"{{new-post-id}}",
-										"comments",
-										"{{new-comment-id}}"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/comments/{{new-comment-id}}"
 							},
 							"response": []
 						},
@@ -2457,20 +1997,7 @@
 							"request": {
 								"method": "DELETE",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/comments/{{new-comment-id}}",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"{{new-post-id}}",
-										"comments",
-										"{{new-comment-id}}"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/comments/{{new-comment-id}}"
 							},
 							"response": []
 						},
@@ -2495,20 +2022,7 @@
 							"request": {
 								"method": "GET",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/comments/{{new-comment-id}}",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"{{new-post-id}}",
-										"comments",
-										"{{new-comment-id}}"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}/comments/{{new-comment-id}}"
 							},
 							"response": []
 						},
@@ -2587,18 +2101,7 @@
 							"request": {
 								"method": "DELETE",
 								"header": [],
-								"url": {
-									"raw": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}",
-									"host": [
-										"{{apiBaseURL}}"
-									],
-									"path": [
-										"api",
-										"v1",
-										"posts",
-										"{{new-post-id}}"
-									]
-								}
+								"url": "{{apiBaseURL}}/api/v1/posts/{{new-post-id}}"
 							},
 							"response": []
 						},
