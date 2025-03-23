@@ -36,7 +36,6 @@ import es.daw01.savex.utils.HashUtils;
 import es.daw01.savex.utils.ImageUtils;
 import es.daw01.savex.utils.ValidationUtils;
 import jakarta.persistence.EntityExistsException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 
 @Service
@@ -144,15 +143,17 @@ public class UserService {
      */
     @Transactional
     public void deleteById(long id) {
-        Optional<User> userOptional = userRepository.findById(id);
-        if (userOptional.isPresent()) {
-            User user = userOptional.get();
-            commentRepository.deleteByAuthorId(id);
-            shoppingListRepository.deleteAllByUserId(id);
-            userRepository.delete(user);
-        } else {
-            throw new EntityNotFoundException("User not found with id: " + id);
+        User authenticatedUser = getAuthenticatedUser();
+        User userToDelete = userRepository.findById(id).orElseThrow();
+
+        if (authenticatedUser.getId() != userToDelete.getId() && authenticatedUser.getRole() != UserType.ADMIN) {
+            throw new IllegalArgumentException("You cannot delete another user");
+        } else if (authenticatedUser.getId() == userToDelete.getId() && authenticatedUser.getRole() == UserType.ADMIN) {
+            throw new IllegalArgumentException("You cannot delete yourself as an admin");
         }
+        commentRepository.deleteByAuthorId(id);
+        shoppingListRepository.deleteAllByUserId(id);
+        userRepository.delete(userToDelete);
     }
 
     /**
