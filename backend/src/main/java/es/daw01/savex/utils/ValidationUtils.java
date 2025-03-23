@@ -128,7 +128,7 @@ public class ValidationUtils {
      * @return ResultCode.OK if the email is valid, ResultCode.INVALID_EMAIL otherwise
      */
     public static ResultCode isValidEmail(String email, boolean isRequired) {
-        if (!isRequired && (email == null || email.isEmpty())) {
+        if (!isRequired && email == null) {
             return ResultCode.OK;
         }
 
@@ -150,11 +150,11 @@ public class ValidationUtils {
      * @return ResultCode.OK if the username is valid, ResultCode.INVALID_USERNAME_FORMAT or ResultCode.INVALID_USERNAME_LENGTH otherwise
      */
     public static ResultCode isValidUsername(String username, boolean isRequired) {
-        if (!isRequired && (username == null || username.isEmpty())) {
+        if (!isRequired && username == null) {
             return ResultCode.OK;
         }
 
-        if (username.isEmpty() && isRequired) {
+        if (username.isEmpty()) {
             return ResultCode.EMPTY_FIELD;
         }
 
@@ -176,11 +176,11 @@ public class ValidationUtils {
      * @return ResultCode.OK if the name is valid, ResultCode.INVALID_NAME_FORMAT or ResultCode.INVALID_NAME_LENGTH otherwise
      */
     public static ResultCode isValidName(String name, boolean isRequired) {
-        if (!isRequired && (name == null || name.isEmpty())) {
+        if (!isRequired && name == null) {
             return ResultCode.OK;
         }
 
-        if (name.isEmpty() && isRequired) {
+        if (name.isEmpty()) {
             return ResultCode.EMPTY_FIELD;
         }
 
@@ -202,11 +202,11 @@ public class ValidationUtils {
      * @return ResultCode.OK if the password is valid, ResultCode.INVALID_PASSWORD_FORMAT or ResultCode.INVALID_PASSWORD_LENGTH otherwise
      */
     public static ResultCode isValidPassword(String password, boolean isRequired) {
-        if (!isRequired && (password == null || password.isEmpty())) {
+        if (!isRequired && password == null) {
             return ResultCode.OK;
         }
         
-        if (password.isEmpty() && isRequired) {
+        if (password.isEmpty()) {
             return ResultCode.EMPTY_FIELD;
         }
 
