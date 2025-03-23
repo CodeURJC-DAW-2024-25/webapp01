@@ -3,8 +3,6 @@ package es.daw01.savex.controller.api.v1;
 import java.io.IOException;
 import java.net.URI;
 import java.sql.SQLException;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.NoSuchElementException;
 
 import jakarta.persistence.EntityExistsException;
@@ -22,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.users.CreateUserRequest;
-import es.daw01.savex.DTOs.users.ModifyUserPassword;
+import es.daw01.savex.DTOs.users.ModifyPasswordRequest;
 import es.daw01.savex.DTOs.users.ModifyUserRequest;
 import es.daw01.savex.DTOs.users.PrivateUserDTO;
 import es.daw01.savex.DTOs.users.PublicUserDTO;
@@ -204,10 +202,8 @@ public class RestUserController {
     @PatchMapping("/{id}/password")
     public ResponseEntity<Object> modifyPassword(
         @PathVariable long id,
-        @ModelAttribute ModifyUserPassword modifyUserPassword
+        @ModelAttribute ModifyPasswordRequest modifyUserPassword
     ) {
-        Map<String, String> errors = new HashMap<>();
-        
         try {
             // Get the authenticated user
             User authenticatedUser = controllerUtils.getAuthenticatedUser();
@@ -218,16 +214,15 @@ public class RestUserController {
             }
 
             // Modify the password
-            PrivateUserDTO privateUserDTO = userService.modifyPassword(id, modifyUserPassword, errors);
+            PrivateUserDTO privateUserDTO = userService.modifyPassword(id, modifyUserPassword);
 
-            // Return success message
             return ApiResponseDTO.ok(privateUserDTO);
         } catch (NoSuchElementException e) {
-            // Return error message
             return ApiResponseDTO.error("User not found");
+        } catch (IllegalArgumentException e) {
+            return ApiResponseDTO.error(e.getMessage());
         } catch (Exception e) {
-            // Return error message
-            return ApiResponseDTO.error(errors.toString());
+            return ApiResponseDTO.error("Error modifying password");
         }
     }
 

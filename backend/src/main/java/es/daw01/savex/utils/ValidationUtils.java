@@ -1,6 +1,7 @@
 package es.daw01.savex.utils;
 
 import es.daw01.savex.DTOs.users.CreateUserRequest;
+import es.daw01.savex.DTOs.users.ModifyPasswordRequest;
 import es.daw01.savex.DTOs.users.ModifyUserRequest;
 
 public class ValidationUtils {
@@ -14,7 +15,10 @@ public class ValidationUtils {
         INVALID_NAME_FORMAT("The name can only contain letters, numbers and spaces"),
         INVALID_NAME_LENGTH("The name must be between 3 and 20 characters"),
         INVALID_PASSWORD_FORMAT("The password must contain at least one lowercase letter, one uppercase letter and one number"),
-        INVALID_PASSWORD_LENGTH("The password must be between 8 and 50 characters");
+        INVALID_PASSWORD_LENGTH("The password must be between 8 and 50 characters"),
+        INVALID_PASSWORD_CONFIRMATION("The password confirmation does not match the password"),
+        INVALID_NEW_PASSWORD("The new password cannot be the same as the old password"),
+        INVALID_PASSWORD("The old password is incorrect");
 
         private final String errorMessage;
 
@@ -82,6 +86,38 @@ public class ValidationUtils {
             return nameResult;
         }
 
+        return ResultCode.OK;
+    }
+
+    /**
+     * Check if a password update is valid
+     * 
+     * @param modifyUserPassword The ModifyUserPassword object to check
+     * @param hashedPassword The hashed password of the user
+     * @return ResultCode.OK if the password update is valid, the corresponding ResultCode otherwise
+     */
+    public static ResultCode validatePasswordUpdate(ModifyPasswordRequest modifyUserPassword , String hashedPassword) {
+        String oldPassword = modifyUserPassword.oldPassword();
+        String newPassword = modifyUserPassword.newPassword();
+        String newPasswordConfirmation = modifyUserPassword.newPasswordConfirmation();
+
+        ResultCode newPasswordResult = isValidPassword(newPassword, true);
+        if (newPasswordResult != ResultCode.OK) {
+            return newPasswordResult;
+        }
+
+        if (!newPassword.equals(newPasswordConfirmation)) {
+            return ResultCode.INVALID_PASSWORD_CONFIRMATION;
+        }
+
+        if (HashUtils.checkPassword(newPassword, hashedPassword)) {
+            return ResultCode.INVALID_NEW_PASSWORD;
+        }
+
+        if (!HashUtils.checkPassword(oldPassword, hashedPassword)) {
+            return ResultCode.INVALID_PASSWORD;
+        }
+        
         return ResultCode.OK;
     }
 

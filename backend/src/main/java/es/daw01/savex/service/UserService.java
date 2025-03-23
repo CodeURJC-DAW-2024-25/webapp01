@@ -22,7 +22,7 @@ import org.springframework.security.core.Authentication;
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.UserDTO;
 import es.daw01.savex.DTOs.users.CreateUserRequest;
-import es.daw01.savex.DTOs.users.ModifyUserPassword;
+import es.daw01.savex.DTOs.users.ModifyPasswordRequest;
 import es.daw01.savex.DTOs.users.ModifyUserRequest;
 import es.daw01.savex.DTOs.users.PrivateUserDTO;
 import es.daw01.savex.DTOs.users.PublicUserDTO;
@@ -223,46 +223,6 @@ public class UserService {
         user.setEmail(userDTO.getEmail().isBlank() ? user.getEmail() : userDTO.getEmail());
         user.setUsername(userDTO.getUsername().isBlank() ? user.getUsername() : userDTO.getUsername());
         user.setName(userDTO.getName().isBlank() ? user.getName() : userDTO.getName());
-        // user.setPassword(userDTO.getPassword() != null ? hashPassword(userDTO.getPassword()) : user.getPassword());
-        userRepository.save(user);
-    }
-
-    public void checkPassword(User user, String password, String newPassword, String ConfirmPassword,
-            Map<String, String> errors) {
-
-        //Check if the fields are empty
-        if (password.isBlank() || newPassword.isBlank() || ConfirmPassword.isBlank()) {
-            errors.put("password", "Todos los campos son obligatorios");
-        }
-
-        //Check if the password is correct
-        if (!HashUtils.checkPassword(password, user.getHashedPassword())) {
-            errors.put("password", "La contraseña actual no coincide");
-        }
-
-        //Check if the new password is the same as the current one
-        if (HashUtils.checkPassword(newPassword, user.getHashedPassword())) {
-            errors.put("newPassword", "La nueva contraseña no puede ser igual a la actual");
-        }
-
-        //Check if the new password and the confirm password are the same
-        if (!newPassword.equals(ConfirmPassword)) {
-            errors.put("confirmPassword", "Las contraseñas no coinciden");
-        }
-
-        //Check if the new password is valid
-        if (newPassword.length() < 8 || newPassword.length() > 50) {
-            errors.put("newPassword", "La nueva contraseña debe tener entre 8 y 50 caracteres");
-        } else if (!newPassword.matches("^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d).*$")) {
-            errors.put("newPassword",
-                    "La nueva contraseña debe contener al menos una letra mayúscula, una letra minúscula y un número");
-        }
-
-        if (!errors.isEmpty())
-            return;
-
-        // Update the password
-        user.setHashedPassword(HashUtils.hashPassword(newPassword));
         userRepository.save(user);
     }
 
@@ -278,20 +238,18 @@ public class UserService {
         return userMapper.toPrivateUserDTO(userRepository.save(user));
     }
 
-    public PrivateUserDTO modifyPassword(long id, ModifyUserPassword modifyUserPassword, Map<String, String> errors) {
+    public PrivateUserDTO modifyPassword(long id, ModifyPasswordRequest modifyUserPassword) throws IllegalArgumentException {
         User user = userRepository.findById(id).orElseThrow();
 
-        checkPassword(
-            user, 
-            modifyUserPassword.oldPassword(), 
-            modifyUserPassword.newPassword(), 
-            modifyUserPassword.newPasswordConfirmation(), 
-            errors
-        );
-        if (!errors.isEmpty()) {
-            throw new IllegalArgumentException();
+        // Validate the password update
+        ValidationUtils.ResultCode validationResult = ValidationUtils.validatePasswordUpdate(modifyUserPassword, user.getHashedPassword());
+        if (validationResult != ValidationUtils.ResultCode.OK) {
+            throw new IllegalArgumentException(validationResult.getErrorMessage());
         }
-        return userMapper.toPrivateUserDTO(user);
+
+        // Update the password
+        user.setHashedPassword(HashUtils.hashPassword(modifyUserPassword.newPassword()));
+        return userMapper.toPrivateUserDTO(userRepository.save(user));
     }
 
     public PrivateUserDTO register(CreateUserRequest createUserRequest) throws EntityExistsException, IllegalArgumentException {

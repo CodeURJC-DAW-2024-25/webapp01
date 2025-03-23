@@ -62,27 +62,21 @@
 
             <div class="profile-info">
                 <h1>Cambiar Contraseña</h1>
+                {{#error}}
+                <small class="error">{{.}}</small>
+                {{/error}}
                 <form action="/change-password" method="post">
                     <div class="form-group">
                         <label for="current-password">Contraseña Actual</label>
                         <input type="password" id="password" name="password">
-                        {{#errors.password}}
-                        <small class="error">{{.}}</small>
-                        {{/errors.password}}
                     </div>
                     <div class="form-group">
                         <label for="new-password">Nueva Contraseña</label>
                         <input type="password" id="newPassword" name="newPassword">
-                        {{#errors.newPassword}}
-                        <small class="error">{{.}}</small>
-                        {{/errors.newPassword}}
                     </div>
                     <div class="form-group">
                         <label for="confirm-password">Confirmar Contraseña</label>
                         <input type="password" id="confirmPassword" name="confirmPassword">
-                        {{#errors.confirmPassword}}
-                        <small class="error">{{.}}</small>
-                        {{/errors.confirmPassword}}
                     </div>
                     <input type="hidden" name="_csrf" value="{{token}}" />
                     <button class="clickable clickable-primary full-width" type="submit">Cambiar Contraseña</button>
