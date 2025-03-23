@@ -1,6 +1,7 @@
 package es.daw01.savex.utils;
 
 import es.daw01.savex.DTOs.users.CreateUserRequest;
+import es.daw01.savex.DTOs.users.ModifyUserRequest;
 
 public class ValidationUtils {
 
@@ -41,19 +42,44 @@ public class ValidationUtils {
      * @return ResultCode.OK if the User object is valid, the corresponding ResultCode otherwise
      */
     public static ResultCode isValidUser(CreateUserRequest createUserRequest) {
-        ResultCode emailResult = isValidEmail(createUserRequest.email());
+        ResultCode emailResult = isValidEmail(createUserRequest.email(), true);
         if (emailResult != ResultCode.OK) {
             return emailResult;
         }
 
-        ResultCode usernameResult = isValidUsername(createUserRequest.username());
+        ResultCode usernameResult = isValidUsername(createUserRequest.username(), true);
         if (usernameResult != ResultCode.OK) {
             return usernameResult;
         }
 
-        ResultCode passwordResult = isValidPassword(createUserRequest.password());
+        ResultCode passwordResult = isValidPassword(createUserRequest.password(), true);
         if (passwordResult != ResultCode.OK) {
             return passwordResult;
+        }
+
+        return ResultCode.OK;
+    }
+
+    /**
+     * Check if a User object is valid
+     * 
+     * @param modifyUserRequest The User object to check
+     * @return ResultCode.OK if the User object is valid, the corresponding ResultCode otherwise
+     */
+    public static ResultCode isValidUser(ModifyUserRequest modifyUserRequest) {
+        ResultCode emailResult = isValidEmail(modifyUserRequest.email(), false);
+        if (emailResult != ResultCode.OK) {
+            return emailResult;
+        }
+
+        ResultCode usernameResult = isValidUsername(modifyUserRequest.username(), false);
+        if (usernameResult != ResultCode.OK) {
+            return usernameResult;
+        }
+
+        ResultCode nameResult = isValidName(modifyUserRequest.name(), false);
+        if (nameResult != ResultCode.OK) {
+            return nameResult;
         }
 
         return ResultCode.OK;
@@ -65,7 +91,11 @@ public class ValidationUtils {
      * @param email The email to check
      * @return ResultCode.OK if the email is valid, ResultCode.INVALID_EMAIL otherwise
      */
-    public static ResultCode isValidEmail(String email) {
+    public static ResultCode isValidEmail(String email, boolean isRequired) {
+        if (!isRequired && (email == null || email.isEmpty())) {
+            return ResultCode.OK;
+        }
+
         if (email.isEmpty()) {
             return ResultCode.EMPTY_FIELD;
         }
@@ -83,8 +113,12 @@ public class ValidationUtils {
      * @param username The username to check
      * @return ResultCode.OK if the username is valid, ResultCode.INVALID_USERNAME_FORMAT or ResultCode.INVALID_USERNAME_LENGTH otherwise
      */
-    public static ResultCode isValidUsername(String username) {
-        if (username.isEmpty()) {
+    public static ResultCode isValidUsername(String username, boolean isRequired) {
+        if (!isRequired && (username == null || username.isEmpty())) {
+            return ResultCode.OK;
+        }
+
+        if (username.isEmpty() && isRequired) {
             return ResultCode.EMPTY_FIELD;
         }
 
@@ -105,8 +139,12 @@ public class ValidationUtils {
      * @param name The name to check
      * @return ResultCode.OK if the name is valid, ResultCode.INVALID_NAME_FORMAT or ResultCode.INVALID_NAME_LENGTH otherwise
      */
-    public static ResultCode isValidName(String name) {
-        if (name.isEmpty()) {
+    public static ResultCode isValidName(String name, boolean isRequired) {
+        if (!isRequired && (name == null || name.isEmpty())) {
+            return ResultCode.OK;
+        }
+
+        if (name.isEmpty() && isRequired) {
             return ResultCode.EMPTY_FIELD;
         }
 
@@ -127,8 +165,12 @@ public class ValidationUtils {
      * @param password The password to check
      * @return ResultCode.OK if the password is valid, ResultCode.INVALID_PASSWORD_FORMAT or ResultCode.INVALID_PASSWORD_LENGTH otherwise
      */
-    public static ResultCode isValidPassword(String password) {
-        if (password.isEmpty()) {
+    public static ResultCode isValidPassword(String password, boolean isRequired) {
+        if (!isRequired && (password == null || password.isEmpty())) {
+            return ResultCode.OK;
+        }
+        
+        if (password.isEmpty() && isRequired) {
             return ResultCode.EMPTY_FIELD;
         }
 

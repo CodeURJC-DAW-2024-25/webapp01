@@ -44,9 +44,12 @@ public interface UserMapper {
     @Mapping(target = "comments", ignore = true)
     @Mapping(target = "avatar", ignore = true)
     @Mapping(target = "role", ignore = true)
+    @Mapping(target = "name", ignore = true)
+    @Mapping(target = "email", ignore = true)
+    @Mapping(target = "username", ignore = true)
     void updateFromModifyUserRequest(ModifyUserRequest modifyUserRequest,@MappingTarget User user);
     
-    @AfterMapping //TODO change this to permit modify partial user
+    @AfterMapping
     default void afterMapping(ModifyUserRequest modifyUserRequest, @MappingTarget User user) {
         if (modifyUserRequest.name() != null) {
             user.setName(modifyUserRequest.name());

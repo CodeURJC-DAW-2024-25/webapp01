@@ -14,7 +14,6 @@ import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -179,37 +178,34 @@ public class RestUserController {
     }
     
     @PatchMapping("/{id}")
-    public ResponseEntity<Object> modifyUser(@PathVariable long id,@ModelAttribute ModifyUserRequest modifyUser,BindingResult bindingResult) {
-        
+    public ResponseEntity<Object> modifyUser(
+        @PathVariable long id,
+        @ModelAttribute ModifyUserRequest modifyUser
+    ) {
         try {
-            // Get the authenticated user
             User authenticatedUser = controllerUtils.getAuthenticatedUser();
 
-            // Prevent user from modifying another user
             if (authenticatedUser.getId() != id) {
                 return ApiResponseDTO.error("You cannot modify another user", 403);
             }
-            if (bindingResult.hasErrors()) {
-                        return ApiResponseDTO.error("Validation failed: " + bindingResult.getFieldErrors());
-                    }
-            // Modify the user
+            
             PrivateUserDTO privateUser = userService.modifyUser(id, modifyUser);
 
-            // Return success message
             return ApiResponseDTO.ok(privateUser);
         } catch (NoSuchElementException e) {
-            // Return error message
             return ApiResponseDTO.error("User not found");
+        } catch (IllegalArgumentException e) {
+            return ApiResponseDTO.error(e.getMessage());
         } catch (Exception e) {
-            // Return error message
             return ApiResponseDTO.error("Error modifying user");
-    }
-    
+        }
     }
 
     @PatchMapping("/{id}/password")
-    public ResponseEntity<Object> modifyPassword(@PathVariable long id, @ModelAttribute ModifyUserPassword modifyUserPassword) {
-        
+    public ResponseEntity<Object> modifyPassword(
+        @PathVariable long id,
+        @ModelAttribute ModifyUserPassword modifyUserPassword
+    ) {
         Map<String, String> errors = new HashMap<>();
         
         try {
@@ -220,7 +216,6 @@ public class RestUserController {
             if (authenticatedUser.getId() != id) {
                 return ApiResponseDTO.error("You cannot modify another user", 403);
             }
-
 
             // Modify the password
             PrivateUserDTO privateUserDTO = userService.modifyPassword(id, modifyUserPassword, errors);

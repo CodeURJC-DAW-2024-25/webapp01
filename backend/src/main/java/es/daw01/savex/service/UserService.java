@@ -268,9 +268,14 @@ public class UserService {
 
     public PrivateUserDTO modifyUser(long id, ModifyUserRequest modifyUser){
         User user = userRepository.findById(id).orElseThrow();
+
+        ValidationUtils.ResultCode validationResult = ValidationUtils.isValidUser(modifyUser);
+        if (validationResult != ValidationUtils.ResultCode.OK) {
+            throw new IllegalArgumentException(validationResult.getErrorMessage());
+        }
+
         userMapper.updateFromModifyUserRequest(modifyUser, user);
-        userRepository.save(user);
-        return userMapper.toPrivateUserDTO(user);
+        return userMapper.toPrivateUserDTO(userRepository.save(user));
     }
 
     public PrivateUserDTO modifyPassword(long id, ModifyUserPassword modifyUserPassword, Map<String, String> errors) {
@@ -328,19 +333,31 @@ public class UserService {
         }
 
         // Validate the user email
-        ValidationUtils.ResultCode emailResult = ValidationUtils.isValidEmail(createUserRequest.email());
+        ValidationUtils.ResultCode emailResult = ValidationUtils.isValidEmail(
+            createUserRequest.email(),
+            true
+        );
+
         if (emailResult != ValidationUtils.ResultCode.OK) {
             errors.put("email", emailResult.getErrorMessage());
         }
 
         // Validate the username
-        ValidationUtils.ResultCode usernameResult = ValidationUtils.isValidUsername(createUserRequest.username());
+        ValidationUtils.ResultCode usernameResult = ValidationUtils.isValidUsername(
+            createUserRequest.username(),
+            true
+        );
+
         if (usernameResult != ValidationUtils.ResultCode.OK) {
             errors.put("username", usernameResult.getErrorMessage());
         }
 
         // Validate the password
-        ValidationUtils.ResultCode passwordResult = ValidationUtils.isValidPassword(createUserRequest.password());
+        ValidationUtils.ResultCode passwordResult = ValidationUtils.isValidPassword(
+            createUserRequest.password(),
+            true
+        );
+
         if (passwordResult != ValidationUtils.ResultCode.OK) {
             errors.put("password", passwordResult.getErrorMessage());
         }
