@@ -13,7 +13,6 @@ import es.daw01.savex.model.SupermarketType;
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
     
-    @Mapping(target = "_id", source = "productId")
     @Mapping(target = "product_id", source = "productId")
     @Mapping(target = "product_url", source = "productUrl")
     @Mapping(target = "product_type", source = "productType")

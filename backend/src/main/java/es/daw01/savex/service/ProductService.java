@@ -87,7 +87,6 @@ public class ProductService {
         List<ProductDTO> templateProducts = new ArrayList<>(count);
         for (int i = 0; i < 5; i++) {
             templateProducts.add(new ProductDTO(
-                "0",
                 "Supermarket",
                 "0",
                 "#",
