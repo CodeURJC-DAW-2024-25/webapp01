@@ -804,6 +804,15 @@
 						{
 							"name": "ShoppingList",
 							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{apiBaseURL}}/api/v1/lists/1"
+
+							}
+						},
+						{
+							"name": "ShoppingList",
+							"request": {
 								"method": "PATCH",
 								"header": [],
 								"body": {
@@ -811,12 +820,12 @@
 									"formdata": [
 										{
 											"key": "name",
-											"value": "Lista de la compra",
+											"value": "Shopping List",
 											"type": "text"
 										},
 										{
 											"key": "description",
-											"value": "Actualizada la lista de la compra",
+											"value": "Updated shopping list",
 											"type": "text"
 										}
 									]
