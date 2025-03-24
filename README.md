@@ -484,13 +484,13 @@ This diagram provides an overview of the application's structure, showing how di
 
 #### ✅ Top 5 Most Significant Commits
 
-| #  | Commit Message |
-|----|----------------|
-| 1º | 6aa01b5: merge: admin features (admin endpoints) |
-| 2º | e99a1c0: postman: posts batch tests |
-| 3º | 96ee9bc: - Swagger annotations (comments, posts, shoppinglist) - Added 404 code in the corresponding routes |
-| 4º | 1cee1ad: - api: normalized endpoints and fixed errors |
-| 5º | 7ec81bd: - postman: batch test for unauthorized & users - api: create users from API |
+| #  | Commit Message | Most Significant File |
+|----|----------------|-----------------------|
+| 1º | [merge: admin features (admin endpoints)](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/6aa01b5) | `ApiResponseDTO.java` |
+| 2º | [postman: posts batch tests](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/e99a1c0) | `postman-batch-test.json` |
+| 3º | [Swagger annotations (comments, posts, shoppinglist) - Added 404 code in the corresponding routes](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/96ee9bc) | `RestPostsController.java` |
+| 4º | [api: normalized endpoints and fixed errors](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/1cee1ad) | `RestUserController.java` |
+| 5º | [postman: batch test for unauthorized & users - api: create users from API](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/7ec81bd) | `postman-batch-test.json` |
 
 ---
 
