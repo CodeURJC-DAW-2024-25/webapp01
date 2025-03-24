@@ -67,14 +67,23 @@ public class RestProductsController {
         return ApiResponseDTO.ok(result);
     }
 
-    @GetMapping("activity/data")
+    @GetMapping("data")
     public ResponseEntity<Object> getActivityData() {
-        Map<String, Object> response = productService.data();
+        Map<String, Object> response = productService.getActivityData1();
         if (response.isEmpty()) {
             return ApiResponseDTO.error("No data found");
         }
         return ApiResponseDTO.ok(response);
     }
+
+    @GetMapping("/productschart")
+    public ResponseEntity<Object> getActivityData2() {
+        Map<String, Object> response = productService.getActivityData2();
+        if (response.isEmpty()) {
+            return ApiResponseDTO.error("No data found");
+        }
+    return ApiResponseDTO.ok(response);
+}
 
     @GetMapping("/{id}/suggested")
     public ResponseEntity<Object> suggestProducts(@PathVariable String id) {
