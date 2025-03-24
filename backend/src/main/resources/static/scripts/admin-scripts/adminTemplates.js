@@ -8,10 +8,10 @@ export function getUsersTBodyTemplate(users, total, maxReached) {
         users.forEach(user => {
             template += `
                 <tr>
-                    <td><kbd>@${user.username}</kbd></td>
-                    <td>${user.email}</td>
-                    <td>${user.role}</td>
-                    <td>${user.nComments}</td>
+                    <td>${user.id}</td>
+                    <td>${user.username}</td>
+                    <td>${user.name}</td>
+                    <td><kbd>${user.role}</kbd></td>
                     <td class="text-end">
                         <button class="btn btn-danger" data-admin-command="user-delete" data-user-id="${user.id}">Eliminar</button>
                     </td>
@@ -29,7 +29,6 @@ export function getUsersTBodyTemplate(users, total, maxReached) {
 
 export function getPostsTBodyTemplate(posts, total, maxReached) {
     let template = '';
-
     // If there are no posts, show a message
     if (posts.length === 0) template += `<tr><td colspan="5" class="text-center">No hay posts</td></tr>`;
     // Otherwise, show the posts
@@ -37,9 +36,9 @@ export function getPostsTBodyTemplate(posts, total, maxReached) {
         posts.forEach(post => {
             template += `
                 <tr data-post-id="${post.id}">
+                    <td>${post.id}</td>
                     <td>${post.title}</td>
                     <td>${post.author}</td>
-                    <td>${post.nComments}</td>
                     <td>${post.date}</td>
                     <td class="text-end">
                         <button class="btn btn-danger" data-admin-command="post-delete">Eliminar</button>
