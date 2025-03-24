@@ -7,6 +7,11 @@ import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.products.SupermarketStatsDTO;
 import es.daw01.savex.service.ProductService;
 import es.daw01.savex.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +28,23 @@ public class RestStatsController {
     @Autowired
     private UserService userService;
     
+
+    @Operation(summary = "Get the stats of the products")
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Stats fetched successfully",
+            content = {@Content(
+                mediaType = "application/json", 
+                schema = @Schema(implementation = SupermarketStatsDTO.class)
+            )}
+        ),
+        @ApiResponse(
+            responseCode = "500",
+            description = "There was an error fetching the stats",
+            content = @Content
+        )
+    })
     @GetMapping("/products")
     public ResponseEntity<Object> getProductsStats() {
         try {
@@ -33,6 +55,22 @@ public class RestStatsController {
         }
     }
 
+    @Operation(summary = "Get the stats of the users")
+    @ApiResponses(value = {
+        @ApiResponse(
+            responseCode = "200",
+            description = "Stats fetched successfully",
+            content = {@Content(
+                mediaType = "application/json", 
+                schema = @Schema(implementation = SupermarketStatsDTO.class)
+            )}
+        ),
+        @ApiResponse(
+            responseCode = "500",
+            description = "There was an error fetching the stats",
+            content = @Content
+        )
+    })
     @GetMapping("/users")
     public ResponseEntity<Object> getUsersStats() {
         try {
