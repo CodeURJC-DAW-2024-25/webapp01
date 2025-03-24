@@ -2,8 +2,8 @@
 services:
   app:
     build:
-      context: .
-      dockerfile: Dockerfile
+      context: ../
+      dockerfile: docker/Dockerfile
     container_name: springboot-app
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/savexdb
