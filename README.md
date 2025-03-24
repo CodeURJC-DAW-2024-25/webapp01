@@ -343,7 +343,7 @@ This diagram provides an overview of the application's structure, showing how di
 
 ## ✋ Participation (I)
 
-### Victor Arroyo Madera
+### 🧑‍💻 Victor Arroyo Madera
 
 - Refactored the `RestShoppingListController` by removing unused imports and dependencies.
 - Implemented REST endpoints to **create** and **delete** shopping lists, with proper request validation.
@@ -367,7 +367,8 @@ This diagram provides an overview of the application's structure, showing how di
 
 ---
 
-### Diego Sánchez Rincón
+### 🧑‍💻 Diego Sánchez Rincón
+
 - Developed the post management system, allowing administrators to create, edit, and delete blog posts.
 - Implemented a Markdown Service to convert user input into formatted HTML content for blog posts.
 - Implemented an API Service to unify API calls and handle data retrieval for product information.
@@ -391,7 +392,7 @@ This diagram provides an overview of the application's structure, showing how di
 
 ---
 
-### Jaime José Portillo Pérez
+### 🧑‍💻 Jaime José Portillo Pérez
 
 - Developed the searchbar algorithm
 - Developed the suggested/related products algorithm
@@ -416,7 +417,7 @@ This diagram provides an overview of the application's structure, showing how di
 
 ---
 
-### Daniel Santos López
+### 🧑‍💻 Daniel Santos López
 
 - Developed shopping list management features, allowing users to create, edit, and delete lists.
 - Implemented the product addition and removal functionality for shopping lists, enabling users to manage their items.
@@ -440,7 +441,8 @@ This diagram provides an overview of the application's structure, showing how di
 
 ---
 
-### Elena Tordesillas Fernández
+### 🧑‍💻 Elena Tordesillas Fernández
+
 - Implemented endpoints for retrieving and updating shopping lists.
 - Implemented update comment functionality.
 - Improved list creation and deletion functionality.
@@ -461,29 +463,9 @@ This diagram provides an overview of the application's structure, showing how di
 
 ---
 
-## 📄 License
-
-```
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-```
-
----
-
 ## ✋ Participation (II)
 
 ### 🧑‍💻 Jaime José Portillo Pérez
-
-#### 📌 Description of Contributions
 
 - API REST Endpoints for admin features (users and posts management).
   - Delete user.
@@ -509,3 +491,51 @@ limitations under the License.
 | 3º | 96ee9bc: - Swagger annotations (comments, posts, shoppinglist) - Added 404 code in the corresponding routes |
 | 4º | 1cee1ad: - api: normalized endpoints and fixed errors |
 | 5º | 7ec81bd: - postman: batch test for unauthorized & users - api: create users from API |
+
+---
+
+### 🧑‍💻 Diego Sánchez Rincón
+
+- Contribute to the creation of the Postman collection.  
+- Initial API configuration.  
+- Features related to posts (mappers, DTOs, endpoints).
+- Features related to comments (mappers, DTOs, endpoints).
+- Utilities for centralized date formatting.
+- Dockerfile and docker-compose files.
+- Standardization of product models for interaction with the database and external API.  
+- Endpoints to query advanced algorithms (suggested products and price comparison).  
+- Code cleanup and optimization.  
+- Generation of OpenAPI documentation and web route access.  
+- Contribution to shopping list functionalities.  
+- Help unify form field validation.  
+- Endpoints to retrieve app chart statistics.  
+
+#### ✅ Top 5 Most Significant Commits
+
+| #  | Commit Message | File(s) |
+|----|----------------|---------|
+| 1º | [Docker: Add Dockerfile and docker-compose config](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/bd6692a7abe899f6b0da640fb3e6f00096949307) | `Dockerfile` & `docker-compose.yml` |
+| 2º | [Feature: Add ComparationAlgorithm and LevenshteinUtils for product comparison logic](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/fba4bf0bbe2f34d0d11532104f8ae2f0c88fd972) | `ComparationAlgorithm.java` & `LevenshteinUtils.java` |
+| 3º | [Feat: Implement post creation and update functionality with enhanced reading time calculation and security restrictions](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a4388fade19c56898c1936187a40e98b8888dde3) | `RestPostsController.java` & `PostMapper.java` |
+| 4º | [feat: Add OpenAPI generator configuration and update API documentation settings](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/5da2003ddbd42405b98c68c18e8e990dfebf8c5e) | `pom.xml` & `application.properties` |
+| 5º | [Refactor: Enhance user modification validation and update UserMapper to support partial updates](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/7b255e26acbaa6d95eeae046dfa90cf5465e3c02) | `ValidationUtils.java` & `UserMapper.java` |
+
+---
+
+## 📄 License
+
+```
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+```
+
+---
