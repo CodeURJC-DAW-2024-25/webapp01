@@ -341,7 +341,7 @@ This diagram provides an overview of the application's structure, showing how di
 
 ---
 
-## ✋ Participation
+## ✋ Participation (I)
 
 ### 🧑‍💻 Victor Arroyo Madera
 
@@ -492,3 +492,34 @@ limitations under the License.
 ```
 
 ---
+
+## ✋ Participation (II)
+
+### 🧑‍💻 Jaime José Portillo Pérez
+
+#### 📌 Description of Contributions
+
+- API REST Endpoints for admin features (users and posts management).
+  - Delete user.
+  - List all users.
+  - List all posts.
+- Swagger documentation for (comments, shopping list controller, posts).
+- Developed the APIResponseDTO class.
+  - Normalized all the API responses using the APIResponseDTO class.
+  - ApiError class for error responses.
+- Created several API queries in Postman to test the API.
+  - Added Postman tests dedicated for every query.
+- Server management and deployment with Docker (developed alongside Diego).
+  - Developed the Docker
+  - Deployed the server on ETSII server.
+- Removed sensitive information from API responses (passwords).
+
+#### ✅ Top 5 Most Significant Commits
+
+| #  | Commit Message |
+|----|----------------|
+| 1º | 6aa01b5: merge: admin features (admin endpoints) |
+| 2º | e99a1c0: postman: posts batch tests |
+| 3º | 96ee9bc: - Swagger annotations (comments, posts, shoppinglist) - Added 404 code in the corresponding routes |
+| 4º | 1cee1ad: - api: normalized endpoints and fixed errors |
+| 5º | 7ec81bd: - postman: batch test for unauthorized & users - api: create users from API |
