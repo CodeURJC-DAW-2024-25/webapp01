@@ -22,12 +22,12 @@ To get started with SaveX, follow these steps:
 
 ### 🛠️ Prerequisites
 
-| Technology | Version | Description                                                   |
-|------------|---------|---------------------------------------------------------------|
-| Java       | 21      | Programming language used for backend development.            |
-| Spring Boot| 3.4.3   | Framework for building Java-based enterprise applications.    |
-| MySQL      | 8.0.33  | Relational database management system for data storage.       |
-| Maven      | 3.8.3+  | Build automation tool used for managing project dependencies. |
+| Technology  | Version | Description                                                   |
+| ----------- | ------- | ------------------------------------------------------------- |
+| Java        | 21      | Programming language used for backend development.            |
+| Spring Boot | 3.4.3   | Framework for building Java-based enterprise applications.    |
+| MySQL       | 8.0.33  | Relational database management system for data storage.       |
+| Maven       | 3.8.3+  | Build automation tool used for managing project dependencies. |
 
 ### 🏗️ Installation and Set Up
 
@@ -84,7 +84,7 @@ To get started with SaveX using Docker, follow these steps:
 ### 🛠️ Prerequisites
 
 | Technology     | Version | Description                                                                 |
-|----------------|---------|-----------------------------------------------------------------------------|
+| -------------- | ------- | --------------------------------------------------------------------------- |
 | Docker         | 20.10.8 | Containerization platform for building, shipping, and running applications. |
 | Docker Compose | 1.29.2  | Tool for defining and running multi-container Docker applications.          |
 
@@ -115,69 +115,69 @@ Open your web browser and navigate to `https://localhost:8443` to access the Sav
 
 ### 👤 User
 
-| Field    | Type                |
-|----------|---------------------|
-| id       | Primary key         |
-| email    | String (unique)     |
-| username | String (unique)     |
-| name     | String              |
-| password | String (encrypted)  |
-| avatar   | Blob                |
-| created  | Date                |
+| Field    | Type               |
+| -------- | ------------------ |
+| id       | Primary key        |
+| email    | String (unique)    |
+| username | String (unique)    |
+| name     | String             |
+| password | String (encrypted) |
+| avatar   | Blob               |
+| created  | Date               |
 
 ### 🛒 Supermarket
 
-| Field    | Type            |
-|----------|-----------------|
-| id       | Primary key     |
-| name     | String (unique) |
+| Field | Type            |
+| ----- | --------------- |
+| id    | Primary key     |
+| name  | String (unique) |
 
 ### 🛍️ Product (For caching data)
 
-| Field        | Type                        |
-|--------------|-----------------------------|
-| id           | Primary key                 |
-| name         | String                      |
-| description  | String                      |
-| price        | Float                       |
-| supermarket  | Foreign key (Supermarket.id)|
-| category     | String                      |
-| image        | String                      |
-| last_updated | Date                        |
-| created      | Date                        |
+| Field        | Type                         |
+| ------------ | ---------------------------- |
+| id           | Primary key                  |
+| name         | String                       |
+| description  | String                       |
+| price        | Float                        |
+| supermarket  | Foreign key (Supermarket.id) |
+| category     | String                       |
+| image        | String                       |
+| last_updated | Date                         |
+| created      | Date                         |
 
 ### 📝 Shopping List
 
-| Field     | Type                        |
-|-----------|-----------------------------|
-| id        | Primary key                 |
-| name      | String                      |
-| user_id   | Foreign key (User.id)       |
-| created   | Date                        |
+| Field   | Type                  |
+| ------- | --------------------- |
+| id      | Primary key           |
+| name    | String                |
+| user_id | Foreign key (User.id) |
+| created | Date                  |
 
 ### 📝 Post
 
-| Field       | Type                      |
-|-------------|-------------------------- |
-| id          | Primary key               |
-| title       | String                    |
-| description | String                    |
-| banner      | Blob                      |
-| content     | String                    |
-| created     | Date                      |
-| modified    | Date                      |
-| author      | String                    |
-| visibility  | Enum (public, private)    |
+| Field       | Type                   |
+| ----------- | ---------------------- |
+| id          | Primary key            |
+| title       | String                 |
+| description | String                 |
+| banner      | Blob                   |
+| content     | String                 |
+| created     | Date                   |
+| modified    | Date                   |
+| author      | String                 |
+| visibility  | Enum (public, private) |
 
 ### 💬 Comment
 
-| Field     | Type                        |
-|-----------|-----------------------------|
-| id        | Primary key                 |
-| content   | String                      |
-| author    | Foreign key (User.id)       |
-| created   | Date                        |
-| modified  | Date                        |
+| Field    | Type                  |
+| -------- | --------------------- |
+| id       | Primary key           |
+| content  | String                |
+| author   | Foreign key (User.id) |
+| created  | Date                  |
+| modified | Date                  |
 
 ---
 
@@ -193,20 +193,20 @@ This schema provides an overview of how different entities interact within the s
 
 ## 🔒 User Permissions
 
-| Permission                                       | Anonymous User | Registered User | Admin User  |
-| ------------------------------------------------ | -------------- | --------------- | ----------- |
-| Can view homepage                                | ✅             | ✅              | ✅         |
-| Can view products                                | ✅             | ✅              | ✅         |
-| Can view product details                         | ✅             | ✅              | ✅         |
-| Can search for products                          | ✅             | ✅              | ✅         |
-| Can compare products                             | ✅             | ✅              | ✅         |
-| Can view posts and comments                      | ✅             | ✅              | ✅         |
-| Can create / edit / delete own profile           | ❌             | ✅              | ❌         |
-| Can create / edit / delete shopping lists        | ❌             | ✅              | ✅         |
-| Can create / edit / delete comments              | ❌             | ✅              | ✅         |
-| Can manage other users' accounts                 | ❌             | ❌              | ✅         |
-| Can view user activity logs                      | ❌             | ❌              | ✅         |
-| Can create / edit / delete posts                 | ❌             | ❌              | ✅         |
+| Permission                                | Anonymous User | Registered User | Admin User |
+| ----------------------------------------- | -------------- | --------------- | ---------- |
+| Can view homepage                         | ✅              | ✅               | ✅          |
+| Can view products                         | ✅              | ✅               | ✅          |
+| Can view product details                  | ✅              | ✅               | ✅          |
+| Can search for products                   | ✅              | ✅               | ✅          |
+| Can compare products                      | ✅              | ✅               | ✅          |
+| Can view posts and comments               | ✅              | ✅               | ✅          |
+| Can create / edit / delete own profile    | ❌              | ✅               | ❌          |
+| Can create / edit / delete shopping lists | ❌              | ✅               | ✅          |
+| Can create / edit / delete comments       | ❌              | ✅               | ✅          |
+| Can manage other users' accounts          | ❌              | ❌               | ✅          |
+| Can view user activity logs               | ❌              | ❌               | ✅          |
+| Can create / edit / delete posts          | ❌              | ❌               | ✅          |
 
 ---
 
@@ -357,13 +357,13 @@ This diagram provides an overview of the application's structure, showing how di
 
 #### Commits
 
-| #  | Commit Message                                                                                                                                                                      | File(s)                           |
-|----|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
-| 1º | [refactor: Remove unused imports and dependencies in RestShoppingListController](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/47d3929b84b0915e01b7d3765e8f1a1344633570) | `RestShoppingListController.java`|
-| 2º | [Feat: Implement create and delete shopping list endpoints with request validation](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/dcb6e7058c44edc5cc0861616a2eb18a2aed5eb6) | `RestShoppingListController.java`|
-| 3º | [Feat: Simplify shopping list controller methods and enhance response handling](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/4c37cf2abfedf2af82277881fc950d223b1404c5) | `RestShoppingListController.java`|
-| 4º | [Feat: Refactor addProductToList method to improve response handling and user validation; add listResponse DTO for structured responses](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/edb9e8e47ab8aec4c28ccd2cb6c633c127c460e1) | `ShoppingListService.java`, `ListResponse.java` |
-| 5º | [Feat: Update security configuration and improve API documentation for user and shopping list endpoints](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/8c930a2ca6cce42c0577bbb7829ad6c474f310b3) | `SecurityConfig.java`, `JwtTokenProvider.java` |
+| #   | Commit Message                                                                                                                                                                                                                             | File(s)                                         |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- |
+| 1º  | [refactor: Remove unused imports and dependencies in RestShoppingListController](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/47d3929b84b0915e01b7d3765e8f1a1344633570)                                                         | `RestShoppingListController.java`               |
+| 2º  | [Feat: Implement create and delete shopping list endpoints with request validation](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/dcb6e7058c44edc5cc0861616a2eb18a2aed5eb6)                                                      | `RestShoppingListController.java`               |
+| 3º  | [Feat: Simplify shopping list controller methods and enhance response handling](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/4c37cf2abfedf2af82277881fc950d223b1404c5)                                                          | `RestShoppingListController.java`               |
+| 4º  | [Feat: Refactor addProductToList method to improve response handling and user validation; add listResponse DTO for structured responses](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/edb9e8e47ab8aec4c28ccd2cb6c633c127c460e1) | `ShoppingListService.java`, `ListResponse.java` |
+| 5º  | [Feat: Update security configuration and improve API documentation for user and shopping list endpoints](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/8c930a2ca6cce42c0577bbb7829ad6c474f310b3)                                 | `SecurityConfig.java`, `JwtTokenProvider.java`  |
 
 ---
 
@@ -382,13 +382,13 @@ This diagram provides an overview of the application's structure, showing how di
 
 #### Commits
 
-| #  | Commit Message                                                                                                                                                                       | File(s)                       |  
-|----|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------|  
-| 1º | [Feat: Enhance product search functionality with pagination and filtering options](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/39b45a556165f8f0bc64bfafbc1554c6d2c29bd9) | `ProductsController.java`     |
-| 2º | [feat: implement caching and data fetching services for improved product loading](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/2d4938816e715d7459ae460243f97677f49e37dd)  | `fetchService.js`             |
-| 3º | [Feat: Add Markdown rendering for post content and improve post detail styling](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b1c044ef414ebf05bfa415f0df3aea2db59e2a9e)    | `MarkdownService.java`        |
-| 4º | [Refactor: Simplify product search logic and add REST API for product retrieval](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/9af21b67d5d57c3719fc01eefd3a8f559f38751c)   | `RestProductsController.java` |
-| 5º | [Feat: Implement load more functionality for posts with AJAX](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/f11117d03b020a4760ea32f113bea088e6fa5b7b)                      | `fetchPosts.js`               |
+| #   | Commit Message                                                                                                                                                                       | File(s)                       |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------- |
+| 1º  | [Feat: Enhance product search functionality with pagination and filtering options](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/39b45a556165f8f0bc64bfafbc1554c6d2c29bd9) | `ProductsController.java`     |
+| 2º  | [feat: implement caching and data fetching services for improved product loading](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/2d4938816e715d7459ae460243f97677f49e37dd)  | `fetchService.js`             |
+| 3º  | [Feat: Add Markdown rendering for post content and improve post detail styling](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b1c044ef414ebf05bfa415f0df3aea2db59e2a9e)    | `MarkdownService.java`        |
+| 4º  | [Refactor: Simplify product search logic and add REST API for product retrieval](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/9af21b67d5d57c3719fc01eefd3a8f559f38751c)   | `RestProductsController.java` |
+| 5º  | [Feat: Implement load more functionality for posts with AJAX](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/f11117d03b020a4760ea32f113bea088e6fa5b7b)                      | `fetchPosts.js`               |
 
 ---
 
@@ -407,13 +407,13 @@ This diagram provides an overview of the application's structure, showing how di
 
 #### Commits
 
-| #  | Commit Message                                                                                                                                                           | File(s)                       |  
-|----|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------|  
-| 1º | [feat: Comparation of products algorithm](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/d5dc344e1a5c87f4f257b2ac339fb010e24cfccb)                              | `ProductsController.java`     |
-| 2º | [feat: async admin lists all users](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/29e9a135678693d7e119d0c0d89b82d77def7e23)                                    | `AdminController.java`        |
-| 3º | [feat: suggested products](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a39956230e80f7e279362d97b53aacc0b0f00e3e)                                             | `suggestedProducts.js`        |
-| 4º | [posts page](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/e0d47f80fc6d64d4c631e108c7f0e4d6b7d178df)                                                           | `post-page.css`               |
-| 5º | [temp: admin controller](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b11735b7d993995ff68252c1aa9c22788b12283e)                                               | `adminGraphs.js`              |
+| #   | Commit Message                                                                                                                              | File(s)                   |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------- |
+| 1º  | [feat: Comparation of products algorithm](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/d5dc344e1a5c87f4f257b2ac339fb010e24cfccb) | `ProductsController.java` |
+| 2º  | [feat: async admin lists all users](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/29e9a135678693d7e119d0c0d89b82d77def7e23)       | `AdminController.java`    |
+| 3º  | [feat: suggested products](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a39956230e80f7e279362d97b53aacc0b0f00e3e)                | `suggestedProducts.js`    |
+| 4º  | [posts page](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/e0d47f80fc6d64d4c631e108c7f0e4d6b7d178df)                              | `post-page.css`           |
+| 5º  | [temp: admin controller](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b11735b7d993995ff68252c1aa9c22788b12283e)                  | `adminGraphs.js`          |
 
 ---
 
@@ -431,13 +431,13 @@ This diagram provides an overview of the application's structure, showing how di
   
 #### Commits
 
-| #  | Commit Message                                                                                                                                                                              | File(s)                                 |  
-|----|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|  
-| 1º | [Feat: add functionality to add products to user shopping lists](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a82167b9da77a8143a338e10d452245a38078df0)                          | `RestShoppingListController.java`       |
-| 2º | [Feat: Add validation to user registration and enhance error handling in AuthController](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/31e6646e9b078231f67172c304ab2169dc8878c2)  | `AuthController.java`                   |
-| 3º | [Feat: implemented functionality to change user password with validations](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/46934c4313ce00c01b78011202c0791b4e65a241)                | `SettingsController.java`               |
-| 4º | [Feat: Implement error handling on the login page with an informational popup](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b7c99685582431a51b59e4db1163ce7b14f714f6)            | `AuthController.java`                   |
-| 5º | [Feat: Implement avatar upload and retrieval functionality in user profile](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/692e38cb735211884a484f55f920f1c425783592)               | `RestUserController.java`               |
+| #   | Commit Message                                                                                                                                                                             | File(s)                           |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | --------------------------------- |
+| 1º  | [Feat: add functionality to add products to user shopping lists](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a82167b9da77a8143a338e10d452245a38078df0)                         | `RestShoppingListController.java` |
+| 2º  | [Feat: Add validation to user registration and enhance error handling in AuthController](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/31e6646e9b078231f67172c304ab2169dc8878c2) | `AuthController.java`             |
+| 3º  | [Feat: implemented functionality to change user password with validations](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/46934c4313ce00c01b78011202c0791b4e65a241)               | `SettingsController.java`         |
+| 4º  | [Feat: Implement error handling on the login page with an informational popup](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b7c99685582431a51b59e4db1163ce7b14f714f6)           | `AuthController.java`             |
+| 5º  | [Feat: Implement avatar upload and retrieval functionality in user profile](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/692e38cb735211884a484f55f920f1c425783592)              | `RestUserController.java`         |
 
 ---
 
@@ -453,13 +453,13 @@ This diagram provides an overview of the application's structure, showing how di
 
 #### Commits
 
-| #   | Commit Message                                                                                                                                                                          | File(s)                       |
-| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| 1º  | [feat: Implement update comment functionality](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/c9c9617efd546dadc2bb7ccdaf67afd09bd5faad) | `CommentService.java`         |
-| 2º  | [feat: Add list update method and fix list deletion](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/795b4739bb413b2d2dbf29c83251263f17bdd184)                                   | `RestShoppingListController` |
-| 3º  | [feat: Implement activity data](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/1fe95f225004179140b74c14c0dc219a71d55c09)                                                         | `RestProductController` |
-| 4º  | [feat: Update API documentation PATCH methods in shopping list](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/e8ede751c72eb09f01a3a2a9904231fc2fd56b5d)                                                                         | `SaveX API.postman_collection.json`         |
-| 5º  | [feat: Update CreateList endpoint to use ModelAttribute and modify Postman collection for form data](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/12ac0c86b76a1755b8bf0f351b5a6b3d2cb5a4d8)                                                                   | `SaveX API.postman_collection.json`                  |
+| #   | Commit Message                                                                                                                                                                                         | File(s)                             |
+| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------- |
+| 1º  | [feat: Implement update comment functionality](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/c9c9617efd546dadc2bb7ccdaf67afd09bd5faad)                                                       | `CommentService.java`               |
+| 2º  | [feat: Add list update method and fix list deletion](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/795b4739bb413b2d2dbf29c83251263f17bdd184)                                                 | `RestShoppingListController`        |
+| 3º  | [feat: Implement activity data](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/1fe95f225004179140b74c14c0dc219a71d55c09)                                                                      | `RestProductController`             |
+| 4º  | [feat: Update API documentation PATCH methods in shopping list](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/e8ede751c72eb09f01a3a2a9904231fc2fd56b5d)                                      | `SaveX API.postman_collection.json` |
+| 5º  | [feat: Update CreateList endpoint to use ModelAttribute and modify Postman collection for form data](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/12ac0c86b76a1755b8bf0f351b5a6b3d2cb5a4d8) | `SaveX API.postman_collection.json` |
 
 ---
 
@@ -508,13 +508,13 @@ This diagram provides an overview of the application's structure, showing how di
 
 #### ✅ Top 5 Most Significant Commits
 
-| #  | Commit Message |
-|----|----------------|
-| 1º | 6aa01b5: merge: admin features (admin endpoints) |
-| 2º | e99a1c0: postman: posts batch tests |
-| 3º | 96ee9bc: - Swagger annotations (comments, posts, shoppinglist) - Added 404 code in the corresponding routes |
-| 4º | 1cee1ad: - api: normalized endpoints and fixed errors |
-| 5º | 7ec81bd: - postman: batch test for unauthorized & users - api: create users from API |
+| #   | Commit Message                                                                                              |
+| --- | ----------------------------------------------------------------------------------------------------------- |
+| 1º  | 6aa01b5: merge: admin features (admin endpoints)                                                            |
+| 2º  | e99a1c0: postman: posts batch tests                                                                         |
+| 3º  | 96ee9bc: - Swagger annotations (comments, posts, shoppinglist) - Added 404 code in the corresponding routes |
+| 4º  | 1cee1ad: - api: normalized endpoints and fixed errors                                                       |
+| 5º  | 7ec81bd: - postman: batch test for unauthorized & users - api: create users from API                        |
 
 ---
 
@@ -536,16 +536,39 @@ This diagram provides an overview of the application's structure, showing how di
 
 #### ✅ Top 5 Most Significant Commits
 
-| #  | Commit Message | File(s) |
-|----|----------------|---------|
-| 1º | [Docker: Add Dockerfile and docker-compose config](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/bd6692a7abe899f6b0da640fb3e6f00096949307) | `Dockerfile` & `docker-compose.yml` |
-| 2º | [Feature: Add ComparationAlgorithm and LevenshteinUtils for product comparison logic](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/fba4bf0bbe2f34d0d11532104f8ae2f0c88fd972) | `ComparationAlgorithm.java` & `LevenshteinUtils.java` |
-| 3º | [Feat: Implement post creation and update functionality with enhanced reading time calculation and security restrictions](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a4388fade19c56898c1936187a40e98b8888dde3) | `RestPostsController.java` & `PostMapper.java` |
-| 4º | [feat: Add OpenAPI generator configuration and update API documentation settings](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/5da2003ddbd42405b98c68c18e8e990dfebf8c5e) | `pom.xml` & `application.properties` |
-| 5º | [Refactor: Enhance user modification validation and update UserMapper to support partial updates](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/7b255e26acbaa6d95eeae046dfa90cf5465e3c02) | `ValidationUtils.java` & `UserMapper.java` |
+| #   | Commit Message                                                                                                                                                                                                              | File(s)                                               |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| 1º  | [Docker: Add Dockerfile and docker-compose config](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/bd6692a7abe899f6b0da640fb3e6f00096949307)                                                                        | `Dockerfile` & `docker-compose.yml`                   |
+| 2º  | [Feature: Add ComparationAlgorithm and LevenshteinUtils for product comparison logic](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/fba4bf0bbe2f34d0d11532104f8ae2f0c88fd972)                                     | `ComparationAlgorithm.java` & `LevenshteinUtils.java` |
+| 3º  | [Feat: Implement post creation and update functionality with enhanced reading time calculation and security restrictions](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a4388fade19c56898c1936187a40e98b8888dde3) | `RestPostsController.java` & `PostMapper.java`        |
+| 4º  | [feat: Add OpenAPI generator configuration and update API documentation settings](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/5da2003ddbd42405b98c68c18e8e990dfebf8c5e)                                         | `pom.xml` & `application.properties`                  |
+| 5º  | [Refactor: Enhance user modification validation and update UserMapper to support partial updates](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/7b255e26acbaa6d95eeae046dfa90cf5465e3c02)                         | `ValidationUtils.java` & `UserMapper.java`            |
 
 ---
 
+### 🧑‍💻 Daniel Santos López
+
+- Added Swagger/OpenAPI annotations to enhance API documentation.
+- Refactored Postman collection for better organization.
+- Simplified validation logic in ValidationUtils.
+- Refactored user registration and added validation utilities.
+- Implemented user registration with security updates.
+- Added modifyPassword method and updated user modification logic with DTOs.
+- Implemented user profile management endpoints.
+- Implemented avatar management endpoints: upload, modify, delete, and retrieval.
+
+#### ✅ Top 5 Most Significant Commits
+
+| #   | Commit Message                                                                                                                                                                                                    | File(s)                                       |
+| --- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------- |
+| 1º  | [feat: Enhance API documentation with OpenAPI annotations for product endpoints](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/46d61484c4aa9d5a86ce10189aa6f31e5d5a10c3)                                | `RestProductsController`&`RestUserController` |
+| 2º  | [Postman: Refactor, group the API into folders, and structure the request format.](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/2f0c1ffbf31c065bfea740c2fbc49acedacb79f0)                              | `SaveX Postman Collection`                    |
+| 3º  | [Refactor: add user modification DTOs and update user modification logic in UserService and RestUserController](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/ccf2c11ecd7aae6b59ce5fca3101d9196a4aae36) | `RestUserController` & `UserMapper.java`      |
+| 4º  | [Feat: Implement user avatar management endpoints for upload, modification, and deletion](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/55800849c4af520d897b7fb1abb05ebfb5606db6)                       | `RestUserController`                          |
+| 5º  | [Feat: Implement user avatar management endpoints for upload, modification, and deletion](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/5befe6a9cde87125d850c48410a55d38cbc6b1da)                       | `ValidationUtils.java` & `UserMapper.java`    |
+
+
+---
 ## 📄 License
 
 ```
