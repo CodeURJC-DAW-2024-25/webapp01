@@ -107,4 +107,12 @@ public class ProductService {
     public void save(Product product) {
         productRepository.save(product);
     }
+
+    public Map<String, Object>data(){
+        Map<String, Object> response = new HashMap<>();
+        response.put("labels", new String[]{"Enero", "Febrero", "Marzo", "Abril", "Mayo", "Junio", "Julio", "Agosto", "Septiembre", "Octubre", "Noviembre", "Diciembre"});
+        response.put("data", new int[]{1000, 1200, 900, 1500, 2000, 1800, 2500, 1900, 1300, 1700, 2200, 2500});
+        return response;
+    }
+
 }

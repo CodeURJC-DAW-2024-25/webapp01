@@ -11,6 +11,7 @@ import es.daw01.savex.components.ComparationAlgorithm;
 import es.daw01.savex.service.ApiService;
 import es.daw01.savex.service.ProductService;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -64,6 +65,15 @@ public class RestProductsController {
         }
 
         return ApiResponseDTO.ok(result);
+    }
+
+    @GetMapping("activity/data")
+    public ResponseEntity<Object> getActivityData() {
+        Map<String, Object> response = productService.data();
+        if (response.isEmpty()) {
+            return ApiResponseDTO.error("No data found");
+        }
+        return ApiResponseDTO.ok(response);
     }
 
     @GetMapping("/{id}/suggested")
