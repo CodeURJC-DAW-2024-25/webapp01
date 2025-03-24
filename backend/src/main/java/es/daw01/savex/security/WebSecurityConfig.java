@@ -114,7 +114,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    @Order(1)
+    @Order(2)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         // Authentication provider
@@ -153,7 +153,7 @@ public class WebSecurityConfig {
 
                         // API Docs
                         .requestMatchers("/v3/api-docs.yaml").permitAll()
-                        .requestMatchers("/swagger-ui**").permitAll()
+                        .requestMatchers("/swagger-ui.html").permitAll()
 
                         // Other routes
                         .anyRequest().authenticated()
