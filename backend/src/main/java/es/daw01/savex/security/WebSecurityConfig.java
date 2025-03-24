@@ -93,6 +93,8 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/lists/**").authenticated()
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/lists/**").authenticated()
 
+                        .requestMatchers(HttpMethod.GET, "/api/v1/stats/**").permitAll()
+                        
                         .anyRequest().authenticated());
 
         // Disable Form login Authentication
@@ -114,7 +116,7 @@ public class WebSecurityConfig {
     }
 
     @Bean
-    @Order(1)
+    @Order(2)
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
 
         // Authentication provider
@@ -153,7 +155,7 @@ public class WebSecurityConfig {
 
                         // API Docs
                         .requestMatchers("/v3/api-docs.yaml").permitAll()
-                        .requestMatchers("/swagger-ui**").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
 
                         // Other routes
                         .anyRequest().authenticated()

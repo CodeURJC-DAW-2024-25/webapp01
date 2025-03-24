@@ -702,6 +702,29 @@
 							]
 						}
 					]
+				},
+				{
+					"name": "Stats",
+					"item": [
+						{
+							"name": "Supermarkets",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{apiBaseURL}}/api/v1/stats/products"
+							},
+							"response": []
+						},
+						{
+							"name": "Users",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": "{{apiBaseURL}}/api/v1/stats/users"
+							},
+							"response": []
+						}
+					]
 				}
 			]
 		},

@@ -341,25 +341,45 @@ This diagram provides an overview of the application's structure, showing how di
 
 ---
 
-## ✋ Participation
+## ✋ Participation (I)
 
-### Victor Arroyo Madera  
-- Developed the product search and filtering functionality, allowing users to search for products based on multiple criteria.  
-- Implemented advanced filters, enabling users to refine their searches by supermarket, category, and price range.  
-- Created a responsive and dynamic search interface with real-time filtering for a seamless user experience.  
-- Integrated the price comparison algorithm into the search system to display the most cost-effective options.  
-- Optimized query performance by implementing database indexing on key product attributes, improving search efficiency.  
-- Refactored product comparison logic to enhance accuracy and improve null handling.  
-- Contributed to project documentation, detailing system functionalities and user guidelines.  
+### 🧑‍💻 Victor Arroyo Madera
 
-#### Commits:  
-| #  | Commit Message                                                                                                                                                                                                | File(s)                           |  
-|----|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|  
-| 1º | [feat: implement dynamic product matching algorithm with static threshold](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/6ff1e60f259b01d06e215fa1fdab9c30c45c24b2)                                  | `ProductMatchingAlgorithm.java`   |  
-| 2º | [feat: enhance product comparison table with improved styling and sorting functionality](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/9af399b368d948de34cb2288968e4a49264df261)                    | `ProductComparisonTable.js`       |  
-| 3º | [refactor: refactor product DTO mapping to ProductService and remove redundant conversion method](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/4ef8dd4efb9cd207c4a94cf982db6aa2fbb3d8df)           | `ProductService.java`             |  
-| 4º | [feat: add comparison table feature and related styles to product detail page](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a147d94790cd23ec7ac1559bcb12975a74956b7c)                              | `ProductDetailPage.js`            |  
-| 5º | [feat: add price comparison algorithm details to README and clean up unused import in ProductsController](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/ecb588d4a644f14e5a4f223e0428a8e140a0a44a)   | `ProductRepository.java`          |  
+#### 📌 Description of Contributions
+
+- Refactored the `RestShoppingListController` by removing unused imports and dependencies.
+- Implemented REST endpoints to **create** and **delete shopping lists**, including request validation.
+- Simplified shopping list controller methods and enhanced response structure for consistency.
+- Refactored product management in shopping lists to improve response handling and user validation.
+- Created structured response DTOs such as `ListResponse` for improved client integration.
+- Updated and enhanced API security configuration, including better JWT token handling (via headers and cookies).
+- Improved API documentation for shopping list and user endpoints.
+- Updated the pagination DTO structure and added request DTOs for product search.
+- Cleaned up outdated TODO items and removed deprecated demo documentation.
+
+---
+
+#### ✅ Top 5 Most Significant Commits
+
+| #  | Commit Message |
+|----|----------------|
+| 1º | [refactor: Remove unused imports and dependencies in RestShoppingListController](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/47d3929b84b0915e01b7d3765e8f1a1344633570) |
+| 2º | [Feat: Implement create and delete shopping list endpoints with request validation](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/dcb6e7058c44edc5cc0861616a2eb18a2aed5eb6) |
+| 3º | [Feat: Simplify shopping list controller methods and enhance response handling](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/4c37cf2abfedf2af82277881fc950d223b1404c5) |
+| 4º | [Feat: Refactor addProductToList method to improve response handling and user validation; add listResponse DTO for structured responses](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/edb9e8e47ab8aec4c28ccd2cb6c633c127c460e1) |
+| 5º | [Feat: Update security configuration and improve API documentation for user and shopping list endpoints](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/8c930a2ca6cce42c0577bbb7829ad6c474f310b3) |
+
+---
+
+#### 📂 Top 5 Most Edited Files
+
+| #  | File |
+|----|------|
+| 1º | [`RestShoppingListController.java`] |
+| 2º | [`ShoppingListService.java`] |
+| 3º | [`SecurityConfig.java`] |
+| 4º | [`JwtTokenProvider.java`] |
+| 5º | [`ListResponse.java`] |
 
 ---
 
@@ -472,3 +492,34 @@ limitations under the License.
 ```
 
 ---
+
+## ✋ Participation (II)
+
+### 🧑‍💻 Jaime José Portillo Pérez
+
+#### 📌 Description of Contributions
+
+- API REST Endpoints for admin features (users and posts management).
+  - Delete user.
+  - List all users.
+  - List all posts.
+- Swagger documentation for (comments, shopping list controller, posts).
+- Developed the APIResponseDTO class.
+  - Normalized all the API responses using the APIResponseDTO class.
+  - ApiError class for error responses.
+- Created several API queries in Postman to test the API.
+  - Added Postman tests dedicated for every query.
+- Server management and deployment with Docker (developed alongside Diego).
+  - Developed the DockerFile and DockerCompose file.
+  - Deployed the server on ETSII server.
+- Removed sensitive information from API responses (passwords).
+
+#### ✅ Top 5 Most Significant Commits
+
+| #  | Commit Message |
+|----|----------------|
+| 1º | 6aa01b5: merge: admin features (admin endpoints) |
+| 2º | e99a1c0: postman: posts batch tests |
+| 3º | 96ee9bc: - Swagger annotations (comments, posts, shoppinglist) - Added 404 code in the corresponding routes |
+| 4º | 1cee1ad: - api: normalized endpoints and fixed errors |
+| 5º | 7ec81bd: - postman: batch test for unauthorized & users - api: create users from API |

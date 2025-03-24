@@ -2,7 +2,9 @@ package es.daw01.savex.service;
 
 import es.daw01.savex.DTOs.products.PriceDTO;
 import es.daw01.savex.DTOs.products.ProductDTO;
+import es.daw01.savex.DTOs.products.SupermarketStatsDTO;
 import es.daw01.savex.DTOs.products.SearchProductRequest;
+import es.daw01.savex.DTOs.products.SupermarketDTO;
 import es.daw01.savex.model.Product;
 import es.daw01.savex.model.SupermarketType;
 import es.daw01.savex.repository.ProductRepository;
@@ -18,6 +20,9 @@ public class ProductService {
 
     @Autowired
     private ProductRepository productRepository;
+
+    @Autowired
+    private ApiService apiService;
     
     /**
      * Find a product by its id
@@ -36,7 +41,6 @@ public class ProductService {
      * @return A list of available supermarkets
     */
     public List<Map<String, Object>> getAvailableSupermarkets(String currentSupermarket) {
-
         return Arrays.stream(SupermarketType.values())
             .map(s -> Map.of(
                 "name", (Object) s.getName(),
@@ -107,4 +111,19 @@ public class ProductService {
     public void save(Product product) {
         productRepository.save(product);
     }
+
+    public SupermarketStatsDTO getSupermarketStats() {
+        List<SupermarketDTO> supermarkets = new ArrayList<>();
+        SupermarketType[] available = SupermarketType.values();
+
+        for (SupermarketType supermarket : available) {
+            long count = apiService.countProducts(supermarket.getName().toLowerCase());
+            SupermarketDTO supermarketDTO = new SupermarketDTO(supermarket.getName(),count);
+
+            supermarkets.add(supermarketDTO);
+        }
+
+        return new SupermarketStatsDTO(supermarkets);
+    }
+        
 }

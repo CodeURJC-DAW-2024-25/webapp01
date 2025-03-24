@@ -18,9 +18,10 @@ async function loadPosts() {
     // Fetch posts from the server
     const endpoint = `/posts?page=${currentPage}&size=${POSTS_SIZE}`;
     const response = await fetchData(endpoint, 'GET', { cacheData: false });
+    const data = response.data;
 
     // Insert posts to the DOM
-    response.data.forEach(post => {
+    data.page.forEach(post => {
         postsContainer.insertAdjacentHTML('beforeend', createHTMLPost(post));
     });
 
@@ -29,7 +30,7 @@ async function loadPosts() {
     loading = false;
 
     // Check if there are more posts to load
-    if (response.is_last_page) {
+    if (data.is_last_page) {
         loadMoreButton.remove();
     }
 }
