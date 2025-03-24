@@ -76,8 +76,6 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").authenticated()
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/api/v1/products/data/**").hasAnyAuthority(UserType.ADMIN.name())
-                        .requestMatchers(HttpMethod.GET, "/api/v1/products/productschart/**").hasAnyAuthority(UserType.ADMIN.name())
 
                         .requestMatchers(HttpMethod.GET, "/api/v1/posts/*/comments/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/api/v1/posts/*/comments/**").authenticated()
