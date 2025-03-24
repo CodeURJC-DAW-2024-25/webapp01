@@ -443,23 +443,22 @@ This diagram provides an overview of the application's structure, showing how di
 
 ### 🧑‍💻 Elena Tordesillas Fernández
 
-- Implemented endpoints for retrieving and updating shopping lists.
-- Implemented update comment functionality.
-- Improved list creation and deletion functionality.
-- Added activity data management.
-- Updated API documentation for shopping list operations.
-- Enhanced Postman collection with dynamic API URLs and new test queries.
+- Developed the admin command implementation, allowing administrators to manage system settings efficiently.
+ - Implemented post creation functionality, enabling users to publish content seamlessly.
+ - Developed post editing functionality, allowing users to modify their posts easily.
+ - Developed the user command implementation, providing users with intuitive controls for managing their data.
+ - Developed the delete product list feature, ensuring users can remove unnecessary lists effortlessly.
 
 
 #### Commits
 
 | #   | Commit Message                                                                                                                                                                          | File(s)                       |
 | --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
-| 1º  | [feat: Implement update comment functionality](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/c9c9617efd546dadc2bb7ccdaf67afd09bd5faad) | `CommentService.java`         |
-| 2º  | [feat: Add list update method and fix list deletion](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/795b4739bb413b2d2dbf29c83251263f17bdd184)                                   | `RestShoppingListController` |
-| 3º  | [feat: Implement activity data](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/1fe95f225004179140b74c14c0dc219a71d55c09)                                                         | `RestProductController` |
-| 4º  | [feat: Update API documentation PATCH methods in shopping list](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/e8ede751c72eb09f01a3a2a9904231fc2fd56b5d)                                                                         | `SaveX API.postman_collection.json`         |
-| 5º  | [feat: Update CreateList endpoint to use ModelAttribute and modify Postman collection for form data](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/12ac0c86b76a1755b8bf0f351b5a6b3d2cb5a4d8)                                                                   | `SaveX API.postman_collection.json`                  |
+| 1º  | [feat: add post editing functionality and improve create post form with dynamic data](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/12591602dc594ffc4e200eb85645138adb4197fc) | `PostController.java`         |
+ | 2º  | [feat: add delete functionality for shopping lists](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/1e5c1d66ffc3767d33f1acc945fd1ff2bb2d26ba)                                   | `ShoppingListController.java` |
+ | 3º  | [add shoppingList to profile](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b42fd5a48afc1c7900601da7dc5f46bc598ee2e9)                                                         | `ShoppingListController.java` |
+ | 4º  | [create post](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/1ee42e5f7d7707a41e6d0717980a9f648848ea82)                                                                         | `PostController.java`         |
+ | 5º  | [modify admin page](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/2aed99e040d5306430295832bc4fbe46c23111c7)                                                                   | `admin.html`                  |
 
 ---
 
@@ -519,6 +518,27 @@ This diagram provides an overview of the application's structure, showing how di
 | 3º | [Feat: Implement post creation and update functionality with enhanced reading time calculation and security restrictions](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a4388fade19c56898c1936187a40e98b8888dde3) | `RestPostsController.java` & `PostMapper.java` |
 | 4º | [feat: Add OpenAPI generator configuration and update API documentation settings](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/5da2003ddbd42405b98c68c18e8e990dfebf8c5e) | `pom.xml` & `application.properties` |
 | 5º | [Refactor: Enhance user modification validation and update UserMapper to support partial updates](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/7b255e26acbaa6d95eeae046dfa90cf5465e3c02) | `ValidationUtils.java` & `UserMapper.java` |
+
+---
+
+### 🧑‍💻 Elena Tordesillas Fernández
+
+- Implemented endpoints for retrieving and updating shopping lists.
+- Implemented update comment functionality.
+- Improved list creation and deletion functionality.
+- Added activity data management.
+- Updated API documentation for shopping list operations.
+- Enhanced Postman collection with dynamic API URLs and new test queries.
+
+#### ✅ Top 5 Most Significant Commits
+
+| #   | Commit Message                                                                                                                                                                          | File(s)                       |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| 1º  | [feat: Implement update comment functionality](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/c9c9617efd546dadc2bb7ccdaf67afd09bd5faad) | `CommentService.java`         |
+| 2º  | [feat: Add list update method and fix list deletion](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/795b4739bb413b2d2dbf29c83251263f17bdd184)                                   | `RestShoppingListController` |
+| 3º  | [feat: Implement activity data](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/1fe95f225004179140b74c14c0dc219a71d55c09)                                                         | `RestProductController` |
+| 4º  | [feat: Update API documentation PATCH methods in shopping list](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/e8ede751c72eb09f01a3a2a9904231fc2fd56b5d)                                                                         | `SaveX API.postman_collection.json`         |
+| 5º  | [feat: Update CreateList endpoint to use ModelAttribute and modify Postman collection for form data](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/12ac0c86b76a1755b8bf0f351b5a6b3d2cb5a4d8)                                                                   | `SaveX API.postman_collection.json`                  |
 
 ---
 
