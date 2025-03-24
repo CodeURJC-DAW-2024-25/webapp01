@@ -29,6 +29,11 @@ import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
 import es.daw01.savex.service.CommentService;
 import es.daw01.savex.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -54,26 +59,86 @@ public class RestUserController {
     @Autowired
     private ControllerUtils controllerUtils;
 
+    @Operation(summary = "Get all users Paginated")
+    @ApiResponses( value = {
+        @ApiResponse(
+            responseCode = "200", 
+            description = "Users list returned successfully",
+            content = {
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = PaginatedDTO.class)
+                )
+            }),
+        @ApiResponse( 
+            responseCode = "500", 
+            description = "Internal server error",
+            content = @Content
+        )
+    })
     @GetMapping({ "", "/" })
     public ResponseEntity<Object> getUsers(
         @PageableDefault(page = 0, size = 10) Pageable pageable
     ) {
-        // Get all users
-        PaginatedDTO<PublicUserDTO> response = userService.findAllByRoleNoPasswd(
-            UserType.USER,
-            pageable
-        );
-
-        // Return the users list
-        return ApiResponseDTO.ok(response);
+        try{
+            // Get all users
+            PaginatedDTO<PublicUserDTO> response = userService.findAllByRoleNoPasswd(
+                UserType.USER,
+                pageable
+            );
+            // Return the users list
+            return ApiResponseDTO.ok(response);
+        } catch (IllegalArgumentException e) {
+            return ApiResponseDTO.error(e.getMessage());
+        }
     }
 
+    @Operation(summary = "Get logged user avatar")
+    @ApiResponses( value = {
+        @ApiResponse(
+            responseCode = "200", 
+            description = "Avatar returned successfully",
+            content = {
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = Resource.class)
+                )
+            }),
+        @ApiResponse(
+            responseCode = "404", 
+            description = "Resource not found",
+            content = @Content
+        )
+    })
     @GetMapping("/{id}/avatar")
     public ResponseEntity<Object> getProfilePic(@PathVariable long id) throws SQLException, IOException {
         Resource avatar = userService.getUserAvatar(id);
         return ApiResponseDTO.ok(avatar);
     }
 
+
+    @Operation(summary = "Upload avatar for logged user")
+    @ApiResponses( value = {
+        @ApiResponse(
+            responseCode = "201", 
+            description = "Avatar uploaded successfully",
+            content = {
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = PublicUserDTO.class)
+                )
+            }),
+        @ApiResponse(
+            responseCode = "409", 
+            description = "Avatar already exists",
+            content = @Content
+        ),
+        @ApiResponse(
+            responseCode = "403", 
+            description = "You cannot upload an avatar for another user",
+            content = @Content
+        )
+    })
     @PostMapping("/{id}/avatar")
     public ResponseEntity<Object> uploadAvatar( @PathVariable long id, @RequestParam MultipartFile avatar) throws IOException {
         User user = controllerUtils.getAuthenticatedUser();
@@ -91,6 +156,29 @@ public class RestUserController {
         }
     }
 
+
+    @Operation(summary = "Modify avatar for logged user")
+    @ApiResponses( value = {
+        @ApiResponse(
+            responseCode = "200", 
+            description = "Avatar modified successfully",
+            content = {
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = PublicUserDTO.class)
+                )
+            }),
+        @ApiResponse(
+            responseCode = "404", 
+            description = "User not found",
+            content = @Content
+        ),
+        @ApiResponse(
+            responseCode = "403", 
+            description = "You cannot modify an avatar for another user",
+            content = @Content
+        )
+    })
     @PutMapping("/{id}/avatar")
     public ResponseEntity<Object> modifyAvatar(
             @PathVariable long id, @RequestParam MultipartFile avatar) throws IOException {
@@ -107,6 +195,28 @@ public class RestUserController {
         }
     }
 
+    @Operation(summary = "Delete avatar for logged user")
+    @ApiResponses( value = {
+        @ApiResponse(
+            responseCode = "200", 
+            description = "Avatar deleted successfully",
+            content = {
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = String.class)
+                )
+            }),
+        @ApiResponse(
+            responseCode = "404", 
+            description = "User not found",
+            content = @Content
+            ),
+        @ApiResponse(
+            responseCode = "403", 
+            description = "You cannot delete an avatar for another user",
+            content = @Content
+            )
+    })
     @DeleteMapping("/{id}/avatar")
     public ResponseEntity<Object> deleteAvatar(@PathVariable long id) {
         User user = controllerUtils.getAuthenticatedUser();
@@ -121,6 +231,28 @@ public class RestUserController {
         return ApiResponseDTO.ok("Avatar deleted successfully");
     }
 
+    @Operation(summary = "Delete user")
+    @ApiResponses( value = {
+        @ApiResponse(
+            responseCode = "200", 
+            description = "User deleted successfully",
+            content = {
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = String.class)
+                )
+            }),
+        @ApiResponse(
+            responseCode = "404", 
+            description = "User not found",
+            content = @Content
+            ),
+        @ApiResponse(
+            responseCode = "500", 
+            description = "Error deleting user",
+            content = @Content
+            )
+    })
     @DeleteMapping("/{id}")
     public ResponseEntity<Object> deleteUser(@PathVariable long id) {
         try {
@@ -138,13 +270,35 @@ public class RestUserController {
         }
     }
 
+    @Operation(summary = "Register new user")
+    @ApiResponses( value = {
+        @ApiResponse(
+            responseCode = "201", 
+            description = "User created successfully",
+            content = {
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = PrivateUserDTO.class)
+                )
+            }),
+        @ApiResponse(
+            responseCode = "409", 
+            description = "User already exists",
+            content = @Content
+            ),
+        @ApiResponse(
+            responseCode = "500", 
+            description = "Error creating user",
+            content = @Content
+            )
+    })
     @PostMapping({"", "/"})
     public ResponseEntity<Object> registerNewUser(@ModelAttribute CreateUserRequest createUserRequest) {
         try {
             PrivateUserDTO privateUser = userService.register(createUserRequest);
             return ApiResponseDTO.ok(privateUser, 201);
         } catch (EntityExistsException e) {
-            return ApiResponseDTO.error("User already exists");
+            return ApiResponseDTO.error("User already exists",409);
         } catch (IllegalArgumentException e) {
             return ApiResponseDTO.error(e.getMessage());
         } catch (Exception e) {
@@ -152,7 +306,23 @@ public class RestUserController {
         }
     }
 
-
+    @Operation(summary = "Get user by id")
+    @ApiResponses( value = {
+        @ApiResponse(
+            responseCode = "200", 
+            description = "User returned successfully",
+            content = {
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = PublicUserDTO.class)
+                )
+            }),
+        @ApiResponse(
+            responseCode = "404", 
+            description = "User not found",
+            content = @Content
+        )
+    })
     @GetMapping("/{id}")
     public ResponseEntity<Object> getUser(@PathVariable long id) {
         try {
@@ -167,6 +337,33 @@ public class RestUserController {
         }
     }
     
+    @Operation(summary = "Modify user")
+    @ApiResponses( value = {
+        @ApiResponse(
+            responseCode = "200", 
+            description = "User modified successfully",
+            content = {
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = PrivateUserDTO.class)
+                )
+            }),
+        @ApiResponse(
+            responseCode = "404", 
+            description = "User not found",
+            content = @Content
+        ),
+        @ApiResponse(
+            responseCode = "403", 
+            description = "You cannot modify another user",
+            content = @Content
+        ),
+        @ApiResponse(
+            responseCode = "500", 
+            description = "Error modifying user",
+            content = @Content
+        )
+    })
     @PatchMapping("/{id}")
     public ResponseEntity<Object> modifyUser(
         @PathVariable long id,
@@ -191,6 +388,33 @@ public class RestUserController {
         }
     }
 
+    @Operation(summary = "Modify user password")
+    @ApiResponses( value = {
+        @ApiResponse(
+            responseCode = "200", 
+            description = "Password modified successfully",
+            content = {
+                @Content(
+                    mediaType = "application/json",
+                    schema = @Schema(implementation = PrivateUserDTO.class)
+                )
+            }),
+        @ApiResponse(
+            responseCode = "404", 
+            description = "User not found",
+            content = @Content
+        ),
+        @ApiResponse(
+            responseCode = "403", 
+            description = "You cannot modify another user",
+            content = @Content
+        ),
+        @ApiResponse(
+            responseCode = "500", 
+            description = "Error modifying password",
+            content = @Content
+        )
+    })
     @PatchMapping("/{id}/password")
     public ResponseEntity<Object> modifyPassword(
         @PathVariable long id,
