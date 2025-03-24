@@ -93,12 +93,17 @@ To get started with SaveX using Docker, follow these steps:
 1.  **Clone the repository**
 ```bash
 git clone https://github.com/CodeURJC-DAW-2024-25/webapp01.git SaveX --branch main --depth 1
-cd ./SaveX/backend
+cd ./SaveX/docker
 ```
 
 2. **Build the Docker image**
 ```bash
-docker build -t savex .
+# Linux
+chmod +x ./create_image.sh
+./create_image.sh
+
+# Windows
+.\create_image.bat
 ```
 
 3. **Run the Docker container**
@@ -108,6 +113,35 @@ docker compose up
 
 **🌐 Access the application**
 Open your web browser and navigate to `https://localhost:8443` to access the SaveX platform.
+
+### 🚀 Deployment on ETSII Server
+
+To deploy the application on the ETSII server, follow provided instructions in the section above and leave the application running on the server.
+
+For access to the application, navigate to `appWeb01.dawgis.etsii.urjc.es` or `10.100.139.82` in your web browser or set up Postman to interact with the API.
+
+By default, the application will have some users and posts preloaded for testing purposes.
+- **Admin User**: 
+  - Username: `admin`
+  - Password: `admin`
+
+- **Regular User**:
+   - Username: `userDefault1`
+   - Password: `pass1`
+
+---
+
+## 📚 API Documentation
+
+The SaveX API provides endpoints for managing users, shopping lists, products, posts, and comments. The API documentation is available via Swagger UI, allowing users to explore and test the available endpoints.
+
+In order to access the API documentation, follow these steps:
+
+1. **Access the OpenAPI YAML file**
+   Follow this link to access the OpenAPI YAML file: [OpenAPI Documentation](/api-docs/api-docs.yaml).
+
+2. **View the API documentation in Swagger UI**
+   Open the Swagger UI interface by navigating to `https://localhost:8443/swagger-ui.html` in your web browser or by using the following link: [Swagger UI](https://raw.githack.com/CodeURJC-DAW-2024-25/webapp01/main/backend/api-docs/api-docs.html).
 
 ---
 
