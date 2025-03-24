@@ -27,6 +27,7 @@ import es.daw01.savex.DTOs.users.ModifyUserRequest;
 import es.daw01.savex.DTOs.users.PrivateUserDTO;
 import es.daw01.savex.DTOs.users.PublicUserDTO;
 import es.daw01.savex.DTOs.users.UserMapper;
+import es.daw01.savex.DTOs.users.UserStatsDTO;
 import es.daw01.savex.model.User;
 import es.daw01.savex.model.UserType;
 import es.daw01.savex.repository.CommentRepository;
@@ -323,8 +324,30 @@ public class UserService {
 
         return errors;
     }
-        
 
+    /**
+     * Get the user stats
+     * @return The user stats
+     */
+    public UserStatsDTO getUsersStats() {
+        List<Integer> usersPerMonth = List.of(300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200);
+        return new UserStatsDTO(usersPerMonth);
+    }
+        
+    /**
+     * Get the authenticated user
+     * @return The authenticated user
+    */
+    public User getAuthenticatedUser() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        // Check if user is authenticated and return the user
+        if (auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
+            return this.findByUsername(auth.getName()).get();
+        }
+
+        return null;
+    }
 
     // Private Methods -------------------------------------------------------->>
 
@@ -346,20 +369,5 @@ public class UserService {
      */
     private boolean emailExists(String email) {
         return userRepository.findByEmail(email).isPresent();
-    }
-
-    /**
-     * Get the authenticated user
-     * @return The authenticated user
-    */
-    public User getAuthenticatedUser() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-
-        // Check if user is authenticated and return the user
-        if (auth != null && !(auth instanceof AnonymousAuthenticationToken)) {
-            return this.findByUsername(auth.getName()).get();
-        }
-
-        return null;
     }
 }
