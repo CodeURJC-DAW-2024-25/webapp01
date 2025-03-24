@@ -1,5 +1,6 @@
 package es.daw01.savex.controller.api.v1;
 
+import java.net.URI;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
@@ -85,7 +87,8 @@ public class RestShoppingListController {
     ) {
         try {
             SimpleShoppingListDTO list = shoppingListService.createShoppingList(request);
-            return ApiResponseDTO.ok(list);
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(list.id()).toUri();
+            return ApiResponseDTO.ok(list, location, 201);
         } catch (Exception e) {
             return ApiResponseDTO.error("Error creating list");
         }
@@ -119,7 +122,8 @@ public class RestShoppingListController {
     ) {
         try {
             ShoppingListDTO list = shoppingListService.addProductToList(id, productId);
-            return ApiResponseDTO.ok(list);
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(list.id()).toUri();
+            return ApiResponseDTO.ok(list, location, 201);
         } catch (NoSuchElementException e) {
             return ApiResponseDTO.error("List not found", 404);
         } catch (Exception e) {

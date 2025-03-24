@@ -284,7 +284,8 @@ public class RestPostsController {
     ) {
         try {
             PostDTO post = postService.updatePostBanner(id, banner);
-            return ApiResponseDTO.ok(post, 201);
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().build().toUri();
+            return ApiResponseDTO.ok(post, location, 201);
         } catch (NoSuchElementException e) {
             return ApiResponseDTO.error("Post not found", 404);
         } catch (Exception e) {
