@@ -1,15 +1,14 @@
-
+import { fetchData } from '../services/fetchService.js';
 
 // Prducts Bar chart
 const ctx1 = document.getElementById('chart-1');
 const data1 = {
     type: 'bar',
     data: {
-        labels: ['Mercadona', 'El Corte inglés', 'Carrefour', 'Lidl', 'Dia', 'Consum', 'BM'],
+        labels: [],
         datasets: [{
             label: 'nº de productos',
-            //   total: 59825
-            data: [0, 0, 0, 0, 0, 0, 0, 0, 0],
+            data: [],
             borderWidth: 1
         }]
     },
@@ -61,18 +60,13 @@ const data2 = {
 }
 const chart2 = new Chart(ctx2, data2);
 
-
-const supermarkets = ['mercadona', 'elcorteingles', 'Carrefour', 'lidl', 'dia', 'consum', 'bm'];
-const total_items = {};
-
 const fetchProducts = async () => {
-    await Promise.all(supermarkets.map(async supermarket => {
-        const res = await fetch(`/api/v1/products?supermarket=${supermarket}`);
-        const data = await res.json();
-        total_items[supermarket] = data.total_items;
-    }))
+    const res = await fetchData('/stats/products', 'GET', { cacheData: false });
 
-    data1.data.datasets[0].data = supermarkets.map(supermarket => total_items[supermarket]);
+    for (const stat of res.data.stats) {
+        data1.data.labels.push(stat.name);
+        data1.data.datasets[0].data.push(stat.count);
+    }
     chart1.update();
 }
 fetchProducts();

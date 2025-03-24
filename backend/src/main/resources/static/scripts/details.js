@@ -20,8 +20,6 @@ document.addEventListener("DOMContentLoaded", function () {
         compareContainer.style.display = "block"
         compareBtn.innerHTML = "<i class='bi bi-arrow-repeat spin'></i>"
 
-        console.log(`/products?keywords=${keywordsUnparsed}&limit=1000&page=0`)
-
         fetchData(`/products?keywords=${keywordsUnparsed}&limit=1000&page=0`, "GET", {
             cacheData: false
         })

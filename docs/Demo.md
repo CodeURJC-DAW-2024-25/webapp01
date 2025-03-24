@@ -1,10 +1,5 @@
 # 🎥 Demo para el Profesor – Práctica 2: API REST y Docker
 
-## 👨‍🏫 Introducción
-Hola, somos el grupo MadridDev y os vamos a mostrar el resultado de nuestra práctica 2. Nuestra aplicación está completamente desplegada y funcional. Vamos a seguir este guion para que podáis ver que cumplimos todos los requisitos.
-
----
-
 ## 🔍 1. Funcionalidades principales (desde el navegador)
 
 - **Inicio de sesión y registro de usuario**

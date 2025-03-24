@@ -68,14 +68,13 @@ let pageUsers = 0
 let usersByPage = {}
 const fetchUsersTable = async (incLimit=true) => {
     if (incLimit) pageUsers += 1
-    const res = await fetch(`/api/v1/users?page=${pageUsers}&size=5`)
-    const resJson = await res.json()
-    const data = resJson.data
+    const res = await fetchData(`/users?page=${pageUsers}&size=5`)
+    const data = res.data
 
-    usersByPage[pageUsers] = data.users
+    usersByPage[pageUsers] = data.page
     const totalUsers = Object.values(usersByPage).flat()
 
-    document.querySelector('[data-replace="admin-users"]').outerHTML = getUsersTBodyTemplate(totalUsers, data.totalItems, data.currentPage >= data.totalPages-1)
+    document.querySelector('[data-replace="admin-users"]').outerHTML = getUsersTBodyTemplate(totalUsers, data.total_items, data.current_page >= data.total_pages-1)
     setUserButtonListener()
     setUsersEvents()
 }
@@ -84,14 +83,13 @@ let pagePosts = 0
 let postsByPage = {}
 const fetchPostsTable = async (incLimit=true) => {
     if (incLimit) pagePosts += 1
-    const res = await fetch(`/api/v1/posts?page=${pagePosts}&size=5`)
-    const resJson = await res.json()
-    const data = resJson.data
+    const res = await fetchData(`/posts?page=${pagePosts}&size=5`)
+    const data = res.data
 
-    postsByPage[pagePosts] = data
+    postsByPage[pagePosts] = data.page
     const totalPosts = Object.values(postsByPage).flat()
 
-    document.querySelector('[data-replace="admin-posts"]').outerHTML = getPostsTBodyTemplate(totalPosts, resJson.total_items, resJson.current_page >= resJson.total_pages-1)
+    document.querySelector('[data-replace="admin-posts"]').outerHTML = getPostsTBodyTemplate(totalPosts, data.total_items, data.current_page >= data.total_pages-1)
     setPostButtonListener()
     setPostsEvents()
 }
