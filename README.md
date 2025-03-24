@@ -465,6 +465,30 @@ This diagram provides an overview of the application's structure, showing how di
 
 ## ✋ Participation (II)
 
+### Victor Arroyo Madera
+
+- Refactored the `RestShoppingListController` by removing unused imports and dependencies.
+- Implemented REST endpoints to **create** and **delete** shopping lists, with proper request validation.
+- Simplified controller methods and improved response structure for consistency across the shopping list API.
+- Refactored product management within shopping lists to enhance response handling and ensure proper user validation.
+- Created structured response DTOs like `ListResponse` to support better client integration.
+- Updated and enhanced API security configuration, improving JWT token handling via headers and cookies.
+- Improved API documentation for shopping list and user-related endpoints.
+- Updated pagination DTO structure and added request DTOs for product search functionality.
+- Removed deprecated demo content and outdated TODOs for cleaner, production-ready code.
+
+#### Commits
+
+| #  | Commit Message                                                                                                                                                                      | File(s)                           |
+|----|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
+| 1º | [refactor: Remove unused imports and dependencies in RestShoppingListController](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/47d3929b84b0915e01b7d3765e8f1a1344633570) | `RestShoppingListController.java`|
+| 2º | [Feat: Implement create and delete shopping list endpoints with request validation](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/dcb6e7058c44edc5cc0861616a2eb18a2aed5eb6) | `RestShoppingListController.java`|
+| 3º | [Feat: Simplify shopping list controller methods and enhance response handling](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/4c37cf2abfedf2af82277881fc950d223b1404c5) | `RestShoppingListController.java`|
+| 4º | [Feat: Refactor addProductToList method to improve response handling and user validation; add listResponse DTO for structured responses](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/edb9e8e47ab8aec4c28ccd2cb6c633c127c460e1) | `ShoppingListService.java`, `ListResponse.java` |
+| 5º | [Feat: Update security configuration and improve API documentation for user and shopping list endpoints](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/8c930a2ca6cce42c0577bbb7829ad6c474f310b3) | `SecurityConfig.java`, `JwtTokenProvider.java` |
+
+---
+
 ### 🧑‍💻 Jaime José Portillo Pérez
 
 - API REST Endpoints for admin features (users and posts management).
