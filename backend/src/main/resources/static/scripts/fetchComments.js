@@ -21,15 +21,16 @@ async function loadComments() {
 
     const endpoint = `/posts/${POST_ID}/comments?page=${currentPage}&size=${COMMENTS_SIZE}`;
     const response = await fetchData(endpoint, "GET", { cacheData: false });
+    const data = response.data;
 
-    response.data.forEach(comment => {
+    data.page.forEach(comment => {
         $commentsContainer.insertAdjacentHTML("beforeend", createHTMLComment(comment));
     });
 
     currentPage++;
     loading = false;
 
-    if (response.is_last_page) $loadMoreButton.remove();
+    if (data.is_last_page) $loadMoreButton.remove();
     loading = false;
 }
 
