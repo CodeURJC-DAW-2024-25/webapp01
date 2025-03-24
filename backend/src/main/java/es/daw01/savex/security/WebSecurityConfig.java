@@ -95,8 +95,8 @@ public class WebSecurityConfig {
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/lists/**").authenticated()
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/lists/**").authenticated()
 
-                        .requestMatchers(HttpMethod.GET, "/api/v1/activity/data").hasAnyRole(UserType.ADMIN.name())
-
+                        .requestMatchers(HttpMethod.GET, "/api/v1/stats/**").permitAll()
+                        
                         .anyRequest().authenticated());
 
         // Disable Form login Authentication

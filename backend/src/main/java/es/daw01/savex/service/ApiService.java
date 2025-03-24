@@ -44,6 +44,18 @@ public class ApiService {
         );
     }
 
+    public long countProducts(String supermarket) {
+        String apiUrl = API_BASE_URL + "/query?supermarket=" + supermarket;
+
+        PaginatedDTO<ProductDTO> products = restClient.get()
+            .uri(apiUrl)
+            .retrieve()
+            .body(new ParameterizedTypeReference<PaginatedDTO<ProductDTO>>() {}
+        );
+
+        return products.total_items();
+    }
+
     /**
      * Fetches a product from the API
      * 
