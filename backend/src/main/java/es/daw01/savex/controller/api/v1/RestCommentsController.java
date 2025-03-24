@@ -1,5 +1,6 @@
 package es.daw01.savex.controller.api.v1;
 
+import java.net.URI;
 import java.util.NoSuchElementException;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
@@ -106,7 +108,8 @@ public class RestCommentsController {
     public ResponseEntity<Object> createComment(@PathVariable Long id, @ModelAttribute CreateCommentRequest request) {
         try{
             SimpleCommentDTO comment = commentService.createComment(id, request);
-            return ApiResponseDTO.ok(comment, 201);
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(comment.id()).toUri();
+            return ApiResponseDTO.ok(comment, location, 201);
 		} catch (NoSuchElementException e) {
 			return ApiResponseDTO.error("Post not found", 404);
         } catch (Exception e) {
