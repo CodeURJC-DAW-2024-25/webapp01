@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.PaginatedDTO;
@@ -296,7 +297,8 @@ public class RestUserController {
     public ResponseEntity<Object> registerNewUser(@ModelAttribute CreateUserRequest createUserRequest) {
         try {
             PrivateUserDTO privateUser = userService.register(createUserRequest);
-            return ApiResponseDTO.ok(privateUser, 201);
+            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(privateUser.id()).toUri();
+            return ApiResponseDTO.ok(privateUser, location, 201);
         } catch (EntityExistsException e) {
             return ApiResponseDTO.error("User already exists",409);
         } catch (IllegalArgumentException e) {
