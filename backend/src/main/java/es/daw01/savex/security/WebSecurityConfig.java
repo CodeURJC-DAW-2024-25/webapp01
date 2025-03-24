@@ -153,7 +153,7 @@ public class WebSecurityConfig {
 
                         // API Docs
                         .requestMatchers("/v3/api-docs.yaml").permitAll()
-                        .requestMatchers("/swagger-ui.html").permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
 
                         // Other routes
                         .anyRequest().authenticated()
