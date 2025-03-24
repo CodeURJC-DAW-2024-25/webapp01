@@ -122,7 +122,7 @@ public class RestShoppingListController {
     ) {
         try {
             ShoppingListDTO list = shoppingListService.addProductToList(id, productId);
-            URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(list.id()).toUri();
+            URI location = ServletUriComponentsBuilder.fromCurrentContextPath().path("/api/v1/lists/{id}").buildAndExpand(list.id()).toUri();
             return ApiResponseDTO.ok(list, location, 201);
         } catch (NoSuchElementException e) {
             return ApiResponseDTO.error("List not found", 404);
