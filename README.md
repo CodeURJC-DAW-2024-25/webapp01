@@ -93,12 +93,17 @@ To get started with SaveX using Docker, follow these steps:
 1.  **Clone the repository**
 ```bash
 git clone https://github.com/CodeURJC-DAW-2024-25/webapp01.git SaveX --branch main --depth 1
-cd ./SaveX/backend
+cd ./SaveX/docker
 ```
 
 2. **Build the Docker image**
 ```bash
-docker build -t savex .
+# Linux
+chmod +x ./create_image.sh
+./create_image.sh
+
+# Windows
+.\create_image.bat
 ```
 
 3. **Run the Docker container**
@@ -108,6 +113,36 @@ docker compose up
 
 **🌐 Access the application**
 Open your web browser and navigate to `https://localhost:8443` to access the SaveX platform.
+
+### 🚀 Deployment on ETSII Server
+
+To deploy the application on the ETSII server, follow provided instructions in the section above and leave the application running on the server.
+
+For access to the application, navigate to `appWeb01.dawgis.etsii.urjc.es` or `10.100.139.82` in your web browser or set up Postman to interact with the API.
+
+By default, the application will have some users and posts preloaded for testing purposes.
+
+> **Admin User**: 
+> - Username: `admin`
+> - Password: `admin`
+
+> **Regular User**:
+> - Username: `userDefault1`
+> - Password: `pass1`
+
+---
+
+## 📚 API Documentation
+
+The SaveX API provides endpoints for managing users, shopping lists, products, posts, and comments. The API documentation is available via Swagger UI, allowing users to explore and test the available endpoints.
+
+In order to access the API documentation, follow these steps:
+
+1. **Access the OpenAPI YAML file**
+   Follow this link to access the OpenAPI YAML file: [OpenAPI Documentation](/api-docs/api-docs.yaml).
+
+2. **View the API documentation in Swagger UI**
+   Open the Swagger UI interface by navigating to `https://localhost:8443/swagger-ui.html` in your web browser or by using the following link: [Swagger UI](https://raw.githack.com/CodeURJC-DAW-2024-25/webapp01/main/backend/api-docs/api-docs.html).
 
 ---
 
@@ -443,22 +478,22 @@ This diagram provides an overview of the application's structure, showing how di
 
 ### 🧑‍💻 Elena Tordesillas Fernández
 
-   - Developed the admin command implementation, allowing administrators to manage system settings efficiently.
-  - Implemented post creation functionality, enabling users to publish content seamlessly.
-  - Developed post editing functionality, allowing users to modify their posts easily.
-  - Developed the user command implementation, providing users with intuitive controls for managing their data.
-  - Developed the delete product list feature, ensuring users can remove unnecessary lists effortlessly.
+ - Developed the admin command implementation, allowing administrators to manage system settings efficiently.
+ - Implemented post creation functionality, enabling users to publish content seamlessly.
+ - Developed post editing functionality, allowing users to modify their posts easily.
+ - Developed the user command implementation, providing users with intuitive controls for managing their data.
+ - Developed the delete product list feature, ensuring users can remove unnecessary lists effortlessly.
 
 
 #### Commits
 
-| #   | Commit Message                                                                                                                                                                                         | File(s)                             |
-| --- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------- |
+| #   | Commit Message                                                                                                                                                                          | File(s)                       |
+| --- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
 | 1º  | [feat: add post editing functionality and improve create post form with dynamic data](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/12591602dc594ffc4e200eb85645138adb4197fc) | `PostController.java`         |
-  | 2º  | [feat: add delete functionality for shopping lists](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/1e5c1d66ffc3767d33f1acc945fd1ff2bb2d26ba)                                   | `ShoppingListController.java` |
-  | 3º  | [add shoppingList to profile](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b42fd5a48afc1c7900601da7dc5f46bc598ee2e9)                                                         | `ShoppingListController.java` |
-  | 4º  | [create post](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/1ee42e5f7d7707a41e6d0717980a9f648848ea82)                                                                         | `PostController.java`         |
-  | 5º  | [modify admin page](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/2aed99e040d5306430295832bc4fbe46c23111c7)                                                                   | `admin.html`                  |
+| 2º  | [feat: add delete functionality for shopping lists](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/1e5c1d66ffc3767d33f1acc945fd1ff2bb2d26ba)                                   | `ShoppingListController.java` |
+| 3º  | [add shoppingList to profile](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b42fd5a48afc1c7900601da7dc5f46bc598ee2e9)                                                         | `ShoppingListController.java` |
+| 4º  | [create post](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/1ee42e5f7d7707a41e6d0717980a9f648848ea82)                                                                         | `PostController.java`         |
+| 5º  | [modify admin page](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/2aed99e040d5306430295832bc4fbe46c23111c7)                                                                   | `admin.html`                  |
 
 ---
 
@@ -566,7 +601,6 @@ This diagram provides an overview of the application's structure, showing how di
 | 4º  | [Feat: Implement user avatar management endpoints for upload, modification, and deletion](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/55800849c4af520d897b7fb1abb05ebfb5606db6)                       | `RestUserController`                          |
 | 5º  | [Feat: Implement user avatar management endpoints for upload, modification, and deletion](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/5befe6a9cde87125d850c48410a55d38cbc6b1da)                       | `ValidationUtils.java` & `UserMapper.java`    |
 
-
 ---
 
 ### 🧑‍💻 Elena Tordesillas Fernández
@@ -589,6 +623,7 @@ This diagram provides an overview of the application's structure, showing how di
 | 5º  | [feat: Update CreateList endpoint to use ModelAttribute and modify Postman collection for form data](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/12ac0c86b76a1755b8bf0f351b5a6b3d2cb5a4d8)                                                                   | `SaveX API.postman_collection.json`                  |
 
 ---
+
 ## 📄 License
 
 ```
