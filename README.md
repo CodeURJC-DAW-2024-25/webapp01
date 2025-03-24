@@ -121,13 +121,14 @@ To deploy the application on the ETSII server, follow provided instructions in t
 For access to the application, navigate to `appWeb01.dawgis.etsii.urjc.es` or `10.100.139.82` in your web browser or set up Postman to interact with the API.
 
 By default, the application will have some users and posts preloaded for testing purposes.
-- **Admin User**: 
-  - Username: `admin`
-  - Password: `admin`
 
-- **Regular User**:
-   - Username: `userDefault1`
-   - Password: `pass1`
+> **Admin User**: 
+> - Username: `admin`
+> - Password: `admin`
+
+> **Regular User**:
+> - Username: `userDefault1`
+> - Password: `pass1`
 
 ---
 
