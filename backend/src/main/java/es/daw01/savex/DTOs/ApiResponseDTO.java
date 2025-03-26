@@ -19,6 +19,9 @@ import es.daw01.savex.components.ApiError;
  * <ul>
  *  <li><pre>ApiResponseDTO.ok(Object data)</pre> - 200 OK</li>
  *  <li><pre>ApiResponseDTO.ok(Object data, int code)</pre> - Custom code</li>
+ *  <li><pre>ApiResponseDTO.ok(Object data, URI location)</pre> - 201 Created</li>
+ *  <li><pre>ApiResponseDTO.ok(Object data, URI location, int code)</pre> - Custom code</li>
+ *  <li><pre>ApiResponseDTO.ok(Resource data)</pre> - 200 OK with image</li>
  * </ul>
  * 
  * <b>Error responses:</b>
@@ -27,6 +30,8 @@ import es.daw01.savex.components.ApiError;
  *  <li><pre>ApiResponseDTO.error(String error, int code)</pre> - Custom code</li>
  *  <li><pre>ApiResponseDTO.error(String error, Object data)</pre> - 500 Internal Server Error with data</li>
  *  <li><pre>ApiResponseDTO.error(String error, int code, Object data)</pre> - Custom code with data</li>
+ *  <li><pre>ApiResponseDTO.error(ApiResponseDTO<Object> response)</pre> - 500 Internal Server Error with response</li>
+ *  <li><pre>ApiResponseDTO.error(ApiResponseDTO<Object> response, int code)</pre> - Custom code with response</li>
  * </ul>
  * 
  * <hr/>
@@ -36,7 +41,6 @@ import es.daw01.savex.components.ApiError;
 public class ApiResponseDTO<T> {
     private T data;
     private ApiError error;
-    private HttpHeaders headers;
 
     // ====================[ Default Constructors ]====================
 
@@ -126,18 +130,6 @@ public class ApiResponseDTO<T> {
         return ResponseEntity.status(code).body(response);
     }
 
-
-    public static ApiResponseDTO<Object> headers(String headers, Object ...data) {
-        ApiResponseDTO<Object> response = new ApiResponseDTO<Object>();
-
-        HttpHeaders httpHeaders = (response.headers != null) ? response.headers : new HttpHeaders();
-        httpHeaders.add("headers", headers);
-        response.setHeaders(httpHeaders);
-        
-        return response;
-    }
-
-
     // ====================[ Getters ]====================
 
     public T getData() {
@@ -148,10 +140,6 @@ public class ApiResponseDTO<T> {
         return error;
     }
 
-    public HttpHeaders getHeaders() {
-        return headers;
-    }
-
     // ====================[ Setters ]====================
 
     public void setData(T data) {
@@ -160,9 +148,5 @@ public class ApiResponseDTO<T> {
 
     public void setError(ApiError error) {
         this.error = error;
-    }
-
-    public void setHeaders(HttpHeaders headers) {
-        this.headers = headers;
     }
 }
