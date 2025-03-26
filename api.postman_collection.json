@@ -1,16 +1,34 @@
 {
 	"info": {
-		"_postman_id": "a030eae6-5dc0-47b9-aaab-930b2ce73a8a",
+		"_postman_id": "1609c137-88be-4681-a916-c0564e2d6d51",
 		"name": "SaveX API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "43057522"
+		"_exporter_id": "37129679"
 	},
 	"item": [
 		{
 			"name": "Auth",
 			"item": [
 				{
-					"name": "Login",
+					"name": "Login User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\": \"userDefault1\",\r\n    \"password\": \"pass1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{apiBaseURL}}/api/auth/login"
+					},
+					"response": []
+				},
+				{
+					"name": "Login Admin",
 					"request": {
 						"method": "POST",
 						"header": [],
@@ -65,24 +83,13 @@
 										"method": "POST",
 										"header": [],
 										"body": {
-											"mode": "formdata",
-											"formdata": [
-												{
-													"key": "username",
-													"value": "username",
-													"type": "text"
-												},
-												{
-													"key": "password",
-													"value": "Str0ngP@ssw0rd!",
-													"type": "text"
-												},
-												{
-													"key": "email",
-													"value": "emailDefault@email.com",
-													"type": "text"
+											"mode": "raw",
+											"raw": "{\n    \"username\": \"username\",\n    \"password\": \"Str0ngP@ssw0rd!\",\n    \"email\": \"emailDefault@email.com\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
 												}
-											]
+											}
 										},
 										"url": "{{apiBaseURL}}/api/v1/users/"
 									},
@@ -112,27 +119,15 @@
 										"method": "PATCH",
 										"header": [],
 										"body": {
-											"mode": "formdata",
-											"formdata": [
-												{
-													"key": "username",
-													"value": "",
-													"type": "text",
-													"disabled": true
-												},
-												{
-													"key": "name",
-													"value": "Nombre Prueba",
-													"type": "text"
-												},
-												{
-													"key": "email",
-													"value": "testmail@mail.com",
-													"type": "text"
+											"mode": "raw",
+											"raw": "{\n    \"username\": \"newUsername\",\n    \"email\": \"newemailDefault@email.com\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
 												}
-											]
+											}
 										},
-										"url": "{{apiBaseURL}}/api/v1/users/9"
+										"url": "{{apiBaseURL}}/api/v1/users/1"
 									},
 									"response": []
 								},
@@ -145,26 +140,15 @@
 										"method": "PATCH",
 										"header": [],
 										"body": {
-											"mode": "formdata",
-											"formdata": [
-												{
-													"key": "oldPassword",
-													"value": "pass9",
-													"type": "text"
-												},
-												{
-													"key": "newPassword",
-													"value": "Str0ngP@ssw0rd!",
-													"type": "text"
-												},
-												{
-													"key": "newPasswordConfirmation",
-													"value": "Str0ngP@ssw0rd!",
-													"type": "text"
+											"mode": "raw",
+											"raw": "{\n    \"oldPassword\": \"pass1\",\n    \"newPassword\": \"Str0ngP@ssw0rd!\",\n    \"newPasswordConfirmation\": \"Str0ngP@ssw0rd!\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
 												}
-											]
+											}
 										},
-										"url": "{{apiBaseURL}}/api/v1/users/9/password"
+										"url": "{{apiBaseURL}}/api/v1/users/1/password"
 									},
 									"response": []
 								}
@@ -319,44 +303,13 @@
 										"method": "POST",
 										"header": [],
 										"body": {
-											"mode": "formdata",
-											"formdata": [
-												{
-													"key": "title",
-													"value": "Nuevo Post 123",
-													"type": "text"
-												},
-												{
-													"key": "description",
-													"value": "Descripcion random",
-													"type": "text"
-												},
-												{
-													"key": "author",
-													"value": "SaveX",
-													"type": "text"
-												},
-												{
-													"key": "readingTime",
-													"value": "1 min",
-													"type": "text"
-												},
-												{
-													"key": "visibility",
-													"value": "PUBLIC",
-													"type": "text"
-												},
-												{
-													"key": "tags",
-													"value": "Comparador",
-													"type": "text"
-												},
-												{
-													"key": "content\n",
-													"value": "# Hello\n\n- This is a new post",
-													"type": "text"
+											"mode": "raw",
+											"raw": "{\n    \"title\": \"Nuevo Post 123\",\n    \"description\": \"Nueva descripción\",\n    \"author\": \"Savex\",\n    \"readingTime\": \"5 min\",\n    \"visibility\": \"PUBLIC\",\n    \"tags\": [\"Comparador\", \"New Tag\"],\n    \"content\": \"# Hello Post\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
 												}
-											]
+											}
 										},
 										"url": "{{apiBaseURL}}/api/v1/posts"
 									},
@@ -368,8 +321,13 @@
 										"method": "PATCH",
 										"header": [],
 										"body": {
-											"mode": "formdata",
-											"formdata": []
+											"mode": "raw",
+											"raw": "{\n    \"title\": \"Nuevo Post 123\",\n    \"description\": \"Nueva descripción\",\n    \"author\": \"Savex\",\n    \"readingTime\": \"25 min\",\n    \"visibility\": \"PUBLIC\",\n    \"tags\": [\"Comparador\", \"New Tag\"],\n    \"content\": \"# Hello\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
+												}
+											}
 										},
 										"url": "{{apiBaseURL}}/api/v1/posts/2"
 									},
@@ -456,16 +414,15 @@
 										"method": "PATCH",
 										"header": [],
 										"body": {
-											"mode": "formdata",
-											"formdata": [
-												{
-													"key": "content",
-													"value": "Update comment",
-													"type": "text"
+											"mode": "raw",
+											"raw": "{\n    \"content\": \"Updated comment\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
 												}
-											]
+											}
 										},
-										"url": "{{apiBaseURL}}/api/v1/posts/1/comments/1"
+										"url": "{{apiBaseURL}}/api/v1/posts/1/comments/31"
 									},
 									"response": []
 								},
@@ -478,16 +435,15 @@
 										"method": "POST",
 										"header": [],
 										"body": {
-											"mode": "formdata",
-											"formdata": [
-												{
-													"key": "content",
-													"value": "New comment",
-													"type": "text"
+											"mode": "raw",
+											"raw": "{\n    \"content\": \"New comment\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
 												}
-											]
+											}
 										},
-										"url": "{{apiBaseURL}}/api/v1/posts/2/comments"
+										"url": "{{apiBaseURL}}/api/v1/posts/1/comments"
 									},
 									"response": []
 								},
@@ -603,19 +559,13 @@
 										"method": "POST",
 										"header": [],
 										"body": {
-											"mode": "formdata",
-											"formdata": [
-												{
-													"key": "name",
-													"value": "MyList",
-													"type": "text"
-												},
-												{
-													"key": "description",
-													"value": "MyListDescription",
-													"type": "text"
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"MyList\",\n    \"description\": \"MyListDescription\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
 												}
-											]
+											}
 										},
 										"url": "{{apiBaseURL}}/api/v1/lists/"
 									},
@@ -627,19 +577,13 @@
 										"method": "PATCH",
 										"header": [],
 										"body": {
-											"mode": "formdata",
-											"formdata": [
-												{
-													"key": "name",
-													"value": "updating my list name",
-													"type": "text"
-												},
-												{
-													"key": "description",
-													"value": "updating my list description",
-													"type": "text"
+											"mode": "raw",
+											"raw": "{\n    \"name\": \"Updated List\",\n    \"description\": \"Updated ListDescription\"\n}",
+											"options": {
+												"raw": {
+													"language": "json"
 												}
-											]
+											}
 										},
 										"url": "{{apiBaseURL}}/api/v1/lists/1"
 									},
