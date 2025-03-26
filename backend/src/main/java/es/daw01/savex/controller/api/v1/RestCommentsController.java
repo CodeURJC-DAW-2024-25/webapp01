@@ -9,7 +9,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,6 +32,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 @RestController
 @RequestMapping("/api/v1/posts/{id}/comments")
@@ -105,7 +105,7 @@ public class RestCommentsController {
             )
     })
     @PostMapping({ "", "/" })
-    public ResponseEntity<Object> createComment(@PathVariable Long id, @ModelAttribute CreateCommentRequest request) {
+    public ResponseEntity<Object> createComment(@PathVariable Long id, @RequestBody CreateCommentRequest request) {
         try{
             SimpleCommentDTO comment = commentService.createComment(id, request);
             URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(comment.id()).toUri();
@@ -208,9 +208,10 @@ public class RestCommentsController {
     })
     @PatchMapping("/{commentId}")
     public ResponseEntity<Object> updateComment(
-            @PathVariable Long id,
-            @PathVariable Long commentId,
-            @ModelAttribute CreateCommentRequest request) {
+        @PathVariable Long id,
+        @PathVariable Long commentId,
+        @RequestBody CreateCommentRequest request
+    ) {
         try {
             SimpleCommentDTO updatedComment = commentService.updateComment(id, commentId, request);
             return ApiResponseDTO.ok(updatedComment);

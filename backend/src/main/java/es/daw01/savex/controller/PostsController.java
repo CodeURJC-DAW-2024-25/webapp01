@@ -135,11 +135,10 @@ public class PostsController {
 
     @PostMapping("/createPost")
     public String createPost(
-        @ModelAttribute CreatePostRequest createPostRequest,
-        @RequestParam MultipartFile banner
+        @ModelAttribute CreatePostRequest createPostRequest
     ) {
         try {
-            PostDTO newPost = postService.createPost(createPostRequest, banner);
+            PostDTO newPost = postService.createPost(createPostRequest);
             return "redirect:/posts/" + newPost.id();
         } catch (IOException e) {
             return "redirect:/posts";

@@ -38,11 +38,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import static org.springframework.web.servlet.support.ServletUriComponentsBuilder.fromCurrentRequest;
 
@@ -294,8 +294,9 @@ public class RestUserController {
             )
     })
     @PostMapping({"", "/"})
-    public ResponseEntity<Object> registerNewUser(@ModelAttribute CreateUserRequest createUserRequest) {
+    public ResponseEntity<Object> registerNewUser(@RequestBody CreateUserRequest createUserRequest) {
         try {
+            System.out.println(createUserRequest);
             PrivateUserDTO privateUser = userService.register(createUserRequest);
             URI location = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(privateUser.id()).toUri();
             return ApiResponseDTO.ok(privateUser, location, 201);
@@ -369,7 +370,7 @@ public class RestUserController {
     @PatchMapping("/{id}")
     public ResponseEntity<Object> modifyUser(
         @PathVariable long id,
-        @ModelAttribute ModifyUserRequest modifyUser
+        @RequestBody ModifyUserRequest modifyUser
     ) {
         try {
             User authenticatedUser = controllerUtils.getAuthenticatedUser();
@@ -420,7 +421,7 @@ public class RestUserController {
     @PatchMapping("/{id}/password")
     public ResponseEntity<Object> modifyPassword(
         @PathVariable long id,
-        @ModelAttribute ModifyPasswordRequest modifyUserPassword
+        @RequestBody ModifyPasswordRequest modifyUserPassword
     ) {
         try {
             // Get the authenticated user

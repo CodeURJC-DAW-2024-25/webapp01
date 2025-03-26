@@ -67,7 +67,6 @@ public class RestProductsController {
         }
     }
 
-
     @Operation(summary = "Get product by id")
     @ApiResponses(value = {
         @ApiResponse(

@@ -190,10 +190,9 @@ public class PostService {
      * @param banner The banner image of the post
      * @return The created post
     */
-    public PostDTO createPost(CreatePostRequest postRequest, MultipartFile banner) throws IOException {
+    public PostDTO createPost(CreatePostRequest postRequest) throws IOException {
         Post post = new Post();
         postMapper.createPostFromRequest(postRequest, post);
-        if (banner != null) post.saveImage(banner);
         return postMapper.toDTO(postRepository.save(post));
     }
 

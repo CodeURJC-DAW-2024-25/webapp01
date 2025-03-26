@@ -12,7 +12,6 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,6 +33,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 
 @RestController
@@ -97,11 +97,10 @@ public class RestPostsController {
     })
     @PostMapping({ "", "/" })
     public ResponseEntity<Object> createPost(
-        @ModelAttribute CreatePostRequest createPostRequest,
-        @RequestParam(required = false) MultipartFile banner
+        @RequestBody CreatePostRequest createPostRequest
     ) {
         try {
-            PostDTO post = postService.createPost(createPostRequest, banner);
+            PostDTO post = postService.createPost(createPostRequest);
             URI location = ServletUriComponentsBuilder.fromCurrentRequest()
                 .path("/{id}").buildAndExpand(post.id()).toUri();
             return ApiResponseDTO.ok(post, location, 201);
@@ -171,7 +170,7 @@ public class RestPostsController {
     @PatchMapping("/{id}")
     public ResponseEntity<Object> updatePost(
         @PathVariable long id,
-        @ModelAttribute CreatePostRequest createPostRequest
+        @RequestBody CreatePostRequest createPostRequest
     ) {
         try {
             PostDTO post = postService.updatePost(id, createPostRequest);
