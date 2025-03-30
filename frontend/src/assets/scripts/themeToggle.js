@@ -1,4 +1,3 @@
-const toggleButtons = document.querySelectorAll('.theme-toggle');
 const THEME_KEY = 'theme';
 const DARK_CLASS = 'dark';
 
@@ -21,11 +20,29 @@ function retrieveTheme() {
     setTheme(theme);
 }
 
-toggleButtons.forEach(button => {
-    button.addEventListener('click', () => {
-        const newTheme = document.documentElement.classList.contains(DARK_CLASS) ? 'light' : DARK_CLASS;
-        setTheme(newTheme);
-    });
-});
+// Function to add click events to theme toggle buttons
+function addClickEvents(){
+    console.log('popstate event triggered');
 
+    // Wait for the page to load before adding click events
+    window.addEventListener('DOMContentLoaded', () => {
+        const toggleButtons = document.querySelectorAll('.theme-toggle');
+        console.log(`Found ${toggleButtons.length} theme toggle buttons`);
+    
+        toggleButtons.forEach(button => {
+            button.addEventListener('click', () => {
+                console.log('Theme toggle button clicked');
+                const newTheme = document.documentElement.classList.contains(DARK_CLASS) ? 'light' : DARK_CLASS;
+                setTheme(newTheme);
+            });
+        });
+    })
+}
+
+// Listen for the changes in the URL to re-add click events
+window.addEventListener('popstate', addClickEvents);
+
+
+console.log('Initializing theme toggle script...');
 retrieveTheme();
+addClickEvents();

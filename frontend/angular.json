@@ -37,7 +37,9 @@
             "styles": [
               "src/styles.css"
             ],
-            "scripts": []
+            "scripts": [
+              "./src/assets/scripts/themeToggle.js"
+            ]
           },
           "configurations": {
             "production": {
