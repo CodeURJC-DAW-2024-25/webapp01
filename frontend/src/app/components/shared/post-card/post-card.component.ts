@@ -1,16 +1,11 @@
-import { Component, input } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { Post } from '../../../types/Posts';
 
 @Component({
   selector: 'app-post-card',
   templateUrl: './post-card.component.html',
-  styleUrl: './post-card.component.css'
+  styleUrls: ['./post-card.component.css']
 })
 export class PostCardComponent {
-  id = input<number>();
-  title = input<string>();
-  description = input<string>();
-  tags = input<string[]>();
-  date = input<string>();
-  readingTime = input<string>();
-  extendedClass = input<string>();
+  @Input() post!: Post;
 }

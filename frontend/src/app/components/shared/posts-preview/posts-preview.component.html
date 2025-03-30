@@ -1,19 +1,10 @@
 <div class="posts-preview">
     <h2>Descubre cómo SaveX puede ayudarte</h2>
     <div class="posts-preview-content">
-        <!-- {{#posts}}
-            {{> components/post}}
-        {{/posts}} -->
-        @for (postCard of postCards; track $index) {
+        @for (post of posts; track $index) {
             <app-post-card
-                [id]="postCard.id"
-                [title]="postCard.title"
-                [description]="postCard.description"
-                [tags]="postCard.tags"
-                [date]="postCard.date"
-                [readingTime]="postCard.readingTime"
-                [extendedClass]="'small'">
-            </app-post-card>
+                [post]="post"
+            />
         }
     </div>
     <a href="/posts" class="clickable clickable-primary">Ver más</a>
