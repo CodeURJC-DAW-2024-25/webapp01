@@ -11,7 +11,6 @@ import { FooterComponent } from './components/shared/footer/footer.component';
 @NgModule({
   declarations: [
     AppComponent,
-    MainComponent,
     NavbarComponent,
     FooterComponent
   ], 

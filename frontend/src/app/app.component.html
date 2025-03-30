@@ -1,5 +1,14 @@
+<!-- {{> components/navbar}}
+{{> components/hero}}
+{{> components/posts-preview}}
+{{> components/cta}}
+{{> components/footer}} -->
+
 <main>
-  <header></header>
-  <router-outlet></router-outlet>
-  <footer></footer>
+  <div class="container">
+    <app-navbar></app-navbar>
+    <router-outlet></router-outlet>
+    <app-footer></app-footer>
+  </div>
 </main>
+<script src="scripts/themeToggle.js"></script>

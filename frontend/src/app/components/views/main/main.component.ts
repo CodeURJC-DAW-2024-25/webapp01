@@ -1,21 +1,14 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Meta, Title } from '@angular/platform-browser';
+import { Component } from "@angular/core";
 
 @Component({
   selector: 'app-main',
   templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css', '../../../styles/index.css' ],
+  styleUrls: ['./main.component.css' ],
 })
-export class MainComponent implements OnInit {
+export class MainComponent  {
   // --- Dependency Injection ---
-  private meta: Meta = inject(Meta);
-  private titleService: Title = inject(Title);
 
   // --- Properties ---
 
   // --- Methods ---
-  ngOnInit(): void {
-    this.meta.addTag({ name: 'description', content: 'This is the main component of the Angular application.' });
-    this.titleService.setTitle('SaveX - Ahorra dinero, tiempo y esfuerzo');
-  }
 }
