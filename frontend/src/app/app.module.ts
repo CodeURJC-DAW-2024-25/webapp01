@@ -12,6 +12,7 @@ import { SearchbarComponent } from './components/shared/searchbar/searchbar.comp
 import { PostsPreviewComponent } from './components/shared/posts-preview/posts-preview.component';
 import { PostCardComponent } from './components/shared/post-card/post-card.component';
 import { CtaComponent } from './components/shared/cta/cta.component';
+import { AboutComponent } from './components/views/about/about.component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { CtaComponent } from './components/shared/cta/cta.component';
     SearchbarComponent,
     PostsPreviewComponent,
     PostCardComponent,
-    CtaComponent
+    CtaComponent,
+    AboutComponent
   ], 
   imports: [
     BrowserModule,
