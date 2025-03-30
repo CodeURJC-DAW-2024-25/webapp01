@@ -4,9 +4,9 @@
             <span class="nav-title">SaveX</span>
         </a>
         <div class="right">
-            @if (userDataService.IsAuthenticated) {
+            @if (userDataService.isAuthenticated) {
                 <a class="clickable clickable-image small" href="/profile">
-                    <img class="avatar" src="{{userDataService.IsAuthenticated}}" alt="user">
+                    <img class="avatar" src="{{userDataService.isAuthenticated}}" alt="user">
                 </a>
             } @else {
                 <a class="clickable clickable-primary" href="/login">Acceder</a>

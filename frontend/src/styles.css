@@ -1,1 +1,161 @@
-/* You can add global styles to this file, and also import other style files */
+@import url("https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css");
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+/* Custom CSS components */
+@import url('./app/styles/footer.css');
+@import url('./app/styles/navbar.css');
+@import url('./app/styles/button.css');
+
+* {
+    font-family: 'Roboto', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    scroll-behavior: smooth;
+
+    scrollbar-width: thin;
+    scrollbar-color: var(--secondary-color) var(--semi-bg-color);
+
+    --navbar-height: 75px;
+    --max-width: 1200px;
+
+    /* Colors */
+    --grey-color: #e7ebf1;
+    --white-color: #fff;
+
+    --primary-color: #222;
+    --secondary-color: #333;
+    --text-color: #444;
+    --bg-color: #fff;
+    --semi-bg-color: #fcfcfc;
+    --primary-color-hover: #0f7a97;
+    --accent-color: #1a8754;
+    --blue-color: #64748b;
+
+    --danger-color: #cd3333;
+    --danger-bg-color: #f4dcdd;
+    --grey-bg-color: #c7c6c6;
+}
+
+.dark,
+.dark * {
+
+    --grey-color: #27272a;
+    --white-color: #000;
+
+    --primary-color: #fff;
+    --secondary-color: #eee;
+    --text-color: #ccc;
+    --bg-color: #000;
+    --semi-bg-color: #111;
+    --primary-color-hover: #87d2e7;
+    --accent-color: #1a8754;
+    --blue-color: #b1c2d8;
+
+    --danger-color: #ff4d4d;
+    --danger-bg-color: #3e2222;
+    --grey-bg-color: #1a1a1d;
+}
+
+body {
+    background-color: var(--bg-color);
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.container {
+    position: relative;
+    padding: 20px;
+    padding-top: calc(var(--navbar-height) + 150px);
+    width: 100%;
+    max-width: var(--max-width);
+    min-height: 110vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 200px;
+
+    &.no-gap {
+        gap: 80px;
+    }
+
+    &.small-gap {
+        gap: 40px;
+    }
+
+    &.small-padding {
+        padding-top: calc(var(--navbar-height) + 50px);
+    }
+
+    &.no-padding {
+        padding-top: 0;
+        padding: 0;
+    }
+}
+
+a {
+    text-decoration: none;
+
+    &:hover,
+    &:active,
+    &:focus,
+    &:visited {
+        text-decoration: none;
+    }
+}
+
+h1 {
+    text-align: center;
+    font-size: 3rem;
+    margin-bottom: 16px;
+    color: var(--primary-color);
+}
+
+h2 {
+    text-align: center;
+    font-size: 2rem;
+    margin-bottom: 8px;
+    color: var(--primary-color);
+}
+
+h3 {
+    text-align: center;
+    font-size: 1.35rem;
+    margin-bottom: 8px;
+    font-weight: 400;
+    color: var(--text-color);
+}
+
+p {
+    font-size: 1rem;
+    line-height: 1.5;
+    margin-bottom: 6px;
+    color: var(--text-color);
+}
+
+hr {
+    width: 100%;
+    border: none;
+    height: 3px;
+    background: linear-gradient(to right, transparent, var(--grey-color), transparent);
+
+    &.margin-v {
+        margin-top: 16px;
+        margin-bottom: 16px;
+
+        &.big {
+            margin-top: 32px;
+            margin-bottom: 32px;
+        }
+    }
+}
+
+.error {
+    margin-top: 2px;
+    color: red;
+}

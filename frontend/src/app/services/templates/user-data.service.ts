@@ -1,27 +1,43 @@
-import { Injectable } from '@angular/core';
+import { Injectable, signal } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserDataService {
   // --- Properties ---
-  private isAuthenticated: boolean = false;
-  private avater: string = '';
+  private _isAuthenticated = signal(false);
+  private _avatar = signal('');
+  private _isAdmin = signal(false);
+  private _token = signal('');
 
   constructor() { }
 
   // --- Methods ---
-  get IsAuthenticated(): boolean {
-    return this.isAuthenticated;
+  get isAuthenticated(): boolean {
+    return this._isAuthenticated();
   }
-  set IsAuthenticated(value: boolean) {
-    this.isAuthenticated = value;
+  set isAuthenticated(value: boolean) {
+    this._isAuthenticated.set(value);
   }
 
-  get Avater(): string {
-    return this.avater;
+  get avatar(): string {
+    return this._avatar();
   }
-  set Avater(value: string) {
-    this.avater = value;
+  set avatar(value: string) {
+    this._avatar.set(value);
+  }
+
+  get isAdmin(): boolean {
+    return this._isAdmin();
+  }
+  set isAdmin(value: boolean) {
+    this._isAdmin.set(value);
+  }
+
+  get token(): string {
+    return this._token();
+  }
+  set token(value: string) {
+    this._token.set(value);
   }
 }

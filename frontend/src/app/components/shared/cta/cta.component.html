@@ -1,0 +1,15 @@
+<div class="cta">
+    <h1 class="cta-title">Únete a nosotros y empieza a ahorrar en tu cesta de la compra</h1>
+    <div class="cta-image">
+        <img src="/assets/images/cta-image.jpeg" alt="Placeholder">
+    </div>
+    <div class="cta-clickables">
+        @if (userData.isAuthenticated) {
+            <a class="clickable clickable-primary" href="/search">Busca productos</a>
+        } @else {
+            <a class="clickable clickable-primary" href="/login">Accede a tu cuenta</a>
+            <span>o</span>
+            <a class="clickable clickable-secondary" href="/search">Busca productos</a>
+        }
+    </div>
+</div>

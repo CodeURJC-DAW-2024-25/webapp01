@@ -7,12 +7,23 @@ import { RouterModule } from '@angular/router';
 import { MainComponent } from './components/views/main/main.component';
 import { NavbarComponent } from './components/shared/navbar/navbar.component';
 import { FooterComponent } from './components/shared/footer/footer.component';
+import { HeroComponent } from './components/shared/hero/hero.component';
+import { SearchbarComponent } from './components/shared/searchbar/searchbar.component';
+import { PostsPreviewComponent } from './components/shared/posts-preview/posts-preview.component';
+import { PostCardComponent } from './components/shared/post-card/post-card.component';
+import { CtaComponent } from './components/shared/cta/cta.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    MainComponent,
+    HeroComponent,
+    SearchbarComponent,
+    PostsPreviewComponent,
+    PostCardComponent,
+    CtaComponent
   ], 
   imports: [
     BrowserModule,
