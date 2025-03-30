@@ -6,6 +6,15 @@
 @import url('./app/styles/navbar.css');
 @import url('./app/styles/button.css');
 
+app-root,
+app-main,
+main {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 * {
     font-family: 'Roboto', sans-serif;
     margin: 0;

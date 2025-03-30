@@ -1,3 +1,9 @@
+:host {
+    width: 100%;
+    max-width: var(--max-width);
+    display: flex;
+}
+
 footer {
     margin-top: 120px;
     width: 100%;

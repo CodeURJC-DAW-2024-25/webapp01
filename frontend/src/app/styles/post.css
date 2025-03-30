@@ -3,6 +3,7 @@
     flex: 1;
     min-width: 250px;
     width: 250px;
+    height: 100%;
     padding: 16px;
     display: flex;
     flex-direction: column;
@@ -135,6 +136,11 @@
 }
 
 @media (max-width: 660px) {
+    :host {
+        width: 100%;
+        max-width: 100%;
+    }
+
     .post {
         width: 100%;
 
