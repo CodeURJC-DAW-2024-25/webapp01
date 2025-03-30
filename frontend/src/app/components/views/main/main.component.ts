@@ -1,14 +1,32 @@
 import { Component } from "@angular/core";
+import { Post } from "../../../types/Posts";
+import { PostsService } from "../../../services/posts/post.service";
+import { PageRequest } from "../../../types/common/PageRequest";
 
 @Component({
-  selector: 'app-main',
-  templateUrl: './main.component.html',
-  styleUrls: ['./main.component.css' ],
+	selector: 'app-main',
+	templateUrl: './main.component.html',
+	styleUrls: ['./main.component.css'],
 })
-export class MainComponent  {
-  // --- Dependency Injection ---
+export class MainComponent {
+	posts: Post[] = [];
+	isLoading = true;
+	error: string | null = null;
 
-  // --- Properties ---
+	constructor(private postsService: PostsService) { }
 
-  // --- Methods ---
+	ngOnInit(): void {
+		const pageRequest: PageRequest = { page: 0, size: 4 };
+		this.postsService.getPosts(pageRequest).subscribe({
+			next: (response) => {
+				this.posts = response.data.page;
+				console.log(this.posts);
+				this.isLoading = false;
+			},
+			error: (err) => {
+				this.error = err.message;
+				this.isLoading = false;
+			},
+		});
+	}
 }

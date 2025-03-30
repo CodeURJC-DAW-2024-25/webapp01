@@ -20,7 +20,7 @@
             <span class="read-time">{{post.readingTime}}</span>
         </div>
         <div class="img-container">
-            <img src="/api/v1/posts/{{post.id}}/banner" alt="{{post.title}}">
+            <img [src]="getBannerUrl()" alt="{{post.title}}">
         </div>
     </div>
 </a>

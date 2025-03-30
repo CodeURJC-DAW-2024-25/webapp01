@@ -13,6 +13,7 @@ import { PostsPreviewComponent } from './components/shared/posts-preview/posts-p
 import { PostCardComponent } from './components/shared/post-card/post-card.component';
 import { CtaComponent } from './components/shared/cta/cta.component';
 import { AboutComponent } from './components/views/about/about.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { AboutComponent } from './components/views/about/about.component';
     BrowserModule,
     AppRoutingModule,
     RouterModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent] // Bootstrap the standalone component

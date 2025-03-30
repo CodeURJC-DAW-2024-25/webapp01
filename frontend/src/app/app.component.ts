@@ -16,7 +16,7 @@ export class AppComponent implements OnInit {
 
   // --- Methods ---
   ngOnInit(): void {
-    this.meta.addTag({ name: 'description', content: 'This is the main component of the Angular application.' });
+    this.meta.addTag({ name: 'description', content: 'SaveX es una aplicación web que te ayuda a ahorrar dinero, tiempo y esfuerzo al gestionar tus gastos y presupuestos de manera eficiente.' });
     this.titleService.setTitle('SaveX - Ahorra dinero, tiempo y esfuerzo');
   }
 }

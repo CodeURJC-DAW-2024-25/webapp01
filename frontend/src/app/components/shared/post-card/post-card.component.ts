@@ -1,5 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { Post } from '../../../types/Posts';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-post-card',
@@ -8,4 +9,8 @@ import { Post } from '../../../types/Posts';
 })
 export class PostCardComponent {
   @Input() post!: Post;
+
+  getBannerUrl(): string {
+    return `${environment.baseApiUrl}/posts/${this.post.id}/banner`;
+  }
 }
