@@ -1,0 +1,28 @@
+.posts-preview {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+
+    .posts-preview-content {
+        width: 100%;
+        display: flex;
+        align-items: stretch;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 24px;
+        margin: 20px 0;
+
+        &.extended {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+}
+
+@media (max-width: 660px) {
+    .posts-preview .posts-preview-content.extended {
+        grid-template-columns: 1fr;
+    }
+}

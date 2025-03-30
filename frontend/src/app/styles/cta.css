@@ -1,0 +1,40 @@
+.cta {
+    width: 100%;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+
+    .cta-title {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--text-color);
+    }
+
+    .cta-image {
+        width: 600px;
+        margin: 24px 0;
+        max-width: 100%;
+        height: 300px;
+        border-radius: 12px;
+
+        img {
+            width: 100%;
+            height: 100%;
+            border-radius: 12px;
+            object-fit: cover;
+        }
+    }
+
+    .cta-clickables {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 20px;
+        color: var(--primary-color);
+        font-weight: 500;
+    }
+}

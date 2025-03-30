@@ -1,0 +1,128 @@
+.grid-layout {
+    width: 100%;
+    min-height: 40vh;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    grid-gap: 24px;
+    justify-items: center;
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    }
+
+    @media (max-width: 576px) {
+        grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+    }
+}
+
+
+.loader {
+    text-align: center;
+    font-family: Arial Black;
+    font-weight: bold;
+    font-size: 20px;
+    background: #202020;
+    -webkit-background-clip: text;
+    -moz-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    text-shadow: 0px 3px 3px rgba(255, 255, 255, 0.4), 0px -1px 1px rgba(0, 0, 0, 0.3);
+}
+
+
+.pagination {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 32px;
+
+    #page-number {
+        color: var(--primary-color);
+    }
+}
+
+.query-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 32px;
+}
+
+.search-bar-container {
+    width: 100%;
+    max-width: 100%;
+}
+
+.filters-bar {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    flex-wrap: nowrap;
+    align-items: center;
+    border-radius: 5px;
+}
+
+.filters-form {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    width: 100%;
+}
+
+.filter-row {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 32px;
+}
+
+.filter-item {
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    font-size: 0.9rem;
+}
+
+.radio-buttons {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 10px;
+
+    input[type="radio"] {
+        display: none;
+
+        &:checked+label {
+            background-color: var(--primary-color);
+            color: var(--white-color);
+        }
+    }
+
+    label {
+        padding: 10px 20px;
+        cursor: pointer;
+        border-radius: 5px;
+        background-color: var(--grey-color);
+        color: var(--text-color);
+        font-size: 16px;
+        font-weight: 600;
+        text-align: center;
+        transition: background-color 0.3s ease;
+    }
+}
+
+@media (max-width: 768px) {
+    .filters-form {
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .filter-row {
+        flex-direction: column;
+        justify-content: center;
+    }
+}

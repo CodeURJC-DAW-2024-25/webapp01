@@ -1,0 +1,110 @@
+.shopping-list-header {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 20px;
+    flex-wrap: wrap;
+
+    .right {
+        display: flex;
+        gap: 10px;
+        align-items: center;
+        justify-content: flex-end;
+    }
+}
+
+.back-link {
+    display: inline-block;
+    margin-bottom: 20px;
+}
+
+.shopping-list-card {
+    width: 100%;
+    background-color: var(--semi-bg-color);
+    border-radius: 6px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    padding: 20px;
+
+    .title {
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding-bottom: 12px;
+        margin-bottom: 24px;
+        border-bottom: 1px solid var(--grey-color);
+
+        h2 {
+            text-align: start;
+            font-size: 24px;
+        }
+    }
+}
+
+.product-list {
+    list-style-type: none;
+    padding: 0;
+}
+
+.product-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+
+    &:last-child {
+        border-bottom: none;
+    }
+
+    .product-info {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+
+        h3 {
+            text-align: start;
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .product-meta {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            margin-top: 5px;
+            font-size: 14px;
+
+            .product-brand {
+                padding: 4px 10px;
+                background-color: var(--accent-color);
+                border-radius: 18px;
+                margin: 0;
+                color: #fff;
+            }
+
+            .product-price {
+                padding: 4px 10px;
+                background-color: var(--primary-color);
+                border-radius: 18px;
+                margin: 0;
+                color: var(--white-color);
+            }
+        }
+    }
+
+    .product-actions {
+        display: flex;
+        gap: 12px;
+        align-items: center;
+        justify-content: flex-end;
+    }
+}
+
+.no-products {
+    width: 100%;
+    text-align: center;
+    padding: 20px;
+}

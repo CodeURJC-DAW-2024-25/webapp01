@@ -1,0 +1,109 @@
+.graphics_wrap {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    gap: 20px;
+
+    .graph {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+section {
+    width: 100%;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: var(--semi-bg-color);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.text-end {
+    text-align: end;
+}
+
+.action-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.admin-users,
+.admin-posts {
+    width: 100%;
+    border-radius: 5px;
+    background-color: var(--semi-bg-color);
+    overflow-x: scroll;
+    margin-bottom: 20px;
+
+    /* Hide scrollbar */
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+
+    /* IE 10+ */
+    ::-webkit-scrollbar {
+        display: none;
+        /* Safari and Chrome */
+    }
+
+    &>table.table {
+
+        thead>tr>th {
+            border: none;
+            border-style: hidden;
+
+            background-color: var(--bg-color);
+            color: var(--primary-color);
+
+            &:first-child {
+                border-top-left-radius: 5px;
+                border-bottom-left-radius: 5px;
+            }
+
+            &:last-child {
+                border-top-right-radius: 5px;
+                border-bottom-right-radius: 5px;
+            }
+        }
+
+        tbody>tr {
+            border: none;
+            border-style: hidden;
+
+            &:nth-child(even) td {
+                background-color: var(--semi-bg-color);
+                color: var(--text-color);
+            }
+
+            &:nth-child(odd) td {
+                background-color: var(--grey-color);
+                color: var(--text-color);
+            }
+
+            &[data-post-id] {
+                cursor: pointer;
+            }
+        }
+
+
+    }
+}
+
+.load-more-btn td {
+    padding: 10px 0;
+}
+
+
+@media (max-width: 768px) {
+    .graphics_wrap {
+        flex-direction: column;
+    }
+
+    .action-container {
+        flex-direction: column;
+    }
+}

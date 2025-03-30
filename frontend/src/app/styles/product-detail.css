@@ -1,0 +1,240 @@
+.product-grid {
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+
+    .section-title {
+        width: 100%;
+        text-align: left;
+        font-weight: 600;
+        margin-bottom: 0.5rem;
+        font-size: 1rem;
+        text-align: left;
+    }
+
+    .product-image {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-color: white;
+        border-radius: 5px;
+        padding: 1.5rem;
+        border: 1px solid var(--grey-color);
+    }
+
+    .product-image img {
+        max-height: 400px;
+        object-fit: contain;
+        width: 100%;
+    }
+
+    .product-info {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    .product-header .badge {
+        margin-bottom: 24px;
+        color: var(--text-color);
+        background-color: var(--grey-color);
+    }
+
+    .product-title {
+        font-size: 1.875rem;
+        font-weight: 700;
+        line-height: 1.2;
+        text-align: left;
+        text-transform: capitalize;
+    }
+
+    .product-brand {
+        font-size: 1.25rem;
+        font-weight: 600;
+        color: var(--accent-color);
+        margin-top: 0.25rem;
+        text-transform: capitalize;
+    }
+
+    .product-price {
+        display: flex;
+        align-items: baseline;
+    }
+
+    .price-main {
+        font-size: 1.875rem;
+        font-weight: 700;
+        color: var(--primary-color);
+    }
+
+    .price-unit {
+        margin-left: 0.5rem;
+        font-size: 0.875rem;
+        color: var(--accent-color);
+        text-transform: capitalize;
+    }
+
+    .separator {
+        height: 1px;
+        background-color: var(--grey-color);
+        border: none;
+    }
+
+    .product-details-card {
+        background-color: var(--semi-bg-color);
+        border-radius: 0.5rem;
+        padding: 1rem;
+        border: 1px solid var(--grey-color);
+    }
+}
+
+@media (max-width: 768px) {
+    .product-grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+.back-link {
+    width: 100%;
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+.section-title {
+    width: 100%;
+    text-align: left;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+.details-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.details-row {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 0.25rem;
+}
+
+.details-row dt {
+    color: var(--accent-color);
+}
+
+.details-row dd {
+    color: var(--text-color);
+}
+
+.categories-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+}
+
+.badge {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 24px;
+    font-size: 12px;
+    font-weight: 500;
+    padding: 2px 10px;
+    border: 1px solid var(--grey-color);
+}
+
+.badge-secondary {
+    background-color: var(--grey-color);
+    color: var(--text-color);
+}
+
+.product-actions {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.related-products {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+#compareContainer {
+    width: 100%;
+    display: none;
+}
+
+table {
+    width: 100%;
+    color: var(--text-color);
+    border-collapse: collapse;
+    border-radius: 5px;
+    border: 1px solid var(--grey-color);
+
+    tr {
+
+        &[data-product-url] {
+            cursor: pointer;
+        }
+
+        th,
+        td {
+            padding: 12px 16px;
+            border-bottom: 1px solid var(--grey-color);
+            font-size: 14px;
+            font-weight: 500;
+            vertical-align: middle;
+            text-align: left;
+            text-transform: capitalize;
+        }
+
+        th {
+            font-weight: 600;
+            color: var(--primary-color);
+            background-color: var(--grey-color);
+        }
+
+        &:last-child td {
+            border-bottom: none;
+        }
+
+        &:hover {
+            background-color: #8881;
+        }
+    }
+
+    .product-name {
+        font-weight: 500;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+    }
+
+    .best-price {
+        font-weight: 700;
+        color: var(--accent-color);
+    }
+}
+
+.hidden {
+    display: none;
+}
+
+.spin {
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

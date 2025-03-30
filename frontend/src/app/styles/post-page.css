@@ -1,0 +1,80 @@
+main {
+    article.post {
+        display: flex;
+        flex-direction: column;
+
+        .post-content {
+            display: flex;
+            gap: 10px;
+
+            .post-image {
+                width: 300px;
+                height: 100%;
+                border-radius: 8px;
+                margin-bottom: 16px;
+
+                img {
+                    width: 100%;
+                    height: 100%;
+                    object-fit: contain;
+                }
+            }
+
+            h3,
+            h4 {
+                color: var(--primary-color);
+                font-weight: 400;
+                letter-spacing: 0.5px;
+            }
+
+            .post-data {
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                max-width: 30vw;
+                gap: 10px;
+
+                ul {
+                    width: 100%;
+                    display: flex;
+                    flex-wrap: wrap;
+                    gap: 4px;
+
+                    li {
+                        background-color: var(--grey-color);
+                        border-radius: 16px;
+                        color: var(--secondary-color);
+                        font-size: 10px;
+                        font-weight: 600;
+                        letter-spacing: 0.5px;
+                        padding: 4px 8px;
+                        list-style-type: none;
+                    }
+
+                    .supermarket-logo-price {
+                        position: relative;
+                        display: flex;
+                        align-items: center;
+
+                        img {
+                            width: 20px;
+                            height: 20px;
+                            object-fit: contain;
+                            margin-right: 4px;
+                        }
+
+                        &.cheapest {
+                            background: #15df1b;
+                            color: white;
+                        }
+
+                        &.unavailable {
+                            background: #6f000078;
+                            color: white;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
