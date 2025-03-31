@@ -4,6 +4,7 @@
         @for (post of posts; track $index) {
             <app-post-card
                 [post]="post"
+                [extendedClass]="extendedClass"
             />
         }
     </div>

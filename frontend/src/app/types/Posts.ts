@@ -8,9 +8,6 @@ export interface Post {
     readingTime: string;
     visibility: 'PUBLIC' | 'PRIVATE';
     tags: string[];
-    config?: {
-        extendedClass?: string;
-    }
 }
 
 export interface ContentPost extends Post {

@@ -13,6 +13,7 @@ export class PostsPreviewComponent {
 
 	// --- Properties ---
 	@Input() posts: Post[] = [];
+	@Input() extendedClass: string = '';
 
 	// --- Methods ---
 }

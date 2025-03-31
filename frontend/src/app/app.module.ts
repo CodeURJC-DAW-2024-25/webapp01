@@ -14,6 +14,8 @@ import { PostCardComponent } from './components/shared/post-card/post-card.compo
 import { CtaComponent } from './components/shared/cta/cta.component';
 import { AboutComponent } from './components/views/about/about.component';
 import { HttpClientModule } from '@angular/common/http';
+import { PostsComponent } from './components/views/posts/posts.component';
+import { SuggestionComponent } from './components/shared/suggestion/suggestion.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import { HttpClientModule } from '@angular/common/http';
     PostsPreviewComponent,
     PostCardComponent,
     CtaComponent,
-    AboutComponent
+    AboutComponent,
+    PostsComponent,
+    SuggestionComponent
   ], 
   imports: [
     BrowserModule,

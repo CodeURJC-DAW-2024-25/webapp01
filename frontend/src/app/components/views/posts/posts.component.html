@@ -1,0 +1,18 @@
+<div class="container no-gap small-padding">
+    <h2>¿Quieres saber más sobre cómo ahorrar dinero?</h2>
+    <div class="posts-preview">
+        <div class="posts-preview-content extended" id="posts-preview-container">
+            @for (post of posts; track $index) {
+                <app-post-card
+                    [post]="post"
+                    [extendedClass]="'extended'"
+                />
+            }
+        </div>
+        @if (!isLastPage) {
+            <button (click)="fetchPosts()" id="load-more-button" class="clickable clickable-primary">Cargar más</button>
+        }
+    </div>
+    <hr>
+    <app-suggestion/>
+</div>
