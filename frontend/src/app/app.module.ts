@@ -15,9 +15,8 @@ import { CtaComponent } from './components/shared/cta/cta.component';
 import { AboutComponent } from './components/views/about/about.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PostsComponent } from './components/views/posts/posts.component';
-
-
 import { SuggestionComponent } from './components/shared/suggestion/suggestion.component';
+import { PostDetailComponent } from './components/views/post-detail/post-detail.component';
 import { ProductsComponent } from './components/views/products/products.component';
 import { FormsModule } from '@angular/forms'; 
 @NgModule({
@@ -34,7 +33,8 @@ import { FormsModule } from '@angular/forms';
     AboutComponent,
     PostsComponent,
     SuggestionComponent,
-    ProductsComponent
+    ProductsComponent,
+    PostDetailComponent
   ], 
   imports: [
     BrowserModule,
