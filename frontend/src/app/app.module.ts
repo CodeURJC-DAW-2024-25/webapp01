@@ -16,6 +16,7 @@ import { AboutComponent } from './components/views/about/about.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PostsComponent } from './components/views/posts/posts.component';
 import { SuggestionComponent } from './components/shared/suggestion/suggestion.component';
+import { PostDetailComponent } from './components/views/post-detail/post-detail.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { SuggestionComponent } from './components/shared/suggestion/suggestion.c
     CtaComponent,
     AboutComponent,
     PostsComponent,
-    SuggestionComponent
+    SuggestionComponent,
+    PostDetailComponent
   ], 
   imports: [
     BrowserModule,
