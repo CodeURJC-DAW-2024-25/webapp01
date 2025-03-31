@@ -15,8 +15,11 @@ import { CtaComponent } from './components/shared/cta/cta.component';
 import { AboutComponent } from './components/views/about/about.component';
 import { HttpClientModule } from '@angular/common/http';
 import { PostsComponent } from './components/views/posts/posts.component';
-import { SuggestionComponent } from './components/shared/suggestion/suggestion.component';
 
+
+import { SuggestionComponent } from './components/shared/suggestion/suggestion.component';
+import { ProductsComponent } from './components/views/products/products.component';
+import { FormsModule } from '@angular/forms'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -30,14 +33,15 @@ import { SuggestionComponent } from './components/shared/suggestion/suggestion.c
     CtaComponent,
     AboutComponent,
     PostsComponent,
-    SuggestionComponent
+    SuggestionComponent,
+    ProductsComponent
   ], 
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    HttpClientModule
-  ],
+    HttpClientModule,
+    FormsModule],
   providers: [],
   bootstrap: [AppComponent] // Bootstrap the standalone component
 })
