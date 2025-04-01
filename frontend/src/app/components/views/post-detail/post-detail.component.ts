@@ -54,6 +54,13 @@ export class PostDetailComponent implements OnInit {
 		return `${environment.baseApiUrl}/posts/${this.post()?.id}/banner`;
 	}
 
+	setDefaultImage(event: Event): void {
+		const target = event.target as HTMLImageElement;
+		console.log(target);
+		target.src = "/assets/images/template_image.png";
+		target.alt = "Default Image";
+	}
+	
 	ngOnInit(): void {
 		this.postId = this.route.snapshot.paramMap.get('id');
 		this.fetchPostDetail(this.postId!);

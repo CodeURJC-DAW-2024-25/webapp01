@@ -37,8 +37,11 @@
             </div>
         </header>
         <div class="post-image">
-            <img [src]="getBannerUrl()" onerror="this.src='/assets/template_image.png'"
-                alt="{{post()?.title}}">
+            <img
+                [src]="getBannerUrl()"
+                [alt]="post()?.title"
+                (error)="setDefaultImage($event)"
+            >
         </div>
         <hr>
         <div class="post-content" [innerHTML]="postContent()"></div>
