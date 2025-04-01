@@ -3,7 +3,7 @@
 
 <head>
     {{> components/head-tags}}
-    <link rel="stylesheet" routerLink="/styles/error.css">
+    <link rel="stylesheet" href="/styles/error.css">
     <title>{{title}}</title>
 </head>
 
@@ -13,7 +13,7 @@
         <div class="error-page">
             <h1>Error {{status}}</h1>
             <p>Lo sentimos, ha ocurrido un error.</p>
-            <a routerLink="/" class="clickable clickable-primary">
+            <a href="/" class="clickable clickable-primary">
                 <i class="bi bi-house"></i>
                 <span>Ir a la página principal</span>
             </a>

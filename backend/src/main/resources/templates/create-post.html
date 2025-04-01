@@ -2,8 +2,8 @@
 <html lang="es">
 
 <head>
-    <link rel="stylesheet" routerLink="/styles/form.css">
-    <link rel="stylesheet" routerLink="/styles/create-post.css">
+    <link rel="stylesheet" href="/styles/form.css">
+    <link rel="stylesheet" href="/styles/create-post.css">
     {{> components/head-tags}}
 </head>
 
@@ -73,7 +73,7 @@
                     Este post será renderizado usando Markdown. Para más información puede consultar la
                     <a
                         class="clickable clickable-text inline underline"
-                        routerLink="https://www.markdownguide.org/getting-started/"
+                        href="https://www.markdownguide.org/getting-started/"
                         target="_blank"
                         rel="noopener noreferrer"
                     >guía de Markdown</a>.
@@ -82,7 +82,7 @@
                     required>{{#post}}{{post.content}}{{/post}}</textarea>
             </div>
             <div class="form-buttons">
-                <a routerLink="/admin" class="clickable clickable-secondary">Cancelar</a>
+                <a href="/admin" class="clickable clickable-secondary">Cancelar</a>
                 <button type="submit" class="clickable clickable-primary">{{#post}}Actualizar
                     Post{{/post}}{{^post}}Crear Post{{/post}}</button>
             </div>
