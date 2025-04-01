@@ -13,7 +13,7 @@ const setPostsEvents = () => {
     posts.forEach(post => {
         const postId = post.getAttribute('data-post-id')
         post.addEventListener('click', (e) => {
-            location.href = `/posts/${postId}`
+            location.routerLink = `/posts/${postId}`
         })
 
         post.querySelector('[data-admin-command="post-delete"]')?.addEventListener('click', (e) => {

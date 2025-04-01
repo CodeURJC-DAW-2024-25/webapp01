@@ -20,7 +20,7 @@ async function deletePost() {
         await fetchData(endpoint, "DELETE", { cacheData: false });
 
         // Redirect to the admin page
-        window.location.href = "/admin";
+        window.location.routerLink = "/admin";
     } catch (error) {
         console.error(error);
     }

@@ -1,15 +1,15 @@
 <div class="navbar">
     <div class="nav-content">
-        <a class="nav-logo clickable clickable-text" href="/">
+        <a class="nav-logo clickable clickable-text" routerLink="/">
             <span class="nav-title">SaveX</span>
         </a>
         <div class="right">
             @if (userDataService.isAuthenticated) {
-                <a class="clickable clickable-image small" href="/profile">
+                <a class="clickable clickable-image small" routerLink="/profile">
                     <img class="avatar" src="{{userDataService.isAuthenticated}}" alt="user">
                 </a>
             } @else {
-                <a class="clickable clickable-primary" href="/login">Acceder</a>
+                <a class="clickable clickable-primary" routerLink="/login">Acceder</a>
             }
             <button class="clickable clickable-tool secondary theme-toggle bordered">
                 <i class="bi bi-moon light-icon"></i>
