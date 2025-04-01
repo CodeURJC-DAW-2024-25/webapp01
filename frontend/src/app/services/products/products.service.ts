@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
+import { environment } from '@environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ProductService {
-  private apiUrl = '/api/v1/products'; 
-
+  private apiUrl = `${environment.baseApiUrl}/products`;
   constructor(private http: HttpClient) {}
 
   searchProducts(query: string): Observable<any[]> {

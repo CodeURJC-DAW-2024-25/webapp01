@@ -5,12 +5,12 @@
     </div>
     <div class="cta-clickables">
         {{#isAuthenticated}}
-        <a class="clickable clickable-primary" routerLink="/search">Busca productos</a>
+        <a class="clickable clickable-primary" href="/search">Busca productos</a>
         {{/isAuthenticated}}
         {{^isAuthenticated}}
-        <a class="clickable clickable-primary" routerLink="/login">Accede a tu cuenta</a>
+        <a class="clickable clickable-primary" href="/login">Accede a tu cuenta</a>
         <span>o</span>
-        <a class="clickable clickable-secondary" routerLink="/search">Busca productos</a>
+        <a class="clickable clickable-secondary" href="/search">Busca productos</a>
         {{/isAuthenticated}}
     </div>
 </div>

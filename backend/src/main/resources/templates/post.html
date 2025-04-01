@@ -2,7 +2,7 @@
 <html lang="es">
 
 <head>
-    <link rel="stylesheet" routerLink="/styles/post-detail.css">
+    <link rel="stylesheet" href="/styles/post-detail.css">
     {{> components/head-tags}}
 </head>
 
@@ -11,14 +11,14 @@
         {{> components/navbar}}
         <section class="post-detail">
             <div class="back-link">
-                <a routerLink="/posts" class="clickable clickable-text">
+                <a href="/posts" class="clickable clickable-text">
                     <i class="bi bi-arrow-left"></i>
                     <span>Volver a la lista de posts</span>
                 </a>
     
                 {{#isAdmin}}
                     <div class="post-admin-controls">
-                        <a routerLink="/editPost/{{post.id}}" class="clickable clickable-tool bordered">
+                        <a href="/editPost/{{post.id}}" class="clickable clickable-tool bordered">
                             <i class="bi bi-pencil"></i>
                         </a>
                         <button id="delete-post-button" class="clickable clickable-tool bordered danger" data-post-id="{{post.id}}">
