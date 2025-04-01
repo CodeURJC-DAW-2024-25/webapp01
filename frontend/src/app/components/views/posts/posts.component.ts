@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
-import { Post } from '../../../types/Posts';
-import { PostsService } from '../../../services/posts/post.service';
-import { PageRequest } from '../../../types/common/PageRequest';
+import { Post } from '@/types/Posts';
+import { PostsService } from '@services/post.service';
+import { PageRequest } from '@/types/common/PageRequest';
 
 @Component({
 	selector: 'app-posts',
