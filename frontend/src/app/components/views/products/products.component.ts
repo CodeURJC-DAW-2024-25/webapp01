@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { ProductService } from '../../../services/products/products.service'; // Import the ProductService
+import { ProductService } from '../../../services/products/products.service';
 
 @Component({
   selector: 'app-products',
@@ -7,26 +7,30 @@ import { ProductService } from '../../../services/products/products.service'; //
   styleUrls: ['./products.component.css']
 })
 export class ProductsComponent {
-  searchQuery: string = ''; // Two-way binding property
-  products: any[] = []; // Array to store the products
+  private _searchQuery: string = ''; // Propiedad privada para el getter/setter
+  products: any[] = []; // Array para almacenar los productos
 
   constructor(private productService: ProductService) {}
 
-  ngOnChanges(): void {
-    // Trigger product search whenever the search query changes
-    this.loadProducts();
+  get searchQuery(): string {
+    return this._searchQuery;
+  }
+
+  set searchQuery(value: string) {
+    this._searchQuery = value;
+    this.loadProducts(); // Llama al método asíncrono cuando cambia el valor
   }
 
   loadProducts(): void {
     console.log('Loading products with search query:', this.searchQuery); // Debugging log
     if (this.searchQuery.trim() === '') {
-      this.products = []; // Clear products if the search query is empty
+      this.products = []; // Limpia los productos si la búsqueda está vacía
       return;
     }
 
     this.productService.searchProducts(this.searchQuery).subscribe(
       (products) => {
-        this.products = products; // Update the products array
+        this.products = products; // Actualiza el array de productos
         console.log('Products loaded:', this.products); // Debugging log
       },
       (error) => {

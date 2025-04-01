@@ -17,5 +17,5 @@ export class SearchbarComponent {
   onSearch(): void {  
     this.searchQueryChange.emit(this.searchQuery); // Emit the updated search query
   }
-}
+} 
 
