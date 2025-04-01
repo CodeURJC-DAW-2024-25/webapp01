@@ -3,10 +3,10 @@
 
 <head>
     {{> components/head-tags}}
-    <link rel="stylesheet" routerLink="/styles/product-detail.css">
-    <link rel="stylesheet" routerLink="/styles/modal.css">
-    <link rel="stylesheet" routerLink="/styles/products.css">
-    <link rel="stylesheet" routerLink="/styles/product-card.css">
+    <link rel="stylesheet" href="/styles/product-detail.css">
+    <link rel="stylesheet" href="/styles/modal.css">
+    <link rel="stylesheet" href="/styles/products.css">
+    <link rel="stylesheet" href="/styles/product-card.css">
 </head>
 
 <body>
@@ -14,7 +14,7 @@
         {{> components/navbar}}
 
         <div class="back-link">
-            <a routerLink="/search" class="clickable clickable-text">
+            <a href="/search" class="clickable clickable-text">
                 <i class="bi bi-arrow-left"></i>
                 Back to products
             </a>
@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="product-actions">
-                    <a routerLink="{{product_url}}" target="_blank" rel="noopener noreferrer"
+                    <a href="{{product_url}}" target="_blank" rel="noopener noreferrer"
                         class="clickable clickable-secondary full-width">
                         Ver en {{supermarket_name}}
                     </a>
