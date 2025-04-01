@@ -20,7 +20,8 @@ import { PostDetailComponent } from './components/views/post-detail/post-detail.
 import { LoginComponent } from './components/views/login/login.component';
 import { RegisterComponent } from './components/views/register/register.component';
 import { ProductsComponent } from './components/views/products/products.component';
-import { FormsModule } from '@angular/forms'; 
+import { FormsModule } from '@angular/forms';
+import { ProductCardComponent } from './components/shared/components/shared/product-card/product-card.component'; 
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { FormsModule } from '@angular/forms';
     LoginComponent,
     RegisterComponent,
     ProductsComponent,
-    PostDetailComponent
+    PostDetailComponent,
+    ProductCardComponent
   ], 
   imports: [
     BrowserModule,

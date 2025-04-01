@@ -5,7 +5,12 @@
       name="searchQuery"
       placeholder="Buscar productos..."
     />
-    <button type="submit" class="clickable clickable-tool bordered">
+    <button
+      type="submit"
+      class="clickable clickable-tool bordered"
+      [routerLink]="['/products']"
+      [queryParams]="{ search: searchQuery }"
+    >
       <i class="bi bi-search"></i>
     </button>
     <input type="hidden" name="_csrf" value="{{userData.token}}" />
