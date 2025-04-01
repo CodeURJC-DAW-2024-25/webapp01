@@ -20,12 +20,12 @@ export class MainComponent {
 		this.postsService.getPosts(pageRequest).subscribe({
 			next: (response) => {
 				this.posts = response.data.page;
-				console.log(this.posts);
 				this.isLoading = false;
 			},
 			error: (err) => {
 				this.error = err.message;
 				this.isLoading = false;
+				console.error('Error fetching posts:', err);
 			},
 		});
 	}
