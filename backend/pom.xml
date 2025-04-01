@@ -29,7 +29,7 @@
 		</developer>
 		<developer>
 			<id>danisntoss</id>
-			<name>Daniel Sánchez López</name>
+			<name>Daniel Santos López</name>
 			<email>d.santos.2022@alumnos.urjc.es</email>
 			<url>https://github.com/danisntoss</url>
 		</developer>
@@ -241,4 +241,10 @@
 			</plugin>
 		</plugins>
 	</build>
+	<distributionManagement>
+		<repository>
+			<id>my-repo</id>
+			<url>http://your-repository-url</url>
+		</repository>
+	</distributionManagement>
 </project>
