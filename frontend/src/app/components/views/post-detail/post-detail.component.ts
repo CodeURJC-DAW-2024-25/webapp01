@@ -1,9 +1,9 @@
 import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
-import { Post } from '../../../types/Posts';
+import { Post } from '@/types/Posts';
 import { ActivatedRoute } from '@angular/router';
-import { PostsService } from '../../../services/posts/post.service';
-import { UserDataService } from '../../../services/templates/user-data.service';
-import { environment } from '../../../../environments/environment';
+import { PostsService } from '@services/post.service';
+import { UserDataService } from '@services/user-data.service';
+import { environment } from '@environments/environment';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 
 @Component({
