@@ -19,6 +19,8 @@ import { SuggestionComponent } from './components/shared/suggestion/suggestion.c
 import { PostDetailComponent } from './components/views/post-detail/post-detail.component';
 import { LoginComponent } from './components/views/login/login.component';
 import { RegisterComponent } from './components/views/register/register.component';
+import { ProductsComponent } from './components/views/products/products.component';
+import { FormsModule } from '@angular/forms'; 
 
 @NgModule({
   declarations: [
@@ -36,14 +38,16 @@ import { RegisterComponent } from './components/views/register/register.componen
     SuggestionComponent,
     PostDetailComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    ProductsComponent,
+    PostDetailComponent
   ], 
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    HttpClientModule
-  ],
+    HttpClientModule,
+    FormsModule],
   providers: [],
   bootstrap: [AppComponent] // Bootstrap the standalone component
 })
