@@ -59,9 +59,7 @@ public class RestProductsController {
     public ResponseEntity<Object> getProducts(
         @ModelAttribute SearchProductRequest searchProductRequest
             )  {
-        searchProductRequest = new SearchProductRequest("lehce", "mercadona", null, null, null, 10, 0);
-
-        try {
+              try {
         PaginatedDTO<ProductDTO> products = apiService.fetchProducts(searchProductRequest);
         return ApiResponseDTO.ok(products);
         } catch (Exception e) {
