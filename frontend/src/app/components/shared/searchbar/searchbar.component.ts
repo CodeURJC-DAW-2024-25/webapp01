@@ -13,3 +13,4 @@ export class SearchbarComponent {
   // --- Properties ---
   searchQuery: string = "";
 }
+

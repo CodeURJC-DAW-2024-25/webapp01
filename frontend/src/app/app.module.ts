@@ -17,7 +17,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { PostsComponent } from './components/views/posts/posts.component';
 import { SuggestionComponent } from './components/shared/suggestion/suggestion.component';
 import { PostDetailComponent } from './components/views/post-detail/post-detail.component';
-
+import { ProductsComponent } from './components/views/products/products.component';
+import { FormsModule } from '@angular/forms'; 
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,14 +33,15 @@ import { PostDetailComponent } from './components/views/post-detail/post-detail.
     AboutComponent,
     PostsComponent,
     SuggestionComponent,
+    ProductsComponent,
     PostDetailComponent
   ], 
   imports: [
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    HttpClientModule
-  ],
+    HttpClientModule,
+    FormsModule],
   providers: [],
   bootstrap: [AppComponent] // Bootstrap the standalone component
 })

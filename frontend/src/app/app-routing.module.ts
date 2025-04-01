@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './components/views/main/main.component';
 import { AboutComponent } from './components/views/about/about.component';
 import { PostsComponent } from './components/views/posts/posts.component';
+import { ProductsComponent } from './components/views/products/products.component';
 import { PostDetailComponent } from './components/views/post-detail/post-detail.component';
 
 const routes: Routes = [
