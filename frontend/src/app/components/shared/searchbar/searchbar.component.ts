@@ -1,10 +1,10 @@
-import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
-import { UserDataService } from '../../../services/templates/user-data.service';
+import { Component, inject, Input, Output,EventEmitter } from "@angular/core";
+import { UserDataService } from "@services/user-data.service";
 
 @Component({
-  selector: 'app-searchbar',
-  templateUrl: './searchbar.component.html',
-  styleUrl: './searchbar.component.css'
+  selector: "app-searchbar",
+  templateUrl: "./searchbar.component.html",
+  styleUrl: "./searchbar.component.css"
 })
 export class SearchbarComponent {
   // --- Dependencies ---

@@ -5,13 +5,17 @@ import { AboutComponent } from './components/views/about/about.component';
 import { PostsComponent } from './components/views/posts/posts.component';
 import { ProductsComponent } from './components/views/products/products.component';
 import { PostDetailComponent } from './components/views/post-detail/post-detail.component';
+import { LoginComponent } from './components/views/login/login.component';
+import { RegisterComponent } from './components/views/register/register.component';
 
 const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'about', component: AboutComponent },
   { path: 'posts', component: PostsComponent },
   { path: 'posts/:id', component: PostDetailComponent },
-  { path: 'products', component: ProductsComponent }
+  { path: 'products', component: ProductsComponent },
+  { path: 'login', component: LoginComponent },
+  { path: 'register', component: RegisterComponent  },
 ];
 
 @NgModule({

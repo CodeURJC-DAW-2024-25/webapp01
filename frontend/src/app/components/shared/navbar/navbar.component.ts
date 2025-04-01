@@ -1,10 +1,10 @@
-import { Component, inject } from '@angular/core';
-import { UserDataService } from '../../../services/templates/user-data.service';
+import { Component, inject } from "@angular/core";
+import { UserDataService } from "@services/user-data.service";
 
 @Component({
-  selector: 'app-navbar',
-  templateUrl: './navbar.component.html',
-  styleUrls: ['./navbar.component.css' ]
+  selector: "app-navbar",
+  templateUrl: "./navbar.component.html",
+  styleUrls: ["./navbar.component.css" ]
 })
 export class NavbarComponent {
   // --- Dependency Injection ---

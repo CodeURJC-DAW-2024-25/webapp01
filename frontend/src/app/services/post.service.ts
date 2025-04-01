@@ -1,11 +1,11 @@
 import { Injectable } from "@angular/core";
-import { environment } from "../../../environments/environment";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { PageRequest } from "../../types/common/PageRequest";
-import { Post } from "../../types/Posts";
-import { PaginatedResponse } from "../../types/common/PaginatedResponse";
-import { Response } from "../../types/common/Response";
+import { Post } from "@/types/Posts";
+import { environment } from "@environments/environment";
+import { PageRequest } from "@/types/common/PageRequest";
+import { Response } from "@/types/common/Response";
+import { PaginatedResponse } from "@/types/common/PaginatedResponse";
 
 @Injectable({
     providedIn: "root"

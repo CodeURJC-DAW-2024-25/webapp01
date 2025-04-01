@@ -2,7 +2,7 @@
 <html lang="en">
 
 <head>
-    <link rel="stylesheet" href="/styles/shoppingList-detail.css">
+    <link rel="stylesheet" routerLink="/styles/shoppingList-detail.css">
     {{> components/head-tags}}
 </head>
 
@@ -13,7 +13,7 @@
 
             <div class="left">
                 <div class="back-link">
-                    <a href="/profile" class="clickable clickable-text">
+                    <a routerLink="/profile" class="clickable clickable-text">
                         <i class="bi bi-arrow-left"></i>
                         Volver a mis listas
                     </a>
@@ -41,7 +41,7 @@
         <div class="shopping-list-card">
             <div class="title">
                 <h2>Productos</h2>
-                <a href="/search" class="clickable clickable-secondary">
+                <a routerLink="/search" class="clickable clickable-secondary">
                     <i class="bi bi-plus-circle"></i>
                     Agregar Producto
                 </a>

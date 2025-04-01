@@ -3,9 +3,9 @@
 
 <head>
     {{> components/head-tags}}
-    <link rel="stylesheet" href="/styles/profile.css">
-    <link rel="stylesheet" href="/styles/form.css">
-    <link rel="stylesheet" href="/styles/modal.css">
+    <link rel="stylesheet" routerLink="/styles/profile.css">
+    <link rel="stylesheet" routerLink="/styles/form.css">
+    <link rel="stylesheet" routerLink="/styles/modal.css">
 
 <body>
     <div class="container no-gap small-padding">
@@ -29,13 +29,13 @@
                     </div>
                     <div class="user-actions">
                         {{#isAdmin}}
-                        <a href="/admin" class="clickable clickable-primary">
+                        <a routerLink="/admin" class="clickable clickable-primary">
                             <i class="bi bi-database-gear icon"></i>
                             <span>Admin Panel</span>
                         </a>
                         {{/isAdmin}}
                         {{^isAdmin}}
-                        <a href="/settings" class="clickable clickable-primary">
+                        <a routerLink="/settings" class="clickable clickable-primary">
                             <i class="bi bi-gear icon"></i>
                             <span>Ajustes</span>
                         </a>
@@ -70,7 +70,7 @@
                         <span class="badge badge-secondary">{{numberOfProducts}}</span>
                     </div>
                     <p>{{description}}</p>
-                    <a href="/shoppingList/{{id}}" class="clickable clickable-secondary full-width">Ver detalles</a>
+                    <a routerLink="/shoppingList/{{id}}" class="clickable clickable-secondary full-width">Ver detalles</a>
                 </div>
                 {{/shoppingLists}}
                 {{^shoppingLists}}

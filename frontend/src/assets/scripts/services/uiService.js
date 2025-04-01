@@ -4,7 +4,7 @@ export function createHTMLProduct(product) {
     const searchQueryParam = encodeURIComponent(localStorage.getItem("originalSearchQuery") || searchQuery);
     return `
     <div class="product-card">
-        <a href="/products/${product.product_id}?searchInput=${searchQueryParam}" class="product-link">
+        <a routerLink="/products/${product.product_id}?searchInput=${searchQueryParam}" class="product-link">
             <div class="product-image-container">
                 <div class="supermarket-badge">${product.supermarket_name}</div>
                 <div class="product-image">
@@ -36,7 +36,7 @@ export function createHTMLProduct(product) {
 
 export function createHTMLPost(post) {
     return `
-    <a class="post extended" href="/posts/${post.id}">
+    <a class="post extended" routerLink="/posts/${post.id}">
         <i class="bi bi-box-arrow-up-right icon"></i>
         <div class="post-top">
             <h2 class="post-title">${post.title}</h2>
