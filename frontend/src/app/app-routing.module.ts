@@ -8,7 +8,7 @@ import { PostDetailComponent } from './components/views/post-detail/post-detail.
 import { LoginComponent } from './components/views/login/login.component';
 import { RegisterComponent } from './components/views/register/register.component';
 
-const routes: Routes = [
+export const routes: Routes = [
   { path: '', component: MainComponent },
   { path: 'about', component: AboutComponent },
   { path: 'posts', component: PostsComponent },

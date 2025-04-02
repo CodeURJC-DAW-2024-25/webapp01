@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, routes } from './app-routing.module';
 import { AppComponent } from './app.component'; // Standalone component
 import { RouterModule } from '@angular/router';
 import { MainComponent } from './components/views/main/main.component';
@@ -48,15 +48,12 @@ import { ThemeToggleComponent } from './components/shared/theme-toggle/theme-tog
     imports: [
         BrowserModule,
         AppRoutingModule,
-        RouterModule,
+        RouterModule.forRoot(routes, {
+            scrollPositionRestoration: "top"
+        }),
         HttpClientModule,
         FormsModule],
-    providers: [
-        // {
-        //     provide: LocationStrategy,
-        //     useClass: PathLocationStrategy // Use PathLocationStrategy for clean URLs
-        // }
-    ],
+    providers: [],
     bootstrap: [AppComponent] // Bootstrap the standalone component
 })
 export class AppModule { }
