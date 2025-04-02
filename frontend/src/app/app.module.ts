@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { HashLocationStrategy, LocationStrategy } from '@angular/common';
+import { HashLocationStrategy, LocationStrategy, PathLocationStrategy } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
@@ -22,40 +22,41 @@ import { LoginComponent } from './components/views/login/login.component';
 import { RegisterComponent } from './components/views/register/register.component';
 import { ProductsComponent } from './components/views/products/products.component';
 import { FormsModule } from '@angular/forms';
-import { ThemeToggleComponent } from './components/shared/theme-toggle/theme-toggle.component'; 
+import { ThemeToggleComponent } from './components/shared/theme-toggle/theme-toggle.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NavbarComponent,
-    FooterComponent,
-    MainComponent,
-    HeroComponent,
-    SearchbarComponent,
-    PostsPreviewComponent,
-    PostCardComponent,
-    CtaComponent,
-    AboutComponent,
-    PostsComponent,
-    SuggestionComponent,
-    PostDetailComponent,
-    LoginComponent,
-    RegisterComponent,
-    ProductsComponent,
-    PostDetailComponent,
-    ThemeToggleComponent
-  ], 
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-    RouterModule,
-    HttpClientModule,
-    FormsModule],
-  providers: [{
-    provide: LocationStrategy,
-    useClass: HashLocationStrategy
-  }
-  ],
-  bootstrap: [AppComponent] // Bootstrap the standalone component
+    declarations: [
+        AppComponent,
+        NavbarComponent,
+        FooterComponent,
+        MainComponent,
+        HeroComponent,
+        SearchbarComponent,
+        PostsPreviewComponent,
+        PostCardComponent,
+        CtaComponent,
+        AboutComponent,
+        PostsComponent,
+        SuggestionComponent,
+        PostDetailComponent,
+        LoginComponent,
+        RegisterComponent,
+        ProductsComponent,
+        PostDetailComponent,
+        ThemeToggleComponent
+    ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        RouterModule,
+        HttpClientModule,
+        FormsModule],
+    providers: [
+        // {
+        //     provide: LocationStrategy,
+        //     useClass: PathLocationStrategy // Use PathLocationStrategy for clean URLs
+        // }
+    ],
+    bootstrap: [AppComponent] // Bootstrap the standalone component
 })
 export class AppModule { }

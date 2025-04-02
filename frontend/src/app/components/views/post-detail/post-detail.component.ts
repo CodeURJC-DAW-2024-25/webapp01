@@ -24,12 +24,11 @@ export class PostDetailComponent implements OnInit {
 	isLoading: boolean = true;
 	error: string | null = null;
 
-	fetchPostDetail(id: string): void {
+	async fetchPostDetail(id: string): Promise<void> {
 		this.isLoading = true;
-		this.postsService.getPostById(id).subscribe({
+		await this.postsService.getPostById(id).subscribe({
 			next: (response) => {
 				this.post.set(response.data);
-				this.isLoading = false;
 			},
 			error: (error) => {
 				this.isLoading = false;
@@ -37,7 +36,7 @@ export class PostDetailComponent implements OnInit {
 				console.error('Error fetching post detail:', error);
 			}
 		});
-		this.postsService.getPostContentById(id).subscribe({
+		await this.postsService.getPostContentById(id).subscribe({
 			next: (response) => {
 				this.postContent.set(
 					this.sanitizer.bypassSecurityTrustHtml(response)
@@ -48,6 +47,8 @@ export class PostDetailComponent implements OnInit {
 				console.error('Error fetching post content:', error);
 			}
 		});
+
+        this.isLoading = false;
 	}
 
 	getBannerUrl(): string {
