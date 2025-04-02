@@ -18,10 +18,10 @@ import { environment } from '@environments/environment';
     ): Observable<any> {
       
       let endpoint = `${this.apiUrl}?page=${page}&limit=${this.PRODUCTS_SIZE}&search=${encodeURIComponent(searchQuery)}`;
-      if (filters.supermarket) endpoint += `&supermarket=${encodeURIComponent(filters.supermarket)}`;
+      if (filters.supermarket) endpoint += `&supermarket=${(filters.supermarket)}`;
       if (filters.minPrice) endpoint += `&minPrice=${encodeURIComponent(filters.minPrice)}`;
       if (filters.maxPrice) endpoint += `&maxPrice=${encodeURIComponent(filters.maxPrice)}`;
-  
+      console.log('Loading products from endpoint:', endpoint);
       return this.http.get(endpoint);
     }
   }

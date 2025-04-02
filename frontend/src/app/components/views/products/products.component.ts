@@ -9,6 +9,7 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class ProductsComponent implements OnInit {
   products: any[] = [];
+  supermarkets: { id: string; name: string }[] = [];
   currentPage: number = 0;
   totalPages: number = Infinity;
   isEnd: boolean = false;
@@ -18,6 +19,13 @@ export class ProductsComponent implements OnInit {
   constructor(private productService: ProductService, private route: ActivatedRoute) {}
 
   ngOnInit(): void {
+
+    this.supermarkets = [
+      { id: 'dia', name: 'Día' },
+      { id: 'mercadona', name: 'Mercadona' },
+      { id: 'supermarket3', name: 'Supermercado 3' },
+      { id: 'supermarket4', name: 'Supermercado 4' }
+    ];
     this.route.queryParams.subscribe((params) => {
       this.searchQuery = params['search'] || '';
       this.filters.supermarket = params['supermarket'] || '';
@@ -25,6 +33,7 @@ export class ProductsComponent implements OnInit {
       this.filters.maxPrice = params['maxPrice'] || '';
       this.loadProducts();
     });
+
   }
 
   loadProducts(page: number = 0): void {
@@ -43,6 +52,7 @@ export class ProductsComponent implements OnInit {
       }
     );
   }
+
 
   applyFilters(): void {
     this.currentPage = 0;
