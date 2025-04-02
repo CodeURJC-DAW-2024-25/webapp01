@@ -8,7 +8,7 @@
 
             @if (userData.isAdmin) {
                 <div class="post-admin-controls">
-                    <a routerLink="/editPost/{{post()?.id}}" class="clickable clickable-tool bordered">
+                    <a routerLink="/editPost/{{post?.id}}" class="clickable clickable-tool bordered">
                         <i class="bi bi-pencil"></i>
                     </a>
                     <button id="delete-post-button" class="clickable clickable-tool bordered danger">
@@ -20,41 +20,48 @@
         </div>
         <header class="post-header">
             <div class="post-header-left">
-                <h2 class="post-title">{{post()?.title}}</h2>
+                <h2 class="post-title">{{post?.title}}</h2>
                 <div class="post-tags-container">
-                    @for (tag of post()?.tags; track tag) {
+                    @for (tag of post?.tags; track tag) {
                         <span class="post-tag">{{tag}}</span>
                     }
-                    @if (post()?.tags?.length === 0) {
+                    @if (post?.tags?.length === 0) {
                         <span class="post-tag">Sin etiquetas</span>
                     }
                 </div>
-                <p class="description">{{post()?.description}}</p>
+                <p class="description">{{post?.description}}</p>
             </div>
             <div class="post-header-right">
-                <span class="author">{{"@" + post()?.author}}</span>
-                <span class="post-date">{{post()?.date}}</span>
+                <span class="author">{{"@" + post?.author}}</span>
+                <span class="post-date">{{post?.date}}</span>
             </div>
         </header>
         <div class="post-image">
-            @if (isLoading() === 0) {
+            @if (isLoading === 0) {
                 <img
                     [src]="getBannerUrl()"
-                    [alt]="post()?.title"
+                    [alt]="post?.title"
                     (error)="setDefaultImage($event)"
                 >
             }
         </div>
         <hr>
-        <div class="post-content" [innerHTML]="postContent()"></div>
+        <div class="post-content" [innerHTML]="postContent"></div>
     </section>
     <hr>
     <section class="post-comments">
         <h2>Comentarios</h2>
         <div class="comments-container">
-            <!-- Comments will be inserted here using AJAX -->
+            @for (comment of postComments; track $index) {
+                <app-post-comment
+                    [postId]="post?.id"
+                    [comment]="comment"
+                />
+            }
         </div>
-        <button id="load-more-button" class="clickable clickable-primary">Cargar más</button>
+        @if (!isLastPage) {
+            <button (click)="fetchPostComments()" class="clickable clickable-primary">Cargar más</button>
+        }
         <hr class="margin-v big">
         @if (userData.isAuthenticated) {
             <form class="comment-form">

@@ -20,12 +20,12 @@ export class PostsService {
         return this.http.get<PaginatedResponse<Post>>(builtUrl);
     }
 
-    getPostById(id: string): Observable<Response<Post>> {
+    getPostById(id: number): Observable<Response<Post>> {
         const builtUrl = `${this.apiUrl}/${id}`;
         return this.http.get<Response<Post>>(builtUrl);
     }
 
-    getPostContentById(id: string): Observable<string> {
+    getPostContentById(id: number): Observable<string> {
         const builtUrl = `${this.apiUrl}/${id}/content`;
         return this.http.get(builtUrl, {
             responseType: "text"

@@ -1,0 +1,17 @@
+<div class="comment">
+    <div class="comment-header">
+        <div class="left">
+            <img class="user-avatar"
+                [src]="getAvatarUrl()"
+                alt="User avatar"
+                (error)="setDefaultImage($event)"
+            >
+            <span class="comment-author">{{"@" + comment?.author}}</span>
+        </div>
+        <div class="right">
+            <!-- Remove button TODO-->
+        </div>
+    </div>
+    <p class="comment-content">{{comment?.content}}</p>
+    <span class="comment-date">{{comment?.formatedDate}}</span>
+</div>

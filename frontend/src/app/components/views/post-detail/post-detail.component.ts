@@ -5,6 +5,9 @@ import { PostsService } from '@services/post.service';
 import { UserDataService } from '@services/user-data.service';
 import { environment } from '@environments/environment';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
+import { CommentsService } from '@/services/comment.service';
+import { PageRequest } from '@/types/common/PageRequest';
+import { Comment } from '@/types/Comment';
 
 @Component({
 	selector: 'app-post-detail',
@@ -15,21 +18,29 @@ export class PostDetailComponent implements OnInit {
 	private sanitizer: DomSanitizer = inject(DomSanitizer);
 	userData: UserDataService = inject(UserDataService);
 	postsService: PostsService = inject(PostsService);
+	commentsService: CommentsService = inject(CommentsService);
 	route: ActivatedRoute = inject(ActivatedRoute);
 
-	postId: string | null = null;
-	post: WritableSignal<Post | null> = signal(null);
-	postContent: WritableSignal<SafeHtml | null> = signal(null);
+	currentPageRequest: PageRequest = {
+		page: 0,
+		size: 3
+	};
+
+	postId: number | null = null;
+	post: Post | null = null;
+	postContent: SafeHtml | null = null;
+	postComments: Comment[] | [] = [];
 	
-	isLoading = signal(Infinity);
+	isLoading = Infinity;
+	isLastPage = false;
 	error: string | null = null;
 
-	fetchPostDetail(id: string): void {
-		this.isLoading.set(2);
+	fetchPostDetail(id: number): void {
+		this.isLoading = 2;
 		this.postsService.getPostById(id).subscribe({
 			next: (response) => {
-				this.post.set(response.data);
-                this.isLoading.update(old => old - 1);
+				this.post = response.data;
+                this.isLoading--;
 			},
 			error: (error) => {
                 this.error = error.error.message;
@@ -38,10 +49,8 @@ export class PostDetailComponent implements OnInit {
 		});
 		this.postsService.getPostContentById(id).subscribe({
             next: (response) => {
-                this.postContent.set(
-                    this.sanitizer.bypassSecurityTrustHtml(response)
-				)
-                this.isLoading.update(old => old - 1 );
+                this.postContent = this.sanitizer.bypassSecurityTrustHtml(response);
+                this.isLoading--;
 			},
 			error: (error) => {
 				this.error = error.error.message;
@@ -50,19 +59,38 @@ export class PostDetailComponent implements OnInit {
 		});
 	}
 
+	fetchPostComments(): void {
+		if (!this.postId) return;
+
+		this.commentsService.getPostComments(this.postId, this.currentPageRequest).subscribe({
+			next: (response) => {
+				const data = response.data;
+				this.postComments = [...this.postComments, ...data.page];
+				this.isLastPage = data.is_last_page;
+				this.currentPageRequest.page += 1;
+			},
+			error: (error) => {
+				this.error = error.error.message;
+				console.error('Error fetching post comments:', error);
+			}
+		});
+	}
+
 	getBannerUrl(): string {
-		return `${environment.baseApiUrl}/posts/${this.post()?.id}/banner`;
+		return `${environment.baseApiUrl}/posts/${this.post?.id}/banner`;
 	}
 
 	setDefaultImage(event: Event): void {
 		const target = event.target as HTMLImageElement;
-		console.log(target);
 		target.src = "/assets/images/template_image.png";
 		target.alt = "Default Image";
 	}
 	
 	ngOnInit(): void {
-		this.postId = this.route.snapshot.paramMap.get('id');
+		const idParam = this.route.snapshot.paramMap.get('id');
+		this.postId = idParam ? parseInt(idParam, 10) : null;
+
 		this.fetchPostDetail(this.postId!);
+		this.fetchPostComments();
 	}
 }

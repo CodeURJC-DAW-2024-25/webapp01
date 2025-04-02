@@ -23,6 +23,7 @@ import { RegisterComponent } from './components/views/register/register.componen
 import { ProductsComponent } from './components/views/products/products.component';
 import { FormsModule } from '@angular/forms';
 import { ThemeToggleComponent } from './components/shared/theme-toggle/theme-toggle.component';
+import { PostCommentComponent } from './components/shared/post-comment/post-comment.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { ThemeToggleComponent } from './components/shared/theme-toggle/theme-tog
         RegisterComponent,
         ProductsComponent,
         PostDetailComponent,
-        ThemeToggleComponent
+        ThemeToggleComponent,
+        PostCommentComponent
     ],
     imports: [
         BrowserModule,
