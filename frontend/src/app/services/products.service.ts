@@ -21,7 +21,6 @@ import { environment } from '@environments/environment';
       if (filters.supermarket) endpoint += `&supermarket=${(filters.supermarket)}`;
       if (filters.minPrice) endpoint += `&minPrice=${encodeURIComponent(filters.minPrice)}`;
       if (filters.maxPrice) endpoint += `&maxPrice=${encodeURIComponent(filters.maxPrice)}`;
-      console.log('Loading products from endpoint:', endpoint);
       return this.http.get(endpoint);
     }
   }

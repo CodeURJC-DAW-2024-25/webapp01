@@ -1,6 +1,5 @@
 <div class="container no-gap small-padding">
-  <!-- Navbar -->
-  <app-navbar></app-navbar>
+
 
   <!-- Query Container -->
   <div class="query-container">
@@ -10,24 +9,32 @@
     </div>
 
     <!-- Filters Bar -->
-    <div class="filters-bar">
-      <div class="filter-item">
-        <label for="supermarket">Supermercado</label>
-        <select
-          id="supermarket"
+    <div class="filter-item">
+      <label for="supermarket">Supermercado</label>
+      <div class="radio-buttons">
+        <!-- Opción para "Todos" -->
+        <input
+          type="radio"
+          id="all"
           name="supermarket"
+          value=""
           [(ngModel)]="filters.supermarket"
-          class="dropdown"
-        >
-          <!-- Opción para "Todos" -->
-          <option value="">Todos</option>
-      
-          <!-- Opciones dinámicas -->
-          <option *ngFor="let supermarket of supermarkets" [value]="supermarket.id">
-            {{ supermarket.name }}
-          </option>
-        </select>
+        />
+        <label for="all">Todos</label>
+    
+        <!-- Opciones dinámicas de supermercados -->
+        <ng-container *ngFor="let supermarket of supermarkets">
+          <input
+            type="radio"
+            [id]="supermarket.id"
+            name="supermarket"
+            [value]="supermarket.id"
+            [(ngModel)]="filters.supermarket"
+          />
+          <label [for]="supermarket.id">{{ supermarket.name }}</label>
+        </ng-container>
       </div>
+  
 
       <div class="filter-row">
         <div class="filter-item">
@@ -62,7 +69,6 @@
     </div>
   </div>
 
-  <!-- Products Container -->
   <div class="grid-layout products-container">
     <app-product-card
       *ngFor="let product of products"
@@ -70,7 +76,7 @@
     ></app-product-card>
   </div>
 
-  <!-- Pagination -->
+
   <div class="pagination">
     <button
       (click)="loadProducts(currentPage - 1)"
@@ -89,3 +95,4 @@
     </button>
   </div>
 </div>
+

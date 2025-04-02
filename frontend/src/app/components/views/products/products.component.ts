@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from '../../../services/products/products.service';
+import { ProductService } from '@services/products.service';
 import { ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -23,8 +23,9 @@ export class ProductsComponent implements OnInit {
     this.supermarkets = [
       { id: 'dia', name: 'Día' },
       { id: 'mercadona', name: 'Mercadona' },
-      { id: 'supermarket3', name: 'Supermercado 3' },
-      { id: 'supermarket4', name: 'Supermercado 4' }
+      { id: 'bm', name: 'BM' },
+      { id: 'consum', name: 'Consum' },
+      { id: 'elcorteingles', name: 'ElCorteIngles' }
     ];
     this.route.queryParams.subscribe((params) => {
       this.searchQuery = params['search'] || '';
@@ -52,7 +53,6 @@ export class ProductsComponent implements OnInit {
       }
     );
   }
-
 
   applyFilters(): void {
     this.currentPage = 0;
