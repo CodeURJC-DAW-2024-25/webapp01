@@ -3,15 +3,35 @@
 
 <div *ngIf="products.length > 0; else noProducts">
   <ul>
-    <li *ngFor="let product of products">
+    <!-- <li *ngFor="let product of products">
       {{ product.name }} - {{ product.price | currency }}
-    </li>
+    </li> -->
   </ul>
 </div>
 
 <div class="query-container">
   <div class="search-bar-container">
       <app-searchbar [(searchQuery)]="searchQuery"></app-searchbar>
+  </div>
+  <div class="filters-bar">
+    <input type="text" [(ngModel)]="filters.minPrice" placeholder="Min Price" />
+    <input type="text" [(ngModel)]="filters.maxPrice" placeholder="Max Price" />
+    <select [(ngModel)]="filters.supermarket">
+      <option value="">All Supermarkets</option>
+      <option value="Supermarket A">Supermarket A</option>
+      <option value="Supermarket B">Supermarket B</option>
+    </select>
+    <button (click)="applyFilters()">Apply Filters</button>
+  </div>
+  
+  <div class="grid-layout products-container">
+    <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
+  </div>
+  
+  <div class="pagination">
+    <button (click)="loadProducts(currentPage - 1)" [disabled]="currentPage === 0">Previous</button>
+    <span>Page {{ currentPage + 1 }} of {{ totalPages }}</span>
+    <button (click)="loadProducts(currentPage + 1)" [disabled]="isEnd">Next</button>
   </div>
 <!-- 
   <div class="filters-bar">
@@ -48,18 +68,7 @@
   </div>
 </div> -->
 
-<div class="grid-layout products-container">
-  <!-- Products will be rendered here -->
-  <div class="grid-layout products-container">
-    <app-product-card *ngFor="let product of products" [product]="product"></app-product-card>
-</div>
-</div>
 
-<div class="pagination">
-  <button id="previous-button" class="clickable clickable-primary">Página anterior</button>
-  <span id="page-number"></span>
-  <button id="next-button" class="clickable clickable-primary">Página siguiente</button>
-</div>
 
 <ng-template #noProducts>
   <p>No products found.</p>

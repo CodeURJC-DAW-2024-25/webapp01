@@ -1,41 +1,52 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ProductService } from '../../../services/products/products.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
   styleUrls: ['./products.component.css']
 })
-export class ProductsComponent {
-  private _searchQuery: string = ''; // Propiedad privada para el getter/setter
-  products: any[] = []; // Array para almacenar los productos
+export class ProductsComponent implements OnInit {
+  products: any[] = [];
+  currentPage: number = 0;
+  totalPages: number = Infinity;
+  isEnd: boolean = false;
+  searchQuery: string = '';
+  filters: { supermarket?: string; minPrice?: string; maxPrice?: string } = {};
 
-  constructor(private productService: ProductService) {}
+  constructor(private productService: ProductService, private route: ActivatedRoute) {}
 
-  get searchQuery(): string {
-    return this._searchQuery;
+  ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.searchQuery = params['search'] || '';
+      this.filters.supermarket = params['supermarket'] || '';
+      this.filters.minPrice = params['minPrice'] || '';
+      this.filters.maxPrice = params['maxPrice'] || '';
+      this.loadProducts();
+    });
   }
 
-  set searchQuery(value: string) {
-    this._searchQuery = value;
-    this.loadProducts(); // Llama al método asíncrono cuando cambia el valor
-  }
+  loadProducts(page: number = 0): void {
+    if (page < 0 || (this.isEnd && page > this.currentPage)) return;
 
-  loadProducts(): void {
-    console.log('Loading products with search query:', this.searchQuery); // Debugging log
-    if (this.searchQuery.trim() === '') {
-      this.products = []; // Limpia los productos si la búsqueda está vacía
-      return;
-    }
-
-    this.productService.searchProducts(this.searchQuery).subscribe(
-      (products) => {
-        this.products = products; // Actualiza el array de productos
-        console.log('Products loaded:', this.products); // Debugging log
+    this.productService.loadProducts(page, this.searchQuery, this.filters).subscribe(
+      (response) => {
+        const data = response.data;
+        this.products = data.page;
+        this.currentPage = data.current_page;
+        this.totalPages = data.total_pages < 1 ? 1 : data.total_pages + 1;
+        this.isEnd = this.currentPage >= this.totalPages - 1;
       },
       (error) => {
-        console.error('Error fetching products:', error);
+        console.error('Error loading products:', error);
       }
     );
+  }
+
+  applyFilters(): void {
+    this.currentPage = 0;
+    this.isEnd = false;
+    this.loadProducts();
   }
 }

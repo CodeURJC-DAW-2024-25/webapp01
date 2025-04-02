@@ -1,23 +1,23 @@
 <div class="product-card template">
-    <div class="product-link">
-        <div class="product-image-container">
-            <div class="supermarket-badge">{{ product.supermarket }}</div>
-            <div class="product-image">
-                <img [src]="product.imageUrl" alt="{{ product.name }}" />
-            </div>
-        </div>
-        <div class="product-info">
-            <div class="product-meta">
-                <span class="product-brand">{{ product.brand }}</span>
-                <span class="product-category">{{ product.category }}</span>
-            </div>
-            <h3 class="product-name">{{ product.name }}</h3>
-            <div class="product-price-container">
-                <div class="price-info">
-                    <p class="product-price">{{ product.price | currency }}</p>
-                    <p class="product-unit-price">{{ product.unitPrice }}</p>
-                </div>
-            </div>
-        </div>
+  <div class="product-link">
+    <div class="product-image-container">
+      <div class="supermarket-badge">{{ product.supermarket }}</div>
+      <div class="product-image">
+        <img [src]="product.imageUrl" alt="{{ product.name }}" />
+      </div>
     </div>
+    <div class="product-info">
+      <div class="product-meta">
+        <span class="product-brand">{{ product.brand }}</span>
+        <span class="product-category">{{ product.category }}</span>
+      </div>
+      <h3 class="product-name">{{ product.name }}</h3>
+      <div class="product-price-container">
+        <div class="price-info">
+          <p class="product-price">{{ product.price?.total | currency:'EUR' }}</p>
+          <p class="product-unit-price">{{ product.unitPrice }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
