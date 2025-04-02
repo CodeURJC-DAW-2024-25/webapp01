@@ -1,14 +1,98 @@
-<p>products works!</p>
-<app-searchbar [(searchQuery)]="searchQuery"></app-searchbar>
+<div class="container no-gap small-padding">
 
-<div *ngIf="products.length > 0; else noProducts">
-  <ul>
-    <li *ngFor="let product of products">
-      {{ product.name }} - {{ product.price | currency }}
-    </li>
-  </ul>
+
+  <!-- Query Container -->
+  <div class="query-container">
+    <!-- Search Bar -->
+    <div class="search-bar-container">
+      <app-searchbar [(searchQuery)]="searchQuery"></app-searchbar>
+    </div>
+
+    <!-- Filters Bar -->
+    <div class="filter-item">
+      <label for="supermarket">Supermercado</label>
+      <div class="radio-buttons">
+    
+        <input
+          type="radio"
+          id="all"
+          name="supermarket"
+          value=""
+          [(ngModel)]="filters.supermarket"
+        />
+        <label for="all">Todos</label>
+    
+  
+        <ng-container *ngFor="let supermarket of supermarkets">
+          <input
+            type="radio"
+            [id]="supermarket.id"
+            name="supermarket"
+            [value]="supermarket.id"
+            [(ngModel)]="filters.supermarket"
+          />
+          <label [for]="supermarket.id">{{ supermarket.name }}</label>
+        </ng-container>
+      </div>
+  
+
+      <div class="filter-row">
+        <div class="filter-item">
+          <label for="minPrice">Precio mínimo</label>
+          <input
+            type="number"
+            step="0.01"
+            id="minPrice"
+            name="minPrice"
+            placeholder="€"
+            [(ngModel)]="filters.minPrice"
+          />
+        </div>
+        <div class="filter-item">
+          <label for="maxPrice">Precio máximo</label>
+          <input
+            type="number"
+            step="0.01"
+            id="maxPrice"
+            name="maxPrice"
+            placeholder="€"
+            [(ngModel)]="filters.maxPrice"
+          />
+        </div>
+        <div class="filter-item">
+          <span></span>
+          <button (click)="applyFilters()" class="clickable clickable-primary">
+            Aplicar
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="grid-layout products-container">
+    <app-product-card
+      *ngFor="let product of products"
+      [product]="product"
+    ></app-product-card>
+  </div>
+
+
+  <div class="pagination">
+    <button
+      (click)="loadProducts(currentPage - 1)"
+      [disabled]="currentPage === 0"
+      class="clickable clickable-primary"
+    >
+      Página anterior
+    </button>
+    <span>Página {{ currentPage + 1 }} de {{ totalPages }}</span>
+    <button
+      (click)="loadProducts(currentPage + 1)"
+      [disabled]="isEnd"
+      class="clickable clickable-primary"
+    >
+      Página siguiente
+    </button>
+  </div>
 </div>
 
-<ng-template #noProducts>
-  <p>No products found.</p>
-</ng-template>

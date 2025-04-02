@@ -1,0 +1,32 @@
+<div class="product-card">
+  <!-- <a [routerLink]="['/products', product.product_id]" [queryParams]="{ searchInput: searchQuery }" class="product-link"> -->
+    <div class="product-image-container">
+      <div class="supermarket-badge">{{ product.supermarket_name }}</div>
+      <div class="product-image">
+        <img
+          [src]="product.thumbnail ? product.thumbnail : 'assets/images/template_image.png'"
+          [alt]="product.display_name || 'Producto sin nombre'"
+        />
+      </div>
+    </div>
+    <div class="product-info">
+      <div class="product-meta">
+        <span class="product-brand">{{ product.brand || '?' }}</span>
+        <span class="product-category">• {{ product.product_categories?.[0] || '' }}</span>
+      </div>
+      <h3 class="product-name">{{ product.display_name }}</h3>
+      <div class="product-price-container">
+        <div class="price-info">
+          <p class="product-price">{{ product.price?.total }} €</p>
+          <p class="product-unit-price" *ngIf="product.price?.per_reference_unit && product.price?.reference_unit_name">
+            {{ product.price.per_reference_unit }} €/{{ product.price.reference_unit_name }}
+          </p>
+          <p class="product-unit-price" *ngIf="!product.price?.per_reference_unit || !product.price?.reference_unit_name">
+            Sin datos
+          </p>
+        </div>
+        <i class="icon bi bi-arrows-angle-expand"></i>
+      </div>
+    </div>
+  <!-- </a> -->
+</div>

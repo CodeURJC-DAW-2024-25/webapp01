@@ -22,6 +22,7 @@ import { LoginComponent } from './components/views/login/login.component';
 import { RegisterComponent } from './components/views/register/register.component';
 import { ProductsComponent } from './components/views/products/products.component';
 import { FormsModule } from '@angular/forms';
+import { ProductCardComponent } from './components/shared/components/shared/product-card/product-card.component'; 
 import { ThemeToggleComponent } from './components/shared/theme-toggle/theme-toggle.component';
 import { PostCommentComponent } from './components/shared/post-comment/post-comment.component';
 
@@ -44,6 +45,7 @@ import { PostCommentComponent } from './components/shared/post-comment/post-comm
         RegisterComponent,
         ProductsComponent,
         PostDetailComponent,
+    ProductCardComponent,
         ThemeToggleComponent,
         PostCommentComponent
     ],

@@ -1,21 +1,35 @@
-import { Component, inject, Input, Output,EventEmitter } from "@angular/core";
-import { UserDataService } from "@services/user-data.service";
+import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
+import { UserDataService } from '@services/user-data.service';
 
 @Component({
-  selector: "app-searchbar",
-  templateUrl: "./searchbar.component.html",
-  styleUrl: "./searchbar.component.css"
+  selector: 'app-searchbar',
+  templateUrl: './searchbar.component.html',
+  styleUrls: ['./searchbar.component.css']
 })
 export class SearchbarComponent {
-  // --- Dependencies ---
   userData: UserDataService = inject(UserDataService);
 
-  // --- Properties ---
-  @Input() searchQuery: string = ''; // Input for two-way binding
-  @Output() searchQueryChange = new EventEmitter<string>(); // Output for two-way binding
+  @Input() searchQuery: string = '';
+  @Output() searchQueryChange = new EventEmitter<string>();
 
-  onSearch(): void {  
-    this.searchQueryChange.emit(this.searchQuery); // Emit the updated search query
+  private router = inject(Router);
+  private route = inject(ActivatedRoute);
+
+  onSearch(): void {
+    
+    this.searchQueryChange.emit(this.searchQuery);
+    //Check if the user is in the products page or not
+    if (this.router.url.startsWith('/products')) {
+      this.router.navigate([], {
+        relativeTo: this.route,
+        queryParams: { search: this.searchQuery },
+        queryParamsHandling: 'merge'
+      });
+    } else {
+        this.router.navigate(['/products'], {
+        queryParams: { search: this.searchQuery }
+      });
+    }
   }
-} 
-
+}
