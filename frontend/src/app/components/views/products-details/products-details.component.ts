@@ -24,15 +24,14 @@ export class ProductDetailsComponent implements OnInit {
   }
 
   loadProductDetails(productId: string): void {
-    this.productService.getProductById(productId).subscribe(
-
-      (response) => {
+    this.productService.getProductById(productId).subscribe({
+      next: (response) => {
         console.log('Detalles del producto:', response);
         this.product = response.data; 
       },
-      (error) => {
+      error: (error) => {
         console.error('Error al cargar los detalles del producto:', error);
       }
-    );
+    });
   }
 }

@@ -37,21 +37,21 @@ export class ProductsComponent implements OnInit {
 
   }
 
-  loadProducts(page: number = 0): void {
+    loadProducts(page: number = 0): void {
     if (page < 0 || (this.isEnd && page > this.currentPage)) return;
 
-    this.productService.loadProducts(page, this.searchQuery, this.filters).subscribe(
-      (response) => {
+    this.productService.loadProducts(page, this.searchQuery, this.filters).subscribe({
+      next: (response) => {
         const data = response.data;
         this.products = data.page;
         this.currentPage = data.current_page;
         this.totalPages = data.total_pages < 1 ? 1 : data.total_pages + 1;
         this.isEnd = this.currentPage >= this.totalPages - 1;
       },
-      (error) => {
+      error: (error: any) => {
         console.error('Error loading products:', error);
       }
-    );
+    });
   }
 
   applyFilters(): void {
