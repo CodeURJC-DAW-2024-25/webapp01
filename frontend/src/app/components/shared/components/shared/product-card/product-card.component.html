@@ -1,5 +1,8 @@
 <div class="product-card">
-  <!-- <a [routerLink]="['/products', product.product_id]" [queryParams]="{ searchInput: searchQuery }" class="product-link"> -->
+  <a
+  [routerLink]="['/products', product.product_id]"
+  class="product-link"
+>
     <div class="product-image-container">
       <div class="supermarket-badge">{{ product.supermarket_name }}</div>
       <div class="product-image">
@@ -28,5 +31,5 @@
         <i class="icon bi bi-arrows-angle-expand"></i>
       </div>
     </div>
-  <!-- </a> -->
+  </a>
 </div>

@@ -23,4 +23,9 @@ import { environment } from '@environments/environment';
       if (filters.maxPrice) endpoint += `&maxPrice=${encodeURIComponent(filters.maxPrice)}`;
       return this.http.get(endpoint);
     }
+
+    getProductById(productId: string): Observable<any> {
+      const endpoint = `${this.apiUrl}/${encodeURIComponent(productId)}`;
+      return this.http.get(endpoint);
+    }
   }

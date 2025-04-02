@@ -25,6 +25,7 @@ import { FormsModule } from '@angular/forms';
 import { ProductCardComponent } from './components/shared/components/shared/product-card/product-card.component'; 
 import { ThemeToggleComponent } from './components/shared/theme-toggle/theme-toggle.component';
 import { PostCommentComponent } from './components/shared/post-comment/post-comment.component';
+import { ProductDetailsComponent } from './components/views/products-details/products-details.component';
 
 @NgModule({
     declarations: [
@@ -47,7 +48,8 @@ import { PostCommentComponent } from './components/shared/post-comment/post-comm
         PostDetailComponent,
     ProductCardComponent,
         ThemeToggleComponent,
-        PostCommentComponent
+        PostCommentComponent,
+        ProductDetailsComponent
     ],
     imports: [
         BrowserModule,

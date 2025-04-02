@@ -1,0 +1,124 @@
+<div class="container small-gap small-padding" *ngIf="product">
+    <!-- Back Link -->
+    <div class="back-link">
+        <a routerLink="/products" class="clickable clickable-text">
+            <i class="bi bi-arrow-left"></i>
+            Volver a productos
+        </a>
+    </div>
+
+    <!-- Product Grid -->
+    <div class="product-grid">
+        <!-- Product Image -->
+        <div class="product-image">
+            <img
+                [src]="product.thumbnail || 'assets/images/template_image.png'"
+                [alt]="product.display_name || 'Producto sin nombre'"
+            />
+        </div>
+
+        <!-- Product Info -->
+        <div class="product-info">
+            <div class="product-header">
+                <span class="badge">{{ product.supermarket_name }}</span>
+                <!-- This id is used to get the search term (product name) -->
+                <h1 id="productTitle" class="product-title">
+                    {{ product.display_name || "Producto sin nombre" }}
+                </h1>
+                <p class="product-brand" *ngIf="product.brand">
+                    <strong>Marca:</strong> {{ product.brand }}
+                </p>
+                <div class="product-price">
+                    <span class="price-main">{{ product.price?.total }} €</span>
+                    <span
+                        class="price-unit"
+                        *ngIf="product.price?.reference_unit_name"
+                    >
+                        {{ product.price?.per_reference_unit }} €/{{
+                            product.price?.reference_unit_name
+                        }}
+                    </span>
+                </div>
+            </div>
+
+            <hr class="separator" />
+
+            <!-- Product Details -->
+            <div class="product-details-card">
+                <h3 class="section-title">Detalles del Producto</h3>
+                <dl class="details-list">
+                    <div class="details-row">
+                        <dt>Type</dt>
+                        <dd>{{ product.product_type }}</dd>
+                    </div>
+                    <div class="details-row">
+                        <dt>ID</dt>
+                        <dd>{{ product.product_id }}</dd>
+                    </div>
+                </dl>
+            </div>
+
+            <!-- Product Categories -->
+            <div
+                class="product-categories"
+                *ngIf="product.product_categories?.length > 0"
+            >
+                <h3 class="section-title">Categorías</h3>
+                <div class="categories-list">
+                    <span
+                        class="badge badge-secondary"
+                        *ngFor="let category of product.product_categories"
+                    >
+                        {{ category }}
+                    </span>
+                </div>
+            </div>
+
+            <div class="product-actions">
+                <a
+                    [href]="product.product_url"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    class="clickable clickable-secondary full-width"
+                >
+                    Ver en {{ product.supermarket_name }}
+                </a>
+                <button
+                    id="compareBtn"
+                    class="clickable clickable-tool bordered"
+                >
+                    <i class="bi bi-calculator-fill"></i>
+                </button>
+            </div>
+        </div>
+
+        <!-- Compare Container 
+  <div id="compareContainer"></div>
+
+ - Related Products
+   <div class="related-products">
+    <h2 class="section-title">Productos Relacionados</h2>
+    <div
+      class="grid-layout products-container"
+      *ngIf="relatedProducts?.length > 0"
+    >
+      <app-product-card
+        *ngFor="let relatedProduct of relatedProducts"
+        [product]="relatedProduct"
+      ></app-product-card>
+    </div>
+  </div>
+  Add to List Button (Visible if Authenticated)
+      <button
+        id="addToListBtn"
+        class="clickable clickable-primary"
+        *ngIf="isAuthenticated"
+      >
+        Añadir a mi lista
+        <i class="bi bi-plus-circle"></i>
+      </button>
+
+
+   -->
+    </div>
+</div>

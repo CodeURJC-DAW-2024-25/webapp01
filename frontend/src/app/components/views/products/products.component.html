@@ -85,7 +85,7 @@
     >
       Página anterior
     </button>
-    <span>Página {{ currentPage + 1 }} de {{ totalPages }}</span>
+    <span id="page-number">Página {{ currentPage + 1 }} de {{ totalPages }}</span>
     <button
       (click)="loadProducts(currentPage + 1)"
       [disabled]="isEnd"
