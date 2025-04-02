@@ -1,15 +1,12 @@
 <form class="search-bar" (submit)="onSearch(); $event.preventDefault()">
-  <input
-    type="text"
-    [(ngModel)]="searchQuery"
-    name="searchQuery"
-    placeholder="Buscar productos..."
-  />
-  <button
-    type="submit"
-    class="clickable clickable-tool bordered"
-  >
-    <i class="bi bi-search"></i>
-  </button>
-  <input type="hidden" name="_csrf" [value]="userData.token" />
+    <input
+        type="text"
+        [(ngModel)]="searchQuery"
+        name="searchQuery"
+        placeholder="Buscar productos..."
+    />
+    <button type="submit" class="clickable clickable-tool bordered">
+        <i class="bi bi-search"></i>
+    </button>
+    <input type="hidden" name="_csrf" [value]="userData.token" />
 </form>
