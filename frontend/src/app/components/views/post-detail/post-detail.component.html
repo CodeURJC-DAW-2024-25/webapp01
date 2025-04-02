@@ -37,7 +37,7 @@
             </div>
         </header>
         <div class="post-image">
-            @if (isLoading) {
+            @if (isLoading() === 0) {
                 <img
                     [src]="getBannerUrl()"
                     [alt]="post()?.title"

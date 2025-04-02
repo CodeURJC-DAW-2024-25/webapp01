@@ -21,34 +21,33 @@ export class PostDetailComponent implements OnInit {
 	post: WritableSignal<Post | null> = signal(null);
 	postContent: WritableSignal<SafeHtml | null> = signal(null);
 	
-	isLoading: boolean = true;
+	isLoading = signal(Infinity);
 	error: string | null = null;
 
-	async fetchPostDetail(id: string): Promise<void> {
-		this.isLoading = true;
-		await this.postsService.getPostById(id).subscribe({
+	fetchPostDetail(id: string): void {
+		this.isLoading.set(2);
+		this.postsService.getPostById(id).subscribe({
 			next: (response) => {
 				this.post.set(response.data);
+                this.isLoading.update(old => old - 1);
 			},
 			error: (error) => {
-				this.isLoading = false;
-				this.error = error.error.message;
+                this.error = error.error.message;
 				console.error('Error fetching post detail:', error);
 			}
 		});
-		await this.postsService.getPostContentById(id).subscribe({
-			next: (response) => {
-				this.postContent.set(
-					this.sanitizer.bypassSecurityTrustHtml(response)
+		this.postsService.getPostContentById(id).subscribe({
+            next: (response) => {
+                this.postContent.set(
+                    this.sanitizer.bypassSecurityTrustHtml(response)
 				)
+                this.isLoading.update(old => old - 1 );
 			},
 			error: (error) => {
 				this.error = error.error.message;
 				console.error('Error fetching post content:', error);
 			}
 		});
-
-        this.isLoading = false;
 	}
 
 	getBannerUrl(): string {
