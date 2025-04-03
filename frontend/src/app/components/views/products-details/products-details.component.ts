@@ -10,7 +10,7 @@ import { ProductService } from '../../../services/products.service';
 export class ProductDetailsComponent implements OnInit {
     product: any;
     relatedProducts: any[] = [];
-    isComparisonVisible: boolean = false; 
+    isComparisonVisible: boolean = false;
     constructor(
         private route: ActivatedRoute,
         private productService: ProductService
@@ -55,9 +55,47 @@ export class ProductDetailsComponent implements OnInit {
         });
     }
 
-
     showComparison(): void {
-    console.log('Botón Comparar presionado');
-    this.isComparisonVisible = true;
+        this.isComparisonVisible = true;
+    }
 }
-}
+// document.addEventListener("DOMContentLoaded", function () {
+//     const compareBtn = document.getElementById("compareBtn")
+//     const compareContainer = document.getElementById("compareContainer")
+
+//     compareBtn.addEventListener("click", function (e) {
+//         e.preventDefault()
+
+//         const productName = document.getElementById("productTitle")?.textContent.trim()
+
+//         compareContainer.innerHTML = "<p>Cargando resultados...</p>"
+//         compareContainer.style.display = "block"
+//         compareBtn.innerHTML = "<i class='bi bi-arrow-repeat spin'></i>"
+
+//         fetchData(`/products?keywords=${keywordsUnparsed}&limit=1000&page=0`, "GET", {
+//             cacheData: false
+//         })
+//         .then(res => {
+//             let products = res.data.page
+//             const mainProduct = { productName, keywords, brand, }
+//             const bestBySupermarket = comparationAlgorithm(mainProduct, products)
+
+//             if (Object.keys(bestBySupermarket).length === 0) {
+//                 compareContainer.innerHTML = "<p>Lo sentimos, no se encontraron productos similares.</p>"
+//                 compareBtn.innerHTML = "<i class='bi bi-x-lg'></i>"
+//             } else {
+//                 const encodedProducts = Object.values(bestBySupermarket).map(p => `${p.supermarket_name}@${p.display_name}@${p.price.total}@${p.product_url}`).join("_")
+//                 fetch("/get-compare-table?products=" + encodedProducts)
+//                     .then(response => response.text())
+//                     .then(html => {
+//                         compareContainer.innerHTML = html
+//                         compareBtn.innerHTML = "<i class='bi bi-check-lg'></i>"
+//                         highlightBestAndWorstPrices()
+
+//                         // Add link to product
+//                         document.querySelectorAll("[data-product-url]").forEach(a => a.addEventListener("click", () => window.open(a.dataset.productUrl, "_blank")))
+//                     })
+//             }
+//         })
+//     })
+// })

@@ -46,7 +46,6 @@ export class ProductService {
 
     compareProducts(productId: string): Observable<any> {
         const endpoint = `${this.apiUrl}/${encodeURIComponent(productId)}/compare`;
-        console.log('Comparando productos en:', endpoint);
         return this.http.get(endpoint);
     }
 }
