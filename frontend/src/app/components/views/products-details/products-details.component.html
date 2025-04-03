@@ -26,7 +26,7 @@
                     {{ product.display_name || "Producto sin nombre" }}
                 </h1>
                 <p class="product-brand" *ngIf="product.brand">
-                    <strong>Marca:</strong> {{ product.brand }}
+                    {{ product.brand }}
                 </p>
                 <div class="product-price">
                     <span class="price-main">{{ product.price?.total }} €</span>
@@ -86,41 +86,21 @@
                 <button
                     id="compareBtn"
                     class="clickable clickable-tool bordered"
+                    (click)="showComparison()"
                 >
                     <i class="bi bi-calculator-fill"></i>
                 </button>
             </div>
         </div>
-
-        <!-- Compare Container 
-  <div id="compareContainer"></div>
-
- - Related Products
-   <div class="related-products">
-    <h2 class="section-title">Productos Relacionados</h2>
-    <div
-      class="grid-layout products-container"
-      *ngIf="relatedProducts?.length > 0"
-    >
-      <app-product-card
-        *ngFor="let relatedProduct of relatedProducts"
-        [product]="relatedProduct"
-      ></app-product-card>
     </div>
-  </div>
-  Add to List Button (Visible if Authenticated)
-      <button
-        id="addToListBtn"
-        class="clickable clickable-primary"
-        *ngIf="isAuthenticated"
-      >
-        Añadir a mi lista
-        <i class="bi bi-plus-circle"></i>
-      </button>
-
-
-   -->
+    
+    <div>   
+        <app-compare-table
+            *ngIf="isComparisonVisible"
+            [productId]="product.product_id"
+        ></app-compare-table>
     </div>
+
     <!-- Related Products Container -->
     <div class="related-products">
         <h2 class="section-title">Productos Relacionados</h2>

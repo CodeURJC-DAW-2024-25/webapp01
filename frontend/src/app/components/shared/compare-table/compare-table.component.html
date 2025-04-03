@@ -1,0 +1,38 @@
+<h2 class="section-title">
+    Resultado de la comparación
+</h2>
+
+<table *ngIf="comparisons.length > 0; else noComparisons">
+    <thead>
+        <tr>
+            <th class="sortable" data-column="market">
+                Supermercado
+            </th>
+            <th class="sortable" data-column="product">
+                Producto
+            </th>
+            <th class="sortable" data-column="price">
+                Precio
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr
+            *ngFor="let comparison of comparisons"
+            [attr.data-price]="comparison.price.total"
+            [attr.data-product-url]="comparison.product_url"
+        >
+            <td>{{ comparison.supermarket_name }}</td>
+            <td>
+                <a [href]="comparison.product_url" target="_blank">
+                    {{ comparison.display_name }}
+                </a>
+            </td>
+            <td class="price-cell">{{ comparison.price.total }} €</td>
+        </tr>
+    </tbody>
+</table>
+
+<ng-template #noComparisons>
+    <p>No se encontraron productos para comparar.</p>
+</ng-template>
