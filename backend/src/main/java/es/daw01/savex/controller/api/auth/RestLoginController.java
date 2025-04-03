@@ -25,7 +25,6 @@ public class RestLoginController {
 	private UserLoginService userLoginService;
 
 	@PostMapping("/login")
-	@CrossOrigin(origins = "*", allowCredentials = "true")
 	public ResponseEntity<AuthResponse> login(
 		@RequestBody LoginRequest loginRequest,
 		HttpServletResponse response
@@ -41,7 +40,6 @@ public class RestLoginController {
 	}
 
 	@PostMapping("/logout")
-	@CrossOrigin(origins = "*", allowCredentials = "true")
 	public ResponseEntity<AuthResponse> logOut(HttpServletResponse response) {
 		return ResponseEntity.ok(new AuthResponse(Status.SUCCESS, userLoginService.logout(response)));
 	}

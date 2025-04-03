@@ -11,7 +11,7 @@ import { PaginatedResponse } from "@/types/common/PaginatedResponse";
     providedIn: "root"
 })
 export class PostsService {
-    private apiUrl = `${environment.baseApiUrl}/posts`;
+    private apiUrl = `${environment.baseApiUrl}/v1/posts`;
 
     constructor(private http: HttpClient) {}
 

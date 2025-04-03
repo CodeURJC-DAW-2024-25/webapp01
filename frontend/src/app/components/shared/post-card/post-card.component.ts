@@ -12,6 +12,6 @@ export class PostCardComponent {
 	@Input() extendedClass: string = "";
 
 	getBannerUrl(): string {
-		return `${environment.baseApiUrl}/posts/${this.post.id}/banner`;
+		return `${environment.baseApiUrl}/v1/posts/${this.post.id}/banner`;
 	}
 }

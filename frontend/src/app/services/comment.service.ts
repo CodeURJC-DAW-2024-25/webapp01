@@ -10,7 +10,7 @@ import { Comment } from "@/types/Comment";
     providedIn: "root"
 })
 export class CommentsService {
-    private apiUrl = `${environment.baseApiUrl}/posts`;
+    private apiUrl = `${environment.baseApiUrl}/v1/posts`;
 
     constructor(private http: HttpClient) {}
 

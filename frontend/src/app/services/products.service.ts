@@ -8,7 +8,7 @@ import { environment } from '@environments/environment';
 })
 export class ProductService {
     private readonly PRODUCTS_SIZE = 24;
-    private apiUrl = `${environment.baseApiUrl}/products`;
+    private apiUrl = `${environment.baseApiUrl}/v1/products`;
     constructor(private http: HttpClient) {}
 
     loadProducts(

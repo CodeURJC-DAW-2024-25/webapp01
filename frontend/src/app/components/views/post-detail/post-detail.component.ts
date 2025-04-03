@@ -77,7 +77,7 @@ export class PostDetailComponent implements OnInit {
 	}
 
 	getBannerUrl(): string {
-		return `${environment.baseApiUrl}/posts/${this.post?.id}/banner`;
+		return `${environment.baseApiUrl}/v1/posts/${this.post?.id}/banner`;
 	}
 
 	setDefaultImage(event: Event): void {
