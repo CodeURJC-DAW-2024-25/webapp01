@@ -4,7 +4,7 @@
         <img src="/assets/images/cta-image.jpeg" alt="Placeholder">
     </div>
     <div class="cta-clickables">
-        @if (userData.isAuthenticated) {
+        @if (isAuthenticated) {
             <a class="clickable clickable-primary" routerLink="/search">Busca productos</a>
         } @else {
             <a class="clickable clickable-primary" routerLink="/login">Accede a tu cuenta</a>
