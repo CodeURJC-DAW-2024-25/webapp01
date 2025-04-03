@@ -10,14 +10,14 @@ import { ProductService } from '../../../services/products.service';
 export class ProductDetailsComponent implements OnInit {
     product: any;
     relatedProducts: any[] = [];
-
+    isComparisonVisible: boolean = false; 
     constructor(
         private route: ActivatedRoute,
         private productService: ProductService
     ) {}
 
     ngOnInit(): void {
-        //suscribe to updates in the route parameters
+        //Suscribe to updates in the route parameters
         this.route.paramMap.subscribe((params) => {
             const productId = params.get('id');
             if (productId) {
@@ -54,4 +54,10 @@ export class ProductDetailsComponent implements OnInit {
             },
         });
     }
+
+
+    showComparison(): void {
+    console.log('Botón Comparar presionado');
+    this.isComparisonVisible = true;
+}
 }

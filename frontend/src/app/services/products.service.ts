@@ -39,10 +39,14 @@ export class ProductService {
     }
 
     getRelatedProducts(productId: string): Observable<any> {
-        const endpoint = `${this.apiUrl}/${encodeURIComponent(
-            productId
-        )}/suggested`;
-        console.log(`Fetching related products from: ${endpoint}`);
+        const endpoint = `${this.apiUrl}/${encodeURIComponent(productId)}/suggested`;
+
+        return this.http.get(endpoint);
+    }
+
+    compareProducts(productId: string): Observable<any> {
+        const endpoint = `${this.apiUrl}/${encodeURIComponent(productId)}/compare`;
+        console.log('Comparando productos en:', endpoint);
         return this.http.get(endpoint);
     }
 }
