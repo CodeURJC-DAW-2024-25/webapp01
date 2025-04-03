@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "1609c137-88be-4681-a916-c0564e2d6d51",
+		"_postman_id": "49849628-f296-48f1-afb9-47964b56c278",
 		"name": "SaveX API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
 		"_exporter_id": "37129679"
@@ -63,6 +63,15 @@
 						"method": "POST",
 						"header": [],
 						"url": "{{apiBaseURL}}/api/auth/refresh"
+					},
+					"response": []
+				},
+				{
+					"name": "Check Session",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{apiBaseURL}}/api/auth/check-session"
 					},
 					"response": []
 				}
