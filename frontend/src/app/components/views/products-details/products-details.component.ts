@@ -9,6 +9,7 @@ import { ProductService } from '../../../services/products.service';
 })
 export class ProductDetailsComponent implements OnInit {
     product: any;
+    relatedProducts: any[] = [];
 
     constructor(
         private route: ActivatedRoute,
@@ -16,17 +17,34 @@ export class ProductDetailsComponent implements OnInit {
     ) {}
 
     ngOnInit(): void {
-        const productId = this.route.snapshot.paramMap.get('id');
-        if (productId) {
-            this.loadProductDetails(productId);
-        }
+        //suscribe to updates in the route parameters
+        this.route.paramMap.subscribe((params) => {
+            const productId = params.get('id');
+            if (productId) {
+                this.loadProductDetails(productId);
+            }
+        });
     }
 
     loadProductDetails(productId: string): void {
         this.productService.getProductById(productId).subscribe({
             next: (response) => {
-                console.log('Detalles del producto:', response);
                 this.product = response.data;
+                this.productService.getRelatedProducts(productId).subscribe({
+                    next: (relatedResponse) => {
+                        this.relatedProducts = relatedResponse.data;
+                        console.log(
+                            'Productos relacionados asignados:',
+                            this.relatedProducts
+                        );
+                    },
+                    error: (error) => {
+                        console.error(
+                            'Error al cargar los productos relacionados:',
+                            error
+                        );
+                    },
+                });
             },
             error: (error) => {
                 console.error(

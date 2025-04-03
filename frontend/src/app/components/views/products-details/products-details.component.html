@@ -121,4 +121,22 @@
 
    -->
     </div>
+    <!-- Related Products Container -->
+    <div class="related-products">
+        <h2 class="section-title">Productos Relacionados</h2>
+        <div
+            class="grid-layout products-container"
+            *ngIf="relatedProducts.length > 0; else noRelatedProducts"
+        >
+            <app-product-card
+                *ngFor="let relatedProduct of relatedProducts | slice : 0 : 4"
+                [product]="relatedProduct"
+            ></app-product-card>
+        </div>
+        <ng-template #noRelatedProducts>
+            <p class="no-products-message">
+                No hay productos relacionados disponibles.
+            </p>
+        </ng-template>
+    </div>
 </div>
