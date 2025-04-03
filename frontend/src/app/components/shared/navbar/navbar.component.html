@@ -4,9 +4,14 @@
             <span class="nav-title">SaveX</span>
         </a>
         <div class="right">
-            @if (userDataService.isAuthenticated) {
+            @if (isAuthenticated) {
                 <a class="clickable clickable-image small" routerLink="/profile">
-                    <img class="avatar" src="{{userDataService.isAuthenticated}}" alt="user">
+                    <img
+                        class="avatar"
+                        src="{{avatar}}"
+                        alt="User avatar"
+                        (error)="getDefaultAvatar($event)"
+                    >
                 </a>
             } @else {
                 <a class="clickable clickable-primary" routerLink="/login">Acceder</a>

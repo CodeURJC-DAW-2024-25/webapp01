@@ -2,6 +2,7 @@ import { Component, Input } from '@angular/core';
 import { Comment } from '@/types/Comment';
 import { environment } from '@environments/environment';
 import { PageRequest } from '@/types/common/PageRequest';
+import { getDefaultAvatar } from '@/utils/defaultImage';
 
 @Component({
 	selector: 'app-post-comment',
@@ -18,7 +19,7 @@ export class PostCommentComponent {
 
 	setDefaultImage(event: Event): void {
 		const target = event.target as HTMLImageElement;
-		target.src = "/assets/images/defaultAvatar.jpg";
+		target.src = getDefaultAvatar();
 		target.alt = "Default Avatar";
 	}
 }

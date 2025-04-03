@@ -12,8 +12,8 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import es.daw01.savex.DTOs.users.UserMapper;
 import es.daw01.savex.model.User;
-import es.daw01.savex.model.UserType;
 import es.daw01.savex.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
@@ -25,19 +25,22 @@ public class UserLoginService {
 
 	private final AuthenticationManager authenticationManager;
 	private final UserDetailsService userDetailsService;
-	private final UserService userService;
 	private final JwtTokenProvider jwtTokenProvider;
+	private final UserService userService;
+	private final UserMapper userMapper;
 
 	public UserLoginService(
 		AuthenticationManager authenticationManager,
 		UserDetailsService userDetailsService,
 		JwtTokenProvider jwtTokenProvider,
-		UserService userService
+		UserService userService,
+		UserMapper userMapper
 	) {
 		this.authenticationManager = authenticationManager;
 		this.userDetailsService = userDetailsService;
 		this.jwtTokenProvider = jwtTokenProvider;
 		this.userService = userService;
+		this.userMapper = userMapper;
 	}
 
 	public ResponseEntity<AuthResponse> login(HttpServletResponse response, LoginRequest loginRequest) {
@@ -63,7 +66,7 @@ public class UserLoginService {
 			AuthResponse.Status.SUCCESS,
 			"Auth successful. Tokens are created in cookie.",
 			null,
-			userEntity.getRole(),
+			userMapper.toPublicUserDTO(userEntity),
 			true
 		);
 
@@ -83,7 +86,7 @@ public class UserLoginService {
 				AuthResponse.Status.SUCCESS,
 				"Auth successful. Tokens are created in cookie.",
 				null,
-				userEntity.getRole(),
+				userMapper.toPublicUserDTO(userEntity),
 				true
 			);
 
@@ -95,7 +98,7 @@ public class UserLoginService {
 				AuthResponse.Status.FAILURE,
 				null,
 				"Failure while processing refresh token",
-				UserType.ANONYMOUS,
+				null,
 				false
 			);
 
@@ -117,7 +120,7 @@ public class UserLoginService {
 				AuthResponse.Status.FAILURE,
 				"Session expired",
 				null,
-				UserType.ANONYMOUS,
+				null,
 				false
 			));
 		}
@@ -131,7 +134,7 @@ public class UserLoginService {
 					AuthResponse.Status.FAILURE,
 					"Session expired",
 					null,
-					UserType.ANONYMOUS,
+					null,
 					false
 				));
 			}
@@ -142,7 +145,7 @@ public class UserLoginService {
 				AuthResponse.Status.SUCCESS,
 				"Session is valid",
 				null,
-				user.getRole(),
+				userMapper.toPublicUserDTO(user),
 				true
 			);
 

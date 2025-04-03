@@ -8,6 +8,7 @@ import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CommentsService } from '@/services/comment.service';
 import { PageRequest } from '@/types/common/PageRequest';
 import { Comment } from '@/types/Comment';
+import { getDefaultImage, getPostBanner } from '@/utils/defaultImage';
 
 @Component({
 	selector: 'app-post-detail',
@@ -77,12 +78,12 @@ export class PostDetailComponent implements OnInit {
 	}
 
 	getBannerUrl(): string {
-		return `${environment.baseApiUrl}/v1/posts/${this.post?.id}/banner`;
+		return getPostBanner(this.post);
 	}
 
 	setDefaultImage(event: Event): void {
 		const target = event.target as HTMLImageElement;
-		target.src = "/assets/images/template_image.png";
+		target.src = getDefaultImage();
 		target.alt = "Default Image";
 	}
 	

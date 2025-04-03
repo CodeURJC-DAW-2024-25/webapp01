@@ -1,7 +1,12 @@
+import { AuthResponse } from '@/types/common/AuthResponse';
+import { GlobalUser, User } from '@/types/User';
+import { getUserAvatar } from '@/utils/defaultImage';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
+import { UserDataService } from '@services/user-data.service';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -10,37 +15,41 @@ export class AuthService {
     private API_URL = `${environment.baseApiUrl}`
     http = inject(HttpClient);
     router = inject(Router);
+    userDataService = inject(UserDataService);
+
+    constructor() {
+        this.loadUserFromStorage();
+    }
+
+    // Logged user to be used in the app
+    private globalUser = new BehaviorSubject<GlobalUser | null>(null);
+    globalUser$ = this.globalUser.asObservable();
 
     login(credentials: { username: string, password: string }) {
-        this.http.post(`${this.API_URL}/auth/login`, credentials, { 
+        const builtUrl = `${this.API_URL}/auth/login`;
+        this.http.post(builtUrl, credentials, { 
             observe: 'response',
+            withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
             }
-         })
+        })
         .subscribe({
             next: (response) => {
-                const token = response.headers.get('Authorization')?.split(' ')[1];
-                if (token) {
-                    console.log('Token received:', token);
-                    localStorage.setItem('is_logged_in', 'true');
-                    this.router.navigate(['/']);
-                } else {
-                    console.error('No token received');
-                }
+                this.setUserData(response.body as AuthResponse);
+                this.router.navigate(['/']);
             },
             error: (err) => {
                 console.error('Login failed', err);
             }
         });
-
     }
 
     logout() {
-        this.http.post(`${this.API_URL}/auth/logout`, {}).subscribe({
+        const builtUrl = `${this.API_URL}/auth/logout`;
+        this.http.post(builtUrl, {}).subscribe({
             next: () => {
-                console.log('Logout successful');
-                localStorage.removeItem('is_logged_in');
+                this.clearUserData();
                 this.router.navigate(['/login']);
             },
             error: (err) => {
@@ -49,8 +58,48 @@ export class AuthService {
         });
     }
 
-    isLoggedIn(): boolean {
-        const token = localStorage.getItem('is_logged_in');
-        return !!token;
+    checkAuth() {
+        const builtUrl = `${this.API_URL}/auth/check-session`;
+        this.http.post(builtUrl, {}, {
+            observe: 'response',
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        })
+        .subscribe({
+            next: (response) => {
+                const authRes: AuthResponse = response.body as AuthResponse;
+                this.setUserData(authRes);
+            },
+            error: (err) => {
+                console.error('Session check failed', err);
+            }
+        });
+    }
+
+    private setUserData(data: AuthResponse): void {
+        const userData: GlobalUser = {
+            user: data.user,
+            isAuthenticated: data.authenticated,
+            isAdmin: data.user?.role === "ADMIN" || false,
+            avatar: getUserAvatar(data.user),
+        }
+        localStorage.setItem('globalUser', JSON.stringify(userData));
+        this.globalUser.next(userData);
+    }
+
+    private clearUserData(): void {
+        localStorage.removeItem('globalUser');
+        this.globalUser.next(null);
+    }
+
+    private loadUserFromStorage(): void {
+        const userData = localStorage.getItem('globalUser');
+        if (userData) {
+            this.globalUser.next(JSON.parse(userData) as GlobalUser);
+        } else {
+            this.globalUser.next(null);
+        }
     }
 }

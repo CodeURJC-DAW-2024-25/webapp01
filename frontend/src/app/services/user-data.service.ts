@@ -1,3 +1,4 @@
+import { User } from '@/types/User';
 import { Injectable, signal } from '@angular/core';
 
 @Injectable({
@@ -6,9 +7,9 @@ import { Injectable, signal } from '@angular/core';
 export class UserDataService {
   // --- Properties ---
   private _isAuthenticated = signal(false);
+  private _user = signal<User | null>(null);
   private _avatar = signal('');
   private _isAdmin = signal(false);
-  private _token = signal('');
 
   constructor() { }
 
@@ -18,6 +19,13 @@ export class UserDataService {
   }
   set isAuthenticated(value: boolean) {
     this._isAuthenticated.set(value);
+  }
+
+  get user(): User | null {
+    return this._user();
+  }
+  set user(value: User | null) {
+    this._user.set(value);
   }
 
   get avatar(): string {
@@ -32,12 +40,5 @@ export class UserDataService {
   }
   set isAdmin(value: boolean) {
     this._isAdmin.set(value);
-  }
-
-  get token(): string {
-    return this._token();
-  }
-  set token(value: string) {
-    this._token.set(value);
   }
 }

@@ -1,13 +1,13 @@
 package es.daw01.savex.security.jwt;
 
-import es.daw01.savex.model.UserType;
+import es.daw01.savex.DTOs.users.PublicUserDTO;
 
 public class AuthResponse {
 
 	private Status status;
 	private String message;
 	private String error;
-	private UserType role = UserType.ANONYMOUS;
+	private PublicUserDTO user = null;
 	private boolean isAuthenticated = false;
 
 	public enum Status {
@@ -28,18 +28,18 @@ public class AuthResponse {
 		this.error = error;
 	}
 
-	public AuthResponse(Status status, String message, String error, UserType role) {
+	public AuthResponse(Status status, String message, String error, PublicUserDTO user) {
 		this.status = status;
 		this.message = message;
 		this.error = error;
-		this.role = role;
+		this.user = user;
 	}
 
-	public AuthResponse(Status status, String message, String error, UserType role, boolean isAuthenticated) {
+	public AuthResponse(Status status, String message, String error, PublicUserDTO user, boolean isAuthenticated) {
 		this.status = status;
 		this.message = message;
 		this.error = error;
-		this.role = role;
+		this.user = user;
 		this.isAuthenticated = isAuthenticated;
 	}
 
@@ -67,12 +67,12 @@ public class AuthResponse {
 		this.error = error;
 	}
 
-	public UserType getRole() {
-		return role;
+	public PublicUserDTO getUser() {
+		return user;
 	}
 
-	public void setRole(UserType role) {
-		this.role = role;
+	public void setUser(PublicUserDTO user) {
+		this.user = user;
 	}
 
 	public boolean isAuthenticated() {
