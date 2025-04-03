@@ -1,5 +1,10 @@
 <div class="container">
     <app-hero></app-hero>
-    <app-posts-preview [posts]="posts"/>
+    @if (!isLoading) {
+        <app-posts-preview [posts]="posts"/>
+    }
+    @else {
+        <app-loader></app-loader>
+    }
     <app-cta></app-cta>
 </div>
