@@ -24,7 +24,6 @@ export class MainComponent {
 			},
 			error: (err) => {
 				this.error = err.message;
-				this.isLoading = false;
 				console.error('Error fetching posts:', err);
 			},
 		});

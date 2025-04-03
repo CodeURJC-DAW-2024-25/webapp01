@@ -3,6 +3,7 @@ package es.daw01.savex.controller.api.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,6 +25,7 @@ public class RestLoginController {
 	private UserLoginService userLoginService;
 
 	@PostMapping("/login")
+	@CrossOrigin(origins = "*", allowCredentials = "true")
 	public ResponseEntity<AuthResponse> login(
 		@RequestBody LoginRequest loginRequest,
 		HttpServletResponse response
@@ -39,6 +41,7 @@ public class RestLoginController {
 	}
 
 	@PostMapping("/logout")
+	@CrossOrigin(origins = "*", allowCredentials = "true")
 	public ResponseEntity<AuthResponse> logOut(HttpServletResponse response) {
 		return ResponseEntity.ok(new AuthResponse(Status.SUCCESS, userLoginService.logout(response)));
 	}
