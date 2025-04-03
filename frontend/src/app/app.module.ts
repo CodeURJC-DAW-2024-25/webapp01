@@ -26,6 +26,7 @@ import { ProductCardComponent } from './components/shared/components/shared/prod
 import { ThemeToggleComponent } from './components/shared/theme-toggle/theme-toggle.component';
 import { PostCommentComponent } from './components/shared/post-comment/post-comment.component';
 import { ProductDetailsComponent } from './components/views/products-details/products-details.component';
+import { LoaderComponent } from './components/shared/loader/loader.component';
 
 @NgModule({
     declarations: [
@@ -49,7 +50,8 @@ import { ProductDetailsComponent } from './components/views/products-details/pro
     ProductCardComponent,
         ThemeToggleComponent,
         PostCommentComponent,
-        ProductDetailsComponent
+        ProductDetailsComponent,
+        LoaderComponent
     ],
     imports: [
         BrowserModule,

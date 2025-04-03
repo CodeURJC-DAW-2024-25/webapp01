@@ -13,6 +13,7 @@ export class ProductsComponent implements OnInit {
     currentPage: number = 0;
     totalPages: number = Infinity;
     isEnd: boolean = false;
+    isLoading: boolean = true;
     searchQuery: string = '';
     filters: { supermarket?: string; minPrice?: string; maxPrice?: string } =
         {};
@@ -52,6 +53,7 @@ export class ProductsComponent implements OnInit {
                     this.totalPages =
                         data.total_pages < 1 ? 1 : data.total_pages + 1;
                     this.isEnd = this.currentPage >= this.totalPages - 1;
+                    this.isLoading = false;
                 },
                 error: (error: any) => {
                     console.error('Error loading products:', error);
