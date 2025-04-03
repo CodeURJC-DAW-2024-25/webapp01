@@ -12,6 +12,9 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import es.daw01.savex.model.User;
+import es.daw01.savex.model.UserType;
+import es.daw01.savex.service.UserService;
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletResponse;
 
@@ -22,12 +25,19 @@ public class UserLoginService {
 
 	private final AuthenticationManager authenticationManager;
 	private final UserDetailsService userDetailsService;
+	private final UserService userService;
 	private final JwtTokenProvider jwtTokenProvider;
 
-	public UserLoginService(AuthenticationManager authenticationManager, UserDetailsService userDetailsService, JwtTokenProvider jwtTokenProvider) {
+	public UserLoginService(
+		AuthenticationManager authenticationManager,
+		UserDetailsService userDetailsService,
+		JwtTokenProvider jwtTokenProvider,
+		UserService userService
+	) {
 		this.authenticationManager = authenticationManager;
 		this.userDetailsService = userDetailsService;
 		this.jwtTokenProvider = jwtTokenProvider;
+		this.userService = userService;
 	}
 
 	public ResponseEntity<AuthResponse> login(HttpServletResponse response, LoginRequest loginRequest) {
@@ -40,6 +50,7 @@ public class UserLoginService {
 		
 		String username = loginRequest.getUsername();
 		UserDetails user = userDetailsService.loadUserByUsername(username);
+		User userEntity = userService.findByUsername(username).get();
 
 		HttpHeaders responseHeaders = new HttpHeaders();
 		var newAccessToken = jwtTokenProvider.generateAccessToken(user);
@@ -48,8 +59,14 @@ public class UserLoginService {
 		response.addCookie(buildTokenCookie(TokenType.ACCESS, newAccessToken));
 		response.addCookie(buildTokenCookie(TokenType.REFRESH, newRefreshToken));
 
-		AuthResponse loginResponse = new AuthResponse(AuthResponse.Status.SUCCESS,
-				"Auth successful. Tokens are created in cookie.");
+		AuthResponse loginResponse = new AuthResponse(
+			AuthResponse.Status.SUCCESS,
+			"Auth successful. Tokens are created in cookie.",
+			null,
+			userEntity.getRole(),
+			true
+		);
+
 		return ResponseEntity.ok().headers(responseHeaders).body(loginResponse);
 	}
 
@@ -57,18 +74,31 @@ public class UserLoginService {
 		try {
 			var claims = jwtTokenProvider.validateToken(refreshToken);
 			UserDetails user = userDetailsService.loadUserByUsername(claims.getSubject());
+			User userEntity = userService.findByUsername(claims.getSubject()).get();
 
 			var newAccessToken = jwtTokenProvider.generateAccessToken(user);
 			response.addCookie(buildTokenCookie(TokenType.ACCESS, newAccessToken));
 
-			AuthResponse loginResponse = new AuthResponse(AuthResponse.Status.SUCCESS,
-					"Auth successful. Tokens are created in cookie.");
+			AuthResponse loginResponse = new AuthResponse(
+				AuthResponse.Status.SUCCESS,
+				"Auth successful. Tokens are created in cookie.",
+				null,
+				userEntity.getRole(),
+				true
+			);
+
 			return ResponseEntity.ok().body(loginResponse);
 
 		} catch (Exception e) {
 			log.error("Error while processing refresh token", e);
-			AuthResponse loginResponse = new AuthResponse(AuthResponse.Status.FAILURE,
-					"Failure while processing refresh token");
+			AuthResponse loginResponse = new AuthResponse(
+				AuthResponse.Status.FAILURE,
+				null,
+				"Failure while processing refresh token",
+				UserType.ANONYMOUS,
+				false
+			);
+
 			return ResponseEntity.ok().body(loginResponse);
 		}
 	}
@@ -79,6 +109,49 @@ public class UserLoginService {
 		response.addCookie(removeTokenCookie(TokenType.REFRESH));
 
 		return "logout successfully";
+	}
+
+	public ResponseEntity<AuthResponse> checkSession(String accessToken, String refreshToken) {
+		if (accessToken == null && refreshToken == null) {
+			return ResponseEntity.ok(new AuthResponse(
+				AuthResponse.Status.FAILURE,
+				"Session expired",
+				null,
+				UserType.ANONYMOUS,
+				false
+			));
+		}
+		
+		try {
+			var claims = jwtTokenProvider.validateToken(accessToken);
+			if (claims == null) claims = jwtTokenProvider.validateToken(refreshToken);
+
+			if (claims == null) {
+				return ResponseEntity.ok(new AuthResponse(
+					AuthResponse.Status.FAILURE,
+					"Session expired",
+					null,
+					UserType.ANONYMOUS,
+					false
+				));
+			}
+
+			User user = userService.findByUsername(claims.getSubject()).get();
+
+			AuthResponse response = new AuthResponse(
+				AuthResponse.Status.SUCCESS,
+				"Session is valid",
+				null,
+				user.getRole(),
+				true
+			);
+
+			return ResponseEntity.ok().body(response);
+
+		} catch (Exception e) {
+			log.error("Error while checking session", e);
+			return ResponseEntity.status(500).body(new AuthResponse(AuthResponse.Status.FAILURE, "An error occurred while checking the session"));
+		}
 	}
 
 	private Cookie buildTokenCookie(TokenType type, String token) {

@@ -3,7 +3,6 @@ package es.daw01.savex.controller.api.auth;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CookieValue;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -42,5 +41,13 @@ public class RestLoginController {
 	@PostMapping("/logout")
 	public ResponseEntity<AuthResponse> logOut(HttpServletResponse response) {
 		return ResponseEntity.ok(new AuthResponse(Status.SUCCESS, userLoginService.logout(response)));
+	}
+
+	@PostMapping("/check-session")
+	public ResponseEntity<AuthResponse> checkSession(
+		@CookieValue(name = "AuthToken", required = false) String accessToken,
+		@CookieValue(name = "RefreshToken", required = false) String refreshToken
+	) {
+		return userLoginService.checkSession(accessToken, refreshToken);
 	}
 }
