@@ -28,6 +28,7 @@ import { PostCommentComponent } from './components/shared/post-comment/post-comm
 import { ProductDetailsComponent } from './components/views/products-details/products-details.component';
 import { LoaderComponent } from './components/shared/loader/loader.component';
 import { CompareTableComponent } from './components/shared/compare-table/compare-table.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
     declarations: [
@@ -62,7 +63,8 @@ import { CompareTableComponent } from './components/shared/compare-table/compare
             scrollPositionRestoration: "top"
         }),
         HttpClientModule,
-        FormsModule],
+        FormsModule,
+        NgbModule],
     providers: [],
     bootstrap: [AppComponent] // Bootstrap the standalone component
 })
