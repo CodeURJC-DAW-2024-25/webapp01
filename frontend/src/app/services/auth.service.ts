@@ -17,28 +17,32 @@ export class AuthService {
     router = inject(Router);
     userDataService = inject(UserDataService);
 
+    constructor() {
+        this.uploadUserFromSessionStorage();
+    }
+
     // Logged user to be used in the app
     private globalUser = new BehaviorSubject<GlobalUser | null>(null);
     globalUser$ = this.globalUser.asObservable();
 
     login(credentials: { username: string, password: string }) {
         const builtUrl = `${this.API_URL}/auth/login`;
-        this.http.post(builtUrl, credentials, { 
+        this.http.post(builtUrl, credentials, {
             observe: 'response',
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
             }
         })
-        .subscribe({
-            next: (response) => {
-                this.setUserData(response.body as AuthResponse);
-                this.router.navigate(['/']);
-            },
-            error: (err) => {
-                console.error('Login failed', err);
-            }
-        });
+            .subscribe({
+                next: (response) => {
+                    this.setUserData(response.body as AuthResponse);
+                    this.router.navigate(['/']);
+                },
+                error: (err) => {
+                    console.error('Login failed', err);
+                }
+            });
     }
 
     logout() {
@@ -63,15 +67,15 @@ export class AuthService {
                 'Content-Type': 'application/json',
             }
         })
-        .subscribe({
-            next: (response) => {
-                const authRes: AuthResponse = response.body as AuthResponse;
-                this.setUserData(authRes);
-            },
-            error: (err) => {
-                console.error('Session check failed', err);
-            }
-        });
+            .subscribe({
+                next: (response) => {
+                    const authRes: AuthResponse = response.body as AuthResponse;
+                    this.setUserData(authRes);
+                },
+                error: (err) => {
+                    console.error('Session check failed', err);
+                }
+            });
     }
 
     private setUserData(data: AuthResponse): void {
@@ -81,10 +85,22 @@ export class AuthService {
             isAdmin: data.user?.role === "ADMIN" || false,
             avatar: getUserAvatar(data.user),
         }
+        sessionStorage.setItem('user', JSON.stringify(userData));
         this.globalUser.next(userData);
     }
 
     private clearUserData(): void {
+        sessionStorage.removeItem('user');
         this.globalUser.next(null);
+    }
+
+    private uploadUserFromSessionStorage(): void {
+        const user = sessionStorage.getItem('user');
+        if (user) {
+            const parsedUser = JSON.parse(user) as GlobalUser;
+            this.globalUser.next(parsedUser);
+        } else {
+            this.globalUser.next(null);
+        }
     }
 }
