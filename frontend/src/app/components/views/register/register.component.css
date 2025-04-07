@@ -1,0 +1,5 @@
+@import url('../../../styles/login.css');
+
+:host {
+    width: 100%;
+}

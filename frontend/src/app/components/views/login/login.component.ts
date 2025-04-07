@@ -18,8 +18,6 @@ export class LoginComponent {
     onSubmit() {
         // Call the login function from AuthService here
         this.auth.login(this.credentials);
-        
-        // this.authService.login(this.credentials);   
     }
 
 }
