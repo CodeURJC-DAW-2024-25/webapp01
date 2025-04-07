@@ -33,10 +33,6 @@ export class ProductDetailsComponent implements OnInit {
                 this.productService.getRelatedProducts(productId).subscribe({
                     next: (relatedResponse) => {
                         this.relatedProducts = relatedResponse.data;
-                        console.log(
-                            'Productos relacionados asignados:',
-                            this.relatedProducts
-                        );
                     },
                     error: (error) => {
                         console.error(
