@@ -6,7 +6,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
 import { UserDataService } from '@services/user-data.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -58,26 +58,27 @@ export class AuthService {
         });
     }
 
-    checkAuth() {
+    checkAuth(): Observable<AuthResponse> {
         const builtUrl = `${this.API_URL}/auth/check-session`;
-        this.http.post(builtUrl, {}, {
+        return this.http.post(builtUrl, {}, {
             observe: 'response',
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
             }
-        })
-            .subscribe({
-                next: (response) => {
-                    const authRes: AuthResponse = response.body as AuthResponse;
-                    this.setUserData(authRes);
-                },
-                error: (err) => {
-                    console.error('Session check failed', err);
-                }
-            });
+        }).pipe(
+            map((response) => {
+                const authRes: AuthResponse = response.body as AuthResponse;
+                this.setUserData(authRes);
+                return authRes;
+            }),
+            catchError((err) => {
+                console.error('Session check failed', err);
+                return of({ authenticated: false } as AuthResponse);
+            })
+        );
     }
-
+    
     private setUserData(data: AuthResponse): void {
         const userData: GlobalUser = {
             user: data.user,
