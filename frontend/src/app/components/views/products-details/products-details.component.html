@@ -11,10 +11,8 @@
     <div class="product-grid">
         <!-- Product Image -->
         <div class="product-image">
-            <img
-                [src]="product.thumbnail || 'assets/images/template_image.png'"
-                [alt]="product.display_name || 'Producto sin nombre'"
-            />
+            <img [src]="product.thumbnail || 'assets/images/template_image.png'"
+                [alt]="product.display_name || 'Producto sin nombre'" />
         </div>
 
         <!-- Product Info -->
@@ -30,12 +28,9 @@
                 </p>
                 <div class="product-price">
                     <span class="price-main">{{ product.price?.total }} €</span>
-                    <span
-                        class="price-unit"
-                        *ngIf="product.price?.reference_unit_name"
-                    >
+                    <span class="price-unit" *ngIf="product.price?.reference_unit_name">
                         {{ product.price?.per_reference_unit }} €/{{
-                            product.price?.reference_unit_name
+                        product.price?.reference_unit_name
                         }}
                     </span>
                 </div>
@@ -59,59 +54,35 @@
             </div>
 
             <!-- Product Categories -->
-            <div
-                class="product-categories"
-                *ngIf="product.product_categories?.length > 0"
-            >
+            <div class="product-categories" *ngIf="product.product_categories?.length > 0">
                 <h3 class="section-title">Categorías</h3>
                 <div class="categories-list">
-                    <span
-                        class="badge badge-secondary"
-                        *ngFor="let category of product.product_categories"
-                    >
+                    <span class="badge badge-secondary" *ngFor="let category of product.product_categories">
                         {{ category }}
                     </span>
                 </div>
             </div>
 
             <div class="product-actions">
-                <a
-                    [href]="product.product_url"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    class="clickable clickable-secondary full-width"
-                >
+                <a [href]="product.product_url" target="_blank" rel="noopener noreferrer"
+                    class="clickable clickable-secondary full-width">
                     Ver en {{ product.supermarket_name }}
                 </a>
-                <button
-                    id="compareBtn"
-                    class="clickable clickable-tool bordered"
-                    (click)="showComparison()"
-                >
+                <button id="compareBtn" class="clickable clickable-tool bordered" (click)="showComparison()">
                     <i class="bi bi-calculator-fill"></i>
                 </button>
             </div>
         </div>
     </div>
-    
-    <div>   
-        <app-compare-table
-            *ngIf="isComparisonVisible"
-            [productId]="product.product_id"
-        ></app-compare-table>
-    </div>
+
+    <app-compare-table *ngIf="isComparisonVisible" [productId]="product.product_id"></app-compare-table>
 
     <!-- Related Products Container -->
     <div class="related-products">
         <h2 class="section-title">Productos Relacionados</h2>
-        <div
-            class="grid-layout products-container"
-            *ngIf="relatedProducts.length > 0; else noRelatedProducts"
-        >
-            <app-product-card
-                *ngFor="let relatedProduct of relatedProducts | slice : 0 : 4"
-                [product]="relatedProduct"
-            ></app-product-card>
+        <div class="grid-layout products-container" *ngIf="relatedProducts.length > 0; else noRelatedProducts">
+            <app-product-card *ngFor="let relatedProduct of relatedProducts | slice : 0 : 4"
+                [product]="relatedProduct"></app-product-card>
         </div>
         <ng-template #noRelatedProducts>
             <p class="no-products-message">

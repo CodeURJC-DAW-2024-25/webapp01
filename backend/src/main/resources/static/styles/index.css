@@ -159,3 +159,8 @@ hr {
     margin-top: 2px;
     color: red;
 }
+
+
+a{
+    color: inherit;
+}
