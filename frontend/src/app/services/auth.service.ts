@@ -98,8 +98,16 @@ export class AuthService {
     private uploadUserFromSessionStorage(): void {
         const user = sessionStorage.getItem('user');
         if (user) {
-            const parsedUser = JSON.parse(user) as GlobalUser;
-            this.globalUser.next(parsedUser);
+            this.checkAuth().subscribe({
+                next: (response) => {
+                    if (response.authenticated) {
+                        const parsedUser = JSON.parse(user) as GlobalUser;
+                        this.globalUser.next(parsedUser);
+                    } else {
+                        this.clearUserData();
+                    }
+                }
+            });
         } else {
             this.globalUser.next(null);
         }

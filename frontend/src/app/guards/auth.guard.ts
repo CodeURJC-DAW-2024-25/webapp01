@@ -19,6 +19,7 @@ export const authGuard: CanActivateFn = (route, state) => {
             const isAuthorized = requiredRoles.length === 0 || (userRole !== null && requiredRoles.includes(userRole));
 
             if (!isAuthorized) {
+                authService.logout();
                 router.navigate(['/login']);
                 return false;
             }
@@ -26,6 +27,7 @@ export const authGuard: CanActivateFn = (route, state) => {
             return true;
         }),
         catchError(() => {
+            authService.logout();
             router.navigate(['/login']);
             return of(false);
         })
