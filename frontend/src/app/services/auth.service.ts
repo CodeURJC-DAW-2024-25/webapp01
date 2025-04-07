@@ -17,10 +17,6 @@ export class AuthService {
     router = inject(Router);
     userDataService = inject(UserDataService);
 
-    constructor() {
-        this.loadUserFromStorage();
-    }
-
     // Logged user to be used in the app
     private globalUser = new BehaviorSubject<GlobalUser | null>(null);
     globalUser$ = this.globalUser.asObservable();
@@ -85,21 +81,10 @@ export class AuthService {
             isAdmin: data.user?.role === "ADMIN" || false,
             avatar: getUserAvatar(data.user),
         }
-        localStorage.setItem('globalUser', JSON.stringify(userData));
         this.globalUser.next(userData);
     }
 
     private clearUserData(): void {
-        localStorage.removeItem('globalUser');
         this.globalUser.next(null);
-    }
-
-    private loadUserFromStorage(): void {
-        const userData = localStorage.getItem('globalUser');
-        if (userData) {
-            this.globalUser.next(JSON.parse(userData) as GlobalUser);
-        } else {
-            this.globalUser.next(null);
-        }
     }
 }
