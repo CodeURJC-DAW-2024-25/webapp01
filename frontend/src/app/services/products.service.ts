@@ -39,13 +39,17 @@ export class ProductService {
     }
 
     getRelatedProducts(productId: string): Observable<any> {
-        const endpoint = `${this.apiUrl}/${encodeURIComponent(productId)}/suggested`;
+        const endpoint = `${this.apiUrl}/${encodeURIComponent(
+            productId
+        )}/suggested`;
 
         return this.http.get(endpoint);
     }
 
     compareProducts(productId: string): Observable<any> {
-        const endpoint = `${this.apiUrl}/${encodeURIComponent(productId)}/compare`;
+        const endpoint = `${this.apiUrl}/${encodeURIComponent(
+            productId
+        )}/compare`;
         return this.http.get(endpoint);
     }
 }

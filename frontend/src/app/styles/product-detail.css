@@ -199,6 +199,7 @@ table {
             vertical-align: middle;
             text-align: left;
             text-transform: capitalize;
+
         }
 
         th {
@@ -221,6 +222,11 @@ table {
         display: flex;
         align-items: center;
         gap: 8px;
+    }
+
+    a{
+        color: var(--text-color);
+        text-decoration: none;
     }
 
     .best-price {
