@@ -8,6 +8,13 @@ import { PostDetailComponent } from './components/views/post-detail/post-detail.
 import { LoginComponent } from './components/views/login/login.component';
 import { RegisterComponent } from './components/views/register/register.component';
 import { ProductDetailsComponent } from './components/views/products-details/products-details.component';
+import { ProfileComponent } from './components/views/profile/profile.component';
+import { authGuard } from './guards/auth.guard';
+
+export const roles = {
+  admin: 'ADMIN',
+  user: 'USER'
+}
 
 export const routes: Routes = [
   { path: '', component: MainComponent },
@@ -16,8 +23,9 @@ export const routes: Routes = [
   { path: 'posts/:id', component: PostDetailComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent  },
-  { path: 'products/:id', component: ProductDetailsComponent }
+  { path: 'register', component: RegisterComponent },
+  { path: 'products/:id', component: ProductDetailsComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuard], data: { roles: [roles.user, roles.admin] } }
 ];
 
 @NgModule({
