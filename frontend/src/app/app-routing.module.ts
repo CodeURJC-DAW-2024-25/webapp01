@@ -9,6 +9,7 @@ import { LoginComponent } from './components/views/login/login.component';
 import { RegisterComponent } from './components/views/register/register.component';
 import { ProductDetailsComponent } from './components/views/products-details/products-details.component';
 import { ProfileComponent } from './components/views/profile/profile.component';
+import { SettingsComponent } from './components/views/settings/settings.component';
 import { authGuard } from './guards/auth.guard';
 
 export const roles = {
@@ -25,7 +26,8 @@ export const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
-  { path: 'profile', component: ProfileComponent, canActivate: [authGuard], data: { roles: [roles.user, roles.admin] } }
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuard], data: { roles: [roles.user, roles.admin] } },
+  { path: 'settings', component: SettingsComponent, canActivate: [authGuard], data: { roles: [roles.user, roles.admin] } },
 ];
 
 @NgModule({
