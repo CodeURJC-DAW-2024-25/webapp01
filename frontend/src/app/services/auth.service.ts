@@ -8,6 +8,11 @@ import { environment } from '@environments/environment';
 import { UserDataService } from '@services/user-data.service';
 import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 
+export interface AuthState {
+    isLoading: boolean;
+    user: GlobalUser | null;
+}
+
 @Injectable({
     providedIn: 'root'
 })
@@ -22,8 +27,12 @@ export class AuthService {
     }
 
     // Logged user to be used in the app
-    private globalUser = new BehaviorSubject<GlobalUser | null>(null);
-    globalUser$ = this.globalUser.asObservable();
+    private authState = new BehaviorSubject<AuthState>({
+        isLoading: true,
+        user: null
+    })
+
+    authState$ = this.authState.asObservable();
 
     login(credentials: { username: string, password: string }) {
         const builtUrl = `${this.API_URL}/auth/login`;
@@ -50,7 +59,7 @@ export class AuthService {
         this.http.post(builtUrl, {}).subscribe({
             next: () => {
                 this.clearUserData();
-                this.router.navigate(['/login']);
+                this.router.navigate(['/']);
             },
             error: (err) => {
                 console.error('Logout failed', err);
@@ -87,12 +96,18 @@ export class AuthService {
             avatar: getUserAvatar(data.user),
         }
         sessionStorage.setItem('user', JSON.stringify(userData));
-        this.globalUser.next(userData);
+        this.authState.next({
+            isLoading: false,
+            user: userData
+        });
     }
 
     private clearUserData(): void {
         sessionStorage.removeItem('user');
-        this.globalUser.next(null);
+        this.authState.next({
+            isLoading: false,
+            user: null
+        });
     }
 
     private uploadUserFromSessionStorage(): void {
@@ -102,14 +117,22 @@ export class AuthService {
                 next: (response) => {
                     if (response.authenticated) {
                         const parsedUser = JSON.parse(user) as GlobalUser;
-                        this.globalUser.next(parsedUser);
+                        this.authState.next({
+                            isLoading: false,
+                            user: {
+                                ...parsedUser,
+                            }
+                        });
                     } else {
                         this.clearUserData();
                     }
                 }
             });
         } else {
-            this.globalUser.next(null);
+            this.authState.next({
+                isLoading: false,
+                user: null
+            });
         }
     }
 }
