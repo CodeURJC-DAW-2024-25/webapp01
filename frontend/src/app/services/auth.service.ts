@@ -57,7 +57,6 @@ export class AuthService {
         this.http.post(builtUrl, {}).subscribe({
             next: () => {
                 console.log('Logout successful');
-                console
                 this.clearUserData();
                 this.router.navigate(['/']);
             },

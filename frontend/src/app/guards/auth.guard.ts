@@ -11,25 +11,29 @@ export const authGuard: CanActivateFn = (route, state) => {
     const authService = inject(AuthService);
     const router = inject(Router);
 
-    return authService.checkAuth().pipe(
-        map((response: AuthResponse) => {
-            console.log('Auth response:', response);
-            const requiredRoles: string[] = route.data['roles'] || [];
-            const userRole = response.user?.role || null;
-            const isAuthorized = requiredRoles.length === 0 || (userRole !== null && requiredRoles.includes(userRole));
+    let isLoading = true;
+    let userRole: string | null = null;
 
-            if (!isAuthorized) {
-                authService.logout();
-                router.navigate(['/login']);
-                return false;
-            }
+    authService.authState$.subscribe((authState) => {
+        isLoading = authState.isLoading;
+        userRole = authState.user?.user?.role || null;
+        console.log('Auth state:', authState);
+    });
 
-            return true;
-        }),
-        catchError(() => {
-            authService.logout();
-            router.navigate(['/login']);
-            return of(false);
-        })
-    );
+    if (isLoading) {
+        return of(false);
+    }
+
+    const requiredRoles: string[] = route.data['roles'] || [];
+    const isAuthorized = requiredRoles.length === 0
+        || (userRole !== null
+        && requiredRoles.includes(userRole));
+
+    if (!isAuthorized) {
+        authService.logout();
+        router.navigate(['/login']);
+        return false;
+    }
+
+    return true;
 };
