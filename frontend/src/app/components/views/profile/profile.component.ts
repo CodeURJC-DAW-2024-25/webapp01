@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from "@/services/auth.service";
+import { AuthService, AuthState } from "@/services/auth.service";
 import { GlobalUser } from "@/types/User";
 
 @Component({
@@ -13,8 +13,8 @@ export class ProfileComponent implements OnInit {
     constructor(private authService: AuthService) {}
 
     ngOnInit(): void {
-        this.authService.globalUser$.subscribe((user: GlobalUser | null) => {
-            this.user = user;
+        this.authService.authState$.subscribe((authState: AuthState) => {
+            this.user = authState.user;
         });
     }
 
