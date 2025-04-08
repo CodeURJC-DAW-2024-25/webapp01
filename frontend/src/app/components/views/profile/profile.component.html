@@ -5,7 +5,7 @@
         <div class="gradient-background"></div>
         <div class="profile-info">
             <div class="profile-avatar">
-                <img [src]="user?.avatar || 'assets/images/default_avatar.jpg'" alt="Avatar de {{ user?.user?.name }}" />
+                <img [src]="user?.avatar" (error)="setDefaultImage($event)" alt="Avatar de {{ user?.user?.name }}" />
             </div>
             <div class="user-details">
                 <div class="user-naming-section">
