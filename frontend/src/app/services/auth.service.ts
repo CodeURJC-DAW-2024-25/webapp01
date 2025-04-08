@@ -6,7 +6,7 @@ import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
 import { UserDataService } from '@services/user-data.service';
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 
 @Injectable({
     providedIn: 'root'
@@ -17,28 +17,32 @@ export class AuthService {
     router = inject(Router);
     userDataService = inject(UserDataService);
 
+    constructor() {
+        this.uploadUserFromSessionStorage();
+    }
+
     // Logged user to be used in the app
     private globalUser = new BehaviorSubject<GlobalUser | null>(null);
     globalUser$ = this.globalUser.asObservable();
 
     login(credentials: { username: string, password: string }) {
         const builtUrl = `${this.API_URL}/auth/login`;
-        this.http.post(builtUrl, credentials, { 
+        this.http.post(builtUrl, credentials, {
             observe: 'response',
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
             }
         })
-        .subscribe({
-            next: (response) => {
-                this.setUserData(response.body as AuthResponse);
-                this.router.navigate(['/']);
-            },
-            error: (err) => {
-                console.error('Login failed', err);
-            }
-        });
+            .subscribe({
+                next: (response) => {
+                    this.setUserData(response.body as AuthResponse);
+                    this.router.navigate(['/']);
+                },
+                error: (err) => {
+                    console.error('Login failed', err);
+                }
+            });
     }
 
     logout() {
@@ -54,26 +58,27 @@ export class AuthService {
         });
     }
 
-    checkAuth() {
+    checkAuth(): Observable<AuthResponse> {
         const builtUrl = `${this.API_URL}/auth/check-session`;
-        this.http.post(builtUrl, {}, {
+        return this.http.post(builtUrl, {}, {
             observe: 'response',
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
             }
-        })
-        .subscribe({
-            next: (response) => {
+        }).pipe(
+            map((response) => {
                 const authRes: AuthResponse = response.body as AuthResponse;
                 this.setUserData(authRes);
-            },
-            error: (err) => {
+                return authRes;
+            }),
+            catchError((err) => {
                 console.error('Session check failed', err);
-            }
-        });
+                return of({ authenticated: false } as AuthResponse);
+            })
+        );
     }
-
+    
     private setUserData(data: AuthResponse): void {
         const userData: GlobalUser = {
             user: data.user,
@@ -81,10 +86,30 @@ export class AuthService {
             isAdmin: data.user?.role === "ADMIN" || false,
             avatar: getUserAvatar(data.user),
         }
+        sessionStorage.setItem('user', JSON.stringify(userData));
         this.globalUser.next(userData);
     }
 
     private clearUserData(): void {
+        sessionStorage.removeItem('user');
         this.globalUser.next(null);
+    }
+
+    private uploadUserFromSessionStorage(): void {
+        const user = sessionStorage.getItem('user');
+        if (user) {
+            this.checkAuth().subscribe({
+                next: (response) => {
+                    if (response.authenticated) {
+                        const parsedUser = JSON.parse(user) as GlobalUser;
+                        this.globalUser.next(parsedUser);
+                    } else {
+                        this.clearUserData();
+                    }
+                }
+            });
+        } else {
+            this.globalUser.next(null);
+        }
     }
 }
