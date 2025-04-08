@@ -5,7 +5,6 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { environment } from '@environments/environment';
-import { UserDataService } from '@services/user-data.service';
 import { BehaviorSubject, catchError, map, Observable, of } from 'rxjs';
 
 export interface AuthState {
@@ -20,7 +19,6 @@ export class AuthService {
     private API_URL = `${environment.baseApiUrl}`
     http = inject(HttpClient);
     router = inject(Router);
-    userDataService = inject(UserDataService);
 
     constructor() {
         this.uploadUserFromSessionStorage();
@@ -58,6 +56,8 @@ export class AuthService {
         const builtUrl = `${this.API_URL}/auth/logout`;
         this.http.post(builtUrl, {}).subscribe({
             next: () => {
+                console.log('Logout successful');
+                console
                 this.clearUserData();
                 this.router.navigate(['/']);
             },

@@ -2,12 +2,12 @@ import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core
 import { Post } from '@/types/Posts';
 import { ActivatedRoute } from '@angular/router';
 import { PostsService } from '@services/post.service';
-import { UserDataService } from '@services/user-data.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CommentsService } from '@/services/comment.service';
 import { PageRequest } from '@/types/common/PageRequest';
 import { Comment } from '@/types/Comment';
 import { getDefaultImage, getPostBanner } from '@/utils/defaultImage';
+import { AuthService, AuthState } from '@/services/auth.service';
 
 @Component({
 	selector: 'app-post-detail',
@@ -16,7 +16,7 @@ import { getDefaultImage, getPostBanner } from '@/utils/defaultImage';
 })
 export class PostDetailComponent implements OnInit {
 	private sanitizer: DomSanitizer = inject(DomSanitizer);
-	userData: UserDataService = inject(UserDataService);
+	authService: AuthService = inject(AuthService);
 	postsService: PostsService = inject(PostsService);
 	commentsService: CommentsService = inject(CommentsService);
 	route: ActivatedRoute = inject(ActivatedRoute);
@@ -25,6 +25,12 @@ export class PostDetailComponent implements OnInit {
 		page: 0,
 		size: 3
 	};
+
+	private _userData = {
+		isLoading: true,
+		isAuthenticated: false,
+		isAdmin: false
+	}
 
 	postId: number | null = null;
 	post: Post | null = null;
@@ -90,7 +96,21 @@ export class PostDetailComponent implements OnInit {
 		const idParam = this.route.snapshot.paramMap.get('id');
 		this.postId = idParam ? parseInt(idParam, 10) : null;
 
+		this.authService.authState$.subscribe((authState: AuthState) => {
+			this._userData.isLoading = authState.isLoading;
+			this._userData.isAuthenticated = !!authState.user?.isAuthenticated;
+			this._userData.isAdmin = authState.user?.isAdmin || false;
+		});
+
 		this.fetchPostDetail(this.postId!);
 		this.fetchPostComments();
+	}
+
+	get userData() {
+		return this._userData;
+	}
+
+	set userData(value) {
+		this._userData = value;
 	}
 }

@@ -1,7 +1,5 @@
 import { AuthService, AuthState } from "@/services/auth.service";
-import { GlobalUser } from "@/types/User";
 import { Component, inject, OnInit } from "@angular/core";
-import { UserDataService } from "@services/user-data.service";
 
 @Component({
 	selector: "app-cta",
