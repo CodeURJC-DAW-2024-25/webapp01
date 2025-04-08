@@ -3,7 +3,6 @@ import { Post } from '@/types/Posts';
 import { ActivatedRoute } from '@angular/router';
 import { PostsService } from '@services/post.service';
 import { UserDataService } from '@services/user-data.service';
-import { environment } from '@environments/environment';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CommentsService } from '@/services/comment.service';
 import { PageRequest } from '@/types/common/PageRequest';

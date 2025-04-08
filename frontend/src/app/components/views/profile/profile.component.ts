@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService, AuthState } from "@/services/auth.service";
 import { GlobalUser } from "@/types/User";
-
+import { getDefaultAvatar} from '@/utils/defaultImage';
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.component.html',
@@ -36,4 +36,11 @@ export class ProfileComponent implements OnInit {
     openModal(): void {
         console.log('Abrir modal para nueva lista');
     }
+
+    setDefaultImage(event: Event): void {
+        const target = event.target as HTMLImageElement;
+        target.src = getDefaultAvatar();
+        target.alt = "Default Image";
+      }
+      
 }
