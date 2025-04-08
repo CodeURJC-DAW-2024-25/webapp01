@@ -7,7 +7,7 @@
         </div>
     </div>
     <app-searchbar></app-searchbar>
-    @if (userData.isAdmin) {
+    @if (isAdmin && !isLoading) {
         <a class="clickable clickable-primary" routerLink="/admin">
             <i class="bi bi-bounding-box-circles"></i>
             <span>Acceder al Dashboard</span>

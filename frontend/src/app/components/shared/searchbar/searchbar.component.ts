@@ -1,6 +1,5 @@
 import { Component, Input, Output, EventEmitter, inject } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
-import { UserDataService } from '@services/user-data.service';
 
 @Component({
     selector: 'app-searchbar',
@@ -8,8 +7,6 @@ import { UserDataService } from '@services/user-data.service';
     styleUrls: ['./searchbar.component.css'],
 })
 export class SearchbarComponent {
-    userData: UserDataService = inject(UserDataService);
-
     @Input() searchQuery: string = '';
     @Output() searchQueryChange = new EventEmitter<string>();
 
