@@ -1,1 +1,62 @@
-<p>profile works!</p>
+<div class="container no-gap small-padding">
+    <!-- Profile Header -->
+    <div class="profile-header">
+        <span class="badge">{{ user?.user?.role }}</span>
+        <div class="gradient-background"></div>
+        <div class="profile-info">
+            <div class="profile-avatar">
+                <img [src]="user?.avatar || 'assets/images/default_avatar.jpg'" alt="Avatar de {{ user?.user?.name }}" />
+            </div>
+            <div class="user-details">
+                <div class="user-naming-section">
+                    <div class="names">
+                        <h2 class="name-badge">{{ user?.user?.name }}</h2>
+                        <p class="username">{{ user?.user?.username }}</p>
+                    </div>
+                    <!-- <span class="date">
+                        <i class="bi bi-calendar"></i> Se unió en {{ user?.user?. }}
+                    </span> -->
+                </div>
+                <div class="user-actions">
+                    <a *ngIf="user?.isAdmin" routerLink="/admin" class="clickable clickable-primary">
+                        <i class="bi bi-database-gear icon"></i>
+                        <span>Admin Panel</span>
+                    </a>
+                    <a *ngIf="!user?.isAdmin" routerLink="/settings" class="clickable clickable-primary">
+                        <i class="bi bi-gear icon"></i>
+                        <span>Ajustes</span>
+                    </a>
+                    <button (click)="logout()" class="clickable clickable-secondary danger">
+                        <i class="bi bi-box-arrow-right icon"></i>
+                        <span>Cerrar sesión</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Lists Section (Only for non-admin users) -->
+    <div *ngIf="!user?.isAdmin" class="lists-section">
+        <div class="lists-header">
+            <h3>Tus listas</h3>
+            <button class="clickable clickable-secondary" (click)="openModal()">
+                <i class="bi bi-plus-lg"></i>
+                Nueva lista
+            </button>
+        </div>
+        <hr />
+        <!-- <div class="lists-grid">
+            <div *ngFor="let list of user?.shoppingLists" class="list-card">
+                <div class="list-card-header">
+                    <h4>{{ list.name }}</h4>
+                    <span class="badge badge-secondary">{{ list.numberOfProducts }}</span>
+                </div>
+                <p>{{ list.description }}</p>
+                <a [routerLink]="'/shoppingList/' + list.id" class="clickable clickable-secondary full-width">
+                    Ver detalles
+                </a>
+            </div>
+            <p *ngIf="!user?.shoppingLists?.length">No tienes listas</p>
+        </div> -->
+    </div>
+</div>
