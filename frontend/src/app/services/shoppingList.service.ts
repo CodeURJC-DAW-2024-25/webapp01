@@ -7,12 +7,18 @@ import { environment } from '@environments/environment';
     providedIn: 'root',
 })
 export class ShoppingListService {
-    private apiUrl = `${environment.baseApiUrl}/v1/shoppingList`;
+    private apiUrl = `${environment.baseApiUrl}/v1/lists`;
 
     constructor(private http: HttpClient) {}
 
     getUserLists(userId: number): Observable<any> {
-        const endpoint = `${this.apiUrl}/${userId}`;
-        return this.http.get(endpoint);
+        const endpoint = `${this.apiUrl}`;
+        console.log('Endpoint:', endpoint);
+        return this.http.get(endpoint, {
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        });
     }
-}
+}   

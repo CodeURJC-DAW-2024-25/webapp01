@@ -23,15 +23,18 @@ export class ProfileComponent implements OnInit {
         });
     }
     
-    loadShoppingLists(userId:number): void {
+    loadShoppingLists(userId: number): void {
       this.shoppingListService.getUserLists(userId).subscribe({
-          next: (response) => {
-              console.log('Listas de compras:', response.data.content);
-              this.shoppingList = response.data.content; 
+          next: (response) => {             
+              if (response.data.page && response.data.page.length > 0) {
+                  this.shoppingList = response.data.page; 
+              } else {
+                  this.shoppingList = [];
+              }
           },
           error: (error) => {
               console.error('Error al cargar las listas:', error);
-              },
+          },
       });
   }
     editProfile(): void {
