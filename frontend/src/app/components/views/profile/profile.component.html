@@ -5,7 +5,11 @@
         <div class="gradient-background"></div>
         <div class="profile-info">
             <div class="profile-avatar">
-                <img [src]="user?.avatar" (error)="setDefaultImage($event)" alt="Avatar de {{ user?.user?.name }}" />
+                <img
+                    [src]="user?.avatar"
+                    (error)="setDefaultImage($event)"
+                    alt="Avatar de {{ user?.user?.name }}"
+                />
             </div>
             <div class="user-details">
                 <div class="user-naming-section">
@@ -15,15 +19,26 @@
                     </div>
                 </div>
                 <div class="user-actions">
-                    <a *ngIf="user?.isAdmin" routerLink="/admin" class="clickable clickable-primary">
+                    <a
+                        *ngIf="user?.isAdmin"
+                        routerLink="/admin"
+                        class="clickable clickable-primary"
+                    >
                         <i class="bi bi-database-gear icon"></i>
                         <span>Admin Panel</span>
                     </a>
-                    <a *ngIf="!user?.isAdmin" routerLink="/settings" class="clickable clickable-primary">
+                    <a
+                        *ngIf="!user?.isAdmin"
+                        routerLink="/settings"
+                        class="clickable clickable-primary"
+                    >
                         <i class="bi bi-gear icon"></i>
                         <span>Ajustes</span>
                     </a>
-                    <button (click)="logout()" class="clickable clickable-secondary danger">
+                    <button
+                        (click)="logout()"
+                        class="clickable clickable-secondary danger"
+                    >
                         <i class="bi bi-box-arrow-right icon"></i>
                         <span>Cerrar sesión</span>
                     </button>
@@ -34,29 +49,34 @@
 
     <!-- Lists Section (Only for non-admin users) -->
     <div *ngIf="!user?.isAdmin" class="lists-section">
-            <div class="lists-header">
-                <h3>Tus listas</h3>
-                <button class="clickable clickable-secondary" (click)="newlist()">
-                    <i class="bi bi-plus-lg"></i>Nueva lista
-                </button>
-            </div>
-            <hr />
-            <div class="lists-grid">
-                <div *ngFor="let list of shoppingList" class="list-card">
-                    <div class="list-card-header">
-                        <h2 class="list-card-title">{{ list.name }}</h2>
-                        <span class="list-card-items">{{ list.numberOfProducts }} items</span>
-                    </div>
-                    <div class="list-card-body">
-                        <p class="list-card-description">{{ list.description }}</p>
-                    </div>
-                    <a [routerLink]="'/shoppingList/' + list.id" class="clickable clickable-secondary full-width">
-                        Ver detalles
-                    </a>
+        <div class="lists-header">
+            <h3>Tus listas</h3>
+            <a routerLink="/create-list" class="clickable clickable-secondary">
+                <i class="bi bi-plus-lg"></i>Nueva lista
+            </a>
+        </div>
+        <hr />
+        <div class="lists-grid">
+            <div *ngFor="let list of shoppingList" class="list-card">
+                <div class="list-card-header">
+                    <h2 class="list-card-title">{{ list.name }}</h2>
+                    <span class="list-card-items"
+                        >{{ list.numberOfProducts }} items</span
+                    >
                 </div>
-                <p *ngIf="shoppingList.length === 0" class="no-lists-message">No tienes listas</p>
+                <div class="list-card-body">
+                    <p class="list-card-description">{{ list.description }}</p>
+                </div>
+                <a
+                    [routerLink]="'/shoppingList/' + list.id"
+                    class="clickable clickable-secondary full-width"
+                >
+                    Ver detalles
+                </a>
             </div>
-        </div> 
-
-
+            <p *ngIf="shoppingList.length === 0" class="no-lists-message">
+                No tienes listas
+            </p>
+        </div>
+    </div>
 </div>

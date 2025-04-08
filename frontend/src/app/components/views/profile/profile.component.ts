@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService, AuthState } from "@/services/auth.service";
-import { GlobalUser } from "@/types/User";
-import { getDefaultAvatar} from '@/utils/defaultImage';
+import { AuthService, AuthState } from '@/services/auth.service';
+import { GlobalUser } from '@/types/User';
+import { getDefaultAvatar } from '@/utils/defaultImage';
 import { ShoppingListService } from '@/services/shoppingList.service';
 @Component({
     selector: 'app-profile',
@@ -11,8 +11,11 @@ import { ShoppingListService } from '@/services/shoppingList.service';
 export class ProfileComponent implements OnInit {
     user: GlobalUser | null = null;
     shoppingList: any[] = [];
-    
-    constructor(private authService: AuthService, private shoppingListService: ShoppingListService ) {}
+
+    constructor(
+        private authService: AuthService,
+        private shoppingListService: ShoppingListService
+    ) {}
 
     ngOnInit(): void {
         this.authService.authState$.subscribe((authState: AuthState) => {
@@ -22,21 +25,21 @@ export class ProfileComponent implements OnInit {
             }
         });
     }
-    
+
     loadShoppingLists(userId: number): void {
-      this.shoppingListService.getUserLists(userId).subscribe({
-          next: (response) => {             
-              if (response.data.page && response.data.page.length > 0) {
-                  this.shoppingList = response.data.page; 
-              } else {
-                  this.shoppingList = [];
-              }
-          },
-          error: (error) => {
-              console.error('Error al cargar las listas:', error);
-          },
-      });
-  }
+        this.shoppingListService.getUserLists(userId).subscribe({
+            next: (response) => {
+                if (response.data.page && response.data.page.length > 0) {
+                    this.shoppingList = response.data.page;
+                } else {
+                    this.shoppingList = [];
+                }
+            },
+            error: (error) => {
+                console.error('Error al cargar las listas:', error);
+            },
+        });
+    }
     editProfile(): void {
         console.log('TODO Editar perfil');
     }
@@ -44,15 +47,10 @@ export class ProfileComponent implements OnInit {
     logout(): void {
         this.authService.logout();
     }
-        
-    newlist(): void {
-        console.log('Abrir modal para nueva lista');
-    }
 
     setDefaultImage(event: Event): void {
         const target = event.target as HTMLImageElement;
         target.src = getDefaultAvatar();
-        target.alt = "Default Image";
-      }
-      
+        target.alt = 'Default Image';
+    }
 }

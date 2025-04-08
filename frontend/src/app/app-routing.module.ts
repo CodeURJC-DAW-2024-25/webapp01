@@ -12,6 +12,7 @@ import { ProfileComponent } from './components/views/profile/profile.component';
 import { SettingsComponent } from './components/views/settings/settings.component';
 import { authGuard } from './guards/auth.guard';
 import { ShoppingListDetailsComponent } from './components/shared/shopping-list-detail/shopping-list-detail.component';
+import { CreateShoppingListComponent } from './components/shared/new-shopping-list/new-shopping-list.component';
 
 export const roles = {
   admin: 'ADMIN',
@@ -30,6 +31,7 @@ export const routes: Routes = [
   { path: 'profile', component: ProfileComponent, canActivate: [authGuard], data: { roles: [roles.user, roles.admin] } },
   { path: 'settings', component: SettingsComponent, canActivate: [authGuard], data: { roles: [roles.user, roles.admin] } },
   { path: 'shoppingList/:id', component: ShoppingListDetailsComponent, canActivate: [authGuard], data: { roles: [roles.user, roles.admin] }  },
+  { path: 'create-list', component: CreateShoppingListComponent },
 ];
 
 @NgModule({

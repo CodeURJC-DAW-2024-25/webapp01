@@ -18,7 +18,7 @@ export class ShoppingListService {
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
-            }
+            },
         });
     }
 
@@ -31,7 +31,7 @@ export class ShoppingListService {
             },
         });
     }
-    
+
     deleteShoppingList(listId: number): Observable<any> {
         const endpoint = `${this.apiUrl}/${listId}`;
         return this.http.delete(endpoint, {
@@ -41,4 +41,16 @@ export class ShoppingListService {
             },
         });
     }
-}   
+    createShoppingList(request: {
+        name: string;
+        description: string;
+    }): Observable<any> {
+        const endpoint = `${this.apiUrl}`;
+        return this.http.post(endpoint, request, {
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }
+}
