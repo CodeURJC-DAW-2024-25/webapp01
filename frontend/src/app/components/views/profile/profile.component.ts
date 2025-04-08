@@ -30,7 +30,7 @@ export class ProfileComponent implements OnInit {
         console.log('TODO Eliminar cuenta');
     }
     logout(): void {
-      console.log('Cerrar sesión');
+        this.authService.logout();
     }
         
     openModal(): void {
