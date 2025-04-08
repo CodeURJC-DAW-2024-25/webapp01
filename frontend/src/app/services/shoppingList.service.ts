@@ -21,4 +21,24 @@ export class ShoppingListService {
             }
         });
     }
+
+    getShoppingListById(listId: number): Observable<any> {
+        const endpoint = `${this.apiUrl}/${listId}`;
+        return this.http.get(endpoint, {
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }
+    
+    deleteShoppingList(listId: number): Observable<any> {
+        const endpoint = `${this.apiUrl}/${listId}`;
+        return this.http.delete(endpoint, {
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
+    }
 }   

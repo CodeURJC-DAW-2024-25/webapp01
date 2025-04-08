@@ -1,3 +1,9 @@
+:host {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+}
+
 .shopping-list-header {
     width: 100%;
     display: flex;

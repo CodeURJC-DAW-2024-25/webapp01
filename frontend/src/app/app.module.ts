@@ -31,6 +31,7 @@ import { CompareTableComponent } from './components/shared/compare-table/compare
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileComponent } from './components/views/profile/profile.component';
 import { SettingsComponent } from './components/views/settings/settings.component';
+import { ShoppingListDetailsComponent } from './components/shared/shopping-list-detail/shopping-list-detail.component';
 
 @NgModule({
     declarations: [
@@ -58,7 +59,8 @@ import { SettingsComponent } from './components/views/settings/settings.componen
         LoaderComponent,
         CompareTableComponent,
         ProfileComponent,
-        SettingsComponent
+        SettingsComponent,
+        ShoppingListDetailsComponent
     ],
     imports: [
         BrowserModule,
