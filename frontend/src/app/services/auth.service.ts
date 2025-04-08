@@ -1,5 +1,5 @@
 import { AuthResponse } from '@/types/common/AuthResponse';
-import { GlobalUser, User } from '@/types/User';
+import { GlobalUser, RegisterUser, User } from '@/types/User';
 import { getUserAvatar } from '@/utils/defaultImage';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
@@ -32,7 +32,7 @@ export class AuthService {
 
     authState$ = this.authState.asObservable();
 
-    login(credentials: { username: string, password: string }) {
+    login(credentials: { username: string, password: string }): void {
         const builtUrl = `${this.API_URL}/auth/login`;
         this.http.post(builtUrl, credentials, {
             observe: 'response',
@@ -40,19 +40,18 @@ export class AuthService {
             headers: {
                 'Content-Type': 'application/json',
             }
-        })
-            .subscribe({
-                next: (response) => {
-                    this.setUserData(response.body as AuthResponse);
-                    this.router.navigate(['/']);
-                },
-                error: (err) => {
-                    console.error('Login failed', err);
-                }
-            });
+        }).subscribe({
+            next: (response) => {
+                this.setUserData(response.body as AuthResponse);
+                this.router.navigate(['/']);
+            },
+            error: (err) => {
+                console.error('Login failed', err);
+            }
+        });
     }
 
-    logout() {
+    logout(): void {
         const builtUrl = `${this.API_URL}/auth/logout`;
         this.http.post(builtUrl, {}).subscribe({
             next: () => {
@@ -64,6 +63,26 @@ export class AuthService {
                 console.error('Logout failed', err);
             }
         });
+    }
+    
+    register(user: RegisterUser): void {
+        const builtUrl = `${this.API_URL}/v1/users`;
+        this.http.post(builtUrl, user, {
+            observe: 'response',
+            headers: {
+                'Content-Type': 'application/json',
+            }
+        }).subscribe({
+            next: (response) => {
+                const authRes: AuthResponse = response.body as AuthResponse;
+                this.setUserData(authRes);
+                this.router.navigate(['/login']);
+            },
+            error: (err) => {
+                console.error('Registration failed', err);
+            }
+        });
+
     }
 
     checkAuth(): Observable<AuthResponse> {

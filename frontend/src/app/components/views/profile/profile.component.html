@@ -11,11 +11,8 @@
                 <div class="user-naming-section">
                     <div class="names">
                         <h2 class="name-badge">{{ user?.user?.name }}</h2>
-                        <p class="username">{{ user?.user?.username }}</p>
+                        <p class="username">{{ "@" + user?.user?.username }}</p>
                     </div>
-                    <!-- <span class="date">
-                        <i class="bi bi-calendar"></i> Se unió en {{ user?.user?. }}
-                    </span> -->
                 </div>
                 <div class="user-actions">
                     <a *ngIf="user?.isAdmin" routerLink="/admin" class="clickable clickable-primary">

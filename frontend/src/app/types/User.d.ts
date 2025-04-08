@@ -12,3 +12,9 @@ export interface GlobalUser {
     isAdmin: boolean;
     avatar: string;
 }
+
+export interface RegisterUser {
+    email: string;
+    username: string;
+    password: string;
+}
