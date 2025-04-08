@@ -30,6 +30,7 @@ import { LoaderComponent } from './components/shared/loader/loader.component';
 import { CompareTableComponent } from './components/shared/compare-table/compare-table.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileComponent } from './components/views/profile/profile.component';
+import { SettingsComponent } from './components/views/settings/settings.component';
 
 @NgModule({
     declarations: [
@@ -56,7 +57,8 @@ import { ProfileComponent } from './components/views/profile/profile.component';
         ProductDetailsComponent,
         LoaderComponent,
         CompareTableComponent,
-        ProfileComponent
+        ProfileComponent,
+        SettingsComponent
     ],
     imports: [
         BrowserModule,
