@@ -29,6 +29,7 @@ import { ProductDetailsComponent } from './components/views/products-details/pro
 import { LoaderComponent } from './components/shared/loader/loader.component';
 import { CompareTableComponent } from './components/shared/compare-table/compare-table.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { AdminComponent } from './components/views/admin/admin.component';
 
 @NgModule({
     declarations: [
@@ -54,7 +55,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
         PostCommentComponent,
         ProductDetailsComponent,
         LoaderComponent,
-        CompareTableComponent
+        CompareTableComponent, 
+        AdminComponent
     ],
     imports: [
         BrowserModule,
