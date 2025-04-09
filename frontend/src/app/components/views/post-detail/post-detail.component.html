@@ -6,7 +6,7 @@
                 <span>Volver a la lista de posts</span>
             </a>
 
-            @if (userData.isAdmin) {
+            @if (userData.isAdmin && !userData.isLoading) {
                 <div class="post-admin-controls">
                     <a routerLink="/editPost/{{post?.id}}" class="clickable clickable-tool bordered">
                         <i class="bi bi-pencil"></i>
@@ -63,7 +63,7 @@
             <button (click)="fetchPostComments()" class="clickable clickable-primary">Cargar más</button>
         }
         <hr class="margin-v big">
-        @if (userData.isAuthenticated) {
+        @if (userData.isAuthenticated && !userData.isLoading) {
             <form class="comment-form">
                 <h4>Deja un comentario</h4>
                 <textarea class="comment-input" name="comment" placeholder="Escribe un comentario..."></textarea>

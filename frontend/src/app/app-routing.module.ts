@@ -9,6 +9,16 @@ import { LoginComponent } from './components/views/login/login.component';
 import { RegisterComponent } from './components/views/register/register.component';
 import { ProductDetailsComponent } from './components/views/products-details/products-details.component';
 import { AdminComponent } from './components/views/admin/admin.component';
+import { ProfileComponent } from './components/views/profile/profile.component';
+import { SettingsComponent } from './components/views/settings/settings.component';
+import { authGuard } from './guards/auth.guard';
+import { ShoppingListDetailsComponent } from './components/shared/shopping-list-detail/shopping-list-detail.component';
+import { CreateShoppingListComponent } from './components/shared/new-shopping-list/new-shopping-list.component';
+
+export const roles = {
+  admin: 'ADMIN',
+  user: 'USER'
+}
 
 export const routes: Routes = [
   { path: '', component: MainComponent },
@@ -17,8 +27,12 @@ export const routes: Routes = [
   { path: 'posts/:id', component: PostDetailComponent },
   { path: 'products', component: ProductsComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent  },
+  { path: 'register', component: RegisterComponent },
   { path: 'products/:id', component: ProductDetailsComponent },
+  { path: 'profile', component: ProfileComponent, canActivate: [authGuard], data: { roles: [roles.user, roles.admin] } },
+  { path: 'settings', component: SettingsComponent, canActivate: [authGuard], data: { roles: [roles.user, roles.admin] } },
+  { path: 'shoppingList/:id', component: ShoppingListDetailsComponent, canActivate: [authGuard], data: { roles: [roles.user, roles.admin] }  },
+  { path: 'create-list', component: CreateShoppingListComponent },
   { path: 'admin', component: AdminComponent },
 ];
 

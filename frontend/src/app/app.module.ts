@@ -22,13 +22,17 @@ import { LoginComponent } from './components/views/login/login.component';
 import { RegisterComponent } from './components/views/register/register.component';
 import { ProductsComponent } from './components/views/products/products.component';
 import { FormsModule } from '@angular/forms';
-import { ProductCardComponent } from './components/shared/product-card/product-card.component'; 
+import { ProductCardComponent } from './components/shared/product-card/product-card.component';
 import { ThemeToggleComponent } from './components/shared/theme-toggle/theme-toggle.component';
 import { PostCommentComponent } from './components/shared/post-comment/post-comment.component';
 import { ProductDetailsComponent } from './components/views/products-details/products-details.component';
 import { LoaderComponent } from './components/shared/loader/loader.component';
 import { CompareTableComponent } from './components/shared/compare-table/compare-table.component';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
+import { ProfileComponent } from './components/views/profile/profile.component';
+import { SettingsComponent } from './components/views/settings/settings.component';
+import { ShoppingListDetailsComponent } from './components/shared/shopping-list-detail/shopping-list-detail.component';
+import { CreateShoppingListComponent } from './components/shared/new-shopping-list/new-shopping-list.component';
 import { AdminComponent } from './components/views/admin/admin.component';
 
 @NgModule({
@@ -55,7 +59,11 @@ import { AdminComponent } from './components/views/admin/admin.component';
         PostCommentComponent,
         ProductDetailsComponent,
         LoaderComponent,
-        CompareTableComponent, 
+        CompareTableComponent,
+        ProfileComponent,
+        SettingsComponent,
+        ShoppingListDetailsComponent,
+        CreateShoppingListComponent,
         AdminComponent
     ],
     imports: [

@@ -1,17 +1,29 @@
-import { Component } from '@angular/core';
+import { AuthService } from '@/services/auth.service';
+import { Component, inject } from '@angular/core';
 
 type RegisterErrors = {
-  username?: string;
-  email?: string;
-  password?: string;
+	username?: string;
+	email?: string;
+	password?: string;
 }
 
 @Component({
-  selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrl: './register.component.css'
+	selector: 'app-register',
+	templateUrl: './register.component.html',
+	styleUrl: './register.component.css'
 })
 export class RegisterComponent {
-  // 
-  errors: RegisterErrors = {}
+	auth = inject(AuthService);
+
+	credentials = {
+		email: '',
+		username: '',
+		password: ''
+	}
+
+	errors: RegisterErrors = {};
+
+	onSubmit(): void {
+		this.auth.register(this.credentials);
+	}
 }

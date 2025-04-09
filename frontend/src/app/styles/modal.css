@@ -1,3 +1,9 @@
+:host {
+    width: 100%;
+    max-width: 100%;
+    display: flex;
+}
+
 .modal-container {
     display: none;
     flex-direction: column;
@@ -13,7 +19,6 @@
     min-height: 100vh;
     min-width: 100vw;
 }
-
 
 .modal-header {
     font-weight: 600;
@@ -41,7 +46,6 @@
 }
 
 .modal-message {
-
     display: flex;
     flex-direction: column;
     width: 100%;
@@ -61,7 +65,6 @@
     }
 }
 
-
 .modal-display-list {
     border: 1px solid var(--grey-color);
     border-radius: 5px;
@@ -74,7 +77,6 @@
     margin: 10px;
     padding: 10px;
     background-color: var(--semi-bg-color);
-
 }
 
 .checked {

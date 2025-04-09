@@ -4,7 +4,7 @@
             <span class="nav-title">SaveX</span>
         </a>
         <div class="right">
-            @if (isAuthenticated) {
+            @if (isAuthenticated && !isLoading) {
                 <a class="clickable clickable-image small" routerLink="/profile">
                     <img
                         class="avatar"
@@ -13,7 +13,7 @@
                         (error)="getDefaultAvatar($event)"
                     >
                 </a>
-            } @else {
+            } @else if (!isLoading) {
                 <a class="clickable clickable-primary" routerLink="/login">Acceder</a>
             }
             <app-theme-toggle></app-theme-toggle>
