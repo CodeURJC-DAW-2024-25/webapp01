@@ -1,75 +1,101 @@
-import { AdminService } from 'src/app/services/admin.service';
-import { Component, OnInit } from '@angular/core';
+import { UsersService } from '@/services/user.service';
+import { Component, inject, OnInit } from '@angular/core';
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 import { PageRequest } from '@/types/common/PageRequest';
 import { Post } from '@/types/Posts';
 import { PostsService } from '@services/post.service';
 import { User } from '@/types/User';
+import { loadGraphs } from '@/utils/loadGraphs';
+import { StatsService } from '@/services/stats.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css']
+    selector: 'app-admin',
+    templateUrl: './admin.component.html',
+    styleUrls: ['./admin.component.css']
 })
 
-
 export class AdminComponent implements OnInit {
-    currrentPageRequest: PageRequest = {
-    page: 0,
-    size: 4}
-    posts: Post[] = [];
-    users: User[] = [];
-    isLoading = true;
-    isLoadingUsers = true;
-    isLastPagePosts = false;
-    isLastPageUsers = false;
-    error: string | null = null;
+    postsService = inject(PostsService);
+    usersService = inject(UsersService);
+    statsService = inject(StatsService);
 
-    constructor(private postsService: PostsService, private adminService: AdminService) {}
+    postsData = {
+        currentPageReq: { page: 0, size: 4 } as PageRequest,
+        posts: [] as Post[],
+        isLoading: true,
+        isLastPage: false,
+        error: null as string | null
+    }
+    usersData = {
+        currentPageReq: { page: 0, size: 4 } as PageRequest,
+        users: [] as User[],
+        isLoading: true,
+        isLastPage: false,
+        error: null as string | null
+    }
 
     fetchPosts(): void {
-        this.isLoading = true;
-        this.postsService.getPosts(this.currrentPageRequest).subscribe({
+        this.postsData.isLoading = true;
+        this.postsService.getPosts(this.postsData.currentPageReq).subscribe({
             next: (response) => {
-                this.posts = this.posts.concat(response.data.page);
-                this.isLastPagePosts = response.data.is_last_page;
-                this.isLoading = false;
-                this.currrentPageRequest.page += 1;
+                this.postsData.posts = this.postsData.posts.concat(response.data.page);
+                this.postsData.isLastPage = response.data.is_last_page;
+                this.postsData.isLoading = false;
+                this.postsData.currentPageReq.page += 1;
             },
             error: (error) => {
-                this.isLoading = false;
-                this.error = error.error.message;
+                this.postsData.isLoading = false;
+                this.postsData.error = error.error.message;
                 console.error('Error fetching posts:', error);
             }
         });
     }
 
     fetchUsers(): void {
-        this.isLoadingUsers = true;
-        this.adminService.getUsers(this.currrentPageRequest).subscribe({
-          next: (response) => {
-            this.users = this.users.concat(response.data.page);
-            this.isLastPageUsers = response.data.is_last_page;
-            this.isLoadingUsers = false;
-            this.currrentPageRequest.page += 1;
-          },
-          error: (error) => {
-            this.isLoadingUsers = false;
-            this.error = error.error.message;
-            console.error('Error fetching users:', error);
-          }
+        this.postsData.isLoading = true;
+        this.usersService.getUsers(this.usersData.currentPageReq).subscribe({
+            next: (response) => {
+                this.usersData.users = this.usersData.users.concat(response.data.page);
+                this.usersData.isLastPage = response.data.is_last_page;
+                this.usersData.isLoading = false;
+                this.usersData.currentPageReq.page += 1;
+            },
+            error: (error) => {
+                this.usersData.isLoading = false;
+                this.usersData.error = error.error.message;
+                console.error('Error fetching users:', error);
+            }
         });
-      }
+    }
 
     ngOnInit(): void {
         this.fetchPosts();
         this.fetchUsers();
+        this.loadScript('https://cdn.jsdelivr.net/npm/chart.js');
+    }
+
+    loadScript(src: string) {
+        const script = document.createElement('script');
+        script.src = src;
+        script.async = true;
+        script.defer = true;
+        script.type = 'text/javascript';
+        document.head.appendChild(script);
+        script.onload = () => {
+            this.statsService.getProductsStats().subscribe({
+                next: (response) => {
+                    const data = response.data;
+                    loadGraphs((window as any).Chart, data);
+                },
+                error: (error) => {
+                    console.error('Error fetching stats:', error);
+                }
+            });
+        }
     }
 
     deletePost(postId: number): void {

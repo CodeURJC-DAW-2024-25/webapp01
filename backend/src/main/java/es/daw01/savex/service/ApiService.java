@@ -6,6 +6,7 @@ import org.springframework.web.util.UriComponentsBuilder;
 import es.daw01.savex.DTOs.PaginatedDTO;
 import es.daw01.savex.DTOs.products.ProductDTO;
 import es.daw01.savex.DTOs.products.SearchProductRequest;
+import es.daw01.savex.DTOs.products.SupermarketStatsDTO;
 
 import java.util.Optional;
 
@@ -76,4 +77,21 @@ public class ApiService {
         return product;
     }
 
+    /**
+     * Fetches stats from the API
+     * 
+     * @return A list of stats
+     */
+    public SupermarketStatsDTO fetchStats() {
+        // Format the API URL
+        String apiUrl = String.format("%s/stats", API_BASE_URL);
+
+        // Make the API request
+        SupermarketStatsDTO stats = restClient.get()
+            .uri(apiUrl)
+            .retrieve()
+            .body(SupermarketStatsDTO.class);
+
+        return stats;
+    }
 }

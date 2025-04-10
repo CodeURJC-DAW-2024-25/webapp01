@@ -33,7 +33,7 @@ export const routes: Routes = [
   { path: 'settings', component: SettingsComponent, canActivate: [authGuard], data: { roles: [roles.user, roles.admin] } },
   { path: 'shoppingList/:id', component: ShoppingListDetailsComponent, canActivate: [authGuard], data: { roles: [roles.user, roles.admin] }  },
   { path: 'create-list', component: CreateShoppingListComponent },
-  { path: 'admin', component: AdminComponent },
+  { path: 'admin', component: AdminComponent, canActivate: [authGuard], data: { roles: [roles.admin] } },
 ];
 
 @NgModule({

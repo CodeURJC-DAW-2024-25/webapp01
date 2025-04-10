@@ -1,5 +1,5 @@
 import { AuthResponse } from '@/types/common/AuthResponse';
-import { GlobalUser, RegisterUser, User } from '@/types/User';
+import { GlobalUser, RegisterUser } from '@/types/User';
 import { getUserAvatar } from '@/utils/defaultImage';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';

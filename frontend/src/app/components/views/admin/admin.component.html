@@ -1,79 +1,87 @@
+
+
 <div class="container no-gap small-padding">
-
-    <app-navbar></app-navbar>
-
     <h1>Dashboard</h1>
-        <section>
-            <h2>Estadísticas de la Aplicación</h2>
-            <div class="graphics_wrap">
-                <div class="graph">
-                    <canvas id="chart-1" width="400" height="400"></canvas>
-                </div>
-                <div class="graph">
-                    <canvas id="chart-2" width="400" height="400"></canvas>
-                </div>
+    <section>
+        <h2>Estadísticas de la Aplicación</h2>
+        <div class="graphics_wrap">
+            <div class="graph">
+                <canvas id="chart-1" width="400" height="400"></canvas>
             </div>
-        </section>
+            <div class="graph">
+                <canvas id="chart-2" width="400" height="400"></canvas>
+            </div>
+        </div>
+    </section>
 
-        <section>
-            <h2>Panel de Control</h2>
-            <h3>Usuarios</h3>
-            <div class="admin-users">
-                <table class="table" data-table="admin-users">
-                    <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Usuario</th>
-                            <th scope="col">Nombre</th>
-                            <th scope="col">Rol</th>
-                            <th scope="col" class="text-end">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let user of users">
-                          <td>{{ user.id }}</td>
-                          <td>{{ user.username }}</td>
-                          <td>{{ user.name }}</td>
-                          <td>{{ user.role }}</td>
-                          <td class="text-end">
+    <section>
+        <h2>Panel de Control</h2>
+        <h3>Usuarios</h3>
+        <div class="admin-users">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Usuario</th>
+                        <th scope="col">Nombre</th>
+                        <th scope="col">Rol</th>
+                        <th scope="col" class="text-end">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (user of usersData.users; track $index) {
+                    <tr>
+                        <td>{{ user.id }}</td>
+                        <td>{{ user.username }}</td>
+                        <td>{{ user.name }}</td>
+                        <td>{{ user.role }}</td>
+                        <td class="text-end">
                             <button class="btn btn-danger" (click)="deleteUser(user.id)">Eliminar</button>
-                          </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <h3>Posts</h3>
-            <hr>
-            <div class="action-container">
-                <a href="/createPost" class="clickable clickable-primary">
-                    <i class="bi bi-plus-lg"></i>
-                    <span>Crear Nuevo Post</span>
-                </a>
-            </div>
-            <div class="admin-posts">
-                <table class="table" data-table="admin-posts">
-                    <thead>
-                        <tr>
-                            <th scope="col">Id</th>
-                            <th scope="col">Título</th>
-                            <th scope="col">Autor</th>
-                            <th scope="col">Fecha</th>
-                            <th scope="col" class="text-end">Acciones</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr *ngFor="let post of posts">
-                          <td>{{ post?.id }}</td>
-                          <td>{{ post.title }}</td>
-                          <td>{{ post.author }}</td>
-                          <td>{{ post.date }}</td>
-                          <td class="text-end">
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            @if (!usersData.isLastPage) {
+                <button class="clickable clickable-primary" (click)="fetchUsers()">Cargar más</button>
+            }
+        </div>
+        <h3>Posts</h3>
+        <hr>
+        <div class="action-container">
+            <a href="/createPost" class="clickable clickable-primary">
+                <i class="bi bi-plus-lg"></i>
+                <span>Crear Nuevo Post</span>
+            </a>
+        </div>
+        <div class="admin-posts">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Id</th>
+                        <th scope="col">Título</th>
+                        <th scope="col">Autor</th>
+                        <th scope="col">Fecha</th>
+                        <th scope="col" class="text-end">Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @for (post of postsData.posts; track $index) {
+                    <tr>
+                        <td>{{ post?.id }}</td>
+                        <td>{{ post.title }}</td>
+                        <td>{{ post.author }}</td>
+                        <td>{{ post.date }}</td>
+                        <td class="text-end">
                             <button class="btn btn-danger" (click)="deletePost(post.id)">Eliminar</button>
-                          </td>
-                        </tr>
-                    </tbody>
-                    <tbody data-replace="admin-posts"></tbody><!-- Inject here <tbody> -->
-                </table>
-            </div>
-        </section>
-    </div>
+                        </td>
+                    </tr>
+                    }
+                </tbody>
+            </table>
+            @if (!postsData.isLastPage) {
+                <button class="clickable clickable-primary" (click)="fetchPosts()">Cargar más</button>
+            }
+        </div>
+    </section>
+</div>

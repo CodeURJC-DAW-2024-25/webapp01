@@ -1,2 +1,7 @@
 @import url("../../../styles/product-detail.css");
 @import url("../../../styles/index.css");
+
+
+.min-price{
+    color: green;
+}
