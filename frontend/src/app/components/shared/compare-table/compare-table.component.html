@@ -28,7 +28,7 @@
                     {{ comparison.display_name }}
                 </a>
             </td>
-            <td class="price-cell">{{ comparison.price.total }} €</td>
+            <td class="price-cell" [class.min-price]="comparison.price.total == minPrice">{{ comparison.price.total }} €</td>
         </tr>
     </tbody>
 </table>

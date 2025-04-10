@@ -10,6 +10,7 @@ export class CompareTableComponent implements OnInit {
     @Input() productId!: string; // ID del producto principal
     comparisons: any[] = []; // Datos de comparación
     errorMessage: string | null = null;
+    minPrice: number = Infinity; // Precio mínimo para la comparación
 
     constructor(private productService: ProductService) {}
 
@@ -24,6 +25,13 @@ export class CompareTableComponent implements OnInit {
             next: (response) => {
                 if (response.data) {
                     this.comparisons = Object.values(response.data); 
+                    this.comparisons.map((comparison) => {
+                        if (comparison.price.total < this.minPrice) {
+                            this.minPrice = comparison.price.total;
+                            console.log("minPrice", this.minPrice);
+                        }
+                    })
+                    console.log("minPrice fin", this.minPrice);
                 } else {
                     this.errorMessage = 'No se encontraron productos para comparar.';
                 }
