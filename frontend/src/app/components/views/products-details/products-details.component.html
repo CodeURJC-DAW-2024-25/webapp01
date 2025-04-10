@@ -35,9 +35,13 @@
                     </span>
                 </div>
             </div>
-
-            <hr class="separator" />
-
+            <ng-container *ngIf="isAuthenticated">
+                <button id="addToListBtn" class="clickable clickable-primary" (click)="addToList()">
+                    Añadir a mi lista
+                    <i class="bi bi-plus-circle"></i>
+                </button>
+            </ng-container>
+            
             <!-- Product Details -->
             <div class="product-details-card">
                 <h3 class="section-title">Detalles del Producto</h3>

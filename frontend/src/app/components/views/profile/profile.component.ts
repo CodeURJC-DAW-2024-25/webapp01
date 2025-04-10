@@ -11,7 +11,7 @@ import { ShoppingListService } from '@/services/shoppingList.service';
 export class ProfileComponent implements OnInit {
     user: GlobalUser | null = null;
     shoppingList: any[] = [];
-
+    showCreateListModal: boolean = false;
     constructor(
         private authService: AuthService,
         private shoppingListService: ShoppingListService
@@ -53,4 +53,15 @@ export class ProfileComponent implements OnInit {
         target.src = getDefaultAvatar();
         target.alt = 'Default Image';
     }
+
+    // Function to chante the visibility
+    toggleCreateListModal(): void {
+        this.showCreateListModal = !this.showCreateListModal;
+    }
+    // Function to listen for the event emitted by the child component
+    onListCreated(): void {
+    if (this.user?.user?.id) {
+        this.loadShoppingLists(this.user.user.id);
+    }
+}
 }

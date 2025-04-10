@@ -51,9 +51,12 @@
     <div *ngIf="!user?.isAdmin" class="lists-section">
         <div class="lists-header">
             <h3>Tus listas</h3>
-            <a routerLink="/create-list" class="clickable clickable-secondary">
+            <button
+                class="clickable clickable-secondary"
+                (click)="toggleCreateListModal()"
+            >
                 <i class="bi bi-plus-lg"></i>Nueva lista
-            </a>
+            </button>
         </div>
         <hr />
         <div class="lists-grid">
@@ -79,4 +82,9 @@
             </p>
         </div>
     </div>
+    <app-create-shopping-list
+    *ngIf="showCreateListModal"
+    (close)="toggleCreateListModal()"
+    (listCreated)="onListCreated()"
+></app-create-shopping-list>
 </div>
