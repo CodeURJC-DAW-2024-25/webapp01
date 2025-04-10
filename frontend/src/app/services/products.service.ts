@@ -8,8 +8,9 @@ import { environment } from '@environments/environment';
 })
 export class ProductService {
     private readonly PRODUCTS_SIZE = 24;
+    private readonly CACHE_TIMEOUT = 3600000;   // -> 1 hour
     private apiUrl = `${environment.baseApiUrl}/v1/products`;
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient) { }
 
     loadProducts(
         page: number = 0,
@@ -20,9 +21,7 @@ export class ProductService {
             maxPrice?: string;
         } = {}
     ): Observable<any> {
-        let endpoint = `${this.apiUrl}?page=${page}&limit=${
-            this.PRODUCTS_SIZE
-        }&search=${encodeURIComponent(searchQuery)}`;
+        let endpoint = `${this.apiUrl}?page=${page}&limit=${this.PRODUCTS_SIZE}&search=${encodeURIComponent(searchQuery)}`;
         if (filters.supermarket)
             endpoint += `&supermarket=${filters.supermarket}`;
         if (filters.minPrice)
@@ -30,7 +29,35 @@ export class ProductService {
         if (filters.maxPrice)
             endpoint += `&maxPrice=${encodeURIComponent(filters.maxPrice)}`;
 
-        return this.http.get(endpoint);
+        // Check if the query has been cached
+        const cachedQuery = localStorage.getItem(`products_${endpoint}`);
+        if (cachedQuery) {
+            const cachedData = JSON.parse(cachedQuery);
+            const now = new Date().getTime();
+            if (now - cachedData.timestamp < this.CACHE_TIMEOUT) {
+                return new Observable((observer) => {
+                    observer.next(cachedData.data);
+                    observer.complete();
+                });
+            }
+        }
+
+        return new Observable((observer) => {
+            this.http.get(endpoint).subscribe({
+                next: (data) => {
+                    localStorage.setItem(`products_${endpoint}`, JSON.stringify({
+                        timestamp: new Date().getTime(),
+                        data: data
+                    }));
+                    observer.next(data);
+                    observer.complete();
+                },
+                error: (err) => {
+                    console.error('Error loading products', err);
+                    observer.error(err);
+                }
+            });
+        });
     }
 
     getProductById(productId: string): Observable<any> {
