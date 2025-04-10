@@ -5,7 +5,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import es.daw01.savex.DTOs.ApiResponseDTO;
 import es.daw01.savex.DTOs.products.SupermarketStatsDTO;
-import es.daw01.savex.service.ProductService;
+import es.daw01.savex.service.ApiService;
 import es.daw01.savex.service.UserService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class RestStatsController {
 
     @Autowired
-    private ProductService productService;
+    private ApiService apiService;
 
     @Autowired
     private UserService userService;
@@ -48,7 +48,7 @@ public class RestStatsController {
     @GetMapping("/products")
     public ResponseEntity<Object> getProductsStats() {
         try {
-            SupermarketStatsDTO stats = productService.getSupermarketStats();
+            SupermarketStatsDTO stats = apiService.fetchStats();
             return ApiResponseDTO.ok(stats);
         } catch (Exception e) {
             return ApiResponseDTO.error("There was an error fetching the stats");
