@@ -18,7 +18,7 @@
                 <span>Eliminar Lista</span>
             </button>
         </div>
-    </header> 
+    </header>
 
     <div class="shopping-list-card" *ngIf="shoppingList">
         <div class="title">
@@ -27,18 +27,46 @@
         <p>{{ shoppingList.description }}</p>
     </div>
 
-   
     <div class="shopping-list-card">
         <div class="title">
             <h2>Productos</h2>
-            <a [routerLink]="'/products/'" class="clickable clickable-secondary">
+            <a
+                [routerLink]="'/products/'"
+                class="clickable clickable-secondary"
+            >
                 <i class="bi bi-plus-circle"></i>
                 Agregar Producto
             </a>
         </div>
         <ul class="product-list" *ngIf="shoppingList?.products?.length > 0">
-            <li *ngFor="let product of shoppingList.products">
-                {{ product.name }} - {{ product.quantity }}
+            <li
+                class="product-item"
+                *ngFor="let product of shoppingList.products"
+            >
+                <div class="product-info">
+                    <h3 class="product-name">{{ product.display_name }}</h3>
+                    <div class="product-meta">
+                        <span class="product-brand">{{ product.brand }}</span>
+                        <span class="product-price"
+                            >{{ product.price?.total }}&euro;</span
+                        >
+                    </div>
+                </div>
+                <div class="product-actions">
+                    <a
+                        class="clickable clickable-tool bordered"
+                        [href]="product.product_url"
+                        target="_blank"
+                    >
+                        <i class="bi bi-box-arrow-up-right"></i>
+                    </a>
+                    <button
+                        class="clickable clickable-tool bordered danger delete-button"
+                        (click)="deleteProduct(product.product_id)"
+                    >
+                        <i class="bi bi-trash"></i>
+                    </button>
+                </div>
             </li>
         </ul>
         <p class="no-products" *ngIf="!shoppingList?.products?.length">

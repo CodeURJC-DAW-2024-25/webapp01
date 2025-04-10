@@ -34,6 +34,7 @@ import { SettingsComponent } from './components/views/settings/settings.componen
 import { ShoppingListDetailsComponent } from './components/shared/shopping-list-detail/shopping-list-detail.component';
 import { CreateShoppingListComponent } from './components/shared/new-shopping-list/new-shopping-list.component';
 import { AdminComponent } from './components/views/admin/admin.component';
+import { AddListPopupComponent } from './components/shared/add-to-list-popup/add-to-list-popup.component';
 
 @NgModule({
     declarations: [
@@ -54,7 +55,7 @@ import { AdminComponent } from './components/views/admin/admin.component';
         RegisterComponent,
         ProductsComponent,
         PostDetailComponent,
-    ProductCardComponent,
+        ProductCardComponent,
         ThemeToggleComponent,
         PostCommentComponent,
         ProductDetailsComponent,
@@ -64,7 +65,8 @@ import { AdminComponent } from './components/views/admin/admin.component';
         SettingsComponent,
         ShoppingListDetailsComponent,
         CreateShoppingListComponent,
-        AdminComponent
+        AdminComponent,
+        AddListPopupComponent,
     ],
     imports: [
         BrowserModule,

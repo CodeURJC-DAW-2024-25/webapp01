@@ -24,32 +24,50 @@ export class ShoppingListDetailsComponent implements OnInit {
         }
     }
 
- 
     loadShoppingListDetails(listId: number): void {
         this.shoppingListService.getShoppingListById(listId).subscribe({
             next: (response) => {
-                this.shoppingList = response.data;
+                this.shoppingList = response.data;              
             },
             error: (error) => {
-                console.error('Error al cargar los detalles de la lista:', error);
+                console.error(
+                    'Error al cargar los detalles de la lista:',
+                    error
+                );
                 this.errorMessage = 'No se pudo cargar la lista de compras.';
             },
         });
     }
-
- 
-    deleteShoppingList(): void {
-        if (this.shoppingList?.id) {
-            this.shoppingListService.deleteShoppingList(this.shoppingList.id).subscribe({
-                next: () => {
-                    console.log('Lista eliminada con éxito');
-                    this.router.navigate(['/profile']); // Redirigir al perfil
+    deleteProduct(productId: string): void {
+        console.log(`Eliminando producto con ID: ${productId}`);
+        this.shoppingListService
+            .removeProductFromList(this.shoppingList.id, productId)
+            .subscribe({
+                next: () => {                  
+                        this.shoppingList.products =
+                        this.shoppingList.products.filter(
+                            (product: any) => product.product_id !== productId
+                        );
                 },
                 error: (error) => {
-                    console.error('Error al eliminar la lista:', error);
-                    this.errorMessage = 'No se pudo eliminar la lista.';
+                    console.error('Error al eliminar el producto:', error);
                 },
             });
+    }
+
+    deleteShoppingList(): void {
+        if (this.shoppingList?.id) {
+            this.shoppingListService
+                .deleteShoppingList(this.shoppingList.id)
+                .subscribe({
+                    next: () => {
+                        this.router.navigate(['/profile']); 
+                    },
+                    error: (error) => {
+                        console.error('Error al eliminar la lista:', error);
+                        this.errorMessage = 'No se pudo eliminar la lista.';
+                    },
+                });
         }
     }
 }
