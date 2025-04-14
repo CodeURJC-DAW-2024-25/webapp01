@@ -7,6 +7,7 @@ export interface User {
 };
 
 export interface GlobalUser {
+    id: number | null;
     user: User | null;
     isAuthenticated: boolean;
     isAdmin: boolean;

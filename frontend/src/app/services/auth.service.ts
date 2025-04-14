@@ -108,6 +108,7 @@ export class AuthService {
     
     private setUserData(data: AuthResponse): void {
         const userData: GlobalUser = {
+            id: data.user?.id || null,
             user: data.user,
             isAuthenticated: data.authenticated,
             isAdmin: data.user?.role === "ADMIN" || false,

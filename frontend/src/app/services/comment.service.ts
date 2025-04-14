@@ -4,7 +4,7 @@ import { Observable } from "rxjs";
 import { environment } from "@environments/environment";
 import { PageRequest } from "@/types/common/PageRequest";
 import { PaginatedResponse } from "@/types/common/PaginatedResponse";
-import { Comment, CreateCommentRequest } from "@/types/Comment";
+import { Comment, CreateCommentRequest, DeleteCommentRequest } from "@/types/Comment";
 import { Response } from "@/types/common/Response";
 
 @Injectable({
@@ -23,6 +23,13 @@ export class CommentsService {
     createPostComment(commentRequest: CreateCommentRequest): Observable<Response<Comment>> {
         const builtUrl = `${this.apiUrl}/${commentRequest.postId}/comments`;
         return this.http.post<Response<Comment>>(builtUrl, commentRequest, {
+            withCredentials: true,
+        });
+    }
+
+    deletePostComment(commentRequest: DeleteCommentRequest) {
+        const builtUrl = `${this.apiUrl}/${commentRequest.postId}/comments/${commentRequest.commentId}`;
+        return this.http.delete<Response<Comment>>(builtUrl, {
             withCredentials: true,
         });
     }

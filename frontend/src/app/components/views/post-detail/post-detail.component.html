@@ -56,7 +56,12 @@
                 <app-post-comment
                     [postId]="post?.id"
                     [comment]="comment"
+                    [allowDelete]="(userData.isAdmin || userData.id === comment.authorId) && !userData.isLoading"
+                    (commentDeleted)="onCommentDeleted($event)"
                 />
+            }
+            @if (postComments.length === 0) {
+                <div class="no-comments">No hay comentarios</div>
             }
         </div>
         @if (!isLastPage) {

@@ -5,7 +5,7 @@ import { PostsService } from '@services/post.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CommentsService } from '@/services/comment.service';
 import { PageRequest } from '@/types/common/PageRequest';
-import { Comment, CreateCommentRequest } from '@/types/Comment';
+import { Comment, CreateCommentRequest, DeleteCommentRequest } from '@/types/Comment';
 import { getDefaultImage, getPostBanner } from '@/utils/defaultImage';
 import { AuthService, AuthState } from '@/services/auth.service';
 
@@ -26,7 +26,13 @@ export class PostDetailComponent implements OnInit {
 		size: 3
 	};
 
-	private _userData = {
+	private _userData: {
+		id: number | null;
+		isLoading: boolean;
+		isAuthenticated: boolean;
+		isAdmin: boolean;
+	} = {
+		id: null,
 		isLoading: true,
 		isAuthenticated: false,
 		isAdmin: false
@@ -102,6 +108,10 @@ export class PostDetailComponent implements OnInit {
 		});
 	}
 
+	onCommentDeleted(commentId: number): void {
+		this.postComments = this.postComments.filter(comment => comment.id !== commentId);
+	}
+
 	getBannerUrl(): string {
 		return getPostBanner(this.post);
 	}
@@ -117,6 +127,7 @@ export class PostDetailComponent implements OnInit {
 		this.postId = idParam ? parseInt(idParam, 10) : null;
 
 		this.authService.authState$.subscribe((authState: AuthState) => {
+			this._userData.id = authState.user?.id || null;
 			this._userData.isLoading = authState.isLoading;
 			this._userData.isAuthenticated = !!authState.user?.isAuthenticated;
 			this._userData.isAdmin = authState.user?.isAdmin || false;

@@ -11,3 +11,8 @@ export interface CreateCommentRequest {
     postId: number;
     content: string;
 };
+
+export interface DeleteCommentRequest {
+    postId: number;
+    commentId: number;
+};

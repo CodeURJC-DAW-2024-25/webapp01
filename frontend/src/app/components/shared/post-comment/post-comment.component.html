@@ -9,7 +9,14 @@
             <span class="comment-author">{{"@" + comment?.author}}</span>
         </div>
         <div class="right">
-            <!-- Remove button TODO-->
+             @if (allowDelete) {
+                 <button
+                    class="clickable clickable-tool bordered danger"
+                    (click)="deleteComment()"
+                >
+                    <i class="bi bi-trash"></i>
+                </button>
+             }
         </div>
     </div>
     <p class="comment-content">{{comment?.content}}</p>
