@@ -31,4 +31,11 @@ export class PostsService {
             responseType: "text"
         });
     }
+
+    deletePost(id: number): Observable<Response<Post>> {
+        const builtUrl = `${this.apiUrl}/${id}`;
+        return this.http.delete<Response<Post>>(builtUrl, {
+            withCredentials: true
+        });
+    }
 }
