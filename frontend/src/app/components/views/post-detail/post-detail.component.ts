@@ -5,7 +5,7 @@ import { PostsService } from '@services/post.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CommentsService } from '@/services/comment.service';
 import { PageRequest } from '@/types/common/PageRequest';
-import { Comment } from '@/types/Comment';
+import { Comment, CreateCommentRequest } from '@/types/Comment';
 import { getDefaultImage, getPostBanner } from '@/utils/defaultImage';
 import { AuthService, AuthState } from '@/services/auth.service';
 
@@ -35,11 +35,13 @@ export class PostDetailComponent implements OnInit {
 	postId: number | null = null;
 	post: Post | null = null;
 	postContent: SafeHtml | null = null;
-	postComments: Comment[] | [] = [];
+	postComments: Comment[] = [];
 	
 	isLoading = Infinity;
 	isLastPage = false;
 	error: string | null = null;
+
+	commentText: string = '';
 
 	fetchPostDetail(id: number): void {
 		this.isLoading = 2;
@@ -78,6 +80,24 @@ export class PostDetailComponent implements OnInit {
 			error: (error) => {
 				this.error = error.error.message;
 				console.error('Error fetching post comments:', error);
+			}
+		});
+	}
+
+	submitComment(): void {
+		const commentRequest: CreateCommentRequest = {
+			postId: this.postId!,
+			content: this.commentText
+		}
+
+		this.commentsService.createPostComment(commentRequest).subscribe({
+			next: (response) => {
+				this.postComments = [response.data, ...this.postComments];
+				this.commentText = '';
+			},
+			error: (error) => {
+				this.error = error.error.message;
+				console.error('Error submitting comment:', error);
 			}
 		});
 	}

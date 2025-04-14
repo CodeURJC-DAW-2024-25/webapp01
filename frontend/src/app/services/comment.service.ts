@@ -4,7 +4,8 @@ import { Observable } from "rxjs";
 import { environment } from "@environments/environment";
 import { PageRequest } from "@/types/common/PageRequest";
 import { PaginatedResponse } from "@/types/common/PaginatedResponse";
-import { Comment } from "@/types/Comment";
+import { Comment, CreateCommentRequest } from "@/types/Comment";
+import { Response } from "@/types/common/Response";
 
 @Injectable({
     providedIn: "root"
@@ -17,5 +18,12 @@ export class CommentsService {
     getPostComments(postId: number, req: PageRequest): Observable<PaginatedResponse<Comment>> {
         const builtUrl = `${this.apiUrl}/${postId}/comments?page=${req.page}&size=${req.size}`;
         return this.http.get<PaginatedResponse<Comment>>(builtUrl);
+    }
+
+    createPostComment(commentRequest: CreateCommentRequest): Observable<Response<Comment>> {
+        const builtUrl = `${this.apiUrl}/${commentRequest.postId}/comments`;
+        return this.http.post<Response<Comment>>(builtUrl, commentRequest, {
+            withCredentials: true,
+        });
     }
 }

@@ -6,3 +6,8 @@ export interface Comment {
     formatedDate: string;
     author: string;
 };
+
+export interface CreateCommentRequest {
+    postId: number;
+    content: string;
+};

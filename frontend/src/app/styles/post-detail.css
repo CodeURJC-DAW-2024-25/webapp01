@@ -113,8 +113,17 @@
     border-radius: 4px;
     background-color: var(--semi-bg-color);
 
+    .action-buttons {
+        width: 100%;
+        display: flex;
+        justify-content: flex-end;
+    }
+
     h4 {
+        width: 100%;
+        text-align: left;
         font-size: 16px;
+        font-weight: 700;
         color: var(--primary-color);
     }
 
