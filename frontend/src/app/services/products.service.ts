@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
+import { Product } from '@/types/Product';
+import { Response } from '@/types/common/Response';
 
 @Injectable({
     providedIn: 'root',
@@ -65,12 +67,21 @@ export class ProductService {
         return this.http.get(endpoint);
     }
 
-    getRelatedProducts(productId: string): Observable<any> {
-        const endpoint = `${this.apiUrl}/${encodeURIComponent(
-            productId
-        )}/suggested`;
+    getRelatedProducts(productId: string): Observable<Response<Product[]>> {
+        const endpoint = `${this.apiUrl}/${encodeURIComponent(productId)}/suggested`;
 
-        return this.http.get(endpoint);
+        return new Observable((observer) => {
+            this.http.get<Response<Product[]>>(endpoint).subscribe({
+            next: (res) => {
+                observer.next({ data: res.data.slice(0, 4), error: null });
+                observer.complete();
+            },
+            error: (err) => {
+                console.error('Error loading related products', err);
+                observer.error(err);
+            }
+            });
+        });
     }
 
     compareProducts(productId: string): Observable<any> {

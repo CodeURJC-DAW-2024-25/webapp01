@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
+import { PaginatedResponse } from '@/types/common/PaginatedResponse';
+import { ShoppingList } from '@/types/ShoppingList';
+import { Response } from '@/types/common/Response';
 
 @Injectable({
     providedIn: 'root',
@@ -11,9 +14,9 @@ export class ShoppingListService {
 
     constructor(private http: HttpClient) {}
 
-    getUserLists(userId: number): Observable<any> {
+    getUserLists(userId: number): Observable<PaginatedResponse<ShoppingList>> {
         const endpoint = `${this.apiUrl}`;
-        return this.http.get(endpoint, {
+        return this.http.get<PaginatedResponse<ShoppingList>>(endpoint, {
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
@@ -21,9 +24,9 @@ export class ShoppingListService {
         });
     }
 
-    getShoppingListById(listId: number): Observable<any> {
+    getShoppingListById(listId: number): Observable<Response<ShoppingList>> {
         const endpoint = `${this.apiUrl}/${listId}`;
-        return this.http.get(endpoint, {
+        return this.http.get<Response<ShoppingList>>(endpoint, {
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',
