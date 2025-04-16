@@ -2,7 +2,6 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ProductService } from '../../../services/products.service';
 import { AuthService, AuthState } from '@/services/auth.service';
-import { AddListPopupComponent } from '../../shared/add-to-list-popup/add-to-list-popup.component';
 import { ShoppingListService } from '@/services/shoppingList.service';
 
 @Component({
@@ -27,8 +26,11 @@ export class ProductDetailsComponent implements OnInit {
     productId: any;
 
     ngOnInit(): void {
-        this.productId = this.route.snapshot.params['id'];
-        this.loadProductDetails(this.productId);
+        this.route.params.subscribe((params) => {
+            this.productId = params['id'];
+            this.isLoadingProduct = true;
+            this.loadProductDetails(this.productId);
+        });
         
         this.authService.authState$.subscribe((authState: AuthState) => {
             this.isLoading = authState.isLoading;
@@ -49,6 +51,7 @@ export class ProductDetailsComponent implements OnInit {
             },
         });
     }
+
     loadProductDetails(productId: string): void {
         this.productService.getProductById(productId).subscribe({
             next: (response) => {
