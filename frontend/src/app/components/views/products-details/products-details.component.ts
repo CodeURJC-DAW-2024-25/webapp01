@@ -11,32 +11,30 @@ import { ShoppingListService } from '@/services/shoppingList.service';
     styleUrls: ['./products-details.component.css'],
 })
 export class ProductDetailsComponent implements OnInit {
+    private route: ActivatedRoute = inject(ActivatedRoute);
+    private productService: ProductService = inject(ProductService);
+    private authService: AuthService = inject(AuthService);
+    private shoppingListService: ShoppingListService = inject(ShoppingListService);
+
     product: any;
     relatedProducts: any[] = [];
     isComparisonVisible: boolean = false;
     isAuthenticated: boolean = false;
     isLoading: boolean = true;
+    isLoadingProduct: boolean = true;
     showPopup: boolean = false;
     shoppingLists: any[] = [];
     productId: any;
-    constructor(
-        private route: ActivatedRoute,
-        private productService: ProductService,
-        private authService: AuthService,
-        private shoppingListService: ShoppingListService
-    ) {}
 
     ngOnInit(): void {
+        this.productId = this.route.snapshot.params['id'];
+        this.loadProductDetails(this.productId);
+        
         this.authService.authState$.subscribe((authState: AuthState) => {
             this.isLoading = authState.isLoading;
             this.isAuthenticated = !!authState.user?.isAuthenticated;
-            this.loadShoppingLists(authState.user?.user?.id ?? 0);
-        });
-        //Suscribe to updates in the route parameters
-        this.route.paramMap.subscribe((params) => {
-            this.productId = params.get('id');
-            if (this.productId) {
-                this.loadProductDetails(this.productId);
+            if (this.isAuthenticated) {
+                this.loadShoppingLists(authState.user?.user?.id ?? 0);
             }
         });
     }
@@ -54,6 +52,7 @@ export class ProductDetailsComponent implements OnInit {
     loadProductDetails(productId: string): void {
         this.productService.getProductById(productId).subscribe({
             next: (response) => {
+                this.isLoadingProduct = false;
                 this.product = response.data;
                 this.productService.getRelatedProducts(productId).subscribe({
                     next: (relatedResponse) => {

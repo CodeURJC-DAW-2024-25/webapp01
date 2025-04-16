@@ -7,10 +7,11 @@ import { ProductService } from '../../../services/products.service';
     styleUrls: ['./compare-table.component.css'],
 })
 export class CompareTableComponent implements OnInit {
-    @Input() productId!: string; // ID del producto principal
-    comparisons: any[] = []; // Datos de comparación
+    @Input() productId!: string;
+    isLoading: boolean = true;
+    comparisons: any[] = [];
     errorMessage: string | null = null;
-    minPrice: number = Infinity; // Precio mínimo para la comparación
+    minPrice: number = Infinity;
 
     constructor(private productService: ProductService) {}
 
@@ -23,6 +24,7 @@ export class CompareTableComponent implements OnInit {
     fetchComparisons(productId: string): void {
         this.productService.compareProducts(productId).subscribe({
             next: (response) => {
+                this.isLoading = false;
                 if (response.data) {
                     this.comparisons = Object.values(response.data); 
                     this.comparisons.map((comparison) => {
