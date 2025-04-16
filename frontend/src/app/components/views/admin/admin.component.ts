@@ -99,6 +99,14 @@ export class AdminComponent implements OnInit {
     }
 
     deletePost(postId: number): void {
+        this.postsService.deletePost(postId).subscribe({
+            next: () => {
+                this.postsData.posts = this.postsData.posts.filter(post => post.id !== postId);
+            },
+            error: (error) => {
+                console.error('Error deleting post:', error);
+            }
+        });
     }
 
     deleteUser(userId: number): void {

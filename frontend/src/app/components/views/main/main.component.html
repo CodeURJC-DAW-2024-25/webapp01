@@ -1,9 +1,9 @@
 <div class="container">
     <app-hero></app-hero>
-    @if (!isLoading) {
+    @if (!isLoading && posts.length > 0) {
         <app-posts-preview [posts]="posts"/>
     }
-    @else {
+    @else if (isLoading) {
         <app-loader></app-loader>
     }
     <app-cta></app-cta>
