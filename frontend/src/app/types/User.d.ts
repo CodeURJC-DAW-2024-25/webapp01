@@ -19,3 +19,10 @@ export interface RegisterUser {
     username: string;
     password: string;
 }
+
+export interface SettingsUser extends RegisterUser {
+    name: string;
+    avatar: string;
+    confirmPassword: string;
+    newPassword: string;
+}

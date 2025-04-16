@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.HttpStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -347,6 +348,22 @@ public class UserService {
         }
 
         return null;
+    }
+
+    /**
+     * Get the user email
+     * @return The user email
+     */
+    public String getUserEmail(long id) {
+        User user = getAuthenticatedUser();
+
+        if (user == null) {
+            throw new IllegalArgumentException("User not authenticated");
+        }
+        if (user.getEmail() != userRepository.findById(id).orElseThrow().getEmail()) {
+            throw new IllegalArgumentException("Is neccesary to be the email owner");
+        }
+        return user.getEmail();
     }
 
     // Private Methods -------------------------------------------------------->>

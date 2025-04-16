@@ -1,80 +1,80 @@
 <div class="container small-padding">
 
-<div class="settings-container">
+    <div class="settings-container">
 
-<h1>Ajustes del Perfil</h1>
-<div class="img-container">
-    <div class="profile-image">
-        
-        <img src="" class="avatar" alt="Imagen de perfil">
-        <input type="file" name="avatar" id="avatar-input" style="display:none;">
-        <button type="button" id="submit-button" class="clickable clickable-tool bordered invert upload">
-            <i class="bi bi-upload icon"></i>
-        </button>
-    </div>
-</div>
-<div class="profile-info">
-    <form action="/update-account-data" method="post">
-        <div class="form-group">
-            <label for="name">Nombre</label>
-            <input type="text" id="name" name="name" value="">
-            
-            <small class="error">render errors</small>
-            
+        <h1>Ajustes del Perfil</h1>
+        <div class="img-container">
+            <div class="profile-image">
+
+                <img class="avatar" src="{{avatar}}" alt="User avatar" (error)="getDefaultAvatar($event)">
+                <input type="file" name="avatar" id="avatar-input" style="display:none;">
+                <button type="button" id="submit-button" class="clickable clickable-tool bordered invert upload">
+                    <i class="bi bi-upload icon"></i>
+                </button>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="email">Correo Electrónico</label>
-            <input type="email" id="email" name="email" value="">
-            
-            <small class="error">errors</small>
-            
+        <div class="profile-info">
+            <form action="/update-account-data" method="post">
+                <div class="form-group">
+                    <label for="name">Nombre</label>
+                    <input type="text" id="name" name="name" [(ngModel)]="userData.name">
+
+                    <small class="error">render errors</small>
+
+                </div>
+                <div class="form-group">
+                    <label for="email">Correo Electrónico</label>
+                    <input type="email" id="email" name="email" [(ngModel)]="userData.email">
+
+                    <small class="error">errors</small>
+
+                </div>
+                <div class="form-group">
+                    <label for="username">Nombre de Usuario</label>
+                    <input type="text" id="username" name="username" [(ngModel)]="userData.username">
+
+                    <small class="error">errors</small>
+
+                    <small class="warning">
+                        <i class="bi bi-exclamation-triangle"></i>
+                        Al cambiar el nombre de usuario será necesario volver a iniciar sesión.
+                    </small>
+                </div>
+                <button class="clickable clickable-primary full-width" type="submit">Guardar Cambios</button>
+            </form>
         </div>
-        <div class="form-group">
-            <label for="username">Nombre de Usuario</label>
-            <input type="text" id="username" name="username" value="">
-            
+
+
+        <div class="profile-info">
+            <h1>Cambiar Contraseña</h1>
+
             <small class="error">errors</small>
-            
+
+            <form action="/change-password" method="post">
+                <div class="form-group">
+                    <label for="current-password">Contraseña Actual</label>
+                    <input type="password" id="password" name="password">
+                </div>
+                <div class="form-group">
+                    <label for="new-password">Nueva Contraseña</label>
+                    <input type="password" id="newPassword" name="newPassword">
+                </div>
+                <div class="form-group">
+                    <label for="confirm-password">Confirmar Contraseña</label>
+                    <input type="password" id="confirmPassword" name="confirmPassword">
+                </div>
+                <button class="clickable clickable-primary full-width" type="submit">Cambiar Contraseña</button>
+            </form>
+        </div>
+        <div class="delete-account form-group">
+            <form action="/delete-account" method="post">
+                <button class="clickable clickable-danger full-width" type="submit">Eliminar Cuenta</button>
+            </form>
             <small class="warning">
                 <i class="bi bi-exclamation-triangle"></i>
-                Al cambiar el nombre de usuario será necesario volver a iniciar sesión.
+                Ten cuidado, esta acción no se puede deshacer.
             </small>
         </div>
-        <button class="clickable clickable-primary full-width" type="submit">Guardar Cambios</button>
-    </form>
-</div>
-
-
-<div class="profile-info">
-    <h1>Cambiar Contraseña</h1>
-    
-    <small class="error">errors</small>
-    
-    <form action="/change-password" method="post">
-        <div class="form-group">
-            <label for="current-password">Contraseña Actual</label>
-            <input type="password" id="password" name="password">
-        </div>
-        <div class="form-group">
-            <label for="new-password">Nueva Contraseña</label>
-            <input type="password" id="newPassword" name="newPassword">
-        </div>
-        <div class="form-group">
-            <label for="confirm-password">Confirmar Contraseña</label>
-            <input type="password" id="confirmPassword" name="confirmPassword">
-        </div>
-        <button class="clickable clickable-primary full-width" type="submit">Cambiar Contraseña</button>
-    </form>
-</div>
-    <div class="delete-account form-group">
-    <form action="/delete-account" method="post">
-        <button class="clickable clickable-danger full-width" type="submit">Eliminar Cuenta</button>
-    </form>
-    <small class="warning">
-        <i class="bi bi-exclamation-triangle"></i>
-        Ten cuidado, esta acción no se puede deshacer.
-    </small>
     </div>
-</div>
 
 </div>

@@ -445,4 +445,23 @@ public class RestUserController {
         }
     }
 
+    @GetMapping("/{id}/email")
+    public ResponseEntity<Object> getUserEmail(@PathVariable long id) {
+        try {
+            // Get the user
+            String email = userService.getUserEmail(id);
+            // Return the user
+            return ApiResponseDTO.ok(email);
+            
+        }catch (IllegalArgumentException e) {
+            return ApiResponseDTO.error(e.getMessage(), 401);
+
+        }catch (NoSuchElementException e) {
+            // Return error message
+            return ApiResponseDTO.error("User not found");
+
+        } 
+
+    }
+
 }
