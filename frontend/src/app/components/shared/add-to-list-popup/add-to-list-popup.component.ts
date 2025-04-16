@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { ShoppingListService } from '@/services/shoppingList.service';
+import { ShoppingList } from '@/types/ShoppingList';
 
 @Component({
     selector: 'app-add-list-popup',
@@ -7,7 +8,7 @@ import { ShoppingListService } from '@/services/shoppingList.service';
     styleUrls: ['./add-to-list-popup.component.css'],
 })
 export class AddListPopupComponent implements OnInit {
-    @Input() lists: any[] = [];
+    @Input() lists: ShoppingList[] | null = [];
     @Input() productId!: string;
     @Output() close = new EventEmitter<void>();
     @Output() listSelected = new EventEmitter<number>();

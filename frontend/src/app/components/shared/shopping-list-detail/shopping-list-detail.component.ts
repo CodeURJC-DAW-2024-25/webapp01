@@ -27,7 +27,7 @@ export class ShoppingListDetailsComponent implements OnInit {
     loadShoppingListDetails(listId: number): void {
         this.shoppingListService.getShoppingListById(listId).subscribe({
             next: (response) => {
-                this.shoppingList = response.data;              
+                this.shoppingList = response;              
             },
             error: (error) => {
                 console.error(

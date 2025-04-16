@@ -15,7 +15,7 @@
                 {{ list.name }}
             </li>
         </ul>
-        <p *ngIf="lists.length === 0" class="no-lists-message">
+        <p *ngIf="lists?.length === 0" class="no-lists-message">
             No tienes listas disponibles.
         </p>
         <p *ngIf="errorMessage" class="error-message">
