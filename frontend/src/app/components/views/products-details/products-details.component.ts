@@ -36,6 +36,7 @@ export class ProductDetailsComponent implements OnInit {
         this.route.params.subscribe((params) => {
             this.productId = params["id"];
             this._product.isLoading = true;
+            this._relatedProducts.isLoading = true;
             this.loadProductDetails(this.productId);
         });
         
