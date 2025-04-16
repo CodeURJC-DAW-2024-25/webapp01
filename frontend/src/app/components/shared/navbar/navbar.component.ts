@@ -28,4 +28,4 @@ export class NavbarComponent implements OnInit {
 			this.avatar = authState.user?.avatar || getDefaultAvatar();
 		});
 	}
-} 
+}

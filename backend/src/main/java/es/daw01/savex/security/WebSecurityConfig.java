@@ -91,6 +91,7 @@ public class WebSecurityConfig {
                     .requestMatchers(HttpMethod.POST, "/api/v1/users/**").permitAll()
                     .requestMatchers(HttpMethod.PUT, "/api/v1/users/**").authenticated()
                     .requestMatchers(HttpMethod.DELETE, "/api/v1/users/**").authenticated()
+                    .requestMatchers(HttpMethod.GET, "/api/v1/users/*/email").authenticated()
 
                     .requestMatchers(HttpMethod.GET, "/api/v1/products/**").permitAll()
 

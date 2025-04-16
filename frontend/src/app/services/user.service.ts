@@ -4,6 +4,7 @@ import { Observable } from 'rxjs';
 import { PageRequest } from '@/types/common/PageRequest';
 import { PaginatedResponse } from '@/types/common/PaginatedResponse';
 import { User } from '@/types/User';
+import { Response } from '@/types/common/Response';
 
 
 @Injectable({
@@ -17,6 +18,11 @@ export class UsersService {
     getUsers(pageRequest: PageRequest): Observable<PaginatedResponse<User>> {
       const builtUrl = `${this.apiUrl}?page=${pageRequest.page}&size=${pageRequest.size}`;
       return this.http.get<PaginatedResponse<User>>(builtUrl);
+    }
+
+    getUserEmail(userid: number): Observable<Response<string>> {
+      const builtUrl = `${this.apiUrl}/${userid}/email`;
+      return this.http.get<Response<string>>(builtUrl);
     }
 
 }

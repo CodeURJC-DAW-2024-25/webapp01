@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "49849628-f296-48f1-afb9-47964b56c278",
+		"_postman_id": "0cffe000-227e-4e60-a79d-c28d0f87f934",
 		"name": "SaveX API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
-		"_exporter_id": "37129679"
+		"_exporter_id": "43057522"
 	},
 	"item": [
 		{
@@ -158,6 +158,15 @@
 											}
 										},
 										"url": "{{apiBaseURL}}/api/v1/users/1/password"
+									},
+									"response": []
+								},
+								{
+									"name": "User Email",
+									"request": {
+										"method": "GET",
+										"header": [],
+										"url": "{{apiBaseURL}}/api/v1/users/1/email"
 									},
 									"response": []
 								}
