@@ -45,7 +45,6 @@ export class ProductDetailsComponent implements OnInit {
         this.shoppingListService.getUserLists(id).subscribe({
             next: (response) => {
                 this.shoppingLists = response.data.page || [];
-                console.log('Listas cargadas:', this.shoppingLists);
             },
             error: (error) => {
                 console.error('Error al cargar las listas:', error);

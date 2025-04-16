@@ -39,7 +39,6 @@ export class ShoppingListDetailsComponent implements OnInit {
         });
     }
     deleteProduct(productId: string): void {
-        console.log(`Eliminando producto con ID: ${productId}`);
         this.shoppingListService
             .removeProductFromList(this.shoppingList.id, productId)
             .subscribe({

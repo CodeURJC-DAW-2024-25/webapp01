@@ -13,7 +13,6 @@ export class ShoppingListService {
 
     getUserLists(userId: number): Observable<any> {
         const endpoint = `${this.apiUrl}`;
-        console.log('Endpoint:', endpoint);
         return this.http.get(endpoint, {
             withCredentials: true,
             headers: {

@@ -24,8 +24,7 @@ export class CreateShoppingListComponent {
 
             this.shoppingListService.createShoppingList(request).subscribe({
                 next: () => {
-                    console.log('Lista creada con éxito');
-                    this.listCreated.emit(); // Emit the event to update the lists in profile page 
+                    this.listCreated.emit();
                     this.close.emit();
                 },
                 error: (error) => {

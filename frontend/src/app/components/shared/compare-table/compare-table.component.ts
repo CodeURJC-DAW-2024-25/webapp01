@@ -28,10 +28,8 @@ export class CompareTableComponent implements OnInit {
                     this.comparisons.map((comparison) => {
                         if (comparison.price.total < this.minPrice) {
                             this.minPrice = comparison.price.total;
-                            console.log("minPrice", this.minPrice);
                         }
                     })
-                    console.log("minPrice fin", this.minPrice);
                 } else {
                     this.errorMessage = 'No se encontraron productos para comparar.';
                 }

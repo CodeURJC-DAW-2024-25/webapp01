@@ -7,13 +7,12 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class StatsService {
-    private apiUrl = `${environment.baseApiUrl}/v1`;
+  private apiUrl = `${environment.baseApiUrl}/v1`;
 
-    constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
-    getProductsStats(): Observable<any> {
-        const builtUrl = `${this.apiUrl}/stats/products`;
-        console.log('Fetching products stats from:', builtUrl);
-        return this.http.get<any>(builtUrl);
-    }
+  getProductsStats(): Observable<any> {
+    const builtUrl = `${this.apiUrl}/stats/products`;
+    return this.http.get<any>(builtUrl);
+  }
 }

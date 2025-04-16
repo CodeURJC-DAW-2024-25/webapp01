@@ -22,16 +22,13 @@ function retrieveTheme() {
 
 // Function to add click events to theme toggle buttons
 function addClickEvents(){
-    console.log('popstate event triggered');
 
     // Wait for the page to load before adding click events
     window.addEventListener('DOMContentLoaded', () => {
         const toggleButtons = document.querySelectorAll('.theme-toggle');
-        console.log(`Found ${toggleButtons.length} theme toggle buttons`);
     
         toggleButtons.forEach(button => {
             button.addEventListener('click', () => {
-                console.log('Theme toggle button clicked');
                 const newTheme = document.documentElement.classList.contains(DARK_CLASS) ? 'light' : DARK_CLASS;
                 setTheme(newTheme);
             });
@@ -43,6 +40,5 @@ function addClickEvents(){
 window.addEventListener('popstate', addClickEvents);
 
 
-console.log('Initializing theme toggle script...');
 retrieveTheme();
 addClickEvents();

@@ -40,9 +40,6 @@ export class ProfileComponent implements OnInit {
             },
         });
     }
-    editProfile(): void {
-        console.log('TODO Editar perfil');
-    }
 
     logout(): void {
         this.authService.logout();

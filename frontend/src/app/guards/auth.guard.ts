@@ -17,7 +17,6 @@ export const authGuard: CanActivateFn = (route, state) => {
     authService.authState$.subscribe((authState) => {
         isLoading = authState.isLoading;
         userRole = authState.user?.user?.role || null;
-        console.log('Auth state:', authState);
     });
 
     if (isLoading) {
