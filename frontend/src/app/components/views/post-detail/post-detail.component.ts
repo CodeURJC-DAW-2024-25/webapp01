@@ -1,11 +1,11 @@
-import { Component, inject, OnInit, signal, WritableSignal } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { Post } from '@/types/Posts';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { PostsService } from '@services/post.service';
 import { DomSanitizer, SafeHtml } from '@angular/platform-browser';
 import { CommentsService } from '@/services/comment.service';
 import { PageRequest } from '@/types/common/PageRequest';
-import { Comment, CreateCommentRequest, DeleteCommentRequest } from '@/types/Comment';
+import { Comment, CreateCommentRequest } from '@/types/Comment';
 import { getDefaultImage, getPostBanner } from '@/utils/defaultImage';
 import { AuthService, AuthState } from '@/services/auth.service';
 
@@ -15,13 +15,14 @@ import { AuthService, AuthState } from '@/services/auth.service';
 	styleUrl: './post-detail.component.css'
 })
 export class PostDetailComponent implements OnInit {
+	private authService: AuthService = inject(AuthService);
+	private postsService: PostsService = inject(PostsService);
+	private commentsService: CommentsService = inject(CommentsService);
 	private sanitizer: DomSanitizer = inject(DomSanitizer);
-	authService: AuthService = inject(AuthService);
-	postsService: PostsService = inject(PostsService);
-	commentsService: CommentsService = inject(CommentsService);
-	route: ActivatedRoute = inject(ActivatedRoute);
+	private route: ActivatedRoute = inject(ActivatedRoute);
+	private router: Router = inject(Router);
 
-	currentPageRequest: PageRequest = {
+	private currentPageRequest: PageRequest = {
 		page: 0,
 		size: 3
 	};
@@ -110,6 +111,20 @@ export class PostDetailComponent implements OnInit {
 
 	onCommentDeleted(commentId: number): void {
 		this.postComments = this.postComments.filter(comment => comment.id !== commentId);
+	}
+
+	deletePost() {
+		if (this.postId) {
+			this.postsService.deletePost(this.postId).subscribe({
+				next: () => {
+					this.router.navigate(['/posts']);
+				},
+				error: (error) => {
+					this.error = error.error.message;
+					console.error('Error deleting post:', error);
+				}
+			});
+		}
 	}
 
 	getBannerUrl(): string {

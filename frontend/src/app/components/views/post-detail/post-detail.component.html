@@ -11,7 +11,7 @@
                     <a routerLink="/editPost/{{post?.id}}" class="clickable clickable-tool bordered">
                         <i class="bi bi-pencil"></i>
                     </a>
-                    <button id="delete-post-button" class="clickable clickable-tool bordered danger">
+                    <button (click)="deletePost()" class="clickable clickable-tool bordered danger">
                         <i class="bi bi-trash"></i>
                     </button>
                 </div>
