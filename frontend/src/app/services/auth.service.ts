@@ -63,7 +63,7 @@ export class AuthService {
             }
         });
     }
-    
+
     register(user: RegisterUser): void {
         const builtUrl = `${this.API_URL}/v1/users`;
         this.http.post(builtUrl, user, {
@@ -104,7 +104,12 @@ export class AuthService {
             })
         );
     }
-    
+
+    isAdmin(): boolean {
+        const user = this.authState.getValue().user;
+        return user?.isAdmin || false;
+    }
+
     private setUserData(data: AuthResponse): void {
         const userData: GlobalUser = {
             id: data.user?.id || null,

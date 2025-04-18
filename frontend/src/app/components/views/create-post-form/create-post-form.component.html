@@ -1,0 +1,98 @@
+<div class="container no-gap small-padding">
+    <app-navbar></app-navbar>
+
+    <h1 class="title">{{ post ? 'Edita tu post!' : 'Crea un nuevo post!' }}</h1>
+    <form [formGroup]="postForm" (ngSubmit)="onSubmit()" enctype="multipart/form-data">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="title">Titular</label>
+          <input
+            type="text"
+            id="title"
+            formControlName="title"
+            placeholder="Introduzca el título del post"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="visibility">Visibilidad</label>
+          <select id="visibility" formControlName="visibility">
+            <option value="PUBLIC">Público</option>
+            <option value="PRIVATE">Privado</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="description">Descripción</label>
+          <input
+            type="text"
+            id="description"
+            formControlName="description"
+            placeholder="¿Sobre qué trata el post?"
+          />
+        </div>
+        <div class="form-group">
+          <label for="author">Autor</label>
+          <input
+            type="text"
+            id="author"
+            formControlName="author"
+            placeholder="¿Quién es el autor?"
+          />
+        </div>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <label for="tags">Categoría</label>
+          <select id="tags" formControlName="tags">
+            <option *ngFor="let tag of tags" [value]="tag">{{ tag }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="image">Banner</label>
+          <input
+            type="file"
+            id="banner"
+            (change)="onFileSelected($event)"
+            accept=".jpg, .jpeg, .png"
+          />
+        </div>
+      </div>
+
+      <div *ngIf="post?.banner" class="current-banner">
+        <img [src]="'/api/v1/posts/' + post.id + '/banner'" alt="Banner del post" />
+      </div>
+
+      <div class="form-group space-top">
+        <label for="content">Contenido</label>
+        <p>Utilice el editor de texto para dar formato al contenido del post.</p>
+        <p>
+          Este post será renderizado usando Markdown. Para más información puede consultar la
+          <a
+            class="clickable clickable-text inline underline"
+            href="https://www.markdownguide.org/getting-started/"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            guía de Markdown
+          </a>.
+        </p>
+        <textarea
+          id="content"
+          formControlName="content"
+          placeholder="Escriba el contenido del post"
+        ></textarea>
+      </div>
+
+      <div class="form-buttons">
+        <a routerLink="/admin" class="clickable clickable-secondary">Cancelar</a>
+        <button type="submit" class="clickable clickable-primary">
+          {{ post ? 'Actualizar Post' : 'Crear Post' }}
+        </button>
+      </div>
+    </form>
+    <app-footer></app-footer>
+  </div>

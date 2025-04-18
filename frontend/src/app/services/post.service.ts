@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { HttpClient } from "@angular/common/http";
 import { Observable } from "rxjs";
-import { Post } from "@/types/Posts";
+import { CreatePostRequest, Post } from "@/types/Posts";
 import { environment } from "@environments/environment";
 import { PageRequest } from "@/types/common/PageRequest";
 import { Response } from "@/types/common/Response";
@@ -38,4 +38,13 @@ export class PostsService {
             withCredentials: true
         });
     }
+
+    createPost(postData: CreatePostRequest): Observable<any> {
+        return this.http.post(`${this.apiUrl}`, postData, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+      }
 }

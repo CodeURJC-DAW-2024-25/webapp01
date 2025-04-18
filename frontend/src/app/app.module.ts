@@ -35,6 +35,8 @@ import { ShoppingListDetailsComponent } from './components/shared/shopping-list-
 import { CreateShoppingListComponent } from './components/shared/new-shopping-list/new-shopping-list.component';
 import { AdminComponent } from './components/views/admin/admin.component';
 import { AddListPopupComponent } from './components/shared/add-to-list-popup/add-to-list-popup.component';
+import { CreatePostFormComponent } from './components/views/create-post-form/create-post-form.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
     declarations: [
@@ -67,10 +69,12 @@ import { AddListPopupComponent } from './components/shared/add-to-list-popup/add
         CreateShoppingListComponent,
         AdminComponent,
         AddListPopupComponent,
+        CreatePostFormComponent,
     ],
     imports: [
         BrowserModule,
         AppRoutingModule,
+        ReactiveFormsModule,
         RouterModule.forRoot(routes, {
             scrollPositionRestoration: "top"
         }),

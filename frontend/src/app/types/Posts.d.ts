@@ -13,3 +13,13 @@ export interface Post {
 export interface ContentPost extends Post {
     content: string;
 }
+
+export interface CreatePostRequest {
+    title: string;
+    description: string;
+    content: string;
+    author: string;
+    date: string;
+    visibility: string;
+    tags: string[];
+  }
