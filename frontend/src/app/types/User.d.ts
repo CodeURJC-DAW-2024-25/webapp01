@@ -20,9 +20,14 @@ export interface RegisterUser {
     password: string;
 }
 
-export interface SettingsUser extends RegisterUser {
+export interface ModifyUser {
     name: string;
-    avatar: string;
-    confirmPassword: string;
+    username: string;
+    email: string;
+}
+
+export interface UserPassword {
+    oldPassword: string;
     newPassword: string;
+    newPasswordConfirmation: string;
 }

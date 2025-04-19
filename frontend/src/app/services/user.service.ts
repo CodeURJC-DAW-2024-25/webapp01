@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { PageRequest } from '@/types/common/PageRequest';
 import { PaginatedResponse } from '@/types/common/PaginatedResponse';
-import { User } from '@/types/User';
+import { User, ModifyUser, UserPassword } from '@/types/User';
 import { Response } from '@/types/common/Response';
 
 
@@ -22,7 +22,23 @@ export class UsersService {
 
     getUserEmail(userid: number): Observable<Response<string>> {
       const builtUrl = `${this.apiUrl}/${userid}/email`;
-      return this.http.get<Response<string>>(builtUrl);
+      return this.http.get<Response<string>>(builtUrl, {
+        withCredentials: true
+      });
+    }
+
+    modifyUserData(userid: number, modifyUser: ModifyUser): Observable<any> {
+      const builtUrl = `${this.apiUrl}/${userid}`;
+      return this.http.patch<any>(builtUrl, modifyUser, {
+        withCredentials: true
+      });
+    }
+
+    modifyUserPassword(userid: number, userPassword: UserPassword): Observable<any> {
+      const builtUrl = `${this.apiUrl}/${userid}/password`;
+      return this.http.patch<any>(builtUrl, userPassword, {
+        withCredentials: true
+      });
     }
 
 }

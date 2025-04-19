@@ -1,8 +1,14 @@
 import { AuthService, AuthState } from "@/services/auth.service";
 import { UsersService } from "@/services/user.service";
-import { SettingsUser } from "@/types/User";
+import { ModifyUser, UserPassword } from "@/types/User";
 import { getDefaultAvatar } from "@/utils/defaultImage";
 import { Component, inject, OnInit } from "@angular/core";
+
+interface SettingsUser{
+  id: number;
+  modifyUser: ModifyUser;
+  userPassword: UserPassword;
+}
 
 
 @Component({
@@ -15,13 +21,17 @@ export class SettingsComponent implements OnInit {
   isLoading: boolean = true;
   avatar: string = getDefaultAvatar();
   userData : SettingsUser = {
-    email: '',
-    username: '',
-    name: '',
-    password: '',
-    confirmPassword: '',
-    newPassword: '',
-    avatar: this.avatar
+    id: -1,
+    modifyUser: {
+      name: '',
+      username: '',
+      email: ''
+    },
+    userPassword: {
+      oldPassword: '',
+      newPassword: '',
+      newPasswordConfirmation: ''
+    }
   };
 
   private authService = inject(AuthService);
@@ -33,6 +43,31 @@ export class SettingsComponent implements OnInit {
     target.alt = "Default Avatar";
   }
 
+  modifyUserData(): void {
+    
+    this.userService.modifyUserData(this.userData.id,this.userData.modifyUser).subscribe({
+      next: (res) => {
+        console.log(res);
+      }
+      , error: (err) => {
+        console.error(err);
+      }
+    });
+    
+  }
+
+  modifyPassword(): void {
+    console.log(this.userData);
+    this.userService.modifyUserPassword(this.userData.id,this.userData.userPassword).subscribe({
+      next: (res) => {
+        console.log(res);
+      }
+      , error: (err) => {
+        console.error(err);
+      }
+    });
+  }
+
   ngOnInit(): void {
     this.authService.authState$.subscribe((authState: AuthState) => {
       this.isLoading = authState.isLoading;
@@ -41,13 +76,17 @@ export class SettingsComponent implements OnInit {
       if (!this.isLoading && authState.user?.id) {
         this.userService.getUserEmail(authState.user?.id).subscribe((res) => {
           this.userData = {
-            email: res.data,
-            username: authState.user?.user?.username || '',
-            name: authState.user?.user?.name || '',
-            password: '',
-            confirmPassword: '',
-            newPassword: '',
-            avatar: this.avatar
+            id: authState.user?.id || -1,
+            modifyUser: {
+              name: authState.user?.user?.name || '',
+              username: authState.user?.user?.username || '',
+              email: res.data,
+            },
+            userPassword: {
+              oldPassword: '',
+              newPassword: '',
+              newPasswordConfirmation: ''
+            },
           };
         });
       }

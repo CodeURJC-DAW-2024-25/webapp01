@@ -14,24 +14,24 @@
             </div>
         </div>
         <div class="profile-info">
-            <form action="/update-account-data" method="post">
+            <form>
                 <div class="form-group">
                     <label for="name">Nombre</label>
-                    <input type="text" id="name" name="name" [(ngModel)]="userData.name">
+                    <input type="text" id="name" name="name" [(ngModel)]="userData.modifyUser.name">
 
                     <small class="error">render errors</small>
 
                 </div>
                 <div class="form-group">
                     <label for="email">Correo Electrónico</label>
-                    <input type="email" id="email" name="email" [(ngModel)]="userData.email">
+                    <input type="email" id="email" name="email" [(ngModel)]="userData.modifyUser.email">
 
                     <small class="error">errors</small>
 
                 </div>
                 <div class="form-group">
                     <label for="username">Nombre de Usuario</label>
-                    <input type="text" id="username" name="username" [(ngModel)]="userData.username">
+                    <input type="text" id="username" name="username" [(ngModel)]="userData.modifyUser.username">
 
                     <small class="error">errors</small>
 
@@ -40,7 +40,7 @@
                         Al cambiar el nombre de usuario será necesario volver a iniciar sesión.
                     </small>
                 </div>
-                <button class="clickable clickable-primary full-width" type="submit">Guardar Cambios</button>
+                <button class="clickable clickable-primary full-width" (click)="modifyUserData()" >Guardar Cambios</button>
             </form>
         </div>
 
@@ -50,20 +50,20 @@
 
             <small class="error">errors</small>
 
-            <form action="/change-password" method="post">
+            <form>
                 <div class="form-group">
                     <label for="current-password">Contraseña Actual</label>
-                    <input type="password" id="password" name="password">
+                    <input type="password" id="password" name="password" [(ngModel)]="userData.userPassword.oldPassword">
                 </div>
                 <div class="form-group">
                     <label for="new-password">Nueva Contraseña</label>
-                    <input type="password" id="newPassword" name="newPassword">
+                    <input type="password" id="newPassword" name="newPassword" [(ngModel)]="userData.userPassword.newPassword">
                 </div>
                 <div class="form-group">
                     <label for="confirm-password">Confirmar Contraseña</label>
-                    <input type="password" id="confirmPassword" name="confirmPassword">
+                    <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="userData.userPassword.newPasswordConfirmation">
                 </div>
-                <button class="clickable clickable-primary full-width" type="submit">Cambiar Contraseña</button>
+                <button class="clickable clickable-primary full-width" (click)="modifyPassword()">Cambiar Contraseña</button>
             </form>
         </div>
         <div class="delete-account form-group">
