@@ -44,28 +44,15 @@ export class SettingsComponent implements OnInit {
   }
 
   modifyUserData(): void {
-    
-    this.userService.modifyUserData(this.userData.id,this.userData.modifyUser).subscribe({
-      next: (res) => {
-        console.log(res);
-      }
-      , error: (err) => {
-        console.error(err);
-      }
-    });
-    
+    this.userService.modifyUserData(this.userData.id,this.userData.modifyUser); 
   }
 
   modifyPassword(): void {
-    console.log(this.userData);
-    this.userService.modifyUserPassword(this.userData.id,this.userData.userPassword).subscribe({
-      next: (res) => {
-        console.log(res);
-      }
-      , error: (err) => {
-        console.error(err);
-      }
-    });
+    this.userService.modifyUserPassword(this.userData.id,this.userData.userPassword);
+  }
+
+  deleteAccount(): void {
+    this.userService.deleteAccount(this.userData.id);
   }
 
   ngOnInit(): void {

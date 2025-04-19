@@ -67,8 +67,8 @@
             </form>
         </div>
         <div class="delete-account form-group">
-            <form action="/delete-account" method="post">
-                <button class="clickable clickable-danger full-width" type="submit">Eliminar Cuenta</button>
+            <form>
+                <button class="clickable clickable-danger full-width" (click)="deleteAccount()">Eliminar Cuenta</button>
             </form>
             <small class="warning">
                 <i class="bi bi-exclamation-triangle"></i>

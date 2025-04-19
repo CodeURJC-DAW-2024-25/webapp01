@@ -1,5 +1,5 @@
 import { AuthResponse } from '@/types/common/AuthResponse';
-import { GlobalUser, RegisterUser } from '@/types/User';
+import { GlobalUser, RegisterUser, User } from '@/types/User';
 import { getUserAvatar } from '@/utils/defaultImage';
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
@@ -110,7 +110,7 @@ export class AuthService {
         return user?.isAdmin || false;
     }
 
-    private setUserData(data: AuthResponse): void {
+    public setUserData(data: AuthResponse): void {
         const userData: GlobalUser = {
             id: data.user?.id || null,
             user: data.user,
@@ -118,6 +118,7 @@ export class AuthService {
             isAdmin: data.user?.role === "ADMIN" || false,
             avatar: getUserAvatar(data.user),
         }
+        console.log('User data set:', userData);
         sessionStorage.setItem('user', JSON.stringify(userData));
         this.authState.next({
             isLoading: false,
@@ -125,7 +126,18 @@ export class AuthService {
         });
     }
 
-    private clearUserData(): void {
+    public modifyUserData(data: User): void {
+        const authResponse : AuthResponse = {
+            status: "SUCCESS",
+            message: null,
+            error: null,
+            user: data,
+            authenticated: true
+        }
+        this.setUserData(authResponse);
+    }
+
+    public clearUserData(): void {
         sessionStorage.removeItem('user');
         this.authState.next({
             isLoading: false,
