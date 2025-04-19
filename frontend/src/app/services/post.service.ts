@@ -55,4 +55,14 @@ export class PostsService {
           withCredentials: true
         });
     }
+
+    updatePost(id: number, postData: CreatePostRequest): Observable<any> {
+        return this.http.patch(`${this.apiUrl}/${id}`, postData, {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        });
+    }
+
 }

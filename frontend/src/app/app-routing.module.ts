@@ -36,6 +36,7 @@ export const routes: Routes = [
   { path: 'create-list', component: CreateShoppingListComponent },
   { path: 'admin', component: AdminComponent, canActivate: [authGuard], data: { roles: [roles.admin] } },
   { path: 'createPost', component: CreatePostFormComponent, canActivate: [authGuard], data: { roles: [ roles.admin] } },
+  { path: 'editPost/:id', component: CreatePostFormComponent, canActivate: [authGuard], data: { roles: [ roles.admin] } },
 ];
 
 @NgModule({

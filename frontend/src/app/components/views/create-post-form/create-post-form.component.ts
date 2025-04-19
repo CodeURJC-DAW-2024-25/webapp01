@@ -2,7 +2,7 @@ import { AuthService } from '@/services/auth.service';
 import { CreatePostRequest } from '@/types/Posts';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
+import { Router,  ActivatedRoute } from '@angular/router';
 import { PostsService } from 'src/app/services/post.service';
 
 @Component({
@@ -20,7 +20,8 @@ export class CreatePostFormComponent implements OnInit {
         private fb: FormBuilder,
         private postService: PostsService,
         private router: Router,
-        private authService: AuthService
+        private authService: AuthService,
+        private route: ActivatedRoute
     ) {}
 
     ngOnInit(): void {
@@ -34,6 +35,26 @@ export class CreatePostFormComponent implements OnInit {
             tags: [['Ahorro']],
             content: [''],
         });
+
+        const id = this.route.snapshot.paramMap.get('id');
+        if (id) {
+            this.postService.getPostById(+id).subscribe({
+                next: (res) => {
+                    this.post = res.data;
+                    this.postForm.patchValue({
+                        title: this.post.title,
+                        visibility: this.post.visibility,
+                        description: this.post.description,
+                        author: this.post.author,
+                        tags: this.post.tags,
+                        content: this.post.content,
+                    });
+                },
+                error: (err) => {
+                    console.error('Error al cargar el post:', err);
+                },
+            });
+        }
     }
 
     onFileSelected(event: Event): void {
@@ -58,32 +79,41 @@ export class CreatePostFormComponent implements OnInit {
             tags: formValues.tags,
         };
 
-        this.postService.createPost(postRequest).subscribe({
-            next: (response) => {
-                const postId = response?.data?.id;
+        if (this.post) {
+            const postId = this.post.id;
+            this.postService.updatePost(this.post.id, postRequest).subscribe({
+                next: () => this.router.navigate(['/posts', postId]),
+                error: (err) =>
+                    console.error('Error al actualizar el post:', err),
+            });
+        } else {
+            this.postService.createPost(postRequest).subscribe({
+                next: (response) => {
+                    const postId = response?.data?.id;
 
-                if (this.selectedFile && postId) {
-                    this.postService
-                        .uploadPostBanner(postId, this.selectedFile)
-                        .subscribe({
-                            next: () => {
-                                this.router.navigate(['/posts', postId]);
-                            },
-                            error: (err) => {
-                                console.warn(
-                                    'Post creado, pero error al subir imagen:',
-                                    err
-                                );
-                                this.router.navigate(['/posts', postId]);
-                            },
-                        });
-                } else {
-                    this.router.navigate(['/posts', postId]);
-                }
-            },
-            error: (error) => {
-                console.error('Error al crear el post:', error);
-            },
-        });
+                    if (this.selectedFile && postId) {
+                        this.postService
+                            .uploadPostBanner(postId, this.selectedFile)
+                            .subscribe({
+                                next: () => {
+                                    this.router.navigate(['/posts', postId]);
+                                },
+                                error: (err) => {
+                                    console.warn(
+                                        'Post creado, pero error al subir imagen:',
+                                        err
+                                    );
+                                    this.router.navigate(['/posts', postId]);
+                                },
+                            });
+                    } else {
+                        this.router.navigate(['/posts', postId]);
+                    }
+                },
+                error: (error) => {
+                    console.error('Error al crear el post:', error);
+                },
+            });
+        }
     }
 }
