@@ -46,5 +46,13 @@ export class PostsService {
             'Content-Type': 'application/json'
           }
         });
-      }
+    }
+
+    uploadPostBanner(id: number, file: File): Observable<any> {
+        const formData = new FormData();
+        formData.append('banner', file);
+        return this.http.post(`${this.apiUrl}/${id}/banner`, formData, {
+          withCredentials: true
+        });
+    }
 }
