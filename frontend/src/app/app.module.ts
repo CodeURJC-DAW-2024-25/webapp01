@@ -34,7 +34,7 @@ import { SettingsComponent } from './components/views/settings/settings.componen
 import { ShoppingListDetailsComponent } from './components/shared/shopping-list-detail/shopping-list-detail.component';
 import { CreateShoppingListComponent } from './components/shared/new-shopping-list/new-shopping-list.component';
 import { AdminComponent } from './components/views/admin/admin.component';
-import { AddListPopupComponent } from './components/shared/add-to-list-popup/add-to-list-popup.component';
+import { AddProductModal } from './components/shared/add-product-modal/add-product-modal.component';
 import { CreatePostFormComponent } from './components/views/create-post-form/create-post-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -68,7 +68,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         ShoppingListDetailsComponent,
         CreateShoppingListComponent,
         AdminComponent,
-        AddListPopupComponent,
+        AddProductModal,
         CreatePostFormComponent,
     ],
     imports: [

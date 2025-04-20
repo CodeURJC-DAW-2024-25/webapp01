@@ -43,6 +43,8 @@ main {
 
     --danger-color: #cd3333;
     --danger-bg-color: #f4dcdd;
+    --success-color: #4caf50;
+    --success-bg-color: #e8f5e9;
     --grey-bg-color: #c7c6c6;
 }
 
@@ -63,6 +65,8 @@ main {
 
     --danger-color: #ff4d4d;
     --danger-bg-color: #3e2222;
+    --success-color: #4caf50;
+    --success-bg-color: #2e3a2e;
     --grey-bg-color: #1a1a1d;
 }
 

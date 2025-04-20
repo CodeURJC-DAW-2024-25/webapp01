@@ -122,8 +122,21 @@
             background-color: var(--danger-bg-color);
         }
 
+        &.success {
+            color: var(--success-color);
+            border: 1px solid var(--success-color);
+            background-color: var(--success-bg-color);
+        }
+
         &:hover {
             filter: brightness(105%) contrast(95%);
+        }
+
+        &.no-hover {
+            &:hover {
+                cursor: auto;
+                filter: brightness(100%) contrast(100%);
+            }
         }
     }
 

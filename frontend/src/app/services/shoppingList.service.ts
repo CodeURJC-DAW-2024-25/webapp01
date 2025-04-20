@@ -58,16 +58,12 @@ export class ShoppingListService {
 
     addProductToList(listId: number, productId: string): Observable<any> {
         const endpoint = `${this.apiUrl}/${listId}/product/${productId}`;
-        return this.http.post(
-            endpoint,
-            {},
-            {
-                withCredentials: true,
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-            }
-        );
+        return this.http.post(endpoint, null, {
+            withCredentials: true,
+            headers: {
+                'Content-Type': 'application/json',
+            },
+        });
     }
 
     removeProductFromList(listId: number, productId: string): Observable<any> {
