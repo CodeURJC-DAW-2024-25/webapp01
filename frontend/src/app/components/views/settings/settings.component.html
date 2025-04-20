@@ -34,14 +34,14 @@
                 </div>
                 <button class="clickable clickable-primary full-width" (click)="modifyUserData()" >Guardar Cambios</button>
             </form>
+            <small *ngIf="errorMessage" id="error" class="error" >
+                {{errorMessage}}
+            </small>
         </div>
 
 
         <div class="profile-info">
             <h1>Cambiar Contraseña</h1>
-
-            <small class="error">errors</small>
-
             <form>
                 <div class="form-group">
                     <label for="current-password">Contraseña Actual</label>
@@ -57,6 +57,9 @@
                 </div>
                 <button class="clickable clickable-primary full-width" (click)="modifyPassword()">Cambiar Contraseña</button>
             </form>
+            <small *ngIf="errorMessagePassword" id="error" class="error" >
+                {{errorMessagePassword}}
+            </small>
         </div>
         <div class="delete-account form-group">
             <form>

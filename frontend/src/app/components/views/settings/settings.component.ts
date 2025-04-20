@@ -3,6 +3,7 @@ import { UsersService } from "@/services/user.service";
 import { ModifyUser, UserPassword } from "@/types/User";
 import { getDefaultAvatar } from "@/utils/defaultImage";
 import { Component, inject, OnInit } from "@angular/core";
+import { isValidUserModify, validatePasswordUpdate, ResultCode } from "@/utils/validationUtils";
 
 interface SettingsUser{
   id: number;
@@ -20,6 +21,8 @@ export class SettingsComponent implements OnInit {
   isAuthenticated: boolean = false;
   isLoading: boolean = true;
   avatar: string = getDefaultAvatar();
+  errorMessage: string = '';
+  errorMessagePassword: string = '';
   userData : SettingsUser = {
     id: -1,
     modifyUser: {
@@ -58,10 +61,26 @@ export class SettingsComponent implements OnInit {
   }
 
   modifyUserData(): void {
-    this.userService.modifyUserData(this.userData.id,this.userData.modifyUser); 
+    this.errorMessage = '';
+    const validationResult = isValidUserModify(this.userData.modifyUser);
+    if (validationResult !== ResultCode.OK) {
+      console.error(validationResult);
+      this.errorMessage = validationResult;
+      return;
+    }
+    this.userService.modifyUserData(this.userData.id, this.userData.modifyUser); 
   }
 
   modifyPassword(): void {
+    this.errorMessagePassword = '';
+    console.log(this.userData.userPassword);
+    console.log(this.userData.userPassword.oldPassword);
+    const passwordValidationResult = validatePasswordUpdate(this.userData.userPassword, this.userData.userPassword.oldPassword);
+    if (passwordValidationResult !== ResultCode.OK) {
+      console.error(passwordValidationResult);
+      this.errorMessagePassword = passwordValidationResult;
+      return;
+    }
     this.userService.modifyUserPassword(this.userData.id,this.userData.userPassword);
   }
 
