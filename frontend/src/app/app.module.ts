@@ -37,6 +37,7 @@ import { AdminComponent } from './components/views/admin/admin.component';
 import { AddProductModal } from './components/shared/add-product-modal/add-product-modal.component';
 import { CreatePostFormComponent } from './components/views/create-post-form/create-post-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { PopupComponent } from './components/views/popup/popup.component';
 
 @NgModule({
     declarations: [
@@ -70,6 +71,7 @@ import { ReactiveFormsModule } from '@angular/forms';
         AdminComponent,
         AddProductModal,
         CreatePostFormComponent,
+        PopupComponent,
     ],
     imports: [
         BrowserModule,
