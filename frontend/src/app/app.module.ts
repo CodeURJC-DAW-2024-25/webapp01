@@ -31,7 +31,7 @@ import { CompareTableComponent } from './components/shared/compare-table/compare
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { ProfileComponent } from './components/views/profile/profile.component';
 import { SettingsComponent } from './components/views/settings/settings.component';
-import { ShoppingListDetailsComponent } from './components/shared/shopping-list-detail/shopping-list-detail.component';
+import { ShoppingListDetailsComponent } from './components/views/shopping-list-detail/shopping-list-detail.component';
 import { CreateShoppingListComponent } from './components/shared/new-shopping-list/new-shopping-list.component';
 import { AdminComponent } from './components/views/admin/admin.component';
 import { AddProductModal } from './components/shared/add-product-modal/add-product-modal.component';

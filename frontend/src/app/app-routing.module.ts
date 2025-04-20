@@ -12,7 +12,7 @@ import { AdminComponent } from './components/views/admin/admin.component';
 import { ProfileComponent } from './components/views/profile/profile.component';
 import { SettingsComponent } from './components/views/settings/settings.component';
 import { authGuard } from './guards/auth.guard';
-import { ShoppingListDetailsComponent } from './components/shared/shopping-list-detail/shopping-list-detail.component';
+import { ShoppingListDetailsComponent } from './components/views/shopping-list-detail/shopping-list-detail.component';
 import { CreateShoppingListComponent } from './components/shared/new-shopping-list/new-shopping-list.component';
 import { CreatePostFormComponent } from './components/views/create-post-form/create-post-form.component';
 

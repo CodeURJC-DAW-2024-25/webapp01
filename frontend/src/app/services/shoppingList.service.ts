@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '@environments/environment';
 import { PaginatedResponse } from '@/types/common/PaginatedResponse';
-import { ShoppingList } from '@/types/ShoppingList';
+import { ShoppingList, ShoppingListDetails } from '@/types/ShoppingList';
 import { Response } from '@/types/common/Response';
 
 @Injectable({
@@ -24,9 +24,9 @@ export class ShoppingListService {
         });
     }
 
-    getShoppingListById(listId: number): Observable<Response<ShoppingList>> {
+    getShoppingListById(listId: number): Observable<Response<ShoppingListDetails>> {
         const endpoint = `${this.apiUrl}/${listId}`;
-        return this.http.get<Response<ShoppingList>>(endpoint, {
+        return this.http.get<Response<ShoppingListDetails>>(endpoint, {
             withCredentials: true,
             headers: {
                 'Content-Type': 'application/json',

@@ -7,7 +7,7 @@
                     Volver a mis listas
                 </a>
             </div>
-            <h1>{{ shoppingList?.name }}</h1>
+            <h1>{{ shoppingList.name }}</h1>
         </div>
         <div class="right">
             <button
@@ -38,7 +38,7 @@
                 Agregar Producto
             </a>
         </div>
-        <ul class="product-list" *ngIf="shoppingList?.products?.length > 0">
+        <ul class="product-list" *ngIf="shoppingList.products.length > 0">
             <li
                 class="product-item"
                 *ngFor="let product of shoppingList.products"
@@ -48,7 +48,7 @@
                     <div class="product-meta">
                         <span class="product-brand">{{ product.brand }}</span>
                         <span class="product-price"
-                            >{{ product.price?.total }}&euro;</span
+                            >{{ product.price.total }}&euro;</span
                         >
                     </div>
                 </div>

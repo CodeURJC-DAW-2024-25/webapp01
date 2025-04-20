@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ShoppingListService } from '@/services/shoppingList.service';
+import { ShoppingListDetails } from '@/types/ShoppingList';
+import { Product } from '@/types/Product';
 
 @Component({
     selector: 'app-shopping-list-details',
@@ -8,7 +10,13 @@ import { ShoppingListService } from '@/services/shoppingList.service';
     styleUrls: ['./shopping-list-detail.component.css'],
 })
 export class ShoppingListDetailsComponent implements OnInit {
-    shoppingList: any = null;
+    shoppingList: ShoppingListDetails = {
+        id: -1,
+        name: '',
+        description: '',
+        numberOfProducts: 0,
+        products: [],
+    };
     errorMessage: string | null = null;
 
     constructor(
@@ -19,37 +27,35 @@ export class ShoppingListDetailsComponent implements OnInit {
 
     ngOnInit(): void {
         const listId = this.route.snapshot.paramMap.get('id');
-        if (listId) {
-            this.loadShoppingListDetails(+listId);
-        }
+        if (listId) this.loadShoppingListDetails(+listId);
     }
 
     loadShoppingListDetails(listId: number): void {
         this.shoppingListService.getShoppingListById(listId).subscribe({
             next: (response) => {
-                this.shoppingList = response;              
+                console.log(response);
+                this.shoppingList = response.data;
             },
             error: (error) => {
-                console.error(
-                    'Error al cargar los detalles de la lista:',
-                    error
-                );
+                console.error(error);
                 this.errorMessage = 'No se pudo cargar la lista de compras.';
             },
         });
     }
     deleteProduct(productId: string): void {
         this.shoppingListService
-            .removeProductFromList(this.shoppingList.id, productId)
+            .removeProductFromList(this.shoppingList?.id || -1, productId)
             .subscribe({
                 next: () => {                  
-                        this.shoppingList.products =
-                        this.shoppingList.products.filter(
-                            (product: any) => product.product_id !== productId
+                        this.shoppingList.products = this.shoppingList.products.filter(
+                            (product: Product) => product.product_id !== productId
                         );
+                        this.shoppingList.numberOfProducts = this.shoppingList.products.length;
+                        this.errorMessage = null;
                 },
                 error: (error) => {
-                    console.error('Error al eliminar el producto:', error);
+                    console.error(error);
+                    this.errorMessage = 'Error al eliminar el producto.';
                 },
             });
     }
@@ -63,7 +69,7 @@ export class ShoppingListDetailsComponent implements OnInit {
                         this.router.navigate(['/profile']); 
                     },
                     error: (error) => {
-                        console.error('Error al eliminar la lista:', error);
+                        console.error(error);
                         this.errorMessage = 'No se pudo eliminar la lista.';
                     },
                 });
