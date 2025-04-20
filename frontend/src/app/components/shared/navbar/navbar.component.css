@@ -1,0 +1,5 @@
+@import url('../../../styles/navbar.css');
+
+img {
+    object-fit: cover;
+}

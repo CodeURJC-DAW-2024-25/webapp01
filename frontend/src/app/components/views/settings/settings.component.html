@@ -8,7 +8,7 @@
 
                 <img class="avatar" src="{{avatar}}" alt="User avatar" (error)="getDefaultAvatar($event)">
                 <input type="file" name="avatar" id="avatar-input" style="display:none;">
-                <button type="button" id="submit-button" class="clickable clickable-tool bordered invert upload">
+                <button type="button" id="submit-button" class="clickable clickable-tool bordered invert upload" (click)="uploadAvatar()">
                     <i class="bi bi-upload icon"></i>
                 </button>
             </div>
