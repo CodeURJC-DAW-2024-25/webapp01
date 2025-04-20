@@ -39,7 +39,6 @@ export class UsersService {
         withCredentials: true
       }).subscribe({
         next: (res) => {
-          console.log(res);
           this.authservice.modifyUserData(res.data);
         }
         , error: (err) => {
@@ -54,7 +53,6 @@ export class UsersService {
         withCredentials: true
       }).subscribe({
         next: (res) => {
-          console.log(res);
           this.authservice.modifyUserData(res.data);
         }
         , error: (err) => {
@@ -76,7 +74,6 @@ export class UsersService {
         withCredentials: true
       }).subscribe({
         next: (res) => {
-          console.log(res);
           this.authservice.clearUserData();
           this.router.navigate(['/']);
         }

@@ -33,7 +33,6 @@ export class ShoppingListDetailsComponent implements OnInit {
     loadShoppingListDetails(listId: number): void {
         this.shoppingListService.getShoppingListById(listId).subscribe({
             next: (response) => {
-                console.log(response);
                 this.shoppingList = response.data;
             },
             error: (error) => {

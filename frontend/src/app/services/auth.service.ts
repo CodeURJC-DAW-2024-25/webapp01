@@ -118,7 +118,6 @@ export class AuthService {
             isAdmin: data.user?.role === "ADMIN" || false,
             avatar: getUserAvatar(data.user),
         }
-        console.log('User data set:', userData);
         sessionStorage.setItem('user', JSON.stringify(userData));
         this.authState.next({
             isLoading: false,
