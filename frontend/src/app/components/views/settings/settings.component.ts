@@ -55,7 +55,6 @@ export class SettingsComponent implements OnInit {
       }
     });
     fileInput.click();
-    // this.userService.uploadAvatar();
   }
 
   modifyUserData(): void {
