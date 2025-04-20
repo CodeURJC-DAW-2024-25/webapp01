@@ -43,6 +43,22 @@ export class SettingsComponent implements OnInit {
     target.alt = "Default Avatar";
   }
 
+  uploadAvatar(): void {
+    const fileInput = document.createElement('input');
+    fileInput.type = 'file';
+    fileInput.accept = 'image/*';
+    fileInput.addEventListener('change', (event: Event) => {
+      const input = event.target as HTMLInputElement;
+      if (input.files && input.files.length > 0) {
+        const file = input.files[0];
+        console.log(this.userData.id,file);
+        this.userService.uploadAvatar(this.userData.id,file);
+      }
+    });
+    fileInput.click();
+    // this.userService.uploadAvatar();
+  }
+
   modifyUserData(): void {
     this.userService.modifyUserData(this.userData.id,this.userData.modifyUser); 
   }

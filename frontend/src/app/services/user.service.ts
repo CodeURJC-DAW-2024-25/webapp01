@@ -31,6 +31,23 @@ export class UsersService {
       });
     }
 
+    uploadAvatar(userid: number, file: File): void {
+      const builtUrl = `${this.apiUrl}/${userid}/avatar`;
+      const formData = new FormData();
+      formData.append('avatar', file);
+      this.http.post<Response<User>>(builtUrl, formData, {
+        withCredentials: true
+      }).subscribe({
+        next: (res) => {
+          console.log(res);
+          this.authservice.modifyUserData(res.data);
+        }
+        , error: (err) => {
+          console.error(err);
+        }
+      });
+    }
+
     modifyUserData(userid: number, modifyUser: ModifyUser): void{
       const builtUrl = `${this.apiUrl}/${userid}`;
       this.http.patch<Response<User>>(builtUrl, modifyUser, {

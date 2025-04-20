@@ -13,7 +13,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.core.io.Resource;
 import org.springframework.data.domain.Pageable;
-import org.springframework.http.HttpStatus;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -69,10 +68,7 @@ public class UserService {
     public PublicUserDTO createUserAvatar(long id, MultipartFile avatar) throws IOException {
         
         User user = userRepository.findById(id).orElseThrow();
-        
-        if (user.getAvatar() != null) {
-            throw new EntityExistsException("User already has an avatar");
-        }
+
         user.setAvatar(ImageUtils.multipartFileToBlob(avatar));
         return userMapper.toPublicUserDTO(userRepository.save(user));
 	}
