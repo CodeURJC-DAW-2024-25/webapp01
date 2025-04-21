@@ -27,5 +27,8 @@ export class NavbarComponent implements OnInit {
 			this.isAuthenticated = !!authState.user?.isAuthenticated;
 			this.avatar = authState.user?.avatar || getDefaultAvatar();
 		});
+		window.addEventListener("updateAvatar", () => {
+			this.avatar = this.avatar + `?t=${new Date().getTime()}`;
+		});
 	}
 }

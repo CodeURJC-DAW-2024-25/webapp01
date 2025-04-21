@@ -31,19 +31,24 @@ export class UsersService {
       });
     }
 
-    uploadAvatar(userid: number, file: File): void {
+    uploadAvatar(userid: number, file: File): Observable<Response<User>> {
       const builtUrl = `${this.apiUrl}/${userid}/avatar`;
       const formData = new FormData();
       formData.append('avatar', file);
-      this.http.post<Response<User>>(builtUrl, formData, {
-        withCredentials: true
-      }).subscribe({
-        next: (res) => {
-          this.authservice.modifyUserData(res.data);
-        }
-        , error: (err) => {
-          console.error(err);
-        }
+      return new Observable((observer) => {
+        this.http.post<Response<User>>(builtUrl, formData, {
+          withCredentials: true
+        }).subscribe({
+          next: (res) => {
+            this.authservice.modifyUserData(res.data);
+            observer.next(res);
+            observer.complete();
+          }
+          , error: (err) => {
+            console.error(err);
+            observer.error(err);
+          }
+        });
       });
     }
 

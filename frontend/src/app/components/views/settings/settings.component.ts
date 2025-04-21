@@ -54,7 +54,12 @@ export class SettingsComponent implements OnInit {
       const input = event.target as HTMLInputElement;
       if (input.files && input.files.length > 0) {
         const file = input.files[0];
-        this.userService.uploadAvatar(this.userData.id,file);
+        this.userService.uploadAvatar(this.userData.id,file).subscribe({
+          next: (res) => {
+            this.avatar = this.avatar + `?t=${new Date().getTime()}`;
+            window.dispatchEvent(new Event('updateAvatar'));
+          }
+        });
       }
     });
     fileInput.click();
