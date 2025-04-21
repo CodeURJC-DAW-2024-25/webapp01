@@ -1,92 +1,93 @@
 export enum ResultCode {
-    OK = "The object is valid",
-    EMPTY_FIELD = "The field cannot be empty",
-    INVALID_EMAIL = "The email is invalid",
-    INVALID_USERNAME_FORMAT = "The username can only contain letters and numbers",
-    INVALID_USERNAME_LENGTH = "The username must be between 3 and 20 characters",
-    INVALID_NAME_FORMAT = "The name can only contain letters, numbers and spaces",
-    INVALID_NAME_LENGTH = "The name must be between 3 and 20 characters",
-    INVALID_PASSWORD_FORMAT = "The password must contain at least one lowercase letter, one uppercase letter and one number",
-    INVALID_PASSWORD_LENGTH = "The password must be between 8 and 50 characters",
-    INVALID_PASSWORD_CONFIRMATION = "The password confirmation does not match the password",
-    INVALID_NEW_PASSWORD = "The new password cannot be the same as the old password",
-    INVALID_PASSWORD = "The old password is incorrect",
-    USERNAME_TAKEN = "The username is already taken",
-    EMAIL_TAKEN = "The email is already taken",
-} //TODO: email taken and username taken checks
-
-export interface CreateUserRequest {
-    email: string;
-    username: string;
-    password: string;
+    OK = "El objeto es válido",
+    EMPTY_FIELD = "El campo no puede estar vacío",
+    INVALID_EMAIL = "El correo electrónico es inválido",
+    INVALID_USERNAME_FORMAT = "El nombre de usuario solo puede contener letras y números",
+    INVALID_USERNAME_LENGTH = "El nombre de usuario debe tener entre 3 y 20 caracteres",
+    INVALID_NAME_FORMAT = "El nombre solo puede contener letras, números y espacios",
+    INVALID_NAME_LENGTH = "El nombre debe tener entre 3 y 20 caracteres",
+    INVALID_PASSWORD_FORMAT = "La contraseña debe contener al menos una letra minúscula, una letra mayúscula y un número",
+    INVALID_PASSWORD_LENGTH = "La contraseña debe tener entre 8 y 50 caracteres",
+    INVALID_PASSWORD_CONFIRMATION = "La confirmación de la contraseña no coincide con la contraseña",
 }
 
-export interface ModifyUserRequest {
-    email: string;
-    username: string;
-    name: string;
-}
+import { RegisterUser, ModifyUser, UserPassword } from "@/types/User";
 
-export interface ModifyPasswordRequest {
-    oldPassword: string;
-    newPassword: string;
-    newPasswordConfirmation: string;
-}
-
-// Placeholder for hash check functionality.
-// Replace with an actual implementation using a crypto library if needed.
-function checkPassword(password: string, hashedPassword: string): boolean {
-    // For now, this is a stub. In a real application, implement proper hash
-    // comparison (e.g., using bcrypt.compare)
-    return false;
-}
-
-export function isValidUser(request: CreateUserRequest): ResultCode {
+export function isValidUser(request: RegisterUser): RegisterUser {
+    
+    const errors: RegisterUser = {
+        email: "",
+        username: "",
+        password: "",
+    };
     const emailResult = isValidEmail(request.email, true);
-    if (emailResult !== ResultCode.OK) return emailResult;
+    if (emailResult !== ResultCode.OK) {
+        errors.email = emailResult;
+    }
 
     const usernameResult = isValidUsername(request.username, true);
-    if (usernameResult !== ResultCode.OK) return usernameResult;
+    if (usernameResult !== ResultCode.OK) {
+        errors.username = usernameResult;
+    }
 
     const passwordResult = isValidPassword(request.password, true);
-    if (passwordResult !== ResultCode.OK) return passwordResult;
-
-    return ResultCode.OK;
+    if (passwordResult !== ResultCode.OK) {
+        errors.password = passwordResult;
+    }
+    
+    return errors;
 }
 
-export function isValidUserModify(request: ModifyUserRequest): ResultCode {
+export function isValidUserModify(request: ModifyUser): ModifyUser {
+
+    const errors: ModifyUser = {
+        name: "",
+        username: "",
+        email: "",
+    };
     const emailResult = isValidEmail(request.email, false);
-    if (emailResult !== ResultCode.OK) return emailResult;
+    if (emailResult !== ResultCode.OK) {
+        errors.email = emailResult;
+    }
 
     const usernameResult = isValidUsername(request.username, false);
-    if (usernameResult !== ResultCode.OK) return usernameResult;
+    if (usernameResult !== ResultCode.OK) {
+        errors.username = usernameResult;
+    }
 
     const nameResult = isValidName(request.name, false);
-    if (nameResult !== ResultCode.OK) return nameResult;
+    if (nameResult !== ResultCode.OK) {
+        errors.name = nameResult;
+    }
 
-    return ResultCode.OK;
+    return errors;
 }
 
 export function validatePasswordUpdate(
-    request: ModifyPasswordRequest,
-    hashedPassword: string
-): ResultCode {
+    request: UserPassword,
+): UserPassword {
+    const errors: UserPassword = {
+        oldPassword: "",
+        newPassword: "",
+        newPasswordConfirmation: "",
+    };
+
     const newPasswordResult = isValidPassword(request.newPassword, true);
-    if (newPasswordResult !== ResultCode.OK) return newPasswordResult;
+    if (newPasswordResult !== ResultCode.OK) {
+        errors.newPassword = newPasswordResult;
+    }
 
+    const newPasswordConfirmationResult = isValidPassword(request.newPasswordConfirmation, true,);
+    if (newPasswordConfirmationResult !== ResultCode.OK) {
+        errors.newPasswordConfirmation = newPasswordConfirmationResult;
+    }
+
+   
     if (request.newPassword !== request.newPasswordConfirmation) {
-        return ResultCode.INVALID_PASSWORD_CONFIRMATION;
+        errors.newPasswordConfirmation = ResultCode.INVALID_PASSWORD_CONFIRMATION;
     }
 
-    if (checkPassword(request.newPassword, hashedPassword)) {
-        return ResultCode.INVALID_NEW_PASSWORD;
-    }
-
-    if (!checkPassword(request.oldPassword, hashedPassword)) {
-        return ResultCode.INVALID_PASSWORD;
-    }
-
-    return ResultCode.OK;
+    return errors;
 }
 
 export function isValidEmail(email: string | null, isRequired: boolean): ResultCode {

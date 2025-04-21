@@ -52,17 +52,22 @@ export class UsersService {
       });
     }
 
-    modifyUserData(userid: number, modifyUser: ModifyUser): void{
+    modifyUserData(userid: number, modifyUser: ModifyUser): Observable<any> {
       const builtUrl = `${this.apiUrl}/${userid}`;
-      this.http.patch<Response<User>>(builtUrl, modifyUser, {
-        withCredentials: true
-      }).subscribe({
-        next: (res) => {
-          this.authservice.modifyUserData(res.data);
-        }
-        , error: (err) => {
-          console.error(err);
-        }
+      return new Observable((observer) => {
+        this.http.patch<Response<User>>(builtUrl, modifyUser, {
+          withCredentials: true
+        }).subscribe({
+          next: (res) => {
+            this.authservice.modifyUserData(res.data);
+            observer.next(res);
+            observer.complete();
+          }
+          , error: (err) => {
+            console.error(err);
+            observer.error(err);
+          }
+        });
       });
     }
 

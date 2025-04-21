@@ -21,6 +21,19 @@ export class SettingsComponent implements OnInit {
   isAuthenticated: boolean = false;
   isLoading: boolean = true;
   avatar: string = getDefaultAvatar();
+  errors : SettingsUser = {
+    id: -1,
+    modifyUser: {
+      name: '',
+      username: '',
+      email: ''
+    },
+    userPassword: {
+      oldPassword: '',
+      newPassword: '',
+      newPasswordConfirmation: ''
+  }
+  };
   errorMessage: string = '';
   errorMessagePassword: string = '';
   userData : SettingsUser = {
@@ -67,26 +80,28 @@ export class SettingsComponent implements OnInit {
 
   modifyUserData(): void {
     this.errorMessage = '';
-    const validationResult = isValidUserModify(this.userData.modifyUser);
-    if (validationResult !== ResultCode.OK) {
-      console.error(validationResult);
-      this.errorMessage = validationResult;
-      return;
-    }
-    this.userService.modifyUserData(this.userData.id, this.userData.modifyUser); 
+    this.errors.modifyUser = isValidUserModify(this.userData.modifyUser);
+    if (this.errors.modifyUser.name == '' && this.errors.modifyUser.username == '' && this.errors.modifyUser.email == '') {
+    this.userService.modifyUserData(this.userData.id, this.userData.modifyUser).subscribe({
+      error: (res) => {
+        this.errorMessage = res.error.error.message;
+        console.error(res);
+      }
+    }); 
   }
+}
 
   modifyPassword(): void {
     this.errorMessagePassword = '';
-    console.log(this.userData.userPassword);
-    console.log(this.userData.userPassword.oldPassword);
-    const passwordValidationResult = validatePasswordUpdate(this.userData.userPassword, this.userData.userPassword.oldPassword);
-    if (passwordValidationResult !== ResultCode.OK) {
-      console.error(passwordValidationResult);
-      this.errorMessagePassword = passwordValidationResult;
-      return;
-    }
-    this.userService.modifyUserPassword(this.userData.id,this.userData.userPassword);
+    this.errors.userPassword = validatePasswordUpdate(this.userData.userPassword);
+    if (this.errors.userPassword.oldPassword == '' && this.errors.userPassword.newPassword == '' && this.errors.userPassword.newPasswordConfirmation == '') {
+      this.userService.modifyUserPassword(this.userData.id, this.userData.userPassword).subscribe({
+        error: (res) => {
+          this.errorMessagePassword = res.error.error.message;
+          console.error(res);
+        }
+      });
+    } 
   }
 
   deleteAccount(): void {
