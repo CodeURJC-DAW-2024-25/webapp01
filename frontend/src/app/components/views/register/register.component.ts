@@ -1,11 +1,7 @@
 import { AuthService } from '@/services/auth.service';
 import { Component, inject } from '@angular/core';
-
-type RegisterErrors = {
-	username?: string;
-	email?: string;
-	password?: string;
-}
+import { isValidUser } from '@/utils/validationUtils';
+import { RegisterUser } from "@/types/User";
 
 @Component({
 	selector: 'app-register',
@@ -21,9 +17,23 @@ export class RegisterComponent {
 		password: ''
 	}
 
-	errors: RegisterErrors = {};
+	errors: RegisterUser = {
+		email: '',
+		username: '',
+		password: ''
+	}
+
+	errorMessage: string = '';
 
 	onSubmit(): void {
-		this.auth.register(this.credentials);
+		this.errors = isValidUser(this.credentials);
+		if (this.errors.email === '' && this.errors.username === '' && this.errors.password === '') {
+			this.auth.register(this.credentials).subscribe({
+				error: (err) => {
+					console.error(err);
+					this.errorMessage = err.error.error.message;
+				}
+			});
+		}
 	}
 }

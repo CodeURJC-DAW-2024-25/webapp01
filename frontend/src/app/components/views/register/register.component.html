@@ -9,6 +9,7 @@
                 @if (errors.email) {
                     <small class="error">{{errors.email}}</small>
                 }
+                
             </div>
             <div class="form-group">
                 <label for="username">Nombre de usuario</label>
@@ -25,6 +26,9 @@
                 }
             </div>
             <button type="submit" class="clickable clickable-primary full-width">Crear cuenta</button>
+            @if (errorMessage) {
+                <small class="error">{{ errorMessage }}</small>
+            }
         </form>
         <hr>
         <p>¿Ya tienes cuenta? <a class="clickable inline clickable-text underline" routerLink="/login">Inicia sesión aquí</a></p>

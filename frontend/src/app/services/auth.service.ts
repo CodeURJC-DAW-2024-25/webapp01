@@ -64,9 +64,11 @@ export class AuthService {
         });
     }
 
-    register(user: RegisterUser): void {
+    register(user: RegisterUser): Observable<any> {
         const builtUrl = `${this.API_URL}/v1/users`;
-        this.http.post(builtUrl, user, {
+        return new Observable((observer) => {
+
+         this.http.post(builtUrl, user, {
             observe: 'response',
             headers: {
                 'Content-Type': 'application/json',
@@ -76,11 +78,15 @@ export class AuthService {
                 const authRes: AuthResponse = response.body as AuthResponse;
                 this.setUserData(authRes);
                 this.router.navigate(['/login']);
+                observer.next(response);
+                observer.complete();
             },
             error: (err) => {
                 console.error('Registration failed', err);
+                observer.error(err);
             }
         });
+    });
 
     }
 
