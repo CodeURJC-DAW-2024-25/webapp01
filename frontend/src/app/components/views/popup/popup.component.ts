@@ -1,4 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
+
 
 @Component({
   selector: 'app-popup',
@@ -7,7 +9,17 @@ import { Component } from '@angular/core';
 })
 export class PopupComponent {
 
-header : string = 'header';
-content : string = 'content';
+  @Input() header: string = '';
+  @Input() content: string = '';
 
+  @Output() popupClosed = new EventEmitter();
+
+  closePopup(): void {
+    this.popupClosed.emit();
+  }
+
+  ngOnInit(): void {
+    
+    setTimeout(() => this.closePopup(), 5000);
+  }
 }
