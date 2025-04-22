@@ -12,5 +12,6 @@ public record PostDTO(
     String date,
     String readingTime,
     VisibilityType visibility,
-    List<String> tags
+    List<String> tags,
+    String content
 ) {}
