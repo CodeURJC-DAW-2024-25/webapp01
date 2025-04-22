@@ -7,4 +7,7 @@ import { Component } from '@angular/core';
 })
 export class PopupComponent {
 
+header : string = 'header';
+content : string = 'content';
+
 }
