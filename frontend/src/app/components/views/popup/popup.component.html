@@ -1,7 +1,7 @@
 <div class="popup-container" id="popup">
     <div class="popup-header"> 
         <span>{{header}}</span>
-        <button onclick="closePopup()" class="close-button"><i class="bi bi-x"></i></button>
+        <button (click)="closePopup()" class="close-button"><i class="bi bi-x"></i></button>
     </div>
     <div class="popup-message">{{content}}</div>
 </div>
