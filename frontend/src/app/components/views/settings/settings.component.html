@@ -1,6 +1,12 @@
 <div class="container small-padding">
 
-    <app-popup></app-popup>
+    @if (launchPopup) {
+    <app-popup
+        [header]="popupHeader"
+        [content]="popupContent"
+        (popupClosed)="onClosePopup()"
+    />
+    }
 
     <div class="settings-container">
 

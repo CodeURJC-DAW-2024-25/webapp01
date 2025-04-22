@@ -2,9 +2,9 @@ import { AuthService, AuthState } from "@/services/auth.service";
 import { UsersService } from "@/services/user.service";
 import { ModifyUser, UserPassword } from "@/types/User";
 import { getDefaultAvatar } from "@/utils/defaultImage";
-import { Component, inject, OnInit } from "@angular/core";
+import { Component, inject, OnInit, Output } from "@angular/core";
 import { isValidUserModify, validatePasswordUpdate, ResultCode } from "@/utils/validationUtils";
-
+import { PopupComponent } from "@/components/views/popup/popup.component";
 interface SettingsUser{
   id: number;
   modifyUser: ModifyUser;
@@ -20,6 +20,9 @@ interface SettingsUser{
 export class SettingsComponent implements OnInit {
   isAuthenticated: boolean = false;
   isLoading: boolean = true;
+  @Output() launchPopup: boolean = false;
+  popupHeader: string = '';
+  popupContent: string = '';
   avatar: string = getDefaultAvatar();
   errors : SettingsUser = {
     id: -1,
@@ -53,6 +56,11 @@ export class SettingsComponent implements OnInit {
   private authService = inject(AuthService);
   private userService = inject(UsersService);
 
+
+  onClosePopup(): void {
+    this.launchPopup = false;
+  }
+
   getDefaultAvatar(event: Event): void {
     const target = event.target as HTMLImageElement;
     target.src = getDefaultAvatar();
@@ -83,6 +91,11 @@ export class SettingsComponent implements OnInit {
     this.errors.modifyUser = isValidUserModify(this.userData.modifyUser);
     if (this.errors.modifyUser.name == '' && this.errors.modifyUser.username == '' && this.errors.modifyUser.email == '') {
     this.userService.modifyUserData(this.userData.id, this.userData.modifyUser).subscribe({
+      next: () => {
+        this.popupHeader = 'Cambios Guardados';
+        this.popupContent = 'Usuario modificado correctamente';
+        this.launchPopup = true;
+      },
       error: (res) => {
         this.errorMessage = res.error.error.message;
         console.error(res);
@@ -96,6 +109,11 @@ export class SettingsComponent implements OnInit {
     this.errors.userPassword = validatePasswordUpdate(this.userData.userPassword);
     if (this.errors.userPassword.oldPassword == '' && this.errors.userPassword.newPassword == '' && this.errors.userPassword.newPasswordConfirmation == '') {
       this.userService.modifyUserPassword(this.userData.id, this.userData.userPassword).subscribe({
+        next: () => {
+          this.popupHeader = 'Cambios Guardados';
+          this.popupContent = 'Contraseña modificada correctamente';
+          this.launchPopup = true;
+        },
         error: (res) => {
           this.errorMessagePassword = res.error.error.message;
           console.error(res);
