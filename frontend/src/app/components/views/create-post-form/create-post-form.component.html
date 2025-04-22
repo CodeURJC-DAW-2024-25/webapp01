@@ -50,7 +50,7 @@
         <div class="form-row">
             <div class="form-group">
                 <label for="tags">Categoría</label>
-                <select id="tags" formControlName="tags" multiple>
+                <select id="tags" name="tags" required>
                     <option *ngFor="let tag of tags" [value]="tag">
                         {{ tag }}
                     </option>
@@ -98,7 +98,7 @@
         </div>
 
         <div class="form-buttons">
-            <a routerLink="/admin" class="clickable clickable-secondary"
+            <a [routerLink]="post ? ['/posts', post.id] : ['/admin']" class="clickable clickable-secondary"
                 >Cancelar</a
             >
             <button type="submit" class="clickable clickable-primary">
