@@ -153,6 +153,11 @@ export class AuthService {
     private uploadUserFromSessionStorage(): void {
         const user = sessionStorage.getItem('user');
         if (user) {
+            this.authState.next({
+                isLoading: true,
+                user: JSON.parse(user) as GlobalUser
+            });
+
             this.checkAuth().subscribe({
                 next: (response) => {
                     if (response.authenticated) {
