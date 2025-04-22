@@ -1,27 +1,33 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { AuthService, AuthState } from '@/services/auth.service';
 import { GlobalUser } from '@/types/User';
 import { getDefaultAvatar } from '@/utils/defaultImage';
 import { ShoppingListService } from '@/services/shoppingList.service';
+import { Router } from '@angular/router';
+
 @Component({
     selector: 'app-profile',
     templateUrl: './profile.component.html',
     styleUrls: ['./profile.component.css'],
 })
 export class ProfileComponent implements OnInit {
+    private authService: AuthService = inject(AuthService);
+    private shoppingListService: ShoppingListService = inject(ShoppingListService);
+    private router: Router = inject(Router);
+
     user: GlobalUser | null = null;
     shoppingList: any[] = [];
     showCreateListModal: boolean = false;
-    constructor(
-        private authService: AuthService,
-        private shoppingListService: ShoppingListService
-    ) {}
 
     ngOnInit(): void {
         this.authService.authState$.subscribe((authState: AuthState) => {
             this.user = authState.user;
             if (this.user?.user?.id) {
                 this.loadShoppingLists(this.user.user.id);
+            }
+
+            if (authState.isLoading && !authState.user?.isAuthenticated) {
+                this.router.navigate(['/login']);
             }
         });
     }

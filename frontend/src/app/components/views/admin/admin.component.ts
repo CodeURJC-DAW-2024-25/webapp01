@@ -19,9 +19,9 @@ import { StatsService } from '@/services/stats.service';
 })
 
 export class AdminComponent implements OnInit {
-    postsService = inject(PostsService);
-    usersService = inject(UsersService);
-    statsService = inject(StatsService);
+    private postsService = inject(PostsService);
+    private usersService = inject(UsersService);
+    private statsService = inject(StatsService);
 
     postsData = {
         currentPageReq: { page: 0, size: 4 } as PageRequest,
