@@ -15,7 +15,7 @@ import { environment } from '@environments/environment';
   providedIn: 'root'
 })
 export class UsersService {
-    private apiUrl = `${environment.baseApiUrl}/api/v1/users`;
+    private apiUrl = `${environment.baseApiUrl}/v1/users`;
     http = inject(HttpClient);
     router = inject(Router);
     authservice = inject(AuthService);
