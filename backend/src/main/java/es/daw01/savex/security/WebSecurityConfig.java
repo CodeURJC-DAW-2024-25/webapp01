@@ -38,7 +38,12 @@ public class WebSecurityConfig {
     public UrlBasedCorsConfigurationSource corsConfigurationSource() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList("http://localhost:4200")); // Match your frontend origin
+        config.setAllowedOrigins(Arrays.asList(
+            "http://localhost:4200",
+            "https://localhost:8443",
+            "https://localhost:443",
+            "https://appWeb01.dawgis.etsii.urjc.es/"
+        ));
         config.setAllowCredentials(true);
         config.addAllowedMethod("*");
         config.addAllowedHeader("*");

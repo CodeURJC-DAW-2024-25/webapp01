@@ -30,10 +30,10 @@ COPY ../backend/pom.xml ./
 COPY ../backend/src ./src
 
 # Create the directory for the Angular frontend build
-RUN mkdir -p src/main/resources/public/new
+RUN mkdir -p src/main/resources/static/new
 
 # Copy the Angular build from the previous stage
-COPY --from=frontend-build /app/frontend/dist/ src/main/resources/public/new
+COPY --from=frontend-build /app/frontend/dist/angular/browser/ src/main/resources/static/new
 
 # Build the project and package the application
 RUN mvn clean package -DskipTests

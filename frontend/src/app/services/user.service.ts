@@ -8,13 +8,14 @@ import { Response } from '@/types/common/Response';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
 import { AuthResponse } from '@/types/common/AuthResponse';
+import { environment } from '@environments/environment';
 
 
 @Injectable({
   providedIn: 'root'
 })
 export class UsersService {
-    private apiUrl = 'https://localhost:8443/api/v1/users'
+    private apiUrl = `${environment.baseApiUrl}/api/v1/users`;
     http = inject(HttpClient);
     router = inject(Router);
     authservice = inject(AuthService);
