@@ -17,7 +17,7 @@ COPY ../frontend/src ./src
 COPY ../frontend/angular.json ../frontend/tsconfig.json ../frontend/tsconfig.app.json ../frontend/tsconfig.spec.json ./
 
 # Build the frontend application
-RUN npm run build --configuration production
+RUN npm run build -- --configuration production
 
 # Use the official maven/Java 21 image as the base image
 FROM maven:3.9.9-eclipse-temurin-21 AS build
