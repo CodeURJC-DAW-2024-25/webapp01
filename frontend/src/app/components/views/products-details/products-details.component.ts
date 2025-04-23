@@ -5,6 +5,8 @@ import { AuthService, AuthState } from "@/services/auth.service";
 import { ShoppingListService } from "@/services/shoppingList.service";
 import { Product } from "@/types/Product";
 import { ShoppingList } from "@/types/ShoppingList";
+import { environment } from "@environments/environment";
+import { getDefaultImage } from "@/utils/defaultImage";
 
 interface Data<T> {
     data: T | null;
@@ -27,6 +29,7 @@ export class ProductDetailsComponent implements OnInit {
     private _shoppingListData: Data<ShoppingList[]> = { data: [], isLoading: true };
     private _authData = { isAuthenticated: false, isLoading: true };
 
+    defaultImage = getDefaultImage();
     productId: string = "";
 
     isComparisonVisible: boolean = false;

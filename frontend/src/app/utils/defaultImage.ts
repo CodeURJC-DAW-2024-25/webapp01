@@ -3,10 +3,12 @@ import { User } from "@/types/User";
 import { environment } from "@environments/environment";
 
 export function getDefaultImage(): string {
+    if (environment.production) return "/new/assets/images/template_image.png";
     return "/assets/images/template_image.png";
 }
 
 export function getDefaultAvatar(): string {
+    if (environment.production) return "/new/assets/images/default_avatar.jpg";
     return "/assets/images/default_avatar.jpg";
 }
 

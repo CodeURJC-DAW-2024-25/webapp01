@@ -1,5 +1,6 @@
 import { AuthService, AuthState } from "@/services/auth.service";
 import { Component, inject, OnInit } from "@angular/core";
+import { environment } from "@environments/environment";
 
 @Component({
 	selector: "app-cta",
@@ -7,9 +8,10 @@ import { Component, inject, OnInit } from "@angular/core";
 	styleUrl: "./cta.component.css"
 })
 export class CtaComponent implements OnInit {
-	isAuthenticated = false;
-
 	private authService = inject(AuthService);
+
+	isAuthenticated = false;
+	image: string = `${environment.production ? "/new" : ""}/assets/images/cta-image.jpeg`;
 
 	ngOnInit(): void {
 		this.authService.authState$.subscribe((authState: AuthState) => {

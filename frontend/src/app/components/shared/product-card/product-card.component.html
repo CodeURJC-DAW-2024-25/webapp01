@@ -7,7 +7,7 @@
                     [src]="
                         product.thumbnail
                             ? product.thumbnail
-                            : 'assets/images/template_image.png'
+                            : defaultImage
                     "
                     [alt]="product.display_name || 'Producto sin nombre'"
                 />
@@ -17,13 +17,13 @@
             <div class="product-meta">
                 <span class="product-brand">{{ product.brand || "?" }}</span>
                 <span class="product-category"
-                    >• {{ product.product_categories?.[0] || '' }}</span
+                    >• {{ product.product_categories[0] || '' }}</span
                 >
             </div>
             <h3 class="product-name">{{ product.display_name }}</h3>
             <div class="product-price-container">
                 <div class="price-info">
-                    <p class="product-price">{{ product.price?.total }} €</p>
+                    <p class="product-price">{{ product.price.total }} €</p>
                     <p
                         class="product-unit-price"
                         *ngIf="
