@@ -1,1 +1,15 @@
 @import url('../../../styles/admin.css');
+
+
+nav ul li{
+    cursor: pointer;
+
+    &.active a{
+        background: var(--primary-color);
+        border-color: var(--primary-color) ;
+        color: var(--white-color);
+    }
+    a{
+        color: #000;
+    }
+}

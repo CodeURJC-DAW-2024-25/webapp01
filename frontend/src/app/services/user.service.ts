@@ -7,7 +7,6 @@ import { User, ModifyUser, UserPassword } from '@/types/User';
 import { Response } from '@/types/common/Response';
 import { Router } from '@angular/router';
 import { AuthService } from './auth.service';
-import { AuthResponse } from '@/types/common/AuthResponse';
 import { environment } from '@environments/environment';
 
 
