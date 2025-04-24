@@ -78,7 +78,19 @@
                         "development": {
                             "optimization": false,
                             "extractLicenses": false,
-                            "sourceMap": true
+                            "sourceMap": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "100mb",
+                                    "maximumError": "200mb"
+                                },
+                                {
+                                    "type": "anyComponentStyle",
+                                    "maximumWarning": "100mb",
+                                    "maximumError": "200mb"
+                                }
+                            ]
                         }
                     },
                     "defaultConfiguration": "production"
