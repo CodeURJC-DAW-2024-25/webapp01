@@ -110,7 +110,14 @@ export class AdminComponent implements OnInit {
     }
 
     deleteUser(userId: number): void {
-
+        this.usersService.deleteUser(userId).subscribe({
+            next: () => {
+                this.usersData.users = this.usersData.users.filter(user => user.id !== userId);
+            },
+            error: (error) => {
+                console.error('Error deleting user:', error);
+            }
+        });
     }
 
 

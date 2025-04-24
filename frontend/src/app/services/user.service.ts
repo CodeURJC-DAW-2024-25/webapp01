@@ -12,86 +12,93 @@ import { environment } from '@environments/environment';
 
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class UsersService {
     private apiUrl = `${environment.baseApiUrl}/v1/users`;
     http = inject(HttpClient);
     router = inject(Router);
-    authservice = inject(AuthService);
+    authService = inject(AuthService);
 
     getUsers(pageRequest: PageRequest): Observable<PaginatedResponse<User>> {
-      const builtUrl = `${this.apiUrl}?page=${pageRequest.page}&size=${pageRequest.size}`;
-      return this.http.get<PaginatedResponse<User>>(builtUrl);
+        const builtUrl = `${this.apiUrl}?page=${pageRequest.page}&size=${pageRequest.size}`;
+        return this.http.get<PaginatedResponse<User>>(builtUrl);
     }
 
-    getUserEmail(userid: number): Observable<Response<string>> {
-      const builtUrl = `${this.apiUrl}/${userid}/email`;
-      return this.http.get<Response<string>>(builtUrl, {
-        withCredentials: true
-      });
-    }
-
-    uploadAvatar(userid: number, file: File): Observable<Response<User>> {
-      const builtUrl = `${this.apiUrl}/${userid}/avatar`;
-      const formData = new FormData();
-      formData.append('avatar', file);
-      return new Observable((observer) => {
-        this.http.post<Response<User>>(builtUrl, formData, {
-          withCredentials: true
-        }).subscribe({
-          next: (res) => {
-            this.authservice.modifyUserData(res.data);
-            observer.next(res);
-            observer.complete();
-          }
-          , error: (err) => {
-            console.error(err);
-            observer.error(err);
-          }
+    getUserEmail(userId: number): Observable<Response<string>> {
+        const builtUrl = `${this.apiUrl}/${userId}/email`;
+        return this.http.get<Response<string>>(builtUrl, {
+            withCredentials: true
         });
-      });
     }
 
-    modifyUserData(userid: number, modifyUser: ModifyUser): Observable<any> {
-      const builtUrl = `${this.apiUrl}/${userid}`;
-      return new Observable((observer) => {
-        this.http.patch<Response<User>>(builtUrl, modifyUser, {
-          withCredentials: true
-        }).subscribe({
-          next: (res) => {
-            this.authservice.modifyUserData(res.data);
-            observer.next(res);
-            observer.complete();
-          }
-          , error: (err) => {
-            console.error(err);
-            observer.error(err);
-          }
+    uploadAvatar(userId: number, file: File): Observable<Response<User>> {
+        const builtUrl = `${this.apiUrl}/${userId}/avatar`;
+        const formData = new FormData();
+        formData.append('avatar', file);
+        return new Observable((observer) => {
+            this.http.post<Response<User>>(builtUrl, formData, {
+                withCredentials: true
+            }).subscribe({
+                next: (res) => {
+                    this.authService.modifyUserData(res.data);
+                    observer.next(res);
+                    observer.complete();
+                }
+                , error: (err) => {
+                    console.error(err);
+                    observer.error(err);
+                }
+            });
         });
-      });
     }
 
-    modifyUserPassword(userid: number, userPassword: UserPassword): Observable<any> {
-      const builtUrl = `${this.apiUrl}/${userid}/password`;
-      return this.http.patch<any>(builtUrl, userPassword, {
-        withCredentials: true
-      });
+    modifyUserData(userId: number, modifyUser: ModifyUser): Observable<any> {
+        const builtUrl = `${this.apiUrl}/${userId}`;
+        return new Observable((observer) => {
+            this.http.patch<Response<User>>(builtUrl, modifyUser, {
+                withCredentials: true
+            }).subscribe({
+                next: (res) => {
+                    this.authService.modifyUserData(res.data);
+                    observer.next(res);
+                    observer.complete();
+                }
+                , error: (err) => {
+                    console.error(err);
+                    observer.error(err);
+                }
+            });
+        });
     }
-    
-    deleteAccount(userid: number): void {
-      const builtUrl = `${this.apiUrl}/${userid}`;
-      this.http.delete<any>(builtUrl, {
-        withCredentials: true
-      }).subscribe({
-        next: (res) => {
-          this.authservice.clearUserData();
-          this.router.navigate(['/']);
-        }
-        , error: (err) => {
-          console.error(err);
-        }
-      });
+
+    modifyUserPassword(userId: number, userPassword: UserPassword): Observable<any> {
+        const builtUrl = `${this.apiUrl}/${userId}/password`;
+        return this.http.patch<any>(builtUrl, userPassword, {
+            withCredentials: true
+        });
+    }
+
+    deleteAccount(userId: number): void {
+        const builtUrl = `${this.apiUrl}/${userId}`;
+        this.http.delete<any>(builtUrl, {
+            withCredentials: true
+        }).subscribe({
+            next: (res) => {
+                this.authService.clearUserData();
+                this.router.navigate(['/']);
+            }
+            , error: (err) => {
+                console.error(err);
+            }
+        });
+    }
+
+    deleteUser(userId: number): Observable<any> {
+        const builtUrl = `${this.apiUrl}/${userId}`;
+        return this.http.delete<any>(builtUrl, {
+            withCredentials: true
+        });
     }
 }
 
