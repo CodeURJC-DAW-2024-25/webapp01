@@ -1,4 +1,13 @@
 <div class="container">
+
+    @if (launchPopup) {
+        <app-popup
+            [header]="popupHeader"
+            [content]="popupContent"
+            (popupClosed)="onClosePopup()"
+        />
+        }
+
     <div class="login-form">
         <h1>Iniciar sesión</h1>
 

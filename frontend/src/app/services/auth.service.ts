@@ -32,8 +32,10 @@ export class AuthService {
 
     authState$ = this.authState.asObservable();
 
-    login(credentials: { username: string, password: string }): void {
+    login(credentials: { username: string, password: string }): Observable<AuthResponse> {
         const builtUrl = `${this.API_URL}/auth/login`;
+        
+        return new Observable<AuthResponse>(observer => { 
         this.http.post(builtUrl, credentials, {
             observe: 'response',
             withCredentials: true,
@@ -42,12 +44,18 @@ export class AuthService {
             }
         }).subscribe({
             next: (response) => {
-                this.setUserData(response.body as AuthResponse);
+                const res = response.body as AuthResponse;
+                this.setUserData(res);
                 this.router.navigate(['/']);
+                observer.next(res);
+                observer.complete();
             },
             error: (err) => {
                 console.error('Login failed', err);
+                observer.error(err);
             }
+
+            });
         });
     }
 

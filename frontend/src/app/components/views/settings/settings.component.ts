@@ -3,8 +3,7 @@ import { UsersService } from "@/services/user.service";
 import { ModifyUser, UserPassword } from "@/types/User";
 import { getDefaultAvatar } from "@/utils/defaultImage";
 import { Component, inject, OnInit, Output } from "@angular/core";
-import { isValidUserModify, validatePasswordUpdate, ResultCode } from "@/utils/validationUtils";
-import { PopupComponent } from "@/components/views/popup/popup.component";
+import { isValidUserModify, validatePasswordUpdate } from "@/utils/validationUtils";
 interface SettingsUser{
   id: number;
   modifyUser: ModifyUser;
