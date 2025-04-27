@@ -671,11 +671,11 @@ The diagram covers core areas like authentication, product browsing, shopping li
 
 | #  | Commit Message                                                                                                                                                                      | File(s)                           |
 |----|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
-| 1º | []() | |
-| 2º | []() | |
-| 3º | []() | |
-| 4º | []() | |
-| 5º | []() | |
+| 1º | [view: main component (hero, product-view, cta)](9281e96) | `user-data.service.ts` |
+| 2º | [cors](8594be2) | `auth.service.ts` |
+| 3º | [feat: added stats service and implemented stats](65782f3) | `stats.service.ts` |
+| 4º | [init angular: feat: Added Bootstrap to the admin panel](0b83683) | ``admin.component.ts` |
+| 5º | [Added the SPA as a static resource](7b00baa) | `SPAController.java` |
 
 ---
 

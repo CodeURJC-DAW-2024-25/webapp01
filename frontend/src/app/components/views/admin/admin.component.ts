@@ -43,12 +43,14 @@ export class AdminComponent implements OnInit {
     userCurrentPage = 1;
     userPageSize = 5;
     paginatedUsers: User[] = [];
-    userTotalPages: number[] = [];
+    userPagesItems: number[] = [];
+    userTotalPages = 0;
 
     postCurrentPage = 1;
     postPageSize = 5;
     paginatedPosts: Post[] = [];
-    postTotalPages: number[] = [];
+    postPagesItems: number[] = [];
+    postTotalPages = 0;
 
     public barChartType: 'bar' = 'bar';
     public barChartOptions: ChartOptions<'bar'> = { responsive: true };
@@ -59,7 +61,7 @@ export class AdminComponent implements OnInit {
     public lineChartData: ChartData<'line'> = { labels: [], datasets: [] };
 
     ngOnInit(): void {
-        this.fetchPosts(this.postCurrentPage);
+        this.fetchPosts(1);
         this.fetchUsers(1);
         this.loadGraphs();
     }
@@ -75,6 +77,7 @@ export class AdminComponent implements OnInit {
                 this.postsData.total_items = response.data.total_items;
                 this.postCurrentPage = page; // Update the current page
                 this.paginatedPosts = response.data.page;
+                this.postTotalPages = response.data.total_pages;
                 this.updatePostPagination();
             },
             error: (error) => {
@@ -90,12 +93,14 @@ export class AdminComponent implements OnInit {
         this.usersData.currentPageReq.page = page - 1; // Adjust for zero-based indexing
         this.usersService.getUsers(this.usersData.currentPageReq).subscribe({
             next: (response) => {
+                console.log('response', response);
                 this.usersData.users = response.data.page;
                 this.usersData.isLastPage = response.data.is_last_page;
                 this.usersData.isLoading = false;
                 this.usersData.total_items = response.data.total_items;
                 this.userCurrentPage = page; // Update the current page
                 this.paginatedUsers = response.data.page;
+                this.userTotalPages = response.data.total_pages;
                 this.updateUserPagination();
             },
             error: (error) => {
@@ -174,26 +179,24 @@ export class AdminComponent implements OnInit {
 
 
     updateUserPagination(): void {
-        const totalUsers = this.usersData.total_items;
-        this.userTotalPages = Array(Math.ceil(totalUsers / this.userPageSize))
+        this.userPagesItems = Array(this.userTotalPages)
             .fill(0)
             .map((_, i) => i + 1);
     }
 
     updatePostPagination(): void {
-        const totalPosts = this.postsData.total_items;
-        this.postTotalPages = Array(Math.ceil(totalPosts / this.postPageSize))
+        this.postPagesItems = Array(this.postTotalPages)
             .fill(0)
             .map((_, i) => i + 1);
     }
 
     changeUserPage(page: number): void {
-        if (page < 1 || page > this.userTotalPages.length) return;
+        if (page < 1 || page > this.userPagesItems.length) return;
         this.fetchUsers(page); // Fetch data for the new page
     }
 
     changePostPage(page: number): void {
-        if (page < 1 || page > this.postTotalPages.length) return;
+        if (page < 1 || page > this.postPagesItems.length) return;
         this.fetchPosts(page); // Fetch data for the new page
     }
 
@@ -202,7 +205,7 @@ export class AdminComponent implements OnInit {
         this.postsService.deletePost(postId).subscribe({
             next: () => {
                 this.postsData.posts = this.postsData.posts.filter(post => post.id !== postId);
-                this.updatePostPagination();
+                this.fetchPosts(this.postCurrentPage);
             },
             error: (error) => {
                 console.error('Error deleting post:', error);
@@ -214,7 +217,7 @@ export class AdminComponent implements OnInit {
         this.usersService.deleteUser(userId).subscribe({
             next: () => {
                 this.usersData.users = this.usersData.users.filter(user => user.id !== userId);
-                this.updateUserPagination();
+                this.fetchUsers(this.userCurrentPage);
             },
             error: (error) => {
                 console.error('Error deleting user:', error);

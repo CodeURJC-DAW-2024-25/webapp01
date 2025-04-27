@@ -53,10 +53,10 @@
                     <li class="page-item" [class.disabled]="userCurrentPage === 1">
                         <a class="page-link" (click)="changeUserPage(userCurrentPage - 1)">Anterior</a>
                     </li>
-                    <li class="page-item" *ngFor="let page of userTotalPages" [class.active]="page === userCurrentPage">
+                    <li class="page-item" *ngFor="let page of userPagesItems" [class.active]="page === userCurrentPage">
                         <a class="page-link" (click)="changeUserPage(page)">{{ page }}</a>
                     </li>
-                    <li class="page-item" [class.disabled]="userCurrentPage === userTotalPages.length">
+                    <li class="page-item" [class.disabled]="userCurrentPage === userPagesItems.length">
                         <a class="page-link" (click)="changeUserPage(userCurrentPage + 1)">Siguiente</a>
                     </li>
                 </ul>
@@ -100,10 +100,10 @@
                     <li class="page-item" [class.disabled]="postCurrentPage === 1">
                         <a class="page-link" (click)="changePostPage(postCurrentPage - 1)">Anterior</a>
                     </li>
-                    <li class="page-item" *ngFor="let page of postTotalPages" [class.active]="page === postCurrentPage">
+                    <li class="page-item" *ngFor="let page of postPagesItems" [class.active]="page === postCurrentPage">
                         <a class="page-link" (click)="changePostPage(page)">{{ page }}</a>
                     </li>
-                    <li class="page-item" [class.disabled]="postCurrentPage === postTotalPages.length">
+                    <li class="page-item" [class.disabled]="postCurrentPage === postPagesItems.length">
                         <a class="page-link" (click)="changePostPage(postCurrentPage + 1)">Siguiente</a>
                     </li>
                 </ul>
