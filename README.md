@@ -3,6 +3,15 @@
 SaveX is a platform that allows users to compare the prices of products between different supermarkets. Users can create shopping lists, add products to them, and compare pricings between the different supermarkets to save money.
 
 ---
+## 🎥 Video Overview
+
+Watch a quick video summary of the SaveX platform, showcasing its features, user interface, and functionality:
+
+[![SaveX Video Overview](docs/assets/mq1.jpg)](https://www.youtube.com/watch?v=8gDtK1MdL5E&ab_channel=V%C3%ADctor)  
+*Click the image above to watch the video on YouTube.*
+
+
+---
 
 ## 📎 Credits
 
