@@ -1,3 +1,7 @@
+:host {
+    width: 100%;
+}
+
 .post-detail {
     margin-top: -24px;
     width: 100%;
@@ -21,8 +25,10 @@
         gap: 16px;
 
         .post-title {
+            width: 100%;
             color: var(--primary-color);
             text-align: start;
+            word-break: break-word;
         }
     }
 
