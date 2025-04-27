@@ -375,6 +375,19 @@ This diagram provides an overview of the application's structure, showing how di
 - **Purple**: Templates
 
 ---
+## 🗺️ SPA Class Diagram and Templates
+
+![SPA Class Diagram and Templates](docs/assets/Flow_Diagram_Part3.png)
+
+This diagram provides a visual representation of the application's component-service structure in Angular. It shows the connection between templates (@Template), components (@Component), and services (@Service), illustrating the frontend architecture:
+
+- Components manage user interactions, routing, and UI behavior.
+- Templates define the HTML structure for each component.
+- Services handle business logic, data operations, and API communications.
+
+The diagram covers core areas like authentication, product browsing, shopping list management, post and comment functionality, and administrative operations, ensuring a modular, scalable, and maintainable application design.
+
+---
 
 ## ✋ Participation (I)
 
