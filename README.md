@@ -675,16 +675,34 @@ The diagram covers core areas like authentication, product browsing, shopping li
 
 ### 🧑‍💻 Jaime José Portillo Pérez
 
+- Migrated project from Spring to Angular, implementing the frontend using Angular and TypeScript.
+  - Initialized the Angular project.
+  - Implemented the core components and services for the application (user data, theme toggle, about page, login, register, nav, footer, etc.).
+- Migrated static routing to Angular (SPA) routing.
+- Product comparison table minimum price detection.
+- User deletion feature.
+- Added bootstrap to the admin panel
+- Implemented the admin panel.
+  - Charts style
+  - Charts bootstrap
+  - Charts service
+  - Admin users and posts list
+    - Pagination
+    - Deletion button
+- Included the SPA as a static resource in the Java backend.
+- Fixed the CORS issue in the Java backend.
+- Fixed the paths issue (paths used to require '#' in the URL).
+
 
 #### ✅ Top 5 Most Significant Commits
 
 | #  | Commit Message                                                                                                                                                                      | File(s)                           |
 |----|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
-| 1º | []() | |
-| 2º | []() | |
-| 3º | []() | |
-| 4º | []() | |
-| 5º | []() | |
+| 1º | [view: main component (hero, product-view, cta)](9281e96) | `user-data.service.ts` |
+| 2º | [cors](8594be2) | `auth.service.ts` |
+| 3º | [feat: added stats service and implemented stats](65782f3) | `stats.service.ts` |
+| 4º | [init angular: feat: Added Bootstrap to the admin panel](0b83683) | ``admin.component.ts` |
+| 5º | [Added the SPA as a static resource](7b00baa) | `SPAController.java` |
 
 ---
 

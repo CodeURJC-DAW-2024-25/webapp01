@@ -17,6 +17,7 @@ interface SettingsUser{
   styleUrl: './settings.component.css'
 })
 export class SettingsComponent implements OnInit {
+  primitiveUsername: string = '';
   isAuthenticated: boolean = false;
   isLoading: boolean = true;
   @Output() launchPopup: boolean = false;
@@ -94,6 +95,9 @@ export class SettingsComponent implements OnInit {
         this.popupHeader = 'Cambios Guardados';
         this.popupContent = 'Usuario modificado correctamente';
         this.launchPopup = true;
+        if (this.userData.modifyUser.username != this.primitiveUsername) {
+          this.authService.logout();
+        }
       },
       error: (res) => {
         this.errorMessage = res.error.error.message;
@@ -143,8 +147,9 @@ export class SettingsComponent implements OnInit {
               oldPassword: '',
               newPassword: '',
               newPasswordConfirmation: ''
-            },
+            }
           };
+          this.primitiveUsername = authState.user?.user?.username || '';
         });
       }
     });
