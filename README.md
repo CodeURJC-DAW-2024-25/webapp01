@@ -675,6 +675,24 @@ The diagram covers core areas like authentication, product browsing, shopping li
 
 ### 🧑‍💻 Jaime José Portillo Pérez
 
+- Migrated project from Spring to Angular, implementing the frontend using Angular and TypeScript.
+  - Initialized the Angular project.
+  - Implemented the core components and services for the application (user data, theme toggle, about page, login, register, nav, footer, etc.).
+- Migrated static routing to Angular (SPA) routing.
+- Product comparison table minimum price detection.
+- User deletion feature.
+- Added bootstrap to the admin panel
+- Implemented the admin panel.
+  - Charts style
+  - Charts bootstrap
+  - Charts service
+  - Admin users and posts list
+    - Pagination
+    - Deletion button
+- Included the SPA as a static resource in the Java backend.
+- Fixed the CORS issue in the Java backend.
+- Fixed the paths issue (paths used to require '#' in the URL).
+
 
 #### ✅ Top 5 Most Significant Commits
 
