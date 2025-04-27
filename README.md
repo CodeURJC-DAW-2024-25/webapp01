@@ -720,17 +720,23 @@ The diagram covers core areas like authentication, product browsing, shopping li
 
 ### 🧑‍💻 Elena Tordesillas Fernández
 
+- Created AdminComponent with user and post management functionality.
+   - Added charts to the admin panel for product and user statistics.
+- Created create-postComponent
+   - Added edit post functionality.
+   - Added create post functionality.
+
 
 
 #### ✅ Top 5 Most Significant Commits
 
 | #  | Commit Message                                                                                                                                                                      | File(s)                           |
 |----|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
-| 1º | []() | |
-| 2º | []() | |
-| 3º | []() | |
-| 4º | []() | |
-| 5º | []() | |
+| 1º | [feat: add AdminComponent with user and post management functionality](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/8ce4c3f755f0da61433c2c38653a4eb2fae46132) |`admin.component.html`|
+| 2º | [Feature: Add create post functionality](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/3537cc3d5168c8585f961e8fd8568ea3fc986e3c) |`create-post-form.html`|
+| 3º | [Feature: Add edit post functionality](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/97079f663dd42c33949db9021ae8614f080799a8) |`create-post-form.ts`|
+| 4º | [feat: add charts to admin panel for product and user statistics](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/8200a27abb86b3ed1079d32622d59feed8b3146b) |`admin.component.ts`|
+| 5º | [Feature: update post with banner](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/a7a3f7660863d17387bff5e61a1af1ebf4f7c167) |`create-post-form.ts`|
 
 ---
 
