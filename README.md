@@ -628,16 +628,26 @@ This diagram provides an overview of the application's structure, showing how di
 
 ### Victor Arroyo Madera
 
+- Implemented **add-to-list popup component** and integrated product addition to shopping lists.
+- Refactored the **create shopping list modal**, improving event handling for new list creation.
+- Created **CreateShoppingListComponent** with form validation and routing to allow users to create new shopping lists.
+- Developed **ShoppingListDetailsComponent** to enable viewing and deletion of shopping lists with integrated service communication.
+- Removed the item count display from **shopping list cards** to simplify UI and improve user experience.
+- Developed the **Products module** entirely in Angular, including:
+  - Product listing view with **search, filtering, and pagination**.
+  - **Product details page** with related products section.
+  - Service integration for **fetching and managing product data**.
+  - Improved UI/UX with default images and clean routing between product pages.
 
 #### Commits
 
 | #  | Commit Message                                                                                                                                                                      | File(s)                           |
 |----|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
-| 1º | []() | |
-| 2º | []() | |
-| 3º | []() | |
-| 4º | []() | |
-| 5º | []() | |
+| 1º | [feat: implement add-to-list popup component and integrate product addition to shopping lists](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/09c7b6b7f84ead114be9d8329793655cb8491ecc) | `AddToListPopupComponent.tsx`, `ShoppingListService.ts` |
+| 2º | [feat: refactor create shopping list modal and integrate list creation event handling](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/543dca94fbf9cd64862279a769bc12c0a2dce58f) | `CreateShoppingListModal.tsx` |
+| 3º | [Feature: add CreateShoppingListComponent for creating new shopping lists with form validation and routing](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/109ee0e4c6e6b659cde1e7c7959d2c3d3afb6656) | `CreateShoppingListComponent.tsx`, `app-routing.module.ts` |
+| 4º | [Feature: add ShoppingListDetailsComponent with routing and service integration for viewing and deleting shopping lists](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/pendiente_url) | `ShoppingListDetailsComponent.tsx`, `ShoppingListService.ts` |
+| 5º | [Refactor: implement getter/setter for search query in products component](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/17d36cc3cf5d5ed5e7ad1d79d13168db5ea7236e) | `ProductsComponent.tsx`, `ProductService.ts`, `ProductCard.tsx` |
 
 ---
 
