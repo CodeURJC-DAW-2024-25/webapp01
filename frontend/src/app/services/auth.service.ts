@@ -21,7 +21,7 @@ export class AuthService {
     router = inject(Router);
 
     constructor() {
-        this.uploadUserFromSessionStorage();
+        this.uploadUserFromLocalStorage();
     }
 
     // Logged user to be used in the app
@@ -132,7 +132,7 @@ export class AuthService {
             isAdmin: data.user?.role === "ADMIN" || false,
             avatar: getUserAvatar(data.user),
         }
-        sessionStorage.setItem('user', JSON.stringify(userData));
+        localStorage.setItem('user', JSON.stringify(userData));
         this.authState.next({
             isLoading: false,
             user: userData
@@ -151,15 +151,15 @@ export class AuthService {
     }
 
     public clearUserData(): void {
-        sessionStorage.removeItem('user');
+        localStorage.removeItem('user');
         this.authState.next({
             isLoading: false,
             user: null
         });
     }
 
-    private uploadUserFromSessionStorage(): void {
-        const user = sessionStorage.getItem('user');
+    private uploadUserFromLocalStorage(): void {
+        const user = localStorage.getItem('user');
         if (user) {
             this.authState.next({
                 isLoading: true,
