@@ -726,7 +726,7 @@ The diagram covers core areas like authentication, product browsing, shopping li
 | 1º | [view: main component (hero, product-view, cta)](9281e96) | `user-data.service.ts` |
 | 2º | [cors](8594be2) | `auth.service.ts` |
 | 3º | [feat: added stats service and implemented stats](65782f3) | `stats.service.ts` |
-| 4º | [init angular: feat: Added Bootstrap to the admin panel](0b83683) | ``admin.component.ts` |
+| 4º | [init angular: feat: Added Bootstrap to the admin panel](0b83683) | `admin.component.ts` |
 | 5º | [Added the SPA as a static resource](7b00baa) | `SPAController.java` |
 
 ---
@@ -736,13 +736,27 @@ The diagram covers core areas like authentication, product browsing, shopping li
 
 #### ✅ Top 5 Most Significant Commits
 
+- Implemented authentication and authorization features, including session management and permissions handling.
+- Implemented posts pagination rendering and AJAX loading for improved performance.
+- Developed posts rendering
+- Added support for comments rendering and AJAX loading.
+- Allow users to view comments update in real-time.
+- Product reposnse caching and data fetching services for improved performance.
+- Help to implement shopping list features.
+- Aliases for better project organization and readability.
+- TypeScript refactoring for long support and better code organization.
+- UX/UI improvements for the application.
+- Update Dockerfile to handle new Angular structure and dependencies to be served as static resources.
+- Deploy the application on the ETSII server.
+- Different support tasks for the team.
+
 | #  | Commit Message                                                                                                                                                                      | File(s)                           |
 |----|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
-| 1º | []() | |
-| 2º | []() | |
-| 3º | []() | |
-| 4º | []() | |
-| 5º | []() | |
+| 1º | [Feature: Add user and authentication types, implement default avatar handling, and update AuthResponse structure](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/c5fc0329bbef880d750029b8bfbb6f15cbac853f) | `auth.service.ts` |
+| 2º | [feat: refactor admin component and services for improved user and post management](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/9ba53098d531dcd4a6783bffdbb4ff73298f9917) | `admin.component.ts` |
+| 3º | [Feature: Implement caching for product loading to improve performance](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/c84cb2678c053a01b8ddd3516e60ac0b35724407) | `products.service.ts` |
+| 4º | [Feature: Implement comment submission functionality in post detail view](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/5d056aa9d04a98814bafaba3ac41922bb1e1302f) | `post-detail.component.ts` |
+| 5º | [Dockerfile: Updated Dockerfile to include Angular build stage and copy output to the backend resources.](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/28457107a085498e6e626f2a4af1cf87c01e8b2b) | `Dockerfile` |
 
 ---
 
