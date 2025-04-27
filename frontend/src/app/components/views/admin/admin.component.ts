@@ -1,12 +1,11 @@
+import { Component, OnInit, Injectable, inject } from '@angular/core';
+import { ChartOptions, ChartData } from 'chart.js';
 import { UsersService } from '@/services/user.service';
-import { Component, inject, OnInit } from '@angular/core';
-import { Injectable } from '@angular/core';
+import { PostsService } from '@services/post.service';
+import { StatsService } from '@/services/stats.service';
 import { PageRequest } from '@/types/common/PageRequest';
 import { Post } from '@/types/Posts';
-import { PostsService } from '@services/post.service';
 import { User } from '@/types/User';
-import { loadGraphs } from '@/utils/loadGraphs';
-import { StatsService } from '@/services/stats.service';
 
 @Injectable({
     providedIn: 'root'
@@ -17,6 +16,7 @@ import { StatsService } from '@/services/stats.service';
     templateUrl: './admin.component.html',
     styleUrls: ['./admin.component.css']
 })
+
 
 export class AdminComponent implements OnInit {
     private postsService = inject(PostsService);
@@ -29,16 +29,16 @@ export class AdminComponent implements OnInit {
         isLoading: true,
         isLastPage: false,
         error: null as string | null,
-        total_items: 0 as number
-    }
+        total_items: 0 as number,
+    };
     usersData = {
         currentPageReq: { page: 0, size: 4 } as PageRequest,
         users: [] as User[],
         isLoading: true,
         isLastPage: false,
         error: null as string | null,
-        total_items: 0 as number
-    }
+        total_items: 0 as number,
+    };
 
     userCurrentPage = 1;
     userPageSize = 5;
@@ -49,6 +49,20 @@ export class AdminComponent implements OnInit {
     postPageSize = 5;
     paginatedPosts: Post[] = [];
     postTotalPages: number[] = [];
+
+    public barChartType: 'bar' = 'bar';
+    public barChartOptions: ChartOptions<'bar'> = { responsive: true };
+    public barChartData: ChartData<'bar'> = { labels: [], datasets: [] };
+
+    public lineChartType: 'line' = 'line';
+    public lineChartOptions: ChartOptions<'line'> = { responsive: true };
+    public lineChartData: ChartData<'line'> = { labels: [], datasets: [] };
+
+    ngOnInit(): void {
+        this.fetchPosts(this.postCurrentPage);
+        this.fetchUsers(1);
+        this.loadGraphs();
+    }
 
     fetchPosts(page: number): void {
         this.postsData.isLoading = true;
@@ -67,7 +81,7 @@ export class AdminComponent implements OnInit {
                 this.postsData.isLoading = false;
                 this.postsData.error = error.error.message;
                 console.error('Error fetching posts:', error);
-            }
+            },
         });
     }
 
@@ -88,22 +102,81 @@ export class AdminComponent implements OnInit {
                 this.usersData.isLoading = false;
                 this.usersData.error = error.error.message;
                 console.error('Error fetching users:', error);
+            },
+        });
+    }
+
+    loadGraphs(): void {
+        this.statsService.getProductsStats().subscribe({
+            next: (response) => {
+                const data = response.data;
+
+                if (!data.stats || !Array.isArray(data.stats)) {
+                    console.error('data.stats no existe o no es array:', data.stats);
+                    return;
+                }
+
+                const ventasPorTienda = data.stats;
+
+                this.barChartData = {
+                    labels: ventasPorTienda.map((item: any) => item.name),
+                    datasets: [
+                        {
+                            data: ventasPorTienda.map((item: any) => item.count),
+                            label: 'Nº de productos por supermercado',
+                            backgroundColor: 'lightblue',
+                            borderColor: 'blue',
+                            borderWidth: 1
+                        }
+                    ]
+                };
+            },
+            error: (error) => {
+                console.error('Error fetching productos stats', error);
+            }
+        });
+
+        // --- Gráfico de Actividad de Usuarios (Líneas)
+        this.statsService.getUsersStats().subscribe({
+            next: (response) => {
+                const usersPerMonth = response.data.usersPerMonth;
+
+                if (!Array.isArray(usersPerMonth)) {
+                    console.error('usersPerMonth no es un array:', usersPerMonth);
+                    return;
+                }
+
+                const meses = [
+                    'Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio',
+                    'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'
+                ];
+
+                this.lineChartData = {
+                    labels: meses.slice(0, usersPerMonth.length),
+                    datasets: [
+                        {
+                            data: usersPerMonth,
+                            label: 'Actividad de Usuarios',
+                            backgroundColor: 'lightblue',
+                            borderColor: 'lightblue',
+                            pointBackgroundColor: 'lightblue',
+                            pointBorderColor: 'blue'
+                        }
+                    ]
+                };
+            },
+            error: (error) => {
+                console.error('Error fetching actividad usuarios', error);
             }
         });
     }
 
-    ngOnInit(): void {
-        this.fetchPosts(this.postCurrentPage); // Fetch the first page of posts
-        this.fetchUsers(1); // Fetch the first page of users
-        this.loadScript('https://cdn.jsdelivr.net/npm/chart.js');
-    }
 
     updateUserPagination(): void {
         const totalUsers = this.usersData.total_items;
         this.userTotalPages = Array(Math.ceil(totalUsers / this.userPageSize))
             .fill(0)
             .map((_, i) => i + 1);
-            
     }
 
     updatePostPagination(): void {
@@ -123,25 +196,6 @@ export class AdminComponent implements OnInit {
         this.fetchPosts(page); // Fetch data for the new page
     }
 
-    loadScript(src: string) {
-        const script = document.createElement('script');
-        script.src = src;
-        script.async = true;
-        script.defer = true;
-        script.type = 'text/javascript';
-        document.head.appendChild(script);
-        script.onload = () => {
-            this.statsService.getProductsStats().subscribe({
-                next: (response) => {
-                    const data = response.data;
-                    loadGraphs((window as any).Chart, data);
-                },
-                error: (error) => {
-                    console.error('Error fetching stats:', error);
-                }
-            });
-        }
-    }
 
     deletePost(postId: number): void {
         this.postsService.deletePost(postId).subscribe({
@@ -166,4 +220,5 @@ export class AdminComponent implements OnInit {
             }
         });
     }
+
 }

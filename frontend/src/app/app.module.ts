@@ -38,6 +38,7 @@ import { AddProductModal } from './components/shared/add-product-modal/add-produ
 import { CreatePostFormComponent } from './components/views/create-post-form/create-post-form.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { PopupComponent } from './components/views/popup/popup.component';
+import { NgChartsModule } from 'ng2-charts';
 
 @NgModule({
     declarations: [
@@ -82,7 +83,8 @@ import { PopupComponent } from './components/views/popup/popup.component';
         }),
         HttpClientModule,
         FormsModule,
-        NgbModule],
+        NgbModule,
+        NgChartsModule],
     providers: [],
     bootstrap: [AppComponent] // Bootstrap the standalone component
 })

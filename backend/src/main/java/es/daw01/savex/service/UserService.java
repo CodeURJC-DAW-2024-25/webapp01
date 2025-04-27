@@ -327,7 +327,7 @@ public class UserService {
      * @return The user stats
      */
     public UserStatsDTO getUsersStats() {
-        List<Integer> usersPerMonth = List.of(300, 400, 500, 600, 700, 800, 900, 1000, 1100, 1200);
+        List<Integer> usersPerMonth = List.of(1000, 1200, 900, 1500, 2000, 1800, 2500, 1900, 1300, 1700, 2200, 2500);
         return new UserStatsDTO(usersPerMonth);
     }
         
