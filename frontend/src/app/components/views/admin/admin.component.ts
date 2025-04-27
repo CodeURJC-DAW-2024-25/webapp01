@@ -107,6 +107,7 @@ export class AdminComponent implements OnInit {
     }
 
     loadGraphs(): void {
+        // bar chart
         this.statsService.getProductsStats().subscribe({
             next: (response) => {
                 const data = response.data;
@@ -136,7 +137,7 @@ export class AdminComponent implements OnInit {
             }
         });
 
-        // --- Gráfico de Actividad de Usuarios (Líneas)
+        // line chart
         this.statsService.getUsersStats().subscribe({
             next: (response) => {
                 const usersPerMonth = response.data.usersPerMonth;
