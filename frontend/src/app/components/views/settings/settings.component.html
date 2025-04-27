@@ -26,19 +26,25 @@
                 <div class="form-group">
                     <label for="name">Nombre</label>
                     <input type="text" id="name" name="name" [(ngModel)]="userData.modifyUser.name">
-                    <small *ngIf="errors.modifyUser.name" class="error">{{errors.modifyUser.name}}</small>
+                    @if (errors.modifyUser.name) {
+                        <small class="error">{{errors.modifyUser.name}}</small>
+                    }
                     
                 </div>
                 <div class="form-group">
                     <label for="email">Correo Electrónico</label>
                     <input type="email" id="email" name="email" [(ngModel)]="userData.modifyUser.email">
-                    <small *ngIf="errors.modifyUser.email" class="error">{{errors.modifyUser.email}}</small>
+                    @if (errors.modifyUser.email) {
+                        <small class="error">{{errors.modifyUser.email}}</small>
+                    }
                 </div>
                 <div class="form-group">
                     <label for="username">Nombre de Usuario</label>
                     <input type="text" id="username" name="username" [(ngModel)]="userData.modifyUser.username">
+                    @if (errors.modifyUser.username) {
+                        <small class="error">{{errors.modifyUser.username}}</small>
+                    }
 
-                    <small *ngIf="errors.modifyUser.username" class="error">{{errors.modifyUser.username}}</small>
                     <small class="warning">
                         <i class="bi bi-exclamation-triangle"></i>
                         Al cambiar el nombre de usuario será necesario volver a iniciar sesión.
@@ -58,17 +64,23 @@
                 <div class="form-group">
                     <label for="current-password">Contraseña Actual</label>
                     <input type="password" id="password" name="password" [(ngModel)]="userData.userPassword.oldPassword">
-                    <small *ngIf="errors.userPassword.oldPassword" class="error">{{errors.userPassword.oldPassword}}</small>
+                    @if (errors.userPassword.oldPassword) {
+                        <small class="error">{{errors.userPassword.oldPassword}}</small>
+                    }
                 </div>
                 <div class="form-group">
                     <label for="new-password">Nueva Contraseña</label>
                     <input type="password" id="newPassword" name="newPassword" [(ngModel)]="userData.userPassword.newPassword">
-                    <small *ngIf="errors.userPassword.newPassword" class="error">{{errors.userPassword.newPassword}}</small>
+                    @if (errors.userPassword.newPassword) {
+                        <small class="error">{{errors.userPassword.newPassword}}</small>
+                    }
                 </div>
                 <div class="form-group">
                     <label for="confirm-password">Confirmar Contraseña</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" [(ngModel)]="userData.userPassword.newPasswordConfirmation">
-                    <small *ngIf="errors.userPassword.newPasswordConfirmation" class="error">{{errors.userPassword.newPasswordConfirmation}}</small>
+                    @if (errors.userPassword.newPasswordConfirmation) {
+                        <small class="error">{{errors.userPassword.newPasswordConfirmation}}</small>
+                    }
                 </div>
                 <button class="clickable clickable-primary full-width" (click)="modifyPassword()">Cambiar Contraseña</button>
             </form>
