@@ -84,6 +84,31 @@ spring.jpa.properties.hibernate.dialect=org.hibernate.dialect.MySQLDialect
 **🌐 Access the application**
 Open your web browser and navigate to `https://localhost:8443` to access the SaveX platform.
 
+### 🚀 Launching Angular SPA
+
+> [!WARNING]
+> The Angular SPA uses the Spring Boot backend API, so ensure the backend is running before launching the frontend.
+
+To run the Angular Single Page Application (SPA), follow these steps:
+
+1. **Navigate to the frontend directory**
+```bash
+cd ./SaveX/frontend
+```
+
+2. **Install dependencies**
+```bash
+npm install
+```
+
+3. **Run the Angular application**
+```bash
+npm run start
+```
+
+**🌐 Access the Angular SPA** 
+Open your web browser and navigate to `http://localhost:4200` to access the Angular SPA.
+
 ---
 
 ## 🐳 Getting Started with Docker
