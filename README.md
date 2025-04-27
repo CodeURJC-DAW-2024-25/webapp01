@@ -765,13 +765,26 @@ The diagram covers core areas like authentication, product browsing, shopping li
 
 #### ✅ Top 5 Most Significant Commits
 
+- Created settings component
+  - Implemented user avatar upload functionality.
+  - Implemented user profile update functionality.
+  - Implemented user password change functionality.
+  - Implemented user account deletion functionality.
+  - Managed error handling and validation for user input.
+- Created validation utilities for user input.
+  - Implemented frontend validation for user registration and login forms.
+  - Implemented frontend validation for user profile update and password change forms.
+- Created popup component for user feedback and error messages.
+- Managed error handling and validation for user login and registration forms.
+- Managed user feedback for successful operations.
+
 | #  | Commit Message                                                                                                                                                                      | File(s)                           |
 |----|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------|
-| 1º | []() | |
-| 2º | []() | |
-| 3º | []() | |
-| 4º | []() | |
-| 5º | []() | |
+| 1º | [Feature: Refactor PopupComponent to include dynamic header and content, and improve styling and animations](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/b6b439b6d74fbb822cddf843b49f31d583bac938) | `settings.component.ts`, `popup.component.ts`  |
+| 2º | [Feature: Add validation error handling for user modification and password update](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/9e8158812189ad4755a48666c342fea06a5f2559) | `settings.component.ts`, `user.service.ts` |
+| 3º | [Feature: Add validation utilities for user modification and password update](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/6de83864e88bcc3f3ffeaa5ee4db416d88dd8b84) | `validationUtils.ts` |
+| 4º | [Feature: Refactor user settings component to use modifyUser and userPassword structures for data handling](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/474bceafde464b6fecfa7a8663cc2e304626414c) | `settings.component.ts`, `user.service.ts` |
+| 5º | [Feature: Add user email retrieval and update settings component](https://github.com/CodeURJC-DAW-2024-25/webapp01/commit/2034f9bb9f38b2d7b95a519ea7e5b57bfded70c3) | `navbar.component.ts` , `user.service.ts` |
 
 ---
 
