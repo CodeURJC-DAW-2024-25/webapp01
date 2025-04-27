@@ -4,18 +4,28 @@
         <h2>Estadísticas de la Aplicación</h2>
         <div class="graphics_wrap">
             <div class="graph">
-                <canvas baseChart
-                    [data]="barChartData"
-                    [options]="barChartOptions"
-                    type="bar">
-                </canvas>
+                @if (barChartData.datasets.length > 0) {
+                    <canvas baseChart
+                        [data]="barChartData"
+                        [options]="barChartOptions"
+                        type="bar">
+                    </canvas>
+                }
+                @else {
+                    <app-loader />
+                }
             </div>
             <div class="graph">
-                <canvas baseChart
-                    [data]="lineChartData"
-                    [options]="lineChartOptions"
-                    type="line">
-                </canvas>
+                @if (lineChartData.datasets.length > 0) {
+                    <canvas baseChart
+                        [data]="lineChartData"
+                        [options]="lineChartOptions"
+                        type="line">
+                    </canvas>
+                }
+                @else {
+                    <app-loader />
+                }
             </div>
         </div>
     </section>

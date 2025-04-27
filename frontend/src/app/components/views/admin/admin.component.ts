@@ -68,14 +68,14 @@ export class AdminComponent implements OnInit {
 
     fetchPosts(page: number): void {
         this.postsData.isLoading = true;
-        this.postsData.currentPageReq.page = page - 1; // Adjust for zero-based indexing
+        this.postsData.currentPageReq.page = page - 1;
         this.postsService.getPosts(this.postsData.currentPageReq).subscribe({
             next: (response) => {
                 this.postsData.posts = response.data.page;
                 this.postsData.isLastPage = response.data.is_last_page;
                 this.postsData.isLoading = false;
                 this.postsData.total_items = response.data.total_items;
-                this.postCurrentPage = page; // Update the current page
+                this.postCurrentPage = page;
                 this.paginatedPosts = response.data.page;
                 this.postTotalPages = response.data.total_pages;
                 this.updatePostPagination();
@@ -90,15 +90,14 @@ export class AdminComponent implements OnInit {
 
     fetchUsers(page: number): void {
         this.usersData.isLoading = true;
-        this.usersData.currentPageReq.page = page - 1; // Adjust for zero-based indexing
+        this.usersData.currentPageReq.page = page - 1;
         this.usersService.getUsers(this.usersData.currentPageReq).subscribe({
             next: (response) => {
-                console.log('response', response);
                 this.usersData.users = response.data.page;
                 this.usersData.isLastPage = response.data.is_last_page;
                 this.usersData.isLoading = false;
                 this.usersData.total_items = response.data.total_items;
-                this.userCurrentPage = page; // Update the current page
+                this.userCurrentPage = page;
                 this.paginatedUsers = response.data.page;
                 this.userTotalPages = response.data.total_pages;
                 this.updateUserPagination();
@@ -118,17 +117,17 @@ export class AdminComponent implements OnInit {
                 const data = response.data;
 
                 if (!data.stats || !Array.isArray(data.stats)) {
-                    console.error('data.stats no existe o no es array:', data.stats);
+                    console.error('data.stats does not exist or is not an array:', data.stats);
                     return;
                 }
 
-                const ventasPorTienda = data.stats;
+                const itemsPerMarket = data.stats;
 
                 this.barChartData = {
-                    labels: ventasPorTienda.map((item: any) => item.name),
+                    labels: itemsPerMarket.map((item: any) => item.name),
                     datasets: [
                         {
-                            data: ventasPorTienda.map((item: any) => item.count),
+                            data: itemsPerMarket.map((item: any) => item.count),
                             label: 'Nº de productos por supermercado',
                             backgroundColor: 'lightblue',
                             borderColor: 'blue',
@@ -148,7 +147,7 @@ export class AdminComponent implements OnInit {
                 const usersPerMonth = response.data.usersPerMonth;
 
                 if (!Array.isArray(usersPerMonth)) {
-                    console.error('usersPerMonth no es un array:', usersPerMonth);
+                    console.error('usersPerMonth is not an array:', usersPerMonth);
                     return;
                 }
 
@@ -192,12 +191,12 @@ export class AdminComponent implements OnInit {
 
     changeUserPage(page: number): void {
         if (page < 1 || page > this.userPagesItems.length) return;
-        this.fetchUsers(page); // Fetch data for the new page
+        this.fetchUsers(page);
     }
 
     changePostPage(page: number): void {
         if (page < 1 || page > this.postPagesItems.length) return;
-        this.fetchPosts(page); // Fetch data for the new page
+        this.fetchPosts(page);
     }
 
 
