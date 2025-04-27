@@ -4,10 +4,18 @@
         <h2>Estadísticas de la Aplicación</h2>
         <div class="graphics_wrap">
             <div class="graph">
-                <canvas id="chart-1" width="400" height="400"></canvas>
+                <canvas baseChart
+                    [data]="barChartData"
+                    [options]="barChartOptions"
+                    type="bar">
+                </canvas>
             </div>
             <div class="graph">
-                <canvas id="chart-2" width="400" height="400"></canvas>
+                <canvas baseChart
+                    [data]="lineChartData"
+                    [options]="lineChartOptions"
+                    type="line">
+                </canvas>
             </div>
         </div>
     </section>

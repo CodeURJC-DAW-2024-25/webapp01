@@ -13,3 +13,23 @@ nav ul li{
         color: #000;
     }
 }
+
+.graphics_wrap {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+
+  .graph {
+    flex: 1;
+    min-width: 500px;
+    max-width: 700px;
+    height: 450px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+

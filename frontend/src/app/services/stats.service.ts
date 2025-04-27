@@ -15,4 +15,9 @@ export class StatsService {
     const builtUrl = `${this.apiUrl}/stats/products`;
     return this.http.get<any>(builtUrl);
   }
+
+  getUsersStats(): Observable<any> {
+    const builtUrl = `${this.apiUrl}/stats/users`;
+    return this.http.get<any>(builtUrl);
+  }
 }
